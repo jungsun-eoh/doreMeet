@@ -18,7 +18,7 @@
 | Nimiksha Mahajan     | nmahajan@mail.sfsu.edu          | Nimiksha        | Team Lead
 | Meet Patel           | mpatel6@mail.sfsu.edu           | loafr-bot       | Backend Lead/Database Lead
 | Luke Chang-Knezevich | lchangknezevich@mail.sfsu.edu   | LukeKnezCK      | Frontend Lead
-| Jungsun Roh          | jeoh@mail.sfsu.edu              | Jungsun-eoh     | Database Lead
+| Jungsun Eoh          | jeoh@mail.sfsu.edu              | Jungsun-eoh     | Database Lead
 | Mike Bolanos         | mbolanos1@mail.sfsu.edu         | mbolanos1       | Git Master
 | Vincent Tse          | vtse3@mail.sfsu.edu             | vincenttse15    | Backend Engineer/Server Admin
 
