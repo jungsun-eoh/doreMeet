@@ -1,0 +1,36 @@
+html {
+    background: #d0e8e6;
+}
+
+body {
+    background: #d0dde8;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.06);
+    color: #545454;
+    font-family: Garamond;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 2em 2em 4em;
+}
+
+h1{
+    color: #222;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+h2{
+    line-height: 0.25;
+}
+
+text{
+    align-self: left;
+}
+
+img {
+    border: 10px solid rgba(0, 0, 0, 0.12);
+    vertical-align:top;
+    float: left;
+    margin-right: 8px;
+}
