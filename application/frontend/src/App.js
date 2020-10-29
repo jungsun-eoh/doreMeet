@@ -18,6 +18,15 @@ function App() {
     alert("You are searching for " +stateObj.name +" "+ stateObj.category );
   }
 
+
+  const openPost = () => {
+    document.getElementById("postform").style.display = "block";
+  }
+
+  const closePost = () => {
+    document.getElementById("postform").style.display = "none";
+  }
+
   const HomePage = (stateObj) => {
     return(
       <div className="App">
@@ -38,6 +47,28 @@ function App() {
             </select>
             <input type='submit'/>
           </form>
+          <div id="postbutton">
+            <button class="post" onClick={openPost}>Post</button>
+          </div>
+          <div class="post-popup" id="postform">
+            <form class="post-container">
+              <h2>Post Something</h2>
+              <input type="text" placeholder="Name" required/>
+              <div>
+              <select>
+                <option >Music</option>
+                <option >Dance</option>
+                <option >Art</option>
+            </select>
+            </div>
+            <div>
+            <input type='submit'/>
+            </div>
+            <div>
+            <button onClick={closePost}>Close</button>
+            </div>
+            </form>
+          </div>
         </header>
       </div>
     );
