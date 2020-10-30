@@ -1,4 +1,4 @@
-const  mysql = require('mysql');
+const mysql = require('mysql');
 const pool = mysql.createPool({
     // changed host for debug. consider changing database name
     //host: "127.0.0.1",
@@ -21,6 +21,16 @@ pool.query(`SELECT * FROM users`, (err, result, fields) =>{
 pool.query(todb,  (error, result) =>{
     return console.log(result);
 });
+
+pool.query(`INSERT INTO users (first_name, art_category) VALUES ("June", "Music")`, (err, result) => {
+    if (err) {
+        return console.log(err);
+    }
+    return console.log("Insert user!");
+    
+    res.send(result);
+});
+
 
 // pool.post('/createUser', (req, res, next) => {
 //   console.log(req.body);
