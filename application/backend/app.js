@@ -1,22 +1,12 @@
+
 const express = require('express');
 const app = express();
 const mysql = require('mysql');
 
-// const db = mysql.createConnection({
-//     host: "localhost",
-//     user: "newuser",
-//     password: "password"
-//   });
-  
-//   db.connect(function(err) {
-//     if (err) throw err;
-//         console.log("Connected!");
-//   });
+app.get("/", function(req, res){
+    res.send("Welcome to database");
+});
 
-
-app.get("/", (req, res) => res.send(
-    "hella @@"
-));
 
 app.get("/insert", (req, res) => {
     db.query('INSERT INTO name (first_name, art_category) VALUES ("June", "Music")', (err, result) => {
@@ -26,7 +16,8 @@ app.get("/insert", (req, res) => {
         res.send(result);
     })
 })
-//app.listen(port, () => console.log(`*****Example app listening on port ${port}!`));
-app.listen(3001, () => {
-    console.log("server runing")
+
+
+const server = app.listen(3306, function(){
+    console.log("connected to port 3306");
 })
