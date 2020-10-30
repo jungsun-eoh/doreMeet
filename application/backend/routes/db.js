@@ -1,18 +1,7 @@
-var mysql = require('mysql');
-const router = require('.');
 
-const pool = mysql.createPool({
-    // changed host for debug. consider changing database name
-    host: "127.0.0.1",
-    user: "root",
-    password: "1234",
-    database: "mydb",
-    connectionLimit: 50,
-     insecureAuth: true,
-     queueLimit: 0   
-});
-
-
+var express = require('express');
+var router = express.Router();
+const db = require('../database');
 
 // pool.query(`INSERT INTO communityPage (post_title ,post_category) VALUES ("post4","Dance")`, (err, result) => {
 //     if (err) {
@@ -28,14 +17,18 @@ const pool = mysql.createPool({
 //     return console.log(result);
 // });
 
-// pool.query(`SELECT * FROM communityPage WHERE post_category = "Music"`, (err, result, fields) =>{
-//     if(err){
-//         return console.log(err);
-//     }
-//     return console.log(result);
-// });
 
 
+router.get('/getAllMusic', (req, res, next) => {
+    // db.query(`SELECT * FROM communityPage WHERE post_category = "Music"`, (err, result, fields) =>{
+    //     if(err){
+    //         return console.log(err);
+    //     }
+    //     return console.log(result);
+    // });
+    console.log("db test &&&&&&");
+    
+});
 
 
 //pool.query(`SELECT * FROM DoreMeet.users WHERE first_name = "June"`, )
@@ -59,6 +52,4 @@ const pool = mysql.createPool({
 //           next(err);
 //       })
 // });
-
-
-module.exports = pool;
+module.exports = router;
