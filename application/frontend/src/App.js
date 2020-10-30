@@ -18,7 +18,6 @@ function App() {
     alert("You are searching for " +stateObj.name +" "+ stateObj.category );
   }
 
-
   const openPost = () => {
     document.getElementById("postform").style.display = "block";
   }

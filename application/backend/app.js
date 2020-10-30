@@ -8,16 +8,17 @@ app.get("/", function(req, res){
 });
 
 
-app.get("/insert", (req, res) => {
-    db.query('INSERT INTO name (first_name, art_category) VALUES ("June", "Music")', (err, result) => {
-        if (err) throw err;
-            console.log("Connected!");
+// app.get("/insert", (req, res) => {
+//     pool.query('INSERT INTO name (first_name, art_category) VALUES ("June", "Music")', (err, result) => {
+//         if (err) throw err;
+//             console.log("Connected!");
 
-        res.send(result);
-    })
-})
+//         res.send(result);
+//     })
+// })
 
 
-const server = app.listen(3306, function(){
-    console.log("connected to port 3306");
+const server = app.listen(3301, function(){
+// consider change your port to 3306 if you get bug
+    console.log("connected to port 3301");
 })
