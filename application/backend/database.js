@@ -1,24 +1,17 @@
 const mysql = require('mysql');
 const pool = mysql.createPool({
     // changed host for debug. consider changing database name
-    //host: "127.0.0.1",
-    host: "localhost",
+    host: "127.0.0.1",
+    //host: "localhost",
     user: "root",
     password: "1234",
-    database: "DoreMeet",
+    database: "mydb",
     connectionLimit: 50,
      insecureAuth: true,
      queueLimit: 0   
 });
 
-pool.query(`SELECT * FROM users`, (err, result, fields) =>{
-    if(err){
-        return console.log(err);
-    }
-    return console.log(result);
-});
-
-pool.query(`INSERT INTO users (first_name, art_category) VALUES ("June", "Music")`, (err, result) => {
+pool.query(`INSERT INTO communityPage (post_title ,post_category) VALUES ("post3","Dance")`, (err, result) => {
     if (err) {
         return console.log(err);
     }
@@ -27,6 +20,21 @@ pool.query(`INSERT INTO users (first_name, art_category) VALUES ("June", "Music"
     res.send(result);
 });
 
+pool.query(`SELECT * FROM communityPage`, (err, result, fields) =>{
+    if(err){
+        return console.log(err);
+    }
+    return console.log(result);
+});
+
+pool.query(`SELECT * FROM communityPage WHERE post_category = "Music"`, (err, result, fields) =>{
+    if(err){
+        return console.log(err);
+    }
+    return console.log(result);
+});
+
+//pool.query(`SELECT * FROM DoreMeet.users WHERE first_name = "June"`, )
 
 // pool.post('/createUser', (req, res, next) => {
 //   console.log(req.body);
