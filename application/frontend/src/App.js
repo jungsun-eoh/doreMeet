@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-
+import axios from 'axios';
 function App() {
 
   const [name, setName] = React.useState('');
@@ -13,9 +13,17 @@ function App() {
     setCategory: setCategory
   }
 
+  const postHandler = () => {
+    axios.post('/makePost', {params: { post_title: '?', post_category: '?'}}).then(response => {console.log('success')})
+    // axios.post('/makePost',{ post_title: 'A', post_category:'B'}).then(response => {console.log('success')});
+;
+    // alert("PostHandler" );
+  }
+
   const submitHandler = (event) => {
     event.preventDefault();
     alert("You are searching for " +stateObj.name +" "+ stateObj.category );
+    axios.get('/', {params: {}}).then(response => {console.log('success')});
   }
 
   const openPost = () => {
@@ -50,7 +58,8 @@ function App() {
             <button class="post" onClick={openPost}>Post</button>
           </div>
           <div class="post-popup" id="postform">
-            <form class="post-container" action="/submit" method="closePost">
+            <form class="post-container" onSubmit={postHandler}>
+            {/* <form class="post-container" action="/" method="POST"> */}
               <h2>Post Something</h2>
               <input type="text" placeholder="Name" required/>
               <div>

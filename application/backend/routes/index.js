@@ -12,7 +12,6 @@ const pool = mysql.createPool({
     password: "root",
     database: "mydb",
     connectionLimit: 50,
-    port: 3306,
     insecureAuth: true,
     queueLimit: 0,   
     debug:true
@@ -22,19 +21,43 @@ router.get('/', function(req, res){
     res.sendFile(__dirname+'/create.html');
 });
 
+router.post('/makePost', urlencodedParser, (req,res)=> {
+    console.log(req.body);
+    var todb = "INSERT INTO communityPage (post_title, post_category) VALUES ( \"" + req.body.post_title + "\", \"" + req.body.post_category + "\")"; 
+    pool.query(todb,  (error, result) =>{
+        return console.log(result);
+    })
+    console.log("router")
+});    
+
 router.post('/', urlencodedParser, (req,res)=> {
     console.log(req.body);
-    var todb = "INSERT INTO account (username, password) VALUES ( \"" + req.body.username + "\", \"" + req.body.password + "\")"; 
+    var todb = "INSERT INTO communityPage (post_title, post_category) VALUES ( \"" + req.body.post_title + "\", \"" + req.body.post_category + "\")"; 
     pool.query(todb,  (error, result) =>{
         return console.log(result);
     })
     res.send("sent");
 });    
 
-pool.query(`INSERT INTO account (username, password) VALUES ("1", "2")`,  (error, result) =>{
-    if (error) throw error;
-    return console.log(result);
-})
+router.post('/', urlencodedParser, (req,res)=> {
+    console.log(req.body);
+    var todb = "SELECT * FROM communityPage WHERE (post_title = '" + req.body.post_title + "' AND post_category = '" + req.body.post_category + "')";
+    pool.query(todb,  (error, result) =>{
+        return console.log(result);
+    })
+});  
 
 
+// pool.query(`INSERT INTO account (username, password) VALUES ("1", "2")`,  (error, result) =>{
+//     if (error) throw error;
+//     return console.log(result);
+// })
+
+
+// pool.query(`SELECT * FROM account WHERE username = "1"`, (err, result, fields) =>{
+//     if(err){
+//         return console.log(err);
+//     }
+//     return console.log(result);
+// }); 
 module.exports = router;
