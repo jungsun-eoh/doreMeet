@@ -50,7 +50,7 @@ function App() {
             <button class="post" onClick={openPost}>Post</button>
           </div>
           <div class="post-popup" id="postform">
-            <form class="post-container">
+            <form class="post-container" action="/submit" method="closePost">
               <h2>Post Something</h2>
               <input type="text" placeholder="Name" required/>
               <div>
