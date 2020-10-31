@@ -1,7 +1,23 @@
 
 const express = require('express');
+var router = express.Router();
 const app = express();
 const mysql = require('mysql');
+
+const pool = mysql.createPool({
+    // changed host for debug. consider changing database name
+    //host: "127.0.0.1",
+    host: "localhost",
+    user: "root",
+    password: "1234",
+    database: "DoreMeet",
+    connectionLimit: 50,
+    insecureAuth: true,
+    queueLimit: 0
+});
+
+var bodyParser = require('body-parser')
+var urlencodedParser = bodyParser.urlencoded({extended:false})
 
 app.get("/", function(req, res){
     res.send("Welcome to database");
@@ -17,6 +33,14 @@ app.get("/", function(req, res){
 //     })
 // })
 
+router.post('/makePost', urlencodedParser, (req,res)=> {
+    console.log(req.body);
+    const todb = "INSERT INTO account (username, password) VALUES ( \"" + req.body.username + "\", \"" + req.body.password + "\")";
+    pool.query(todb,  (error, result) =>{
+        return console.log(result);
+    })
+    res.send("sent");
+});
 
 const server = app.listen(3301, function(){
 // consider change your port to 3306 if you get bug

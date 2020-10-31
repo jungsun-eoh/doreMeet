@@ -18,6 +18,10 @@ pool.query(`SELECT * FROM users`, (err, result, fields) =>{
     return console.log(result);
 });
 
+pool.query(todb,  (error, result) =>{
+    return console.log(result);
+});
+
 // pool.post('/createUser', (req, res, next) => {
 //   console.log(req.body);
 //   let firstname = req.body.first_name;
