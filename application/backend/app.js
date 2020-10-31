@@ -23,6 +23,13 @@ app.get("/", function(req, res){
     res.send("Welcome to database");
 });
 
+router.get('/searchPost', urlencodedParser, (req,res)=> {
+    console.log(req.body);
+    var todb = "SELECT * FROM communityPage WHERE (post_title = '" + req.body.post_title + "' AND post_category = '" + req.body.post_category + "')";
+    pool.query(todb,  (error, result) =>{
+        return console.log(result);
+    })
+});
 
 // app.get("/insert", (req, res) => {
 //     pool.query('INSERT INTO name (first_name, art_category) VALUES ("June", "Music")', (err, result) => {
@@ -35,7 +42,7 @@ app.get("/", function(req, res){
 
 router.post('/makePost', urlencodedParser, (req,res)=> {
     console.log(req.body);
-    const todb = "INSERT INTO account (username, password) VALUES ( \"" + req.body.username + "\", \"" + req.body.password + "\")";
+    const todb = "INSERT INTO account (username, password) VALUES ( "\" + req.body.username + "\", \"" + req.body.password + "\")";
     pool.query(todb,  (error, result) =>{
         return console.log(result);
     })

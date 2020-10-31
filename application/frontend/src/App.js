@@ -20,7 +20,7 @@ function App() {
   const submitHandler = (event) => {
     event.preventDefault();
     alert("You are searching for " +stateObj.name +" "+ stateObj.category );
-    axios.get('/', {params: {}}).then(response => {console.log('success')});
+    axios.get('/searchPost', {params: { post_title: stateObj.name, post_category: stateObj.category}}).then(response => {console.log('success')});
   }
 
   const openPost = () => {
