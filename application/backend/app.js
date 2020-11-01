@@ -6,7 +6,7 @@ const mysql = require('mysql');
 const pool = mysql.createPool({
     // changed host for debug. consider changing database name
     //host: "127.0.0.1",
-    host: "localhost",
+    host: "DataBase",
     user: "root",
     password: "root",
     database: "mydb",

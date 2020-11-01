@@ -3,14 +3,19 @@ import './App.css';
 import axios from 'axios';
 function App() {
 
+
   const [name, setName] = React.useState('');
   const [category, setCategory] = React.useState('Music');
+  const [searchTitle, setSearchTitle] = React.useState('');
+  const [searchCategory, setSearchCategory] = React.useState('');
 
   const stateObj = {
     name: name,
     setName: setName,
     category: category,
-    setCategory: setCategory
+    setCategory: setCategory,
+    setSearchTitle: searchTitle,
+    setSearchCategory: searchCategory
   }
 
   const postHandler = () => {
@@ -22,7 +27,9 @@ function App() {
     alert("You are searching for " +stateObj.name +" "+ stateObj.category );
     // axios.get("/searchPost").then(response => {console.log(response.status)});
     axios.get('/searchPost', {params: { post_title: stateObj.name, post_category: stateObj.category}}).then(response => {    
-      console.log(response.data[0].post_title );
+      //console.log(response.data[0].post_title );
+      stateObj.setSearchTitle(response.data[0].post_title);
+      stateObj.setSearchCategory(response.data[0].post_category);
     });
   }
 
@@ -76,6 +83,11 @@ function App() {
             </div>
             </form>
           </div>
+          <div class="searches" id="display">
+              <h1>Searches</h1>
+              <p>{stateObj.searchTitle}</p>
+              <p>{stateObj.searchCategory}</p>
+            </div>
         </header>
       </div>
     );
