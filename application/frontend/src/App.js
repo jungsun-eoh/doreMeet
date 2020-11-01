@@ -14,13 +14,16 @@ function App() {
   }
 
   const postHandler = () => {
-    axios.post('/makePost', {params: { username: 'A', password:'B'}}).then(response => {console.log('success')});
+    axios.post('/makePost', {params: { username: 'A', password:'B'}}).then(response => {console.log('fail')});
   }
 
   const submitHandler = (event) => {
     event.preventDefault();
     alert("You are searching for " +stateObj.name +" "+ stateObj.category );
-    axios.get('/searchPost', {params: { post_title: stateObj.name, post_category: stateObj.category}}).then(response => {console.log('success')});
+    // axios.get("/searchPost").then(response => {console.log(response.status)});
+    axios.get('/searchPost', {params: { post_title: stateObj.name, post_category: stateObj.category}}).then(response => {    
+      console.log(response.data[0].post_title );
+    });
   }
 
   const openPost = () => {
