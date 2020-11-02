@@ -14,8 +14,11 @@ function App() {
     setName: setName,
     category: category,
     setCategory: setCategory,
-    setSearchTitle: searchTitle,
-    setSearchCategory: searchCategory
+    searchTitle: searchTitle,
+    setSearchTitle: setSearchTitle,
+    searchCategory: searchCategory,
+    setSearchCategory: setSearchCategory
+
   }
 
   const postHandler = () => {
@@ -25,12 +28,19 @@ function App() {
   const submitHandler = (event) => {
     event.preventDefault();
     alert("You are searching for " +stateObj.name +" "+ stateObj.category );
-    // axios.get("/searchPost").then(response => {console.log(response.status)});
     axios.get('/searchPost', {params: { post_title: stateObj.name, post_category: stateObj.category}}).then(response => {    
-      //console.log(response.data[0].post_title );
+
       stateObj.setSearchTitle(response.data[0].post_title);
       stateObj.setSearchCategory(response.data[0].post_category);
-    });
+
+
+
+
+    }).catch(function (error) {
+      stateObj.setSearchTitle("Not Found");
+      stateObj.setSearchCategory("Not Found");
+    });  
+    
   }
 
   const openPost = () => {
@@ -89,9 +99,9 @@ function App() {
             </form>
           </div>
           <div class="searches" id="display">
-              <h1>Searches</h1>
-              <p>{stateObj.searchTitle}</p>
-              <p>{stateObj.searchCategory}</p>
+              <h1 >Searches</h1>
+              <p>Title: {stateObj.searchTitle}</p>
+              <p>Category: {stateObj.searchCategory}</p>
             </div>
         </header>
       </div>
