@@ -41,6 +41,11 @@ function App() {
     document.getElementById("postform").style.display = "none";
   }
 
+  /*
+  <option value={stateObj.category} onChange={e => stateObj.setCategory(e.target.value)}>Music</option>
+  <option value={stateObj.category} onChange={e => stateObj.setCategory(e.target.value)}>Dance</option>
+  <option value={stateObj.category} onChange={e => stateObj.setCategory(e.target.value)}>Art</option>
+   */
   const HomePage = (stateObj) => {
     return(
       <div className="App">
@@ -54,10 +59,10 @@ function App() {
           </div>
           <form class="search" onSubmit={submitHandler}>
             <input value={stateObj.name} onChange={e => stateObj.setName(e.target.value)} type="text" placeholder="Search"/>
-            <select>
-                <option value={stateObj.category} onChange={e => stateObj.setCategory(e.target.value)}>Music</option>
-                <option value={stateObj.category} onChange={e => stateObj.setCategory(e.target.value)}>Dance</option>
-                <option value={stateObj.category} onChange={e => stateObj.setCategory(e.target.value)}>Art</option>
+            <select onChange={e => {stateObj.setCategory(e.target.value);}}>
+              <option value={"Music"}>Music</option>
+              <option value={"Dance"}>Dance</option>
+              <option value={"Art"}>Art</option>
             </select>
             <input type='submit'/>
           </form>
