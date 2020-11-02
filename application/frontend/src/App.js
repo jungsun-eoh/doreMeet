@@ -3,11 +3,6 @@ import './App.css';
 import axios from 'axios';
 import CommunityPage from './CommunityPage'
 function App() {
-  const [name, setName] = React.useState('');
-    category: category,
-    setCategory: setCategory,
-    searchTitle: searchTitle,
-    setSearchTitle: setSearchTitle,
   
     const [name, setName] = React.useState('');
     const [category, setCategory] = React.useState('Music');
