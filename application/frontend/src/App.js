@@ -8,6 +8,7 @@ function App() {
     setCategory: setCategory,
     searchTitle: searchTitle,
     setSearchTitle: setSearchTitle,
+  
     const [name, setName] = React.useState('');
     const [category, setCategory] = React.useState('Music');
     const [searchTitle, setSearchTitle] = React.useState('');
@@ -24,6 +25,7 @@ function App() {
       SearchTitle: searchTitle,
       setSetachTitle: setSearchTitle,
       setSearchCategory: setSearchCategory
+    }
 
   switch(screenState){
     case 'Start':
