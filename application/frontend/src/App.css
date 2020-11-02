@@ -1,0 +1,91 @@
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+
+
+.navbar {
+  overflow: hidden;
+  background-color: #e9e9e9;
+}
+
+.navbar l{
+  float: left;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar l.active{
+  background-color: #5200CD;
+  color: white;
+}
+
+.navbar r{
+  float: right;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.search {
+  position: absolute;
+  top:  10%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  padding: 6px;
+  font-size: 30px;
+}
+
+.post{
+  height: 80px;
+  width: 80px;
+  font-size: 20px;
+  background-color: #61dafb;
+  color:white;
+  padding: 10px, 20px;
+  border-radius: 4px;
+}
+
+#postbutton{
+  position: fixed;
+  bottom: 4px;
+  right: 10px;
+}
+
+.post-popup{
+  color:black;
+  display : none;
+  text-align: center;
+  margin: auto;
+}
+
+.post-container{
+  background-color: white;
+  max-width: 900px;
+  padding: 30px;
+}
+
+.searches{
+  margin-top: 50px; 
+  display: center; 
+  justify-content: center; 
+  align-items: center;
+  flex-wrap: wrap;
+  margin: auto;
+}
