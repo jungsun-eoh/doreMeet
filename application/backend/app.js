@@ -26,4 +26,13 @@ app.get("/searchPost", (req, res) => {
     })
 });
 
+app.post('/insertPost', (req,res)=> {
+    console.log(req.body);
+    var todb = "INSERT INTO communityPage (post_title, post_category) VALUES ( \"" + req.body.post_title + "\", \"" + req.body.post_category + "\")"; 
+    pool.query(todb,  (error, result) =>{
+        return console.log(result);
+    })
+    res.send("sent");
+}); 
+
 app.listen(port, () => console.log('app listening on port ' + port));
