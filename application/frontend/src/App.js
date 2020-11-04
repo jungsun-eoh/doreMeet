@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import Navbar from './Navbar/Navbar';
 import axios from 'axios';
 function App() {
 
@@ -59,14 +60,16 @@ function App() {
   const HomePage = (stateObj) => {
     return(
       <div className="App">
+        <Navbar />
         <header className="App-header">
-          <div className="navbar">
+          {/* <div className="navbar">
             <l class="active">Home</l>
             <l>About</l>
             <l>Contact</l>
             <l>Settings</l>
             <r>Logout</r>
-          </div>
+          </div> */}
+          <h2 align='center' top='30%'> Some Text goes here </h2>
           <form class="search" onSubmit={submitHandler}>
             <input value={stateObj.name} onChange={e => stateObj.setName(e.target.value)} type="text" placeholder="Search"/>
             <select onChange={e => {stateObj.setCategory(e.target.value);}}>
