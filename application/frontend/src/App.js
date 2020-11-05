@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
-import Navbar from './Navbar/Navbar';
+import Navbar from './LandingPage/components/Navbar/Navbar';
+import Highlights from './LandingPage/components/Highlights/Highlights';
 import axios from 'axios';
 function App() {
 
@@ -62,22 +63,18 @@ function App() {
       <div className="App">
         <Navbar />
         <header className="App-header">
-          {/* <div className="navbar">
-            <l class="active">Home</l>
-            <l>About</l>
-            <l>Contact</l>
-            <l>Settings</l>
-            <r>Logout</r>
-          </div> */}
-          <h2 align='center' top='30%'> Some Text goes here </h2>
+          <div class="description">
+          <h2 align='center' top='30%'> Community Page </h2>
+          <h4 align='center'>Check out the works of others or post your own work for the world to see!</h4>
+          </div>
           <form class="search" onSubmit={submitHandler}>
-            <input value={stateObj.name} onChange={e => stateObj.setName(e.target.value)} type="text" placeholder="Search"/>
-            <select onChange={e => {stateObj.setCategory(e.target.value);}}>
+            <input class="searchBar" value={stateObj.name} onChange={e => stateObj.setName(e.target.value)} type="text" placeholder="Search"/>
+            <select class="searchButtons" onChange={e => {stateObj.setCategory(e.target.value);}}>
               <option value={"Music"}>Music</option>
               <option value={"Dance"}>Dance</option>
               <option value={"Art"}>Art</option>
             </select>
-            <input type='submit'/>
+            <input class="searchButtons" type='submit'/>
           </form>
           <div id="postbutton">
             <button class="post" onClick={openPost}>Post</button>
