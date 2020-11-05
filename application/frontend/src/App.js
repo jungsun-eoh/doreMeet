@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
-import Navbar from './LandingPage/components/Navbar/Navbar';
+import Navbar from './Navbar/Navbar';
 import Highlights from './LandingPage/components/Highlights/Highlights';
+import Footer from './LandingPage/components/Footer/Footer';
 import axios from 'axios';
 function App() {
 
@@ -104,6 +105,8 @@ function App() {
               <p>Category: {stateObj.searchCategory}</p>
             </div>
         </header>
+        <Highlights />
+        <Footer />
       </div>
     );
   }
