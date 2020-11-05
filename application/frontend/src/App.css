@@ -2,9 +2,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-<<<<<<< Updated upstream
   font-family: 'Montserrat', sans-serif;
-  color: rgb(51, 51, 51);
 }
 
 .App-header {
@@ -13,15 +11,6 @@
   flex-direction: column;
   font-size: calc(10px + 2vmin);
   color: rgb(51, 51, 51);
-=======
-}
-.App-header {
-  min-height: 60vh;
-  display: flex;
-  flex-direction: column;
-  font-size: calc(10px + 2vmin);
-  color: black;
->>>>>>> Stashed changes
 }
 
 .App-link {
@@ -60,11 +49,7 @@
 
 .search {
   position: absolute;
-<<<<<<< Updated upstream
-  top:  40%;
-=======
   top:  25%;
->>>>>>> Stashed changes
   left: 50%;
   transform: translate(-50%,-50%);
   padding: 6px;
