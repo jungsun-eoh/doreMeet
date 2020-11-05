@@ -1,14 +1,15 @@
 import React from 'react';
 import './App.css';
-import Navbar from './Navbar/Navbar';
 import axios from 'axios';
+
 function App() {
-
-
   const [name, setName] = React.useState('');
   const [category, setCategory] = React.useState('Music');
   const [searchTitle, setSearchTitle] = React.useState('');
   const [searchCategory, setSearchCategory] = React.useState('');
+  const [postName, setPostName] = React.useState('');
+  const [postCategory, setPostCategory] = React.useState('Music');
+
 
   const stateObj = {
     name: name,
@@ -18,12 +19,19 @@ function App() {
     searchTitle: searchTitle,
     setSearchTitle: setSearchTitle,
     searchCategory: searchCategory,
-    setSearchCategory: setSearchCategory
+    setSearchCategory: setSearchCategory,
+    postName: postName,
+    setPostName: setPostName,
+    postCategory: postCategory,
+    setPostCategory: setPostCategory
 
   }
 
   const postHandler = () => {
-    axios.post('/makePost', {params: { username: 'A', password:'B'}}).then(response => {console.log('fail')});
+    console.log(stateObj.postName);
+
+    axios.post('/makePost', { post_title: stateObj.postName, post_category: stateObj.postCategory}).then(response => {console.log('fail')});
+
   }
 
   const submitHandler = (event) => {
@@ -33,9 +41,6 @@ function App() {
 
       stateObj.setSearchTitle(response.data[0].post_title);
       stateObj.setSearchCategory(response.data[0].post_category);
-
-
-
 
     }).catch(function (error) {
       stateObj.setSearchTitle("Not Found");
@@ -60,16 +65,14 @@ function App() {
   const HomePage = (stateObj) => {
     return(
       <div className="App">
-        <Navbar />
         <header className="App-header">
-          {/* <div className="navbar">
+          <div className="navbar">
             <l class="active">Home</l>
             <l>About</l>
             <l>Contact</l>
             <l>Settings</l>
             <r>Logout</r>
-          </div> */}
-          <h2 align='center' top='30%'> Some Text goes here </h2>
+          </div>
           <form class="search" onSubmit={submitHandler}>
             <input value={stateObj.name} onChange={e => stateObj.setName(e.target.value)} type="text" placeholder="Search"/>
             <select onChange={e => {stateObj.setCategory(e.target.value);}}>
@@ -85,9 +88,9 @@ function App() {
           <div class="post-popup" id="postform">
             <form class="post-container" onSubmit={postHandler}>
               <h2>Post Something</h2>
-              <input type="text" placeholder="Name" required/>
+              <input type="text" onChange={e => stateObj.setPostName(e.target.value)} placeholder="Name" required/>
               <div>
-              <select>
+              <select onChange={e => {stateObj.setPostCategory(e.target.value);}}>
                 <option >Music</option>
                 <option >Dance</option>
                 <option >Art</option>
