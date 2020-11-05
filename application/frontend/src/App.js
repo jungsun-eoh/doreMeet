@@ -7,11 +7,13 @@ import axios from 'axios';
 import { BrowserRouter as Router } from 'react-router-dom';
 function App() {
 
-
   const [name, setName] = React.useState('');
   const [category, setCategory] = React.useState('Music');
   const [searchTitle, setSearchTitle] = React.useState('');
   const [searchCategory, setSearchCategory] = React.useState('');
+  const [postName, setPostName] = React.useState('');
+  const [postCategory, setPostCategory] = React.useState('Music');
+
 
   const stateObj = {
     name: name,
@@ -21,12 +23,19 @@ function App() {
     searchTitle: searchTitle,
     setSearchTitle: setSearchTitle,
     searchCategory: searchCategory,
-    setSearchCategory: setSearchCategory
+    setSearchCategory: setSearchCategory,
+    postName: postName,
+    setPostName: setPostName,
+    postCategory: postCategory,
+    setPostCategory: setPostCategory
 
   }
 
   const postHandler = () => {
-    axios.post('/makePost', {params: { username: 'A', password:'B'}}).then(response => {console.log('fail')});
+    console.log(stateObj.postName);
+
+    axios.post('/makePost', { post_title: stateObj.postName, post_category: stateObj.postCategory}).then(response => {console.log('fail')});
+
   }
 
   const submitHandler = (event) => {
@@ -84,11 +93,11 @@ function App() {
             <button class="post" onClick={openPost}>Post</button>
           </div>
           <div class="post-popup" id="postform">
-            <form class="post-container" onSubmit={postHandler}>
+          <form class="post-container" onSubmit={postHandler}>
               <h2>Post Something</h2>
-              <input type="text" placeholder="Name" required/>
+              <input type="text" onChange={e => stateObj.setPostName(e.target.value)} placeholder="Name" required/>
               <div>
-              <select>
+              <select onChange={e => {stateObj.setPostCategory(e.target.value);}}>
                 <option >Music</option>
                 <option >Dance</option>
                 <option >Art</option>
