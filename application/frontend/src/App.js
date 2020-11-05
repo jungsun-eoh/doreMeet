@@ -4,6 +4,7 @@ import Navbar from './Navbar/Navbar';
 import Highlights from './LandingPage/components/Highlights/Highlights';
 import Footer from './LandingPage/components/Footer/Footer';
 import axios from 'axios';
+import { BrowserRouter as Router } from 'react-router-dom';
 function App() {
 
 
@@ -61,6 +62,8 @@ function App() {
    */
   const HomePage = (stateObj) => {
     return(
+      <>
+      <Router>
       <div className="App">
         <Navbar />
         <header className="App-header">
@@ -106,8 +109,10 @@ function App() {
             </div>
         </header>
         <Highlights />
-        <Footer />
       </div>
+      <Footer />
+      </Router>
+      </>
     );
   }
 
