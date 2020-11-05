@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Navbar from './Navbar/Navbar';
+import Navbar from './LandingPage/components/Navbar/Navbar';
 import Highlights from './LandingPage/components/Highlights/Highlights';
 import Footer from './LandingPage/components/Footer/Footer';
 import axios from 'axios';

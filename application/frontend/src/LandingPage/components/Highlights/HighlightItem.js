@@ -1,11 +1,10 @@
 import React from 'react';
-import { Link,Router } from 'react-router-dom';
+import { Link, } from 'react-router-dom';
 
 
 function HighlightItem(props) {
     return (
     <>
-    <Router>
       <li className='cards_item'>
         <Link className='cards_item_link'>
           <figure className='cards_item_pic-wrap' data-category={props.label}>
@@ -16,7 +15,6 @@ function HighlightItem(props) {
           </div>
         </Link>
       </li>
-      </Router>
     </>
   );
 }
