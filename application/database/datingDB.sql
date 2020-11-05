@@ -261,17 +261,16 @@ ENGINE = InnoDB;
 -- Table `mydb`.`communityPage`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `mydb`.`communityPage` ;
-
 CREATE TABLE IF NOT EXISTS `mydb`.`communityPage` (
   `comm_pg_id` TINYINT NOT NULL AUTO_INCREMENT,
   `first_name` VARCHAR(64)  NULL,
-  `last_name` VARCHAR(64)  NULL,
+  `last_name` VARCHAR(64) NULL,
   `post_title` VARCHAR(64) NOT NULL,
   `post_category` VARCHAR(10) NOT NULL,
-  `post_file` VARCHAR(128)  NULL,
+  `post_file` VARCHAR(128) NULL,
   `post_votes` INT NULL,
-  `post_creation` DATETIME  NULL,
-  `user` TINYINT  NULL,
+  `post_creation` DATETIME NULL,
+  `user` TINYINT NULL,
   PRIMARY KEY (`comm_pg_id`),
   INDEX `communityPage_user_FK_idx` (`user` ASC),
   CONSTRAINT `communityPage_user_FK`
