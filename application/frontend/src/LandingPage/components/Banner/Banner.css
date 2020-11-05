@@ -1,0 +1,87 @@
+
+.container {
+  background: rgb(238,253,255);
+  background: linear-gradient(90deg, rgba(238,253,255,1) 36%, rgba(215,255,235,1) 100%);;
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  object-fit: contain;
+}
+
+.container > h1 {
+  color:black;
+  font-size: 100px;
+  margin-top: -100px;
+  font-family:'Raleway Dots', cursive;
+}
+
+.container > p {
+  margin-top: 8px;
+  color:rgb(114, 109, 109);
+  font-size: 28px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.animated {
+  animation-duration: 2.5s;
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
+  align-content: center;
+}
+
+@-webkit-keyframes bounce { 
+  0%, 20%, 50%, 80%, 100% {-webkit-transform: translateY(0);} 
+  40% {-webkit-transform: translateY(-30px);} 
+  60% {-webkit-transform: translateY(-15px);} 
+} 
+
+@keyframes bounce { 
+  0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 
+  40% {transform: translateY(-30px);} 
+  60% {transform: translateY(-15px);} 
+}
+
+.bounce { 
+  -webkit-animation-name: bounce; 
+  animation-name: bounce; 
+}
+
+.banner-buttons {
+  margin-top: 10%;
+}
+
+.banner-buttons .btn {
+  margin: 15px;
+  width: 200px;
+}
+
+@media screen and (max-width: 960px) {
+  .container > h1 {
+    font-size: 70px;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container > h1 {
+    font-size: 50px;
+    text-align: center;
+  }
+
+  .container > p {
+    font-size: 30px;
+  }
+
+  .btn-mobile {
+    text-decoration: none;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
