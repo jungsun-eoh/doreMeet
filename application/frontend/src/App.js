@@ -1,52 +1,29 @@
 import React from 'react';
 import './App.css';
 import axios from 'axios';
-
 function App() {
+
   const [name, setName] = React.useState('');
   const [category, setCategory] = React.useState('Music');
-  const [searchTitle, setSearchTitle] = React.useState('');
-  const [searchCategory, setSearchCategory] = React.useState('');
-  const [postName, setPostName] = React.useState('');
-  const [postCategory, setPostCategory] = React.useState('Music');
-
 
   const stateObj = {
     name: name,
     setName: setName,
     category: category,
-    setCategory: setCategory,
-    searchTitle: searchTitle,
-    setSearchTitle: setSearchTitle,
-    searchCategory: searchCategory,
-    setSearchCategory: setSearchCategory,
-    postName: postName,
-    setPostName: setPostName,
-    postCategory: postCategory,
-    setPostCategory: setPostCategory
-
+    setCategory: setCategory
   }
 
   const postHandler = () => {
-    console.log(stateObj.postName);
-
-    axios.post('/makePost', { post_title: stateObj.postName, post_category: stateObj.postCategory}).then(response => {console.log('fail')});
-
+    axios.post('/makePost', {params: { post_title: '?', post_category: '?'}}).then(response => {console.log('success')})
+    // axios.post('/makePost',{ post_title: 'A', post_category:'B'}).then(response => {console.log('success')});
+;
+    // alert("PostHandler" );
   }
 
   const submitHandler = (event) => {
     event.preventDefault();
     alert("You are searching for " +stateObj.name +" "+ stateObj.category );
-    axios.get('/searchPost', {params: { post_title: stateObj.name, post_category: stateObj.category}}).then(response => {    
-
-      stateObj.setSearchTitle(response.data[0].post_title);
-      stateObj.setSearchCategory(response.data[0].post_category);
-
-    }).catch(function (error) {
-      stateObj.setSearchTitle("Not Found");
-      stateObj.setSearchCategory("Not Found");
-    });  
-    
+    axios.get('/', {params: {}}).then(response => {console.log('success')});
   }
 
   const openPost = () => {
@@ -57,11 +34,6 @@ function App() {
     document.getElementById("postform").style.display = "none";
   }
 
-  /*
-  <option value={stateObj.category} onChange={e => stateObj.setCategory(e.target.value)}>Music</option>
-  <option value={stateObj.category} onChange={e => stateObj.setCategory(e.target.value)}>Dance</option>
-  <option value={stateObj.category} onChange={e => stateObj.setCategory(e.target.value)}>Art</option>
-   */
   const HomePage = (stateObj) => {
     return(
       <div className="App">
@@ -75,10 +47,10 @@ function App() {
           </div>
           <form class="search" onSubmit={submitHandler}>
             <input value={stateObj.name} onChange={e => stateObj.setName(e.target.value)} type="text" placeholder="Search"/>
-            <select onChange={e => {stateObj.setCategory(e.target.value);}}>
-              <option value={"Music"}>Music</option>
-              <option value={"Dance"}>Dance</option>
-              <option value={"Art"}>Art</option>
+            <select>
+                <option value={stateObj.category} onChange={e => stateObj.setCategory(e.target.value)}>Music</option>
+                <option value={stateObj.category} onChange={e => stateObj.setCategory(e.target.value)}>Dance</option>
+                <option value={stateObj.category} onChange={e => stateObj.setCategory(e.target.value)}>Art</option>
             </select>
             <input type='submit'/>
           </form>
@@ -87,10 +59,11 @@ function App() {
           </div>
           <div class="post-popup" id="postform">
             <form class="post-container" onSubmit={postHandler}>
+            {/* <form class="post-container" action="/" method="POST"> */}
               <h2>Post Something</h2>
-              <input type="text" onChange={e => stateObj.setPostName(e.target.value)} placeholder="Name" required/>
+              <input type="text" placeholder="Name" required/>
               <div>
-              <select onChange={e => {stateObj.setPostCategory(e.target.value);}}>
+              <select>
                 <option >Music</option>
                 <option >Dance</option>
                 <option >Art</option>
@@ -104,11 +77,6 @@ function App() {
             </div>
             </form>
           </div>
-          <div class="searches" id="display">
-              <h1 >Searches</h1>
-              <p>Title: {stateObj.searchTitle}</p>
-              <p>Category: {stateObj.searchCategory}</p>
-            </div>
         </header>
       </div>
     );

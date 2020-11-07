@@ -7,8 +7,7 @@
 
 # Below is a list of items required. Missing items will causes points to be deducted from multiple milestone submissions.
 
-1. Server URL or IP :  ec2-18-144-168-35.us-west-1.compute.amazonaws.com (Public IPv4 address: 18.144.168.35) 
-**Will be updated! The EC2 instance is currently shut off, and the Server URL will be updated when it is turned on**
+1. Server URL or IP :  ec2-18-144-168-35.us-west-1.compute.amazonaws.com (Public IPv4 address: 18.144.168.35)
 2. SSH username : ubuntu
 3. SSH password or key : Team02.pem
     <br> If a ssh key is used please upload the key to the credentials folder.
