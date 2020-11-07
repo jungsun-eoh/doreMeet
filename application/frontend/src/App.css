@@ -63,9 +63,11 @@
 }
 
 .post-popup{
+  position: fixed;
+  right:40%;
+  top:30%;
   display : none;
   text-align: center;
-  margin: auto;
   z-index: 3;
 }
 
