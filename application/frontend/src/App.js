@@ -71,8 +71,6 @@ function App() {
    */
   const HomePage = (stateObj) => {
     return(
-      <>
-      <Router>
       <div className="App">
         <Navbar />
         <header className="App-header">
@@ -117,11 +115,7 @@ function App() {
               <p>Category: {stateObj.searchCategory}</p>
             </div>
         </header>
-        <Highlights />
       </div>
-      <Footer />
-      </Router>
-      </>
     );
   }
 
