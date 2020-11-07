@@ -14,6 +14,7 @@ const pool = mysql.createPool({
     insecureAuth: true,
     queueLimit: 0
 });
+
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
@@ -40,3 +41,6 @@ app.post('/makePost', (req,res)=> {
         return console.log(result);
     })
 }); 
+
+
+app.listen(port, () => console.log('app listening on port ' + port));   
