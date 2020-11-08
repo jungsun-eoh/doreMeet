@@ -16,8 +16,8 @@ const CommunityPage = (stateObj) => {
     
       const submitHandler = (event) => {
         event.preventDefault();
-        alert("You are searching for " +stateObj.name +" "+ stateObj.category );
-        axios.get('/searchPost', {params: { post_title: stateObj.name, post_category: stateObj.category}}).then(response => {    
+        alert("You are searching for " +stateObj.searchTitle +" "+ stateObj.searchCategory );
+        axios.get('/searchPost', {params: { post_title: stateObj.searchTitle, post_category: stateObj.searchCategory}}).then(response => {    
     
           stateObj.setSearchTitle(response.data[0].post_title);
           stateObj.setSearchCategory(response.data[0].post_category);
@@ -51,8 +51,8 @@ const CommunityPage = (stateObj) => {
               <h4 align='center'>Check out the works of others or post your own work for the world to see!</h4>
               </div>
               <form class="search" onSubmit={submitHandler}>
-                <input class="searchBar" value={stateObj.name} onChange={e => stateObj.setName(e.target.value)} type="text" placeholder="Search"/>
-                <select class="searchButtons" onChange={e => {stateObj.setCategory(e.target.value);}}>
+                <input class="searchBar" value={stateObj.searchTitle} onChange={e => stateObj.setSearchCategory(e.target.value)} type="text" placeholder="Search"/>
+                <select class="searchButtons" onChange={e => {stateObj.setSearchCategory(e.target.value);}}>
                   <option value={"Music"}>Music</option>
                   <option value={"Dance"}>Dance</option>
                   <option value={"Art"}>Art</option>
