@@ -3,8 +3,9 @@ import './App.css';
 import CommunityPage from './CommunityPage';
 import Settings from './Settings';
 import MatchingPage from './MatchingPage';
+import {Route, BrowserRouter as Router, Switch} from 'react-router-dom';
 function App() {
-
+  
   const [firstName, setFirstName] = React.useState('');
   const [lastName, setLastName] = React.useState('');
   const [gender, setGender] = React.useState('');
@@ -84,14 +85,22 @@ function App() {
     setScreenState: setScreenState
   }
 
-  switch(screenState){
-    case 'Community':
-      return CommunityPage(stateObj);
-    case 'Settings':
-      return Settings(stateObj);
-    case 'Match':
-      return MatchingPage(stateObj);
-  }
+  return(
+    <Router>
+      <Switch>
+        <Route path="/Settings" component={Settings}/>
+      </Switch>
+    </Router>
+  );
+
+  // switch(screenState){
+  //   case 'Community':
+  //     return CommunityPage(stateObj);
+  //   case 'Settings':
+  //     return Settings(stateObj);
+  //   case 'Match':
+  //     return MatchingPage(stateObj);
+  // }
 }
 
 export default App;
