@@ -1,5 +1,7 @@
 import React from 'react';
 import { Button } from '../Navbar/Buttons';
+import { Link } from 'react-router-dom';
+
 import './Banner.css';
 //import logo from './assets/drm_banner.gif';
 //<img src={logo} alt='Banner' width='100%' height='600px'></img>
@@ -10,8 +12,8 @@ function Banner() {
       <h1 className="animated bounce">CONNECT &amp; CREATE</h1>
       <p> Meet artists near you, and built what your heart desires </p>
       <div className='banner-buttons'>
-        <Button className='btn' buttonStyle='btn--outline' buttonSize='btn--large'onClick={console.log('Log In Button Clicked')}> Log In </Button>
-        <Button className='btn' buttonStyle='btn--primary' buttonSize='btn--large' onClick={console.log('Sign Up Button Clicked')}> Sign Up </Button>
+        <Link to='/login' > <Button className='btn' buttonStyle='btn--outline' buttonSize='btn--large'>Log In </Button></Link>
+        <Link to='/signup' ><Button className='btn' buttonStyle='btn--primary' buttonSize='btn--large'> Sign Up </Button></Link>
       </div>
     </div>
   );

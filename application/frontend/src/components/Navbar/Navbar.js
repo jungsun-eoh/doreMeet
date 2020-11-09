@@ -1,22 +1,25 @@
 import React, { Component } from 'react';
 import { Button } from './Buttons';
 import { MenuItems } from './MenuItems';
+import { Link } from 'react-router-dom';
 import './Navbar.css';
 
 class Navbar extends Component {
     state = { clicked: false }
- 
+
     handleClick = () => {
         this.setState({clicked: !this.state.clicked})
     }
 
     render() {
         return(
-            <nav className='NavbarItems active'>
-                <h1 className='navbar-logo'>DoReMeet<i class="fas fa-wrench"></i> </h1>
+            <nav className='NavbarItems'>
+                <Link to='/' > 
+                <h1 className='navbar-logo'><img src="DoReMeetLogo.png" height="30px"/>DoReMeet</h1>
                 <div className='menu-icon' onClick={this.handleClick}>
                     <i className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
                 </div>
+                </Link>
                 <ul className={this.state.clicked ? 'nav-menu active' : 'nav-menu'}>
                     {MenuItems.map((item, index) => {
                         return(
@@ -28,7 +31,7 @@ class Navbar extends Component {
                         )
                     })}
                 </ul>
-                <Button><b>Log In</b></Button>
+                <Link to='/login'><Button><b>Log In</b></Button></Link>
             </nav>
         )
     }
