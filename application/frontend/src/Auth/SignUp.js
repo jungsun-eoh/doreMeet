@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Button } from '../components/Navbar/Buttons';
-import Navbar from '../components/Navbar/Navbar';
+import NavbarHome from '../components/Navbar/NavbarHome';
 import Footer from '../components/Footer/Footer';
+//import { Router } from 'react-router-dom';
 import './Auth.css';
 
 class SignUp extends Component {
@@ -27,9 +28,9 @@ class SignUp extends Component {
       }
       
     render() {
-        <Navbar />
         return (
         <>
+        <NavbarHome />
         <div className="container">
             <form className="white" onSubmit={console.log('Submit')}>
             <h1 className="heading">Sign Up</h1>
@@ -84,7 +85,7 @@ class SignUp extends Component {
         </div>
         <Footer />
         </>
-        )   
+        )
     }
 }
 

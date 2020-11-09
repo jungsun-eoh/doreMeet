@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from '../components/Navbar/Buttons';
-import Navbar from '../components/Navbar/Navbar';
+import NavbarHome from '../components/Navbar/NavbarHome';
 import Footer from '../components/Footer/Footer';
 import './Auth.css';
 
@@ -24,9 +24,9 @@ class LogIn extends Component {
     }
 
     render(){
-    <Navbar />
         return (
             <>
+            <NavbarHome />
                 <div className="container">
                     <form className="white" onSubmit={this.handleSubmit}>
                         <h1 className="heading">Log In</h1>
