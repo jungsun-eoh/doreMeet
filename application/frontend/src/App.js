@@ -28,7 +28,7 @@ function App() {
   const [searchCategory, setSearchCategory] = React.useState('');
   const [postName, setPostName] = React.useState('');
   const [postCategory, setPostCategory] = React.useState('Music');
-  const [screenState, setScreenState] = React.useState('Settings');
+  const [screenState, setScreenState] = React.useState('Community');
 
   const stateObj = {
     //user stuff
