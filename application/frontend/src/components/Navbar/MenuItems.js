@@ -1,27 +1,27 @@
 export const MenuItems = [
     {
         title: 'Community',
-        url: '#',
+        url: '/Community',
         cName: 'nav-links',
     },
     {
         title: 'Match',
-        url: '#',
+        url: '/Match',
         cName: 'nav-links',
     },
     {
         title: 'Chat',
-        url: '#',
+        url: '/Chat',
         cName: 'nav-links',
     },
     {
         title: 'Settings',
-        url: '#',
+        url: '/Settings',
         cName: 'nav-links',
     },
     {
-        title: 'Log In',
-        url: '#',
+        title: 'Log Out',
+        url: '/',
         cName: 'nav-links-mobile',
     }
 ]

@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-// import Home from './Home';
-// import LogIn from './Auth/LogIn';
-// import SignUp from './Auth/SignUp';
+import Home from './Home';
+import LogIn from './Auth/LogIn';
+import SignUp from './Auth/SignUp';
 import CommunityPage from './CommunityPage';
 import Settings from './Settings';
 import MatchingPage from './MatchingPage';
-import {Route, BrowserRouter as Router, Switch} from 'react-router-dom';
+import {Route, BrowserRouter as Router, Switch, Link} from 'react-router-dom';
 function App() {
 
 
@@ -106,7 +106,12 @@ function App() {
   return(
     <Router>
       <Switch>
+        <Route path='/' exact component={Home}/>
+        <Route path='/login' component={LogIn} />
+        <Route path='/signup' component={SignUp} />
         <Route path="/Settings" component={Settings}/>
+        <Route path="/Community" component={CommunityPage}/>
+        <Route path="/Match" component={MatchingPage}/>
       </Switch>
     </Router>
   );
