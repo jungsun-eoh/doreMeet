@@ -93,3 +93,27 @@
   padding-bottom: 30px;
   background-color: rgb(219, 250, 246);
 }
+
+.settingsForm{
+  padding-top: 20px;
+  width: 480px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.settingsForm label{
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.settingsFields{
+  width: 480px;
+  background-color: #fafbfc;
+  padding: 5px 12px;
+  font-size: 14px;
+  line-height: 20px;
+  vertical-align: middle;
+  border: 1px solid;
+  border-radius: 6px;
+  outline:none;
+}

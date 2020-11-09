@@ -10,6 +10,8 @@ function App() {
   const [DOB, setDOB] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [phoneNumber, setPhoneNumber] = React.useState('');
+  const [artCategory, setArtCategory] = React.useState('');
+  const [skillLevel, setSkillLevel] = React.useState('');
 
   const [userName, setUserName] = React.useState('');
   const [userPassword, setUserPassword] = React.useState('');
@@ -18,6 +20,7 @@ function App() {
   const [maximumAge, setMaximumAge] = React.useState('');
   const [preferedGender, setPreferedGender] = React.useState('');
   const [preferedSkill, setPreferedSkill] = React.useState('');
+  const [meetingPreference, setMeetingPreference] = React.useState('');
 
   const [category, setCategory] = React.useState('Music');
   const [searchTitle, setSearchTitle] = React.useState('');
@@ -40,6 +43,10 @@ function App() {
     setEmail: setEmail,
     phoneNumber: phoneNumber,
     setPhoneNumber: setPhoneNumber,
+    artCategory: artCategory,
+    setArtCategory, setArtCategory,
+    skillLevel, skillLevel,
+    setSkillLevel, setSkillLevel,
 
     //account stuff
     userName: userName,
@@ -56,6 +63,8 @@ function App() {
     setPreferedGender: setPreferedGender,
     preferedSkill: preferedSkill,
     setPreferedSkill: setPreferedSkill,
+    meetingPreference: meetingPreference,
+    setMeetingPreference: setMeetingPreference,
 
     //community page stuff
     category: category,
@@ -68,6 +77,8 @@ function App() {
     setPostName: setPostName,
     postCategory: postCategory,
     setPostCategory: setPostCategory,
+
+    //screen stuff
     screenState: screenState,
     setScreenState: setScreenState
   }
