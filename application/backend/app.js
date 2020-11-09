@@ -8,7 +8,7 @@ const pool = mysql.createPool({
     // changed host for debug. consider changing fields
     host: "localhost",
     user: "root",
-    password: "root",
+    password: "1234",
     database: "mydb",
     connectionLimit: 50,
     insecureAuth: true,

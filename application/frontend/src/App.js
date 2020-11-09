@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import CommunityPage from './CommunityPage';
 import Settings from './Settings';
+import MatchingPage from './MatchingPage';
 function App() {
 
   const [firstName, setFirstName] = React.useState('');
@@ -88,6 +89,8 @@ function App() {
       return CommunityPage(stateObj);
     case 'Settings':
       return Settings(stateObj);
+    case 'Match':
+      return MatchingPage(stateObj);
   }
 }
 
