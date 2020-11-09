@@ -1,9 +1,29 @@
 import React from 'react';
 import './App.css';
+// import Home from './Home';
+// import LogIn from './Auth/LogIn';
+// import SignUp from './Auth/SignUp';
 import CommunityPage from './CommunityPage';
 import Settings from './Settings';
 import MatchingPage from './MatchingPage';
+// import {  BrowserRouter, Switch, Route } from 'react-router-dom';
+
 function App() {
+
+
+  //Works for Home Page, Auth Pages
+  // return (
+  //   <>
+  //   <BrowserRouter>
+  //   <Navbar />
+  //     <Switch>
+  //       <Route path='/' exact component={Home}/>
+  //       <Route path='/login' component={LogIn} />
+  //       <Route path='/signup' component={SignUp} />
+  //     </Switch>
+  //   </BrowserRouter>
+  //   </>
+  // );
 
   const [firstName, setFirstName] = React.useState('');
   const [lastName, setLastName] = React.useState('');

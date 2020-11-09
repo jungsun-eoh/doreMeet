@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
 import axios from 'axios';
-import Navbar from './LandingPage/components/Navbar/Navbar';
-import Highlights from './LandingPage/components/Highlights/Highlights';
-import Footer from './LandingPage/components/Footer/Footer';
+import Navbar from './components/Navbar/Navbar';
+import Highlights from './components/Highlights/Highlights';
+import Footer from './components/Footer/Footer';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 const CommunityPage = (stateObj) => {
