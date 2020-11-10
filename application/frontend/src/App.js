@@ -65,9 +65,14 @@ function App() {
   const [searchCategory, setSearchCategory] = React.useState('Music');
   const [postName, setPostName] = React.useState('');
   const [postCategory, setPostCategory] = React.useState('Music');
+  const [postFile, setPostFile] = React.useState('');
   const [screenState, setScreenState] = React.useState('Community');
   const [resultTitle, setResultTitle] = React.useState('');
   const [resultCategory, setResultCategory] = React.useState('');
+  const [resultFile, setResultFile] = React.useState('');
+
+  const [file, setFile] = React.useState('');
+  const [fileName, setFileName] = React.useState('');
 
   const stateObj = {
     //user stuff
@@ -139,6 +144,14 @@ function App() {
     setResultTitle: setResultTitle,
     resultCategory: resultCategory,
     setResultCategory: setResultCategory,
+    file: file,
+    setFile: setFile,
+    fileName: fileName,
+    setFileName: setFileName,
+    resultFile: resultFile,
+    setResultFile: setResultFile,
+    postFile: postFile,
+    setPostFile: setPostFile,
 
     //screen stuff
     screenState: screenState,
