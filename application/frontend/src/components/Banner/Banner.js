@@ -10,7 +10,7 @@ function Banner() {
   return (
     <div className='container'>
       <h1 className="animated bounce">CONNECT &amp; CREATE</h1>
-      <p> Meet artists near you, and built what your heart desires </p>
+      <p> Meet artists near you, and build what your heart desires </p>
       <div className='banner-buttons'>
         <Link to='/login' > <Button className='btn' buttonStyle='btn--outline' buttonSize='btn--large'>Log In </Button></Link>
         <Link to='/signup' ><Button className='btn' buttonStyle='btn--primary' buttonSize='btn--large'> Sign Up </Button></Link>

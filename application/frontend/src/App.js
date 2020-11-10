@@ -33,14 +33,32 @@ function App() {
   const [artCategory, setArtCategory] = React.useState('');
   const [skillLevel, setSkillLevel] = React.useState('');
 
+  const [currentFirstName, setCurrentFirstName] = React.useState('');
+  const [currentLastName, setCurrentLastName] = React.useState('');
+  const [currentGender, setCurrentGender] = React.useState('');
+  const [currentDOB, setCurrentDOB] = React.useState('');
+  const [currentEmail, setCurrentEmail] = React.useState('');
+  const [currentPhoneNumber, setCurrentPhoneNumber] = React.useState('');
+  const [currentArtCategory, setCurrentArtCategory] = React.useState('');
+  const [currentSkillLevel, setCurrentSkillLevel] = React.useState('');
+
   const [userName, setUserName] = React.useState('');
   const [userPassword, setUserPassword] = React.useState('');
+
+  const [currentUserName, setCurrentUserName] = React.useState('');
+  const [currentUserPassword, setCurrentUserPassword] = React.useState('');
 
   const [minimumAge, setMinimumAge] = React.useState('');
   const [maximumAge, setMaximumAge] = React.useState('');
   const [preferedGender, setPreferedGender] = React.useState('');
   const [preferedSkill, setPreferedSkill] = React.useState('');
   const [meetingPreference, setMeetingPreference] = React.useState('');
+
+  const [currentMinimumAge, setCurrentMinimumAge] = React.useState('');
+  const [currentMaximumAge, setCurrentMaximumAge] = React.useState('');
+  const [currentPreferedGender, setCurrentPreferedGender] = React.useState('');
+  const [currentPreferedSkill, setCurrentPreferedSkill] = React.useState('');
+  const [currentMeetingPrefernce, setCurrentMeetingPrefernce] = React.useState('');
 
   const [category, setCategory] = React.useState('Music');
   const [searchTitle, setSearchTitle] = React.useState('');
@@ -70,11 +88,23 @@ function App() {
     skillLevel: skillLevel,
     setSkillLevel: setSkillLevel,
 
+    currentFirstName: currentFirstName,
+    currentLastName: currentLastName,
+    currentGender: currentGender,
+    currentDOB: currentDOB,
+    currentEmail: currentEmail,
+    currentPhoneNumber: currentPhoneNumber,
+    currentArtCategory: currentArtCategory,
+    currentSkillLevel: currentSkillLevel,
+
     //account stuff
     userName: userName,
     setUserName: setUserName,
     userPassword: userPassword,
     setUserPassword: setUserPassword,
+
+    currentUserName: currentUserName,
+    currentUserPassword: currentUserPassword,
 
     //preference stuff
     minimumAge: minimumAge,
@@ -87,6 +117,12 @@ function App() {
     setPreferedSkill: setPreferedSkill,
     meetingPreference: meetingPreference,
     setMeetingPreference: setMeetingPreference,
+
+    currentMinimumAge: currentMinimumAge,
+    currentMaximumAge: currentMaximumAge,
+    currentPreferedGender: currentPreferedGender,
+    currentPreferedSkill: currentPreferedSkill,
+    currentMeetingPrefernce: currentMeetingPrefernce,
 
     //community page stuff
     category: category,
