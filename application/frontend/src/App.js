@@ -44,10 +44,12 @@ function App() {
 
   const [category, setCategory] = React.useState('Music');
   const [searchTitle, setSearchTitle] = React.useState('');
-  const [searchCategory, setSearchCategory] = React.useState('');
+  const [searchCategory, setSearchCategory] = React.useState('Music');
   const [postName, setPostName] = React.useState('');
   const [postCategory, setPostCategory] = React.useState('Music');
-  const [screenState, setScreenState] = React.useState('Settings');
+  const [screenState, setScreenState] = React.useState('Community');
+  const [resultTitle, setResultTitle] = React.useState('');
+  const [resultCategory, setResultCategory] = React.useState('');
 
   const stateObj = {
     //user stuff
@@ -64,9 +66,9 @@ function App() {
     phoneNumber: phoneNumber,
     setPhoneNumber: setPhoneNumber,
     artCategory: artCategory,
-    setArtCategory, setArtCategory,
-    skillLevel, skillLevel,
-    setSkillLevel, setSkillLevel,
+    setArtCategory: setArtCategory,
+    skillLevel: skillLevel,
+    setSkillLevel: setSkillLevel,
 
     //account stuff
     userName: userName,
@@ -97,6 +99,10 @@ function App() {
     setPostName: setPostName,
     postCategory: postCategory,
     setPostCategory: setPostCategory,
+    resultTitle: resultTitle,
+    setResultTitle: setResultTitle,
+    resultCategory: resultCategory,
+    setResultCategory: setResultCategory,
 
     //screen stuff
     screenState: screenState,
@@ -109,9 +115,9 @@ function App() {
         <Route path='/' exact component={Home}/>
         <Route path='/login' component={LogIn} />
         <Route path='/signup' component={SignUp} />
-        <Route path="/Settings" component={Settings}/>
-        <Route path="/Community" component={CommunityPage}/>
-        <Route path="/Match" component={MatchingPage}/>
+        <Route path="/Settings" children={Settings(stateObj)}/>
+        <Route path="/Community" children={CommunityPage(stateObj)}/>
+        <Route path="/Match" children={MatchingPage(stateObj)}/>
       </Switch>
     </Router>
   );

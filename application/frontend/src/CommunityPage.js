@@ -6,6 +6,7 @@ import Highlights from './components/Highlights/Highlights';
 import Footer from './components/Footer/Footer';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+
 const CommunityPage = (stateObj) => {
     const postHandler = () => {
         console.log(stateObj.postName);
@@ -17,17 +18,17 @@ const CommunityPage = (stateObj) => {
       const submitHandler = (event) => {
         event.preventDefault();
         alert("You are searching for " +stateObj.searchTitle +" "+ stateObj.searchCategory );
-        axios.get('/searchPost', {params: { post_title: stateObj.searchTitle, post_category: stateObj.searchCategory}}).then(response => {    
-    
-          stateObj.setSearchTitle(response.data[0].post_title);
-          stateObj.setSearchCategory(response.data[0].post_category);
+        axios.get('/searchPost', {params: { post_title: stateObj.searchTitle, post_category: stateObj.searchCategory}}).then(response => {
+
+          stateObj.setResultTitle(response.data[0].post_title);
+          stateObj.setResultCategory(response.data[0].post_category);
     
     
     
     
         }).catch(function (error) {
-          stateObj.setSearchTitle("Not Found");
-          stateObj.setSearchCategory("Not Found");
+          stateObj.setResultTitle("Not Found");
+          stateObj.setResultCategory("Not Found");
         });  
         
       }
@@ -51,7 +52,7 @@ const CommunityPage = (stateObj) => {
               <h4 align='center'>Check out the works of others or post your own work for the world to see!</h4>
               </div>
               <form class="search" onSubmit={submitHandler}>
-                <input class="searchBar" value={stateObj.searchTitle} onChange={e => stateObj.setSearchCategory(e.target.value)} type="text" placeholder="Search"/>
+                <input class="searchBar" onChange={e => stateObj.setSearchTitle(e.target.value)} type="text" placeholder="Search"/>
                 <select class="searchButtons" onChange={e => {stateObj.setSearchCategory(e.target.value);}}>
                   <option value={"Music"}>Music</option>
                   <option value={"Dance"}>Dance</option>
@@ -63,28 +64,30 @@ const CommunityPage = (stateObj) => {
                 <button class="post" onClick={openPost}>Post</button>
               </div>
               <div class="post-popup" id="postform">
-              <form class="post-container" onSubmit={postHandler}>
+                <form class="post-container" onSubmit={postHandler}>
                   <h2>Post Something</h2>
                   <input type="text" onChange={e => stateObj.setPostName(e.target.value)} placeholder="Name" required/>
+                    <div>
+                      <select onChange={e => {stateObj.setPostCategory(e.target.value);}}>
+                        <option >Music</option>
+                        <option >Dance</option>
+                        <option >Art</option>
+                      </select>
+                    </div>
+                  <label htmlFor="post-file">Select file: </label>
+                  <input type="file" id="post-file" name="postFile"/>
                   <div>
-                  <select onChange={e => {stateObj.setPostCategory(e.target.value);}}>
-                    <option >Music</option>
-                    <option >Dance</option>
-                    <option >Art</option>
-                </select>
-                </div>
-                <div>
-                <input type='submit'/>
-                </div>
-                <div>
-                <button onClick={closePost}>Close</button>
-                </div>
+                    <input type='submit'/>
+                  </div>
+                  <div>
+                    <button onClick={closePost}>Close</button>
+                  </div>
                 </form>
               </div>
               <div class="searches" id="display">
                   <h1 >Searches</h1>
-                  <p>Title: {stateObj.searchTitle}</p>
-                  <p>Category: {stateObj.searchCategory}</p>
+                  <p>Title: {stateObj.resultTitle}</p>
+                  <p>Category: {stateObj.resultCategory}</p>
                 </div>
             </header>
             <Highlights />
