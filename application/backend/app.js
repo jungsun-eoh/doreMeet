@@ -38,4 +38,18 @@ app.post('/makePost', (req, res) => {
     });
 });
 
+
+app.get("/recent5", (req, res) => {
+    var todb = "SELECT * FROM communityPage ORDER BY comm_pg_id DESC LIMIT 5";
+    pool.query(todb, (error, result) => {
+        console.log(result)
+    })
+});
+
+
+// var todb = "SELECT * FROM communityPage ORDER BY comm_pg_id DESC LIMIT 5";
+// pool.query(todb, (error, result) => {
+//     console.log(result)
+// })
+
 app.listen(port, () => console.log('app listening on port ' + port));  
