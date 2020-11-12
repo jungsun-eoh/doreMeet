@@ -1,4 +1,4 @@
-export const MenuItems = [
+export const MenuItemsHome = [
     {
         title: 'Company',
         url: '#',
