@@ -41,7 +41,8 @@ class SignUp extends Component {
             <h1 className="heading-signup">Sign Up</h1>
             <p>Please fill the form to create an account with DoReMeet.</p>
             <small> All fields are required. </small>
-
+            <br />
+            <br />
             <div className="input">
                 
                 <table>
@@ -156,7 +157,7 @@ class SignUp extends Component {
                 <label className="sub-heading"> <b> Already have an account? </b> &nbsp;  &nbsp;  </label>
                 <Link to='/login'><Button className='btn' buttonStyle='btn--primary' buttonSize='btn--large'> Log In </Button></Link>
                 </div>
-
+                <br />
 
             </form>
         </div>

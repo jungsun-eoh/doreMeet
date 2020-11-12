@@ -24,20 +24,21 @@
     text-align: center;
     text-decoration: underline;
     padding: 10px 10px;
-    margin-top: 30%;
+    margin-top: 40%;
     font-size: 23px;
 }
 
-@media screen and (max-width: 1600px) {
+@media screen and (max-height: 1200px), screen and (max-width: 2560px){
     .heading-signup{
         color: black;
         position: relative;
         text-align: center;
         text-decoration: underline;
         padding: 10px 10px;
-        margin-top: 60%;
+        margin-top: 72%;
         font-size: 23px;
     }
+    
 }
 
 .sub-heading{
@@ -78,5 +79,5 @@ input[type=select]{
 }
 
 .tab{
-    margin-left: 100px;
+    margin-left: 100px
 }
