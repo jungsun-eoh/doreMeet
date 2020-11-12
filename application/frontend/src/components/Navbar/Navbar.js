@@ -14,12 +14,12 @@ class Navbar extends Component {
     render() {
         return(
             <nav className='NavbarItems'>
-                <Link to='/' > 
+                <a href={'/'}>
                 <h1 className='navbar-logo'><img src="DoReMeetLogo.png" height="30px"/>DoReMeet</h1>
                 <div className='menu-icon' onClick={this.handleClick}>
                     <i className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
                 </div>
-                </Link>
+                </a>
                 <ul className={this.state.clicked ? 'nav-menu active' : 'nav-menu'}>
                     {MenuItems.map((item, index) => {
                         return(
@@ -31,7 +31,7 @@ class Navbar extends Component {
                         )
                     })}
                 </ul>
-                <Link to='/'><Button><b>Log Out</b></Button></Link>
+                <a href={'/'}><Button><b>Log Out</b></Button></a>
             </nav>
         )
     }

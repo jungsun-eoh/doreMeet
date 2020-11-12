@@ -6,7 +6,7 @@ export const MenuItemsHome = [
     },
     {
         title: 'Community',
-        url: '#',
+        url: '/Community',
         cName: 'nav-links',
     },
     {
