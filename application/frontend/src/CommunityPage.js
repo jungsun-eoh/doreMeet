@@ -51,6 +51,10 @@ const CommunityPage = (stateObj) => {
     document.getElementById("postform").style.display = "none";
   }
 
+  function getRecentPosts() {
+    axios.get('/recent5').then(response => {console.log(response)}).catch(function (error) {console.log('fail')});
+  }
+
   return (
     <>
       <Router>
@@ -59,7 +63,7 @@ const CommunityPage = (stateObj) => {
           <header className="App-header">
             <div class="description">
               <h2 align='center' top='30%'> Community Page </h2>
-              <h4 align='center'>Check out the works of others or post your own work for the world to see!</h4>
+              <h4 align='center'>Check out other peoples' art works or post some of your own amazing collaborations with fellow DoReMeet users</h4>
             </div>
             <form class="search" onSubmit={submitHandler}>
               <input class="searchBar" onChange={e => stateObj.setSearchTitle(e.target.value)} type="text" placeholder="Search" />
@@ -70,8 +74,9 @@ const CommunityPage = (stateObj) => {
               </select>
               <input class="searchButtons" type='submit' />
             </form>
-            <div id="postbutton">
-              <button class="post" onClick={openPost}>Post</button>
+            <div className="PostFormat">
+              <label htmlFor="postbutton">Share your work with us here!</label>
+              <button className="post" id="postbutton" onClick={openPost}>Post</button>
             </div>
             <div class="post-popup" id="postform">
               <form class="post-container" onSubmit={postHandler}>

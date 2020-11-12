@@ -17,9 +17,15 @@
   color: #61dafb;
 }
 
+.PostFormat {
+  position: absolute;
+  top: 45%;
+  left: 35%;
+}
+
 .search {
   position: absolute;
-  top:  45%;
+  top:  35%;
   left: 50%;
   transform: translate(-50%,-50%);
   padding: 6px;
@@ -54,12 +60,7 @@
   padding: 10px, 20px;
   border-radius: 4px;
   border: none;
-}
-
-#postbutton{
-  position: fixed;
-  bottom: 4px;
-  right: 10px;
+  margin-left: 10px;
 }
 
 .post-popup{
@@ -80,9 +81,8 @@
 }
 
 .searches{
-  margin-top: 50px; 
-  display: center; 
-  justify-content: center; 
+  margin-top: 50px;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   margin: auto;
@@ -134,7 +134,7 @@
   font-weight: 600;
   background-color:rgb(126,218,216);
   color:black;
-  padding: 10px, 20px;
+  padding: 10px;
   border-radius: 4px;
   border: none;
   cursor: pointer;
