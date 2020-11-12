@@ -8,14 +8,36 @@
     background: transparent; 
 }
 
-.heading{
+.heading-login{
     color: black;
     position: relative;
     text-align: center;
     text-decoration: underline;
     padding: 10px 10px;
-    margin-top: 70%;
+    margin-top: 5%;
     font-size: 23px;
+}
+
+.heading-signup{
+    color: black;
+    position: relative;
+    text-align: center;
+    text-decoration: underline;
+    padding: 10px 10px;
+    margin-top: 30%;
+    font-size: 23px;
+}
+
+@media screen and (max-width: 1600px) {
+    .heading-signup{
+        color: black;
+        position: relative;
+        text-align: center;
+        text-decoration: underline;
+        padding: 10px 10px;
+        margin-top: 60%;
+        font-size: 23px;
+    }
 }
 
 .sub-heading{
@@ -53,4 +75,8 @@ input[type=select]{
     display: inline-block;
     border: 1px solid rgb(77, 75, 75);
     box-sizing: border-box;
+}
+
+.tab{
+    margin-left: 100px;
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button } from '../components/Navbar/Buttons';
 import NavbarHome from '../components/Navbar/NavbarHome';
 import Footer from '../components/Footer/Footer';
-//import { Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Auth.css';
 
 class SignUp extends Component {
@@ -38,7 +38,7 @@ class SignUp extends Component {
         <NavbarHome />
         <div className="container">
             <form onSubmit={console.log('Submit')}>
-            <h1 className="heading">Sign Up</h1>
+            <h1 className="heading-signup">Sign Up</h1>
             <p>Please fill the form to create an account with DoReMeet.</p>
             <small> All fields are required. </small>
 
@@ -66,7 +66,7 @@ class SignUp extends Component {
             </div>
 
             <div className="input">
-                <label htmlFor="dob" className="sub-heading"> <b> Date of Birth (MM/DD/YYYY)</b>
+                <label htmlFor="dob" className="sub-heading"> <b> Date of Birth </b>
                 <input type="date" id="dob" placeholder="Enter Date of Birth" required onChange={this.handleChange}/></label>
             </div>
 
@@ -151,7 +151,13 @@ class SignUp extends Component {
             </div>
             
             <p>By creating an account you agree to our Terms &amp; Privacy.</p>
-            &nbsp; 
+            <br /><br />
+            <div className="input">
+                <label className="sub-heading"> <b> Already have an account? </b> &nbsp;  &nbsp;  </label>
+                <Link to='/login'><Button className='btn' buttonStyle='btn--primary' buttonSize='btn--large'> Log In </Button></Link>
+                </div>
+
+
             </form>
         </div>
         <Footer />

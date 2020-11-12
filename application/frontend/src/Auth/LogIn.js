@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button } from '../components/Navbar/Buttons';
 import NavbarHome from '../components/Navbar/NavbarHome';
 import Footer from '../components/Footer/Footer';
+import { Link } from 'react-router-dom';
 import './Auth.css';
 
 class LogIn extends Component {
@@ -29,7 +30,7 @@ class LogIn extends Component {
             <NavbarHome />
                 <div className="container">
                     <form className="white" onSubmit={this.handleSubmit}>
-                        <h1 className="heading">Log In</h1>
+                        <h1 className="heading-login">Log In</h1>
 
                         <div className="input">
                             <label htmlFor="username" className="sub-heading"> <b> Username </b></label>
@@ -50,7 +51,22 @@ class LogIn extends Component {
                         &nbsp; 
 
                         <div className="input">
-                            <label><input type="checkbox" checked="checked" name="remember" /> Remember Me </label>
+                            <table>
+                                <tr> 
+                                    <td>
+                                        <label><input type="checkbox" checked="checked" name="remember" /> Remember Me </label>
+                                    </td>
+                                    <pre className='tab'></pre>
+                                    <td>
+                                        <Link to='/'><label> Forgot Password </label></Link>
+                                    </td>
+                            </tr>
+                            </table>
+                        </div>
+                        <br /><br />
+                        <div className="input">
+                           <label className="sub-heading"> <b> Don't have an account yet? </b> &nbsp;  &nbsp;  </label>
+                           <Link to='/signup'><Button className='btn' buttonStyle='btn--primary' buttonSize='btn--large'> Sign Up! </Button></Link>
                         </div>
                     </form>
                 </div>
