@@ -14,6 +14,7 @@ class SignUp extends Component {
         gender: '',
         dob: '',
         phone: '',
+        art:'',
         skill: '',
         password: '',
         confirmpassword: '',
@@ -88,7 +89,7 @@ class SignUp extends Component {
             <div className="input">
                 <table><tr><td>
                 <label htmlFor="art" className="sub-heading"> <b> Art Category </b>&nbsp;  &nbsp; &nbsp;</label>
-                <select type="radio" required onChange={this.handleChange} required source="[id=art]">
+                <select type="radio" required onChange={this.handleChange} source="[id=art]">
                 <option value={"M"}>Music</option>
                 <option value={"D"}>Dance</option>
                 <option value={"A"}>Art</option>
@@ -102,7 +103,7 @@ class SignUp extends Component {
 
             <div className="input">
                 <table><tr><td>
-                <label htmlFor=""className="sub-heading"> <b> Skill Level </b> &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; </label>
+                <label htmlFor="skill" className="sub-heading"> <b> Skill Level </b> &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; </label>
                 </td> <td> 
                 <select type="radio" required onChange={this.handleChange} source="[id=skill]">
                 <option value={"B"}>Begginer</option>
@@ -123,7 +124,7 @@ class SignUp extends Component {
             </div>
 
             <br />
-            
+
             <div className="input">
                 <label htmlFor="phone" className="sub-heading"> <b> Phone Number </b>
                 <input type="phone" id='phone' placeholder="Enter Phone Number" required onChange={this.handleChange} /></label>
