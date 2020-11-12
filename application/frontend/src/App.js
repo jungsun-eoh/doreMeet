@@ -6,7 +6,8 @@ import SignUp from './Auth/SignUp';
 import CommunityPage from './CommunityPage';
 import Settings from './Settings';
 import MatchingPage from './MatchingPage';
-import Chat from './Chat'
+import Chat from './Chat';
+import Profile from './Profile';
 import {Route, BrowserRouter as Router, Switch, Link} from 'react-router-dom';
 function App() {
 
@@ -169,6 +170,7 @@ function App() {
         <Route path="/Community" children={CommunityPage(stateObj)}/>
         <Route path="/Match" children={MatchingPage(stateObj)}/>
         <Route path="/Chat" children={Chat(stateObj)}/>
+        <Route path="/Profile" children={Profile(stateObj)}/>
       </Switch>
     </Router>
   );

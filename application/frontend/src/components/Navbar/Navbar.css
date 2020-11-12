@@ -14,6 +14,11 @@
     background: rgb(219, 250, 246);
 }
 
+.NavbarItems a{
+ text-decoration: none;
+ color: black;
+}
+
 .navbar-logo {
     color: #000000;
     justify-self: start;

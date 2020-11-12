@@ -15,8 +15,8 @@ export const MenuItems = [
         cName: 'nav-links',
     },
     {
-        title: 'Settings',
-        url: '/Settings',
+        title: 'Profile',
+        url: '/Profile',
         cName: 'nav-links',
     },
     {

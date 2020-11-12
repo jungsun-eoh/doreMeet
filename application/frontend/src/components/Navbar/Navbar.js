@@ -31,6 +31,7 @@ class Navbar extends Component {
                         )
                     })}
                 </ul>
+                <a href='/Settings'><i class="fas fa-cog" style={{paddingRight:4}}></i></a>
                 <a href={'/'}><Button><b>Log Out</b></Button></a>
             </nav>
         )
