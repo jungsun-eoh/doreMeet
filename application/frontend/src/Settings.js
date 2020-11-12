@@ -86,7 +86,7 @@ const Settings = (stateObj) => {
                         <select onChange={e => stateObj.setPreferedSkillLevel(e.target.value)} id = "preferedSkill">
                             <option value={"B"}>Begginer</option>
                             <option value={"I"}>Intermediate</option>
-                            <option value={"A"}>Advanced</option>
+                            <option value={"E"}>Expert</option>
                         </select> 
                         <p>Your prefered skill level for the people you will match with</p><br/>
 

@@ -45,11 +45,11 @@ class SignUp extends Component {
                 
                 <table>
                     <tr><td>
-                    <label htmlFor="firstname" className="sub-heading"> <b> First Name </b>
-                <input type="name" id='firstname' placeholder="Enter First Name" required onChange={this.handleChange} /></label>
+                    <label htmlFor="firstname" className="sub-heading"> <b> First Name </b></label>
+                <input type="name" id='firstname' placeholder="Enter First Name" required onChange={this.handleChange} />
                 </td><td>
-                <label htmlFor="lastname" className="sub-heading"> <b> Last Name </b>
-                <input type="name" id='lastname' placeholder="Enter Last Name" required onChange={this.handleChange} /></label>
+                <label htmlFor="lastname" className="sub-heading"> <b> Last Name </b></label>
+                <input type="name" id='lastname' placeholder="Enter Last Name" required onChange={this.handleChange} />
                 </td></tr>
                 </table>
             </div>
@@ -87,12 +87,27 @@ class SignUp extends Component {
 
             <div className="input">
                 <table><tr><td>
-                <label htmlFor=""className="sub-heading"> <b> Skill Level </b> &nbsp;  &nbsp; &nbsp; </label>
+                <label htmlFor="art" className="sub-heading"> <b> Art Category </b>&nbsp;  &nbsp; &nbsp;</label>
+                <select type="radio" required onChange={this.handleChange} required source="[id=art]">
+                <option value={"M"}>Music</option>
+                <option value={"D"}>Dance</option>
+                <option value={"A"}>Art</option>
+                <option value={"C"}>Cinema</option>
+                <option value={"P"}>Photography</option></select>
+                </td>
+                </tr></table>
+            </div>
+
+            <br />
+
+            <div className="input">
+                <table><tr><td>
+                <label htmlFor=""className="sub-heading"> <b> Skill Level </b> &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; </label>
                 </td> <td> 
                 <select type="radio" required onChange={this.handleChange} source="[id=skill]">
                 <option value={"B"}>Begginer</option>
                 <option value={"I"}>Intermediate</option>
-                <option value={"A"}>Advanced</option>
+                <option value={"E"}>Expert</option>
                 <option value={"1"}>1</option>
                 <option value={"2"}>2</option>
                 <option value={"3"}>3</option>
@@ -103,10 +118,12 @@ class SignUp extends Component {
                 <option value={"8"}>8</option>
                 <option value={"9"}>9</option>
                 <option value={"10"}>10</option>
-                </select>
-                </td></tr></table>
+                </select></td>
+                </tr></table>
             </div>
 
+            <br />
+            
             <div className="input">
                 <label htmlFor="phone" className="sub-heading"> <b> Phone Number </b>
                 <input type="phone" id='phone' placeholder="Enter Phone Number" required onChange={this.handleChange} /></label>
