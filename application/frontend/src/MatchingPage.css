@@ -1,0 +1,54 @@
+.MatchProfile {
+    display: flex;
+    max-width : 1120px;
+    flex-wrap: wrap;
+}
+
+.break{
+    flex-basis: 100%;
+    height: 0;
+}
+
+.ProfilePicture {
+    border-radius: 10px;
+    margin-right: 10px;
+}
+
+.UserInformation {
+    font-size: 20px;
+}
+
+.Media{
+    flex-grow: 1;
+}
+.UserChoices {
+    flex-grow: 1;
+}
+
+.ConnectButton {
+    border-radius: 10px;
+    height: 25px;
+    width: 70px;
+    background-color: rgb(126,218,216);
+    border: none;
+    outline: none;
+}
+
+.ConnectButton:hover {
+    background-color: rgb(106,198,196);
+    cursor: pointer;
+}
+
+.PassButton{
+    border-radius: 10px;
+    height: 25px;
+    width: 70px;
+    background-color: rgb(255,182,193);
+    border: none;
+    outline: none;
+}
+
+.PassButton:hover{
+    background-color: rgb(235, 162, 173);
+    cursor: pointer;
+}

@@ -63,9 +63,11 @@
 }
 
 .post-popup{
+  position: fixed;
+  right:40%;
+  top:30%;
   display : none;
   text-align: center;
-  margin: auto;
   z-index: 3;
 }
 
@@ -90,4 +92,62 @@
   padding-top: 30px;
   padding-bottom: 30px;
   background-color: rgb(219, 250, 246);
+}
+
+.settingsForm{
+  padding-top: 20px;
+  width: 480px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.settingsForm label{
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.settingsForm p{
+  font-size: 12px;
+  min-height: 17px;
+  color: #656c75;
+  padding-top: 3px;
+}
+
+.settingsForm h4{
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.settingsForm input[type=email]{
+  margin:0;
+}
+
+.settingsForm input[type=password]{
+  margin:0;
+}
+
+.settingsForm input[type=submit]{
+  margin-bottom: 20px;
+  height: 40px;
+  width: 200px;
+  font-size: 20px;
+  font-weight: 600;
+  background-color:rgb(126,218,216);
+  color:black;
+  padding: 10px, 20px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+.settingsFields{
+  width: 480px;
+  background-color: #fafbfc;
+  padding: 5px 12px;
+  font-size: 14px;
+  line-height: 20px;
+  vertical-align: middle;
+  border: 1px solid;
+  border-radius: 6px;
+  outline:none;
 }

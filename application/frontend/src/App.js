@@ -1,23 +1,135 @@
 import React from 'react';
 import './App.css';
-import Navbar from './LandingPage/components/Navbar/Navbar';
-import Highlights from './LandingPage/components/Highlights/Highlights';
-import Footer from './LandingPage/components/Footer/Footer';
-import axios from 'axios';
-import { BrowserRouter as Router } from 'react-router-dom';
+import Home from './Home';
+import LogIn from './Auth/LogIn';
+import SignUp from './Auth/SignUp';
+import CommunityPage from './CommunityPage';
+import Settings from './Settings';
+import MatchingPage from './MatchingPage';
+import {Route, BrowserRouter as Router, Switch, Link} from 'react-router-dom';
 function App() {
 
-  const [name, setName] = React.useState('');
+
+  //Works for Home Page, Auth Pages
+  // return (
+  //   <>
+  //   <BrowserRouter>
+  //   <Navbar />
+  //     <Switch>
+  //       <Route path='/' exact component={Home}/>
+  //       <Route path='/login' component={LogIn} />
+  //       <Route path='/signup' component={SignUp} />
+  //     </Switch>
+  //   </BrowserRouter>
+  //   </>
+  // );
+
+  const [firstName, setFirstName] = React.useState('');
+  const [lastName, setLastName] = React.useState('');
+  const [gender, setGender] = React.useState('');
+  const [DOB, setDOB] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [phoneNumber, setPhoneNumber] = React.useState('');
+  const [artCategory, setArtCategory] = React.useState('');
+  const [skillLevel, setSkillLevel] = React.useState('');
+
+  const [currentFirstName, setCurrentFirstName] = React.useState('');
+  const [currentLastName, setCurrentLastName] = React.useState('');
+  const [currentGender, setCurrentGender] = React.useState('');
+  const [currentDOB, setCurrentDOB] = React.useState('');
+  const [currentEmail, setCurrentEmail] = React.useState('');
+  const [currentPhoneNumber, setCurrentPhoneNumber] = React.useState('');
+  const [currentArtCategory, setCurrentArtCategory] = React.useState('');
+  const [currentSkillLevel, setCurrentSkillLevel] = React.useState('');
+
+  const [userName, setUserName] = React.useState('');
+  const [userPassword, setUserPassword] = React.useState('');
+
+  const [currentUserName, setCurrentUserName] = React.useState('');
+  const [currentUserPassword, setCurrentUserPassword] = React.useState('');
+
+  const [minimumAge, setMinimumAge] = React.useState('');
+  const [maximumAge, setMaximumAge] = React.useState('');
+  const [preferedGender, setPreferedGender] = React.useState('');
+  const [preferedSkill, setPreferedSkill] = React.useState('');
+  const [meetingPreference, setMeetingPreference] = React.useState('');
+
+  const [currentMinimumAge, setCurrentMinimumAge] = React.useState('');
+  const [currentMaximumAge, setCurrentMaximumAge] = React.useState('');
+  const [currentPreferedGender, setCurrentPreferedGender] = React.useState('');
+  const [currentPreferedSkill, setCurrentPreferedSkill] = React.useState('');
+  const [currentMeetingPrefernce, setCurrentMeetingPrefernce] = React.useState('');
+
   const [category, setCategory] = React.useState('Music');
   const [searchTitle, setSearchTitle] = React.useState('');
-  const [searchCategory, setSearchCategory] = React.useState('');
+  const [searchCategory, setSearchCategory] = React.useState('Music');
   const [postName, setPostName] = React.useState('');
   const [postCategory, setPostCategory] = React.useState('Music');
+  const [postFile, setPostFile] = React.useState('');
+  const [screenState, setScreenState] = React.useState('Community');
+  const [resultTitle, setResultTitle] = React.useState('');
+  const [resultCategory, setResultCategory] = React.useState('');
+  const [resultFile, setResultFile] = React.useState('');
 
+  const [file, setFile] = React.useState('');
+  const [fileName, setFileName] = React.useState('');
 
   const stateObj = {
-    name: name,
-    setName: setName,
+    //user stuff
+    firstName: firstName,
+    setFirstName: setFirstName,
+    lastName: lastName,
+    setLastName: setLastName,
+    gender: gender,
+    setGender: setGender,
+    DOB: DOB,
+    setDOB: setDOB,
+    email: email,
+    setEmail: setEmail,
+    phoneNumber: phoneNumber,
+    setPhoneNumber: setPhoneNumber,
+    artCategory: artCategory,
+    setArtCategory: setArtCategory,
+    skillLevel: skillLevel,
+    setSkillLevel: setSkillLevel,
+
+    currentFirstName: currentFirstName,
+    currentLastName: currentLastName,
+    currentGender: currentGender,
+    currentDOB: currentDOB,
+    currentEmail: currentEmail,
+    currentPhoneNumber: currentPhoneNumber,
+    currentArtCategory: currentArtCategory,
+    currentSkillLevel: currentSkillLevel,
+
+    //account stuff
+    userName: userName,
+    setUserName: setUserName,
+    userPassword: userPassword,
+    setUserPassword: setUserPassword,
+
+    currentUserName: currentUserName,
+    currentUserPassword: currentUserPassword,
+
+    //preference stuff
+    minimumAge: minimumAge,
+    setMinimumAge: setMinimumAge,
+    maximumAge: maximumAge,
+    setMaximumAge: setMaximumAge,
+    preferedGender: preferedGender,
+    setPreferedGender: setPreferedGender,
+    preferedSkill: preferedSkill,
+    setPreferedSkill: setPreferedSkill,
+    meetingPreference: meetingPreference,
+    setMeetingPreference: setMeetingPreference,
+
+    currentMinimumAge: currentMinimumAge,
+    currentMaximumAge: currentMaximumAge,
+    currentPreferedGender: currentPreferedGender,
+    currentPreferedSkill: currentPreferedSkill,
+    currentMeetingPrefernce: currentMeetingPrefernce,
+
+    //community page stuff
     category: category,
     setCategory: setCategory,
     searchTitle: searchTitle,
@@ -27,105 +139,46 @@ function App() {
     postName: postName,
     setPostName: setPostName,
     postCategory: postCategory,
-    setPostCategory: setPostCategory
+    setPostCategory: setPostCategory,
+    resultTitle: resultTitle,
+    setResultTitle: setResultTitle,
+    resultCategory: resultCategory,
+    setResultCategory: setResultCategory,
+    file: file,
+    setFile: setFile,
+    fileName: fileName,
+    setFileName: setFileName,
+    resultFile: resultFile,
+    setResultFile: setResultFile,
+    postFile: postFile,
+    setPostFile: setPostFile,
 
+    //screen stuff
+    screenState: screenState,
+    setScreenState: setScreenState
   }
 
-  const postHandler = () => {
-    console.log(stateObj.postName);
+  return(
+    <Router>
+      <Switch>
+        <Route path='/' exact component={Home}/>
+        <Route path='/login' component={LogIn} />
+        <Route path='/signup' component={SignUp} />
+        <Route path="/Settings" children={Settings(stateObj)}/>
+        <Route path="/Community" children={CommunityPage(stateObj)}/>
+        <Route path="/Match" children={MatchingPage(stateObj)}/>
+      </Switch>
+    </Router>
+  );
 
-    axios.post('/makePost', { post_title: stateObj.postName, post_category: stateObj.postCategory}).then(response => {console.log('fail')});
-
-  }
-
-  const submitHandler = (event) => {
-    event.preventDefault();
-    alert("You are searching for " +stateObj.name +" "+ stateObj.category );
-    axios.get('/searchPost', {params: { post_title: stateObj.name, post_category: stateObj.category}}).then(response => {    
-
-      stateObj.setSearchTitle(response.data[0].post_title);
-      stateObj.setSearchCategory(response.data[0].post_category);
-
-
-
-
-    }).catch(function (error) {
-      stateObj.setSearchTitle("Not Found");
-      stateObj.setSearchCategory("Not Found");
-    });  
-    
-  }
-
-  const openPost = () => {
-    document.getElementById("postform").style.display = "block";
-  }
-
-  const closePost = () => {
-    document.getElementById("postform").style.display = "none";
-  }
-
-  /*
-  <option value={stateObj.category} onChange={e => stateObj.setCategory(e.target.value)}>Music</option>
-  <option value={stateObj.category} onChange={e => stateObj.setCategory(e.target.value)}>Dance</option>
-  <option value={stateObj.category} onChange={e => stateObj.setCategory(e.target.value)}>Art</option>
-   */
-  const HomePage = (stateObj) => {
-    return(
-      <>
-      <Router>
-      <div className="App">
-        <Navbar />
-        <header className="App-header">
-          <div class="description">
-          <h2 align='center' top='30%'> Community Page </h2>
-          <h4 align='center'>Check out the works of others or post your own work for the world to see!</h4>
-          </div>
-          <form class="search" onSubmit={submitHandler}>
-            <input class="searchBar" value={stateObj.name} onChange={e => stateObj.setName(e.target.value)} type="text" placeholder="Search"/>
-            <select class="searchButtons" onChange={e => {stateObj.setCategory(e.target.value);}}>
-              <option value={"Music"}>Music</option>
-              <option value={"Dance"}>Dance</option>
-              <option value={"Art"}>Art</option>
-            </select>
-            <input class="searchButtons" type='submit'/>
-          </form>
-          <div id="postbutton">
-            <button class="post" onClick={openPost}>Post</button>
-          </div>
-          <div class="post-popup" id="postform">
-          <form class="post-container" onSubmit={postHandler}>
-              <h2>Post Something</h2>
-              <input type="text" onChange={e => stateObj.setPostName(e.target.value)} placeholder="Name" required/>
-              <div>
-              <select onChange={e => {stateObj.setPostCategory(e.target.value);}}>
-                <option >Music</option>
-                <option >Dance</option>
-                <option >Art</option>
-            </select>
-            </div>
-            <div>
-            <input type='submit'/>
-            </div>
-            <div>
-            <button onClick={closePost}>Close</button>
-            </div>
-            </form>
-          </div>
-          <div class="searches" id="display">
-              <h1 >Searches</h1>
-              <p>Title: {stateObj.searchTitle}</p>
-              <p>Category: {stateObj.searchCategory}</p>
-            </div>
-        </header>
-        <Highlights />
-      </div>
-      <Footer />
-      </Router>
-      </>
-    );
-  }
-
-  return HomePage(stateObj);
+  // switch(screenState){
+  //   case 'Community':
+  //     return CommunityPage(stateObj);
+  //   case 'Settings':
+  //     return Settings(stateObj);
+  //   case 'Match':
+  //     return MatchingPage(stateObj);
+  // }
 }
 
 export default App;
