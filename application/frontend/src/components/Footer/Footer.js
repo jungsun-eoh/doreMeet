@@ -29,10 +29,10 @@ function Footer() {
           <div class='footer-link-items'>
             <a href ='/FAQ'> <p> FAQs </p></a>
             <a href='/Guidelines'> <p> Guidelines </p></a>
-            <a href to='/sign-up'> <p> Contact Us </p></a>
-            <a href to='/sign-up'> <p> Terms &amp; Conditions </p></a>
-            <a href to='/sign-up'> <p> Privacy Policy </p></a>
-            <a href to='/sign-up'> <p> Careers </p></a>
+            <a href='/ContactUs'> <p> Contact Us </p></a>
+            <a href='/Terms'> <p> Terms &amp; Conditions </p></a>
+            <a href='/Privacy'> <p> Privacy Policy </p></a>
+            <a href='/Careers'> <p> Careers </p></a>
           </div>
         </div>
       </div>

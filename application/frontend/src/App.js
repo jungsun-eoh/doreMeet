@@ -5,6 +5,10 @@ import LogIn from './Auth/LogIn';
 import SignUp from './Auth/SignUp';
 import CommunityPage from './CommunityPage';
 import FAQ from './faq';
+import Terms from './Terms';
+import Privacy from './Privacy';
+import Careers from './Careers';
+import ContactUs from './ContactUs';
 import Guidelines from './Guidelines'
 import Settings from './Settings';
 import MatchingPage from './MatchingPage';
@@ -155,6 +159,10 @@ function App() {
         <Route path='/signup' component={SignUp} />
         <Route path='/FAQ' component={FAQ} />
         <Route path='/Guidelines' component={Guidelines} />
+        <Route path='/Terms' component={Terms} />
+        <Route path='/Privacy' component={Privacy} />
+        <Route path='/Careers' component={Careers} />
+        <Route path='/ContactUs' component={ContactUs} />
         <Route path="/Settings" children={Settings(stateObj)}/>
         <Route path="/Community" children={CommunityPage(stateObj)}/>
         <Route path="/Match" children={MatchingPage(stateObj)}/>
