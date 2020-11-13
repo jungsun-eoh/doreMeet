@@ -4,27 +4,14 @@ import Home from './Home';
 import LogIn from './Auth/LogIn';
 import SignUp from './Auth/SignUp';
 import CommunityPage from './CommunityPage';
+import FAQ from './faq';
+import Guidelines from './Guidelines'
 import Settings from './Settings';
 import MatchingPage from './MatchingPage';
 import Chat from './Chat';
 import Profile from './Profile';
 import {Route, BrowserRouter as Router, Switch, Link} from 'react-router-dom';
 function App() {
-
-
-  //Works for Home Page, Auth Pages
-  // return (
-  //   <>
-  //   <BrowserRouter>
-  //   <Navbar />
-  //     <Switch>
-  //       <Route path='/' exact component={Home}/>
-  //       <Route path='/login' component={LogIn} />
-  //       <Route path='/signup' component={SignUp} />
-  //     </Switch>
-  //   </BrowserRouter>
-  //   </>
-  // );
 
   const [firstName, setFirstName] = React.useState('');
   const [lastName, setLastName] = React.useState('');
@@ -166,6 +153,8 @@ function App() {
         <Route path='/' exact component={Home}/>
         <Route path='/login' component={LogIn} />
         <Route path='/signup' component={SignUp} />
+        <Route path='/FAQ' component={FAQ} />
+        <Route path='/Guidelines' component={Guidelines} />
         <Route path="/Settings" children={Settings(stateObj)}/>
         <Route path="/Community" children={CommunityPage(stateObj)}/>
         <Route path="/Match" children={MatchingPage(stateObj)}/>
