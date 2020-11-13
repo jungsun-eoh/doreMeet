@@ -49,12 +49,14 @@ const Settings = (stateObj) => {
                             <option value={"Music"}>Music</option>
                             <option value={"Dance"}>Dance</option>
                             <option value={"Art"}>Art</option>
-                        </select> <br/>
+                            <option value={"Cinema"}>Cinema</option>
+                            <option value={"Photography"}>Photography</option>
+                            </select><br/>
                         <p>When switching categories make sure to update your skill level and content</p><br/>
 
                         <label for="skill">Skill Level Currently: {stateObj.currentSkillLevel}</label><br/>
                         <select onChange={e => stateObj.setSkillLevel(e.target.value)} id = "skill">
-                            <option value={"B"}>Begginer</option>
+                            <option value={"B"}>Beginner</option>
                             <option value={"I"}>Intermediate</option>
                             <option value={"A"}>Advanced</option>
                         </select> 

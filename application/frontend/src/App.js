@@ -165,7 +165,7 @@ function App() {
         <Route path='/Privacy' component={Privacy} />
         <Route path='/Careers' component={Careers} />
         <Route path='/Pricing' component={Pricing} />
-        <Route path='/Company' component={Company} />
+        <Route path='/Company' component={Careers} />
         <Route path='/ContactUs' component={ContactUs} />
         <Route path="/Settings" children={Settings(stateObj)}/>
         <Route path="/Community" children={CommunityPage(stateObj)}/>

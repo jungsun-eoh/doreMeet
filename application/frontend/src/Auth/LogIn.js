@@ -15,7 +15,7 @@ class LogIn extends Component {
     //placeholder functionality - to be updated
     handleChange = (e) => {
       this.setState({
-        [e.target.id]: e.target.value
+        [e.target.name]: e.target.value
       })
     }
 
@@ -29,17 +29,17 @@ class LogIn extends Component {
             <>
             <NavbarHome />
                 <div className="container">
-                    <form className="white" onSubmit={this.handleSubmit}>
+                    <form onSubmit={this.handleSubmit}>
                         <h1 className="heading-login">Log In</h1>
 
                         <div className="input">
                             <label htmlFor="username" className="sub-heading"> <b> Username </b></label>
-                            <input type="username" id='username' placeholder="Enter Username" required onChange={this.handleChange} />
+                            <input type="username" name='username'  value={this.state.username} placeholder="Enter Username" required onChange={this.handleChange} />
                         </div>
 
                         <div className="input">
                             <label htmlFor="password" className="sub-heading"> <b> Password </b></label>
-                            <input type="password" id='password' placeholder="Enter Password" required onChange={this.handleChange} />
+                            <input type="password" name='password'  value={this.state.password} placeholder="Enter Password" required onChange={this.handleChange} />
                         </div>
 
                         &nbsp; 
