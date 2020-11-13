@@ -105,3 +105,21 @@
     flex-basis: 100%;
     height: 0;
 }
+
+@media only screen and (max-width: 1680px) {
+    .ProfilePicture {
+        max-width: 600px;
+    }
+    .UserInformation {
+        width: 40%;
+    }
+    .ConnectButton, .PassButton {
+        width: 30%;
+    }
+}
+
+@media only screen and (max-width: 1280px) {
+    .ProfilePicture {
+        max-width: 500px;
+    }
+}
