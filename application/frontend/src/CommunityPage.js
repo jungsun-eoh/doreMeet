@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
+import './CommunityPage.css';
 import axios from 'axios';
 import Navbar from './components/Navbar/Navbar';
 import Highlights from './components/Highlights/Highlights';
@@ -51,9 +52,20 @@ const CommunityPage = (stateObj) => {
     document.getElementById("postform").style.display = "none";
   }
 
-  function getRecentPosts() {
-    axios.get('/recent5').then(response => {console.log(response)}).catch(function (error) {console.log('fail')});
-  }
+  useEffect(() => {
+    axios.get('/recent5').then(response => {
+      console.log(response.data[0]);
+      let _html = "";
+      response.data.forEach(post => {_html += `<div class="RecentPostsFormat">
+                <img class="PostImage" src="assets/postImages/${post.post_file}" alt="Post Image"> \
+                <p class="PostTitle">${post.post_title}</p>
+                <p class="PostCategory">${post.post_category}</p>
+                </div>`;})
+      document.getElementById("recent-posts").innerHTML = _html;
+    }).catch(function (error) {
+      console.log('fail')
+    });
+  });
 
   return (
     <>
@@ -65,46 +77,51 @@ const CommunityPage = (stateObj) => {
               <h2 align='center' top='30%'> Community Page </h2>
               <h4 align='center'>Check out other peoples' art works or post some of your own amazing collaborations with fellow DoReMeet users</h4>
             </div>
-            <form class="search" onSubmit={submitHandler}>
-              <input class="searchBar" onChange={e => stateObj.setSearchTitle(e.target.value)} type="text" placeholder="Search" />
-              <select class="searchButtons" onChange={e => { stateObj.setSearchCategory(e.target.value); }}>
-                <option value={"Music"}>Music</option>
-                <option value={"Dance"}>Dance</option>
-                <option value={"Art"}>Art</option>
-              </select>
-              <input class="searchButtons" type='submit' />
-            </form>
-            <div className="PostFormat">
-              <label htmlFor="postbutton">Share your work with us here!</label>
-              <button className="post" id="postbutton" onClick={openPost}>Post</button>
-            </div>
-            <div class="post-popup" id="postform">
-              <form class="post-container" onSubmit={postHandler}>
-                <h2>Post Something</h2>
-                <input type="text" onChange={e => stateObj.setPostName(e.target.value)} placeholder="Name" required />
-                <div>
-                  <select onChange={e => { stateObj.setPostCategory(e.target.value); }}>
-                    <option >Music</option>
-                    <option >Dance</option>
-                    <option >Art</option>
-                  </select>
-                </div>
-                <label htmlFor="post-file">Select file: </label>
-                {/* <input type="file" id="post-file" name="postFile"/> */}
-                <input type='file' className='custom-file-input' id='customFile' onChange={onChange} />
-                <div>
-                  <input type='submit' />
-                </div>
-                <div>
-                  <button onClick={closePost}>Close</button>
-                </div>
-              </form>
-            </div>
-            <div class="searches" id="display">
-              <h1 >Searches</h1>
-              <p>Title: {stateObj.resultTitle}</p>
-              <p>Category: {stateObj.resultCategory}</p>
-              {<img style={{ width: '100%' }} src={`${stateObj.resultFile}`} alt='' />}
+            <div class="PageContainer">
+              <div class="SearchContainer">
+                <form class="search" onSubmit={submitHandler}>
+                  <input class="searchBar" onChange={e => stateObj.setSearchTitle(e.target.value)} type="text" placeholder="Search" />
+                  <select class="searchButtons" onChange={e => { stateObj.setSearchCategory(e.target.value); }}>
+                    <option value={"Music"}>Music</option>
+                    <option value={"Dance"}>Dance</option>
+                    <option value={"Art"}>Art</option>
+                 </select>
+                  <input class="searchButtons" type='submit' />
+                </form>
+              </div>
+              <div className="PostFormat">
+                <label htmlFor="postbutton">Share your work with us here!</label>
+                <button className="post" id="postbutton" onClick={openPost}>Post</button>
+              </div>
+              <div class="post-popup" id="postform">
+                <form class="post-container" onSubmit={postHandler}>
+                  <h2>Post Something</h2>
+                  <input type="text" onChange={e => stateObj.setPostName(e.target.value)} placeholder="Name" required />
+                  <div>
+                    <select onChange={e => { stateObj.setPostCategory(e.target.value); }}>
+                     <option >Music</option>
+                     <option >Dance</option>
+                     <option >Art</option>
+                    </select>
+                 </div>
+                  <label htmlFor="post-file">Select file: </label>
+                  <input type='file' className='custom-file-input' id='customFile' onChange={onChange} />
+                  <div>
+                   <input type='submit' />
+                 </div>
+                  <div>
+                   <button onClick={closePost}>Close</button>
+                  </div>
+                </form>
+             </div>
+              <div class="RecentPosts" id="recent-posts">
+              </div>
+              <div class="searches" id="display">
+                <h1 >Searches</h1>
+                <p>Title: {stateObj.resultTitle}</p>
+                <p>Category: {stateObj.resultCategory}</p>
+                {<img style={{ width: '100%' }} src={`${stateObj.resultFile}`} alt='' />}
+             </div>
             </div>
           </header>
           <Highlights />
