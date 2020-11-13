@@ -8,6 +8,8 @@ import FAQ from './faq';
 import Terms from './Terms';
 import Privacy from './Privacy';
 import Careers from './Careers';
+import Pricing from './Pricing';
+import Company from './Company';
 import ContactUs from './ContactUs';
 import Guidelines from './Guidelines'
 import Settings from './Settings';
@@ -162,6 +164,8 @@ function App() {
         <Route path='/Terms' component={Terms} />
         <Route path='/Privacy' component={Privacy} />
         <Route path='/Careers' component={Careers} />
+        <Route path='/Pricing' component={Pricing} />
+        <Route path='/Company' component={Company} />
         <Route path='/ContactUs' component={ContactUs} />
         <Route path="/Settings" children={Settings(stateObj)}/>
         <Route path="/Community" children={CommunityPage(stateObj)}/>
