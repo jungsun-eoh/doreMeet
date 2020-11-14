@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { Button } from '../components/Navbar/Buttons';
 import NavbarHome from '../components/Navbar/NavbarHome';
 import Footer from '../components/Footer/Footer';
@@ -8,7 +9,7 @@ import './Auth.css';
 class LogIn extends Component {
 
     state = {
-      email: '',
+      username: '',
       password: ''
     }
 
@@ -22,6 +23,13 @@ class LogIn extends Component {
     handleSubmit = (e) => {
       e.preventDefault();
       console.log(this.state);
+    }
+
+    login = e =>{
+        e.preventDefault();
+        axios.post('/login', this.state).then(response =>{
+
+        })
     }
 
     render(){
@@ -45,7 +53,7 @@ class LogIn extends Component {
                         &nbsp; 
 
                         <div className="input">
-                            <Button className='btn' buttonStyle='btn--primary' buttonSize='btn--large'> Log In </Button>
+                            <Button className='btn' buttonStyle='btn--primary' buttonSize='btn--large' onClick={this.login}> Log In </Button>
                         </div>
 
                         &nbsp; 

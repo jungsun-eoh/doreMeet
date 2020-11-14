@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { Button } from './Buttons';
 import { MenuItems } from './MenuItems';
 //import { Link } from 'react-router-dom';
@@ -9,6 +10,13 @@ class Navbar extends Component {
 
     handleClick = () => {
         this.setState({clicked: !this.state.clicked})
+    }
+
+    logout = e =>{
+        e.preventDefault();
+        axios.post('/logout').then(response =>{
+
+        })
     }
 
     render() {
@@ -33,7 +41,7 @@ class Navbar extends Component {
                 </ul>
                 <a href='/Settings'><i class="fas fa-cog fa-lg" style={{paddingRight:4}}></i></a>
                 &nbsp; &nbsp;
-                <a href={'/'}><Button><b>Log Out</b></Button></a>
+                <a href={'/'}><Button onClick={this.logout}><b>Log Out</b></Button></a>
             </nav>
         )
     }

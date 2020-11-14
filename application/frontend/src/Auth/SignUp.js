@@ -4,6 +4,7 @@ import NavbarHome from '../components/Navbar/NavbarHome';
 import Footer from '../components/Footer/Footer';
 import { Link } from 'react-router-dom';
 import './Auth.css';
+import axios from 'axios';
 
 class SignUp extends Component {
     state = {
@@ -17,7 +18,7 @@ class SignUp extends Component {
         art:'',
         skill: '',
         password: '',
-        confirmpassword: '',
+        confirmpassword: ''
       }
     
       handleChange = (e) => {
@@ -26,12 +27,23 @@ class SignUp extends Component {
             [e.target.name]: e.target.value 
         })
         console.log(e.target.value)
+        console.log(this);
     }
     
       handleSubmit = (e) => {
         e.preventDefault();
         console.log(this.state);
       }
+
+    register = e =>{
+        e.preventDefault();
+        axios.post('/register', this.state).then(response =>{
+            console.log(response);
+            console.log(this.state);
+            // axios.post('/register2', response).then(response2 =>{
+            // });
+        })
+    }
       
     render() {
         return (
@@ -90,7 +102,7 @@ class SignUp extends Component {
             </div>
 
             <div className="input">
-                <table><tr><td>
+                <table><tr><td>{/*need default  */}
                 <label htmlFor="art" className="sub-heading"> <b> Art Category </b>&nbsp;  &nbsp; &nbsp;</label>
                 <select type="radio" required name="art" value={this.state.art} onChange={this.handleChange} >
                 <option value={"M"}>Music</option>
@@ -107,7 +119,7 @@ class SignUp extends Component {
             <div className="input">
                 <table><tr><td>
                 <label htmlFor="skill" className="sub-heading"> <b> Skill Level </b> &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; </label>
-                </td> <td> 
+                </td> <td> {/*need default  */}
                 <select type="radio" required name="skill" value={this.state.skill} onChange={this.handleChange} >
                 <option value={"B"}>Beginner</option>
                 <option value={"I"}>Intermediate</option>
@@ -134,7 +146,7 @@ class SignUp extends Component {
             </div> 
             
             <div className="input">
-                <Button className='btn' buttonStyle='btn--primary' buttonSize='btn--large'> Sign Up </Button>
+                <Button className='btn' buttonStyle='btn--primary' buttonSize='btn--large' onClick={this.register}> Sign Up </Button>
             </div>
 
             &nbsp; 
