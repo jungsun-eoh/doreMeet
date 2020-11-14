@@ -41,7 +41,7 @@ const Settings = (stateObj) => {
                         <p>Your email is not viewable for other users for your privacy</p><br/>
 
                         <label for="phone">Phone Number Currently: {stateObj.currentPhoneNumber}</label><br/>
-                        <input onChange={e => stateObj.setPhoneNumber(e.target.value)} className="settingsFields" type = "tel" id = "phone" placeholder="123-456-789" pattern = "[0-9]{3}-[0-9]{3}-[0-9]{3}"/>
+                        <input style={{width: "120px"}} onChange={e => stateObj.setPhoneNumber(e.target.value)} className="settingsFields" type = "tel" id = "phone" placeholder="123-456-789" pattern = "[0-9]{3}-[0-9]{3}-[0-9]{3}"/>
                         <p>Required only for 2-factor identification</p><br/>
 
                         <label for="art">Art Category Currently: {stateObj.currentArtCategory}</label><br/>
@@ -58,7 +58,7 @@ const Settings = (stateObj) => {
                             <option value={"I"}>Intermediate</option>
                             <option value={"A"}>Advanced</option>
                         </select> 
-                        <p>Generally begginers have less than 5 years of experience and advanced has more than 7</p><br/>
+                        <p>Generally begginers have less than 5 years of experience and advanced has more than 7 years of experience</p><br/>
 
                         <label for = "username">Username Currently: {stateObj.currentUserName}</label><br/>
                         <input onChange={e => stateObj.setUserName(e.target.value)} className="settingsFields" type = "text" id="username" /><br/>
@@ -67,10 +67,10 @@ const Settings = (stateObj) => {
                         <p></p><br/>
 
                         <label for = "minAge">Minimum Age (18+) Currently: {stateObj.currentMinimumAge}</label><br/>
-                        <input onChange={e => stateObj.setMinimumAge(e.target.value)} className="settingsFields" type="number" id="minAge" min="18"/><br/>
+                        <input style={{width: "100px"}} onChange={e => stateObj.setMinimumAge(e.target.value)} className="settingsFields" type="number" id="minAge" min="18"/><br/>
                         <p>The minimum age of people you will match with</p>
                         <label for = "maxAge">Maximum Age Currently: {stateObj.currentMaximumAge}</label><br/>
-                        <input onChange={e => stateObj.setMaximumAge(e.target.value)} className="settingsFields" type="number" id="maxAge" min="18"/><br/>
+                        <input style={{width: "100px"}} onChange={e => stateObj.setMaximumAge(e.target.value)} className="settingsFields" type="number" id="maxAge" min="18"/><br/>
                         <p>The maximum age of people you will match with</p><br/>
 
                         <h4>Prefered Match Gender Currently: {stateObj.currentPreferedGender}</h4>
@@ -97,8 +97,11 @@ const Settings = (stateObj) => {
                         </select>
                         <p>Your prefrence for meeting online or offline</p><br/>
 
-                        <input type='submit' value="Update Settings"/>
+                        <input style={{position: "relative",left:"100px"}} type='submit' value="Update Settings"/>
                         <br/>
+                        <button style={{backgroundColor: "#ffd700"}}><a style={{textDecoration: "none",color: "black"}}href={'/Premium'}>Upgrade to Premium Account</a></button><br/>
+                        <button style={{backgroundColor: "#06EFB7",width: "198px", marginRight: "3px"}}>Pause Account</button>
+                        <button style={{backgroundColor: "#FD7D7D",width: "198px"}}>Delete Account</button><br/>
                     </form>
                 </header>
             </div>

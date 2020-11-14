@@ -94,6 +94,19 @@
   background-color: rgb(219, 250, 246);
 }
 
+.PremiumInfo{
+  padding-top: 30px;
+  padding-bottom: 30px;
+  background-color: rgb(219, 250, 246);
+  text-align: center;
+}
+
+.PremiumInfo p{
+  text-align: center;
+}
+
+
+
 .settingsForm{
   padding-top: 20px;
   width: 480px;
@@ -124,6 +137,8 @@
 
 .settingsForm input[type=password]{
   margin:0;
+  width: 240px;
+  height:40px;
 }
 
 .settingsForm input[type=submit]{
@@ -140,8 +155,22 @@
   cursor: pointer;
 }
 
+.settingsForm button{
+  margin-bottom: 20px;
+  height: 40px;
+  width: 400px;
+  font-size: 20px;
+  font-weight: 600;
+  background-color:rgb(126,218,216);
+  color:black;
+  padding: 10px, 20px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
 .settingsFields{
-  width: 480px;
+  width: 240px;
   background-color: #fafbfc;
   padding: 5px 12px;
   font-size: 14px;

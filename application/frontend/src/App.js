@@ -8,6 +8,7 @@ import Settings from './Settings';
 import MatchingPage from './MatchingPage';
 import Chat from './Chat';
 import Profile from './Profile';
+import Premium from './Premium';
 import {Route, BrowserRouter as Router, Switch, Link} from 'react-router-dom';
 function App() {
 
@@ -171,6 +172,7 @@ function App() {
         <Route path="/Match" children={MatchingPage(stateObj)}/>
         <Route path="/Chat" children={Chat(stateObj)}/>
         <Route path="/Profile" children={Profile(stateObj)}/>
+        <Route path="/Premium" children={Premium(stateObj)}/>
       </Switch>
     </Router>
   );

@@ -109,5 +109,5 @@ const CommunityPage = (stateObj) => {
     </>
   );
 }
-
+console.log("A")
 export default CommunityPage;
