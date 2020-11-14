@@ -27,7 +27,7 @@ const Premium = (stateObj) => {
 
 
                     <form className="settingsForm">
-                        <label for="small">$4.99 for 1 month</label>
+                        <label style={{marginLeft: "20px"}} for="small">$4.99 for 1 month</label>
                         <label style={{marginLeft: "20px"}} for="medium">$49.99 for 6 months</label>
                         <label style={{marginLeft: "20px"}} for="large">$119.99 for 12 months</label>
                         <br/>

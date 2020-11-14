@@ -101,7 +101,7 @@ const Settings = (stateObj) => {
 
                         <input style={{position: "relative",left:"100px"}} type='submit' value="Update Settings"/>
                         <br/>
-                        <button style={{backgroundColor: "#ffd700"}}><a style={{textDecoration: "none",color: "black"}}href={'/Premium'}>Upgrade to Premium Account</a></button><br/>
+                        <button style={{backgroundColor: "#ffd700"}}><a style={{textDecoration: "none",color: "black"}} href={'/Premium'}>Upgrade to Premium Account</a></button><br/>
                         <button style={{backgroundColor: "#06EFB7",width: "198px", marginRight: "3px"}}>Pause Account</button>
                         <button style={{backgroundColor: "#FD7D7D",width: "198px"}}>Delete Account</button><br/>
                     </form>
