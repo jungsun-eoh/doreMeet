@@ -12,11 +12,11 @@ class SignUp extends Component {
         lastname: '',
         username: '',
         email: '',
-        gender: '',
+        gender: '0',
         dob: '',
         phone: '',
-        art:'',
-        skill: '',
+        art:'M',
+        skill: 'B',
         password: '',
         confirmpassword: ''
       }
@@ -38,10 +38,8 @@ class SignUp extends Component {
     register = e =>{
         e.preventDefault();
         axios.post('/register', this.state).then(response =>{
-            console.log(response);
-            console.log(this.state);
-            // axios.post('/register2', response).then(response2 =>{
-            // });
+            //console.log(response);
+            //console.log(this.state);
         })
     }
       
