@@ -4,6 +4,14 @@ import Home from './Home';
 import LogIn from './Auth/LogIn';
 import SignUp from './Auth/SignUp';
 import CommunityPage from './CommunityPage';
+import FAQ from './faq';
+import Terms from './Terms';
+import Privacy from './Privacy';
+import Careers from './Careers';
+import Pricing from './Pricing';
+import Company from './Company';
+import ContactUs from './ContactUs';
+import Guidelines from './Guidelines'
 import Settings from './Settings';
 import MatchingPage from './MatchingPage';
 import Chat from './Chat';
@@ -11,21 +19,6 @@ import Profile from './Profile';
 import Premium from './Premium';
 import {Route, BrowserRouter as Router, Switch, Link} from 'react-router-dom';
 function App() {
-
-
-  //Works for Home Page, Auth Pages
-  // return (
-  //   <>
-  //   <BrowserRouter>
-  //   <Navbar />
-  //     <Switch>
-  //       <Route path='/' exact component={Home}/>
-  //       <Route path='/login' component={LogIn} />
-  //       <Route path='/signup' component={SignUp} />
-  //     </Switch>
-  //   </BrowserRouter>
-  //   </>
-  // );
 
   const [firstName, setFirstName] = React.useState('');
   const [lastName, setLastName] = React.useState('');
@@ -167,6 +160,14 @@ function App() {
         <Route path='/' exact component={Home}/>
         <Route path='/login' component={LogIn} />
         <Route path='/signup' component={SignUp} />
+        <Route path='/FAQ' component={FAQ} />
+        <Route path='/Guidelines' component={Guidelines} />
+        <Route path='/Terms' component={Terms} />
+        <Route path='/Privacy' component={Privacy} />
+        <Route path='/Careers' component={Careers} />
+        <Route path='/Pricing' component={Pricing} />
+        <Route path='/Company' component={Careers} />
+        <Route path='/ContactUs' component={ContactUs} />
         <Route path="/Settings" children={Settings(stateObj)}/>
         <Route path="/Community" children={CommunityPage(stateObj)}/>
         <Route path="/Match" children={MatchingPage(stateObj)}/>

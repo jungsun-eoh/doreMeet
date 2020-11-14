@@ -1,0 +1,96 @@
+.PageContainer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.SearchContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.PostFormat {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.RecentPosts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.PostImage {
+    object-fit: none;
+}
+
+.RecentPostsFormat {
+    margin-bottom: 40px;
+}
+.search {
+    padding: 6px;
+    font-size: 30px;
+}
+
+.searchBar{
+    font-size: 20px;
+    border-radius: 5px;
+    height: 40px;
+    width: 300px;
+    padding: 2px 23px 2px 30px;
+    margin-right: 8px;
+}
+
+.searchButtons{
+    font-size: 20px;
+    border-radius: 5px;
+    height: 43px;
+    width: 100px;
+    margin-right:8px;
+    margin-left:8px;
+}
+
+
+.post{
+    height: 60px;
+    width: 120px;
+    font-size: 20px;
+    background-color:rgb(126,218,216);
+    color:black;
+    padding: 10px;
+    border-radius: 4px;
+    border: none;
+    margin-left: 10px;
+}
+
+.post-popup{
+    position: fixed;
+    right:40%;
+    top:30%;
+    display : none;
+    text-align: center;
+    z-index: 3;
+}
+
+.post-container{
+    border: solid;
+    border-radius: 10px;
+    background-color: rgb(219, 250, 246);
+    max-width: 900px;
+    padding: 30px;
+}
+
+.searches{
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: auto;
+}
