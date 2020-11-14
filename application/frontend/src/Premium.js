@@ -17,12 +17,12 @@ const Premium = (stateObj) => {
                     <div className="PremiumInfo">
                         <h1>Upgrade your account</h1>
                         <h4>Increase your chances of finding the right match!</h4><br/>
-                        <p>•Unlimited Likes</p>
-                        <p>•No Ads</p>
-                        <p>•Highlighted Profile</p>
-                        <p>•Increased Search Radius</p>
-                        <p>•Rewind on Potential Matches</p>
-                        <p>•Bigger Portfolio Size</p>
+                        <p>• Unlimited Likes</p>
+                        <p>• No Ads</p>
+                        <p>• Highlighted Profile</p>
+                        <p>• Increased Search Radius</p>
+                        <p>• Rewind on Potential Matches</p>
+                        <p>• Bigger Portfolio Size</p>
                     </div>
 
 

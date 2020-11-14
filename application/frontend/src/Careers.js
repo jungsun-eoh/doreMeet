@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import NavbarHome from './components/Navbar/NavbarHome';
 import Footer from './components/Footer/Footer';
 import { BrowserRouter as Router } from 'react-router-dom';
+import './App.css';
 
 class Careers extends Component {
 
@@ -10,7 +11,9 @@ class Careers extends Component {
         <>
          <Router>
           <NavbarHome />
-          <h1>Career</h1>
+          <div className='FooterBanner'>
+              <h1> CAREERS </h1>
+           </div>
           <Footer />
           </Router>
           </>
