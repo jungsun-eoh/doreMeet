@@ -163,3 +163,51 @@
   margin-bottom: 4%;
   width: 50em
 }
+
+.profileImage{
+  height: 260px;
+  width: 260px;
+  border-radius: 50%;
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1;
+  border: 1px solid;
+}
+
+.profileContainer{
+  margin-left: 7%;
+  margin-right: 7%
+}
+
+.profileContainer p{
+  font-size: 24px;
+  font-weight: 600;
+  padding-top: 3px;
+}
+
+.profileChildImg{
+  width: 25%;
+  float: left;
+  padding:20px;
+}
+
+.profileChildInfo{
+  width: 75%;
+  float: left;
+  padding:20px;
+}
+
+.profileContainer button{
+  margin-bottom: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  background-color:rgb(126,218,216);
+  color:black;
+  padding: 20px;
+  border-radius: 50%;
+  border: 2px solid;
+  border-color: rgb(89, 190, 189);
+  outline: none;
+}
