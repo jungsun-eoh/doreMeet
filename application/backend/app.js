@@ -62,15 +62,7 @@ app.get("/recent5", (req, res) => {
         res.send(result);
     })
 });
-    register = e =>{
-        e.preventDefault();
-        axios.post('/register', this.state).then(response =>{
-            console.log(response);
-            console.log(this.state);
-            // axios.post('/register2', response).then(response2 =>{
-            // });
-        })
-    }
+
 app.post('/register', (req, res) => {
     var user_id;
     console.log(req.body);
@@ -89,37 +81,37 @@ app.post('/register', (req, res) => {
                 console.log(result3);
             })
         });
-        
+
     });
 
 });
 
 app.post('/login', (req, res) => {
     console.log(req.body);
-    var todb = "SELECT * FROM `mydb`.`account`WHERE (username = '"+ req.body.username + "' AND password = '" + req.body.password + "')";
+    var todb = "SELECT * FROM `mydb`.`account`WHERE (username = '" + req.body.username + "' AND password = '" + req.body.password + "')";
     pool.query(todb, (error, result) => {
-        if(result.length == 1){
+        if (result.length == 1) {
             // console.log(res.redirect('/'));
             req.session.username = result[0].username;
             req.session.userId = result[0].user;
             console.log(req.session);
             res.send(req.session);
-        }else{
+        } else {
             console.log("incorrect creds");
         }
     })
 });
 
-app.post('/logout', (req,res) =>{
+app.post('/logout', (req, res) => {
     console.log("____________________________________");
     console.log(req.session);
     console.log("____________________________________");
 
-    req.session.destroy((error) =>{
-        if (error){
+    req.session.destroy((error) => {
+        if (error) {
 
             console.log("session destory error: '/logout'");
-        }else{
+        } else {
             console.log(req.session);
             console.log("destroy cookie");
             res.clearCookie('loginkey');
@@ -128,11 +120,53 @@ app.post('/logout', (req,res) =>{
     })
 })
 
+app.get('/getUser', (req, res) => {
+    console.log("____________________________________1");
+    console.log("session: " + req.session.userId);
+    console.log("____________________________________2");
 
+    var todb = 'SELECT * FROM `account` AS A LEFT OUTER JOIN `user` AS B ON `account_id` = `user_id` WHERE `user_id` = ?';
+    pool.query(todb, [req.session.userId], (error, result) => {
+        if (error) {
+            console.log("getuser error");
+            res.send(result);
+        } else {
+            console.log("getuser pass");
+            res.send(result);
+        }
+    })
 
-// var todb = "SELECT * FROM communityPage ORDER BY comm_pg_id DESC LIMIT 5";
-// pool.query(todb, (error, result) => {
-//     console.log(result)
-// })
+})
+
+app.post('/updateUser', (req, res) => {
+    /*to be used once empty string is rejected*/
+    // for (let key in req.body) {
+    //     console.log(key, req.body[key]);
+    // }
+
+    console.log(req.body);
+    console.log(req.session.userId);
+
+    var todb =
+        "UPDATE user SET " +
+        "first_name = ?, last_name = ?, gender = ?, date_of_birth = ?, email = ?, phone_number = ?, art_category = ?,  skill_lvl = ?" +
+        "WHERE user_id = ?";
+    pool.query(todb, [req.body.first_name, req.body.last_name, req.body.gender, req.body.date_of_birth, req.body.email, req.body.phone_number ,req.body.art_category , req.body.skill_lvl, req.session.userId], (error, result) => {
+        if (error) {
+            console.log("update user error");
+        } else {
+            console.log("update user pass");
+            var todb = "UPDATE account SET username = ? WHERE user = ? ";
+            pool.query(todb, [req.body.username, req.session.userId],(error, result) => {
+                if (error) {
+                    console.log("update account error");
+                } else {
+                    console.log("update account pass");
+                }
+
+            });
+        }
+    })
+})
 
 app.listen(port, () => console.log('app listening on port ' + port));  
