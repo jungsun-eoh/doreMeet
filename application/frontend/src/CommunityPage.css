@@ -11,13 +11,13 @@
     justify-content: center;
     margin-top: 40px;
     margin-bottom: 40px;
+    text-align: center;
 }
 
 .PostFormat {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-bottom: 40px;
 }
 
 .RecentPosts {
@@ -26,6 +26,7 @@
     justify-content: center;
     flex-direction: column;
     text-align: center;
+    margin-top: 40px;
 }
 
 .PostImage {
@@ -58,17 +59,25 @@
     margin-left:8px;
 }
 
+.searchButtons:hover{
+    cursor: pointer;
+}
 
 .post{
-    height: 60px;
-    width: 120px;
+    height: 40px;
+    width: 100px;
     font-size: 20px;
     background-color:rgb(126,218,216);
     color:black;
-    padding: 10px;
     border-radius: 4px;
     border: none;
     margin-left: 10px;
+    vertical-align: middle;
+}
+
+.post:hover{
+    background-color: rgb(106, 198, 196);
+    cursor: pointer;
 }
 
 .post-popup{

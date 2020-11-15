@@ -115,6 +115,9 @@ const CommunityPage = (stateObj) => {
              </div>
               <div class="RecentPosts" id="recent-posts">
               </div>
+              <div>
+                <Highlights />
+              </div>
               <div class="searches" id="display">
                 <h1 >Searches</h1>
                 <p>Title: {stateObj.resultTitle}</p>
@@ -123,12 +126,11 @@ const CommunityPage = (stateObj) => {
              </div>
             </div>
           </header>
-          <Highlights />
         </div>
         <Footer />
       </Router>
     </>
   );
 }
-console.log("A")
+
 export default CommunityPage;
