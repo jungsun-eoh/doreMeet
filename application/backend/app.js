@@ -55,13 +55,12 @@ app.post('/makePost', (req, res) => {
     });
 });
 
-
-app.get("/recent5", (req, res) => {
-    var todb = "SELECT * FROM communityPage ORDER BY comm_pg_id DESC LIMIT 5";
-    pool.query(todb, (error, result) => {
-        res.send(result);
-    })
-});
+// app.get("/recent5", (req, res) => {
+//     var todb = "SELECT * FROM communityPage ORDER BY comm_pg_id DESC LIMIT 5";
+//     pool.query(todb, (error, result) => {
+//         res.send(result);
+//     })
+// });
 
 app.post('/register', (req, res) => {
     var user_id;
@@ -168,5 +167,25 @@ app.post('/updateUser', (req, res) => {
         }
     })
 })
+
+app.post('/upload', (req, res) => {
+    console.log("test");
+    console.log(req.files);
+    // if (req.files === null) {
+    //     return res.status(400).json({ msg: 'No file uploaded' });
+    //   }
+    
+    //   const file = req.files.file;
+
+
+    // var filepath = `/../frontend/public/assets/postImages/${req.files.file.name}`;
+    // req.files.file.mv(`${__dirname}${filepath}`, err => {
+    //     if (err) {
+    //         console.error(err);
+    //       }
+    //     var todb;
+    //     pool.query(todb, (error, result) => {/* return res.json({ fileName: file.name, filePath: filepath }); */ });
+    // });
+});
 
 app.listen(port, () => console.log('app listening on port ' + port));  
