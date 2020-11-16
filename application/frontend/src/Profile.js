@@ -5,20 +5,19 @@ import axios from 'axios';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 const Profile = (stateObj) => {
-    // stateObj.setFileName('assets/placeholder-img.jpg');
-    // const upload = async e => {
-    //     e.preventDefault();
-    //     const formData = new FormData();
-    //     formData.append('file', stateObj.file);
-    //     await axios.post('/upload', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
-    //         stateObj.setResultFile(`/assets/users/1/${response.data[0].post_file}`);
-    //     });
-    // }
-    // const onChange = e => {
-    //     e.preventDefault();
-    //     stateObj.setFile(e.target.files[0]);
-    //     stateObj.setFileName(e.target.files[0].name);
-    // };
+    const upload = async e => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('file', stateObj.file);
+        await axios.post('/upload', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
+            stateObj.setResultFile(`/assets/users/1/${response.data[0].post_file}`);
+        });
+    }
+    const onChange = (e) => {
+        e.preventDefault();
+        stateObj.setFile(e.target.files[0]);
+        stateObj.setFileName(e.target.files[0].name);
+    };
 
 
     return (
@@ -31,8 +30,8 @@ const Profile = (stateObj) => {
                 <div className="profileContainer">
                     <div className="profileChildImg">
                         <img className="profileImage" src={`${stateObj.file}`} />
-                        <form class="post-container" /*onSubmit={() => upload}*/>
-                            <input type='file' className='custom-file-input' id='customFile' /*onChange={() => onChange}*/ />
+                        <form class="post-container" onSubmit={() => upload}>
+                            <input type='file' className='custom-file-input' id='customFile' onChange={() => onChange} />
                             <label className='custom-file-label' htmlFor='customFile'></label>
                             <input type='submit' value='Upload' />
                         </form>
