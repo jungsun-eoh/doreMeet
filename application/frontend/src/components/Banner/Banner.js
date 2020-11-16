@@ -8,7 +8,7 @@ import './Banner.css';
 
 function Banner() {
   return (
-    <div className='container'>
+    <div className='container-ban'>
       <h1 className="animated bounce">CONNECT &amp; CREATE</h1>
       <p> Meet artists near you, and build what your heart desires </p>
       <div className='banner-buttons'>

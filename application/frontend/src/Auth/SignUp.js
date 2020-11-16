@@ -47,7 +47,7 @@ class SignUp extends Component {
         return (
         <>
         <NavbarHome />
-        <div className="container">
+        <div className="container-signup">
             <form onSubmit={this.handleSubmit}>
             <h1 className="heading-signup">Sign Up</h1>
             <p>Please fill the form to create an account with DoReMeet.</p>
@@ -79,7 +79,7 @@ class SignUp extends Component {
 
             <div className="input">
                 <label htmlFor="dob" className="sub-heading"> <b> Date of Birth </b>
-                <input type="date" name="dob" value={this.state.dob} placeholder="Enter Date of Birth" required onChange={this.handleChange}/></label>
+                <input type="date" name="dob"  max="2002-01-01"  value={this.state.dob} placeholder="Enter Date of Birth" required onChange={this.handleChange}/></label>
             </div>
 
             <div className="input">

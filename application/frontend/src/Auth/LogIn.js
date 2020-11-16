@@ -36,7 +36,7 @@ class LogIn extends Component {
         return (
             <>
             <NavbarHome />
-                <div className="container">
+                <div className="container-ban">
                     <form onSubmit={this.handleSubmit}>
                         <h1 className="heading-login">Log In</h1>
 

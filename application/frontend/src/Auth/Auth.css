@@ -1,6 +1,15 @@
-.container{
+.container-signup{
+    background: rgb(238,253,255);
+    background: linear-gradient(90deg, rgba(238,253,255,1) 36%, rgba(215,255,235,1) 100%);
+    position: relative;
+    height: auto;
+    width: 100%;
     display: flex;
-    overflow: scroll;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    object-fit: contain;
 }
 
 ::-webkit-scrollbar {
@@ -24,21 +33,7 @@
     text-align: center;
     text-decoration: underline;
     padding: 10px 10px;
-    margin-top: 50%;
     font-size: 23px;
-}
-
-@media screen and (max-height: 1200px), screen and (max-width: 2560px){
-    .heading-signup{
-        color: black;
-        position: relative;
-        text-align: center;
-        text-decoration: underline;
-        padding: 10px 10px;
-        margin-top: 72%;
-        font-size: 23px;
-    }
-    
 }
 
 .sub-heading{

@@ -1,5 +1,5 @@
 
-.container {
+.container-ban {
   background: rgb(238,253,255);
   background: linear-gradient(90deg, rgba(238,253,255,1) 36%, rgba(215,255,235,1) 100%);
   position: relative;
@@ -13,14 +13,14 @@
   object-fit: contain;
 }
 
-.container > h1 {
+.container-ban > h1 {
   color:black;
   font-size: 100px;
   margin-top: -100px;
   font-family:'Raleway Dots', cursive;
 }
 
-.container > p {
+.container-ban > p {
   margin-top: 8px;
   color:rgb(114, 109, 109);
   font-size: 28px;
@@ -61,19 +61,19 @@
 }
 
 @media screen and (max-width: 960px) {
-  .container > h1 {
+  .container-ban > h1 {
     font-size: 70px;
     justify-content: center;
   }
 }
 
 @media screen and (max-width: 768px) {
-  .container > h1 {
+  .container-ban > h1 {
     font-size: 50px;
     text-align: center;
   }
 
-  .container > p {
+  .container-ban > p {
     font-size: 30px;
   }
 
