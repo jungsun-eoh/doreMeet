@@ -51,20 +51,20 @@ const CommunityPage = (stateObj) => {
     document.getElementById("postform").style.display = "none";
   }
 
-  useEffect(() => {
-    axios.get('/recent5').then(response => {
-      console.log(response.data[0]);
-      let _html = "";
-      response.data.forEach(post => {_html += `<div class="RecentPostsFormat">
-                <img class="PostImage" src="assets/postImages/${post.post_file}" alt="Post Image"> \
-                <p class="PostTitle">${post.post_title}</p>
-                <p class="PostCategory">${post.post_category}</p>
-                </div>`;})
-      document.getElementById("recent-posts").innerHTML = _html;
-    }).catch(function (error) {
-      console.log('fail')
-    });
-  });
+  // useEffect(() => {
+  //   axios.get('/recent5').then(response => {
+  //     console.log(response.data[0]);
+  //     let _html = "";
+  //     response.data.forEach(post => {_html += `<div class="RecentPostsFormat">
+  //               <img class="PostImage" src="assets/postImages/${post.post_file}" alt="Post Image"> \
+  //               <p class="PostTitle">${post.post_title}</p>
+  //               <p class="PostCategory">${post.post_category}</p>
+  //               </div>`;})
+  //     document.getElementById("recent-posts").innerHTML = _html;
+  //   }).catch(function (error) {
+  //     console.log('fail')
+  //   });
+  // });
 
   return (
     <>
@@ -93,7 +93,7 @@ const CommunityPage = (stateObj) => {
                 <button className="post" id="postbutton" onClick={openPost}>Post</button>
               </div>
               <div class="post-popup" id="postform">
-                <form class="post-container" onSubmit={postHandler}>
+                <form class="post-container" onSubmit={() => postHandler}>
                   <h2>Post Something</h2>
                   <input type="text" onChange={e => stateObj.setPostName(e.target.value)} placeholder="Name" required />
                   <div>
@@ -104,7 +104,7 @@ const CommunityPage = (stateObj) => {
                     </select>
                  </div>
                   <label htmlFor="post-file">Select file: </label>
-                  <input type='file' className='custom-file-input' id='customFile' onChange={onChange} />
+                  <input type='file' className='custom-file-input' id='customFile' onChange={() => onChange} />
                   <div>
                    <input type='submit' />
                  </div>
@@ -115,6 +115,9 @@ const CommunityPage = (stateObj) => {
              </div>
               <div class="RecentPosts" id="recent-posts">
               </div>
+              <div>
+                <Highlights />
+              </div>
               <div class="searches" id="display">
                 <h1 >Searches</h1>
                 <p>Title: {stateObj.resultTitle}</p>
@@ -123,12 +126,11 @@ const CommunityPage = (stateObj) => {
              </div>
             </div>
           </header>
-          <Highlights />
         </div>
         <Footer />
       </Router>
     </>
   );
 }
-console.log("A")
+
 export default CommunityPage;

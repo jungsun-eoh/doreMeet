@@ -29,7 +29,7 @@ function App() {
   const [artCategory, setArtCategory] = React.useState('');
   const [skillLevel, setSkillLevel] = React.useState('');
 
-  const [currentFirstName, setCurrentFirstName] = React.useState('');
+  const [currentFirstName, setCurrentFirstName] = React.useState('Bob');
   const [currentLastName, setCurrentLastName] = React.useState('');
   const [currentGender, setCurrentGender] = React.useState('');
   const [currentDOB, setCurrentDOB] = React.useState('');

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Button } from '../components/Navbar/Buttons';
 import NavbarHome from '../components/Navbar/NavbarHome';
 import Footer from '../components/Footer/Footer';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import './Auth.css';
 
 class LogIn extends Component {
@@ -28,8 +28,8 @@ class LogIn extends Component {
     login = e =>{
         e.preventDefault();
         axios.post('/login', this.state).then(response =>{
-
-        })
+        });
+        this.props.history.push('/Community');
     }
 
     render(){
@@ -53,7 +53,7 @@ class LogIn extends Component {
                         &nbsp; 
 
                         <div className="input">
-                            <Button className='btn' buttonStyle='btn--primary' buttonSize='btn--large' onClick={this.login}> Log In </Button>
+                            <Button className='btn' buttonStyle='btn--primary' buttonSize='btn--large' onClick={this.login} > Log In </Button>
                         </div>
 
                         &nbsp; 
