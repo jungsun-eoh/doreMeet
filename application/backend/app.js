@@ -77,29 +77,6 @@ app.post('/makePost', (req, res) => {
 //     })
 // });
 
-//delete after succ merge
-// app.post('/register', (req, res) => {
-//     var user_id;
-//     console.log(req.body);
-//     console.log(req.body.firstname);
-//     var todb =
-//         "INSERT INTO `mydb`.`user` (`first_name`, `last_name`,`gender`,`date_of_birth`,`email`,`phone_number`,`art_category`, `skill_lvl`)" +
-//         "VALUES  ( \'" + req.body.firstname + "\', \'" + req.body.lastname + "\', \'" + req.body.gender + "\', \'" + req.body.dob + "\', \'" + req.body.email + "\', " + req.body.phone + ", \'" + req.body.art + "\', \'" + req.body.skill + "\')";
-//     pool.query(todb, (error, result) => {
-//         var todb = "SELECT user_id FROM `mydb`.`user` WHERE (email = '" + req.body.email + "')";
-//         pool.query(todb, (error2, result2) => {
-//             console.log(result2[0].user_id);
-//             user_id = result2[0].user_id;
-//             var todb = "INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('" + req.body.username + "\', \'" + req.body.password + "\', " + user_id + ")";
-//             pool.query(todb, (error, result3) => {
-//                 console.log("123");
-//                 console.log(result3);
-//             })
-//         });
-
-//     });
-// });
-
 app.post('/login', (req, res) => {
     console.log("____________start_______________")
             console.log(req.body);
@@ -159,21 +136,22 @@ app.post('/login', (req, res) => {
  });
  
 app.post('/logout', (req, res) => {
-    console.log("____________________________________");
-    console.log(req.session);
-    console.log("____________________________________");
+    console.log("logging out: " + req.session.userId);
+    if(req.session.userId){
+        req.session.destroy((error) => {
+            if (error) {
+                console.log("session destory error: '/logout'");
+            } else {
+                console.log(req.session);
+                console.log("destroy cookie");
+                res.clearCookie('loginkey');
+                res.send(req.session);
+            }
+        })
+    }else{
+            console.log("none to destroy '/logout'");
+    }
 
-    req.session.destroy((error) => {
-        if (error) {
-
-            console.log("session destory error: '/logout'");
-        } else {
-            console.log(req.session);
-            console.log("destroy cookie");
-            res.clearCookie('loginkey');
-            res.send(req.session);
-        }
-    })
 })
 
 app.get('/getUser', (req, res) => {

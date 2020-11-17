@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Button } from './Buttons';
 import { MenuItems } from './MenuItems';
-//import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import './Navbar.css';
 
 class Navbar extends Component {
@@ -15,8 +15,8 @@ class Navbar extends Component {
     logout = e =>{
         e.preventDefault();
         axios.post('/logout').then(response =>{
-
         })
+        this.props.history.push("/");
     }
 
     render() {
@@ -41,10 +41,10 @@ class Navbar extends Component {
                 </ul>
                 <a href='/Settings'><i class="fas fa-cog fa-lg" style={{paddingRight:4}}></i></a>
                 &nbsp; &nbsp;
-                <a href={'/'}><Button onClick={this.logout}><b>Log Out</b></Button></a>
+                <Button onClick={() => this.logout}><b>Log Out</b></Button>
             </nav>
         )
     }
 }
 
-export default Navbar;
+export default withRouter(Navbar);
