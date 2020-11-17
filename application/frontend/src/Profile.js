@@ -74,7 +74,9 @@ const Profile = (stateObj) => {
                         <h2 style={{ marginLeft: "210px", display: "inline-block" }}> Post Title</h2>
                     </div>
                 </div>
+                <br />
             </header>
+            <br />
             <Footer />
         </Router>
     );
