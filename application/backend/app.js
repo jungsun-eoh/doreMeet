@@ -7,6 +7,7 @@ const app = express();
 const port = 5000;
 const mysql = require('mysql');
 const fileUpload = require('express-fileupload');
+//const db = require('./conf/database');
 
 const pool = mysql.createPool({
     // changed host for debug. consider changing fields
@@ -28,6 +29,7 @@ var sessionOptions = {
     resave: false,
     saveUninitialized: false
 }
+//const pool = require("./database.js");
 
 var bodyParser = require('body-parser');
 app.use(cookieParser());
@@ -40,19 +42,32 @@ app.use(fileUpload());
 app.get("/", (req, res) => res.send("Backend simple get response"));
 
 app.get("/searchPost", (req, res) => {
-    var todb = "SELECT * FROM communityPage WHERE (post_title = '" + req.query.post_title + "' AND post_category = '" + req.query.post_category + "')";
-    pool.query(todb, (error, result) => {
-        res.send(result);
+    var post_title = req.query.post_title;
+    var post_category = req.query.post_category;
 
+    var todb = 'SELECT * FROM communityPage WHERE post_title = ? AND post_category = ?;';
+    pool.query(todb,[post_title, post_category] ,(err, result) => {
+        if(err){
+            res.send({err:err})
+        }else{
+            res.send(result);
+        }
     })
 });
 
 app.post('/makePost', (req, res) => {
     var filepath = `/../frontend/public/assets/postImages/${req.files.file.name}`;
+
     req.files.file.mv(`${__dirname}${filepath}`, err => {
-        var todb = "INSERT INTO communityPage (post_title, post_category, post_file)" + " VALUES ( \'" + req.body.post_title + "\', \'" + req.body.post_category + "\', \'" + req.files.file.name + "\')";
-        pool.query(todb, (error, result) => {/* return res.json({ fileName: file.name, filePath: filepath }); */ });
-    });
+        var post_title = req.body.post_title;
+        var post_category = req.body.post_category;
+        var post_file = req.files.file.name;
+
+        var todb = 'INSERT INTO communityPage (post_title, post_category, post_file) VALUES (?,?,?);'
+        pool.query(todb, [post_title, post_category, post_file] ,(err, result) => {
+            console.log(err);  /* return res.json({ fileName: file.name, filePath: filepath }); */
+        });
+     });
 });
 
 // app.get("/recent5", (req, res) => {
@@ -62,31 +77,32 @@ app.post('/makePost', (req, res) => {
 //     })
 // });
 
-app.post('/register', (req, res) => {
-    var user_id;
-    console.log(req.body);
-    console.log(req.body.firstname);
-    var todb =
-        "INSERT INTO `mydb`.`user` (`first_name`, `last_name`,`gender`,`date_of_birth`,`email`,`phone_number`,`art_category`, `skill_lvl`)" +
-        "VALUES  ( \'" + req.body.firstname + "\', \'" + req.body.lastname + "\', \'" + req.body.gender + "\', \'" + req.body.dob + "\', \'" + req.body.email + "\', " + req.body.phone + ", \'" + req.body.art + "\', \'" + req.body.skill + "\')";
-    pool.query(todb, (error, result) => {
-        var todb = "SELECT user_id FROM `mydb`.`user` WHERE (email = '" + req.body.email + "')";
-        pool.query(todb, (error2, result2) => {
-            console.log(result2[0].user_id);
-            user_id = result2[0].user_id;
-            var todb = "INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('" + req.body.username + "\', \'" + req.body.password + "\', " + user_id + ")";
-            pool.query(todb, (error, result3) => {
-                console.log("123");
-                console.log(result3);
-            })
-        });
+//delete after succ merge
+// app.post('/register', (req, res) => {
+//     var user_id;
+//     console.log(req.body);
+//     console.log(req.body.firstname);
+//     var todb =
+//         "INSERT INTO `mydb`.`user` (`first_name`, `last_name`,`gender`,`date_of_birth`,`email`,`phone_number`,`art_category`, `skill_lvl`)" +
+//         "VALUES  ( \'" + req.body.firstname + "\', \'" + req.body.lastname + "\', \'" + req.body.gender + "\', \'" + req.body.dob + "\', \'" + req.body.email + "\', " + req.body.phone + ", \'" + req.body.art + "\', \'" + req.body.skill + "\')";
+//     pool.query(todb, (error, result) => {
+//         var todb = "SELECT user_id FROM `mydb`.`user` WHERE (email = '" + req.body.email + "')";
+//         pool.query(todb, (error2, result2) => {
+//             console.log(result2[0].user_id);
+//             user_id = result2[0].user_id;
+//             var todb = "INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('" + req.body.username + "\', \'" + req.body.password + "\', " + user_id + ")";
+//             pool.query(todb, (error, result3) => {
+//                 console.log("123");
+//                 console.log(result3);
+//             })
+//         });
 
-    });
-
-});
+//     });
+// });
 
 app.post('/login', (req, res) => {
-    console.log(req.body);
+    console.log("____________start_______________")
+            console.log(req.body);
     var todb = "SELECT * FROM `mydb`.`account`WHERE (username = '" + req.body.username + "' AND password = '" + req.body.password + "')";
     pool.query(todb, (error, result) => {
         if (result.length == 1) {
@@ -95,12 +111,53 @@ app.post('/login', (req, res) => {
             req.session.userId = result[0].user;
             console.log(req.session);
             res.send(req.session);
+    console.log("____________end1_______________")
+
         } else {
             console.log("incorrect creds");
+            console.log(error);
+            console.log("____________0_______________")
+            console.log(req.session);
+            res.send(null);
+    console.log("____________end2_______________")
+
+
         }
     })
 });
 
+ app.post('/signup', (req, res) => {
+    console.log(req.body);
+
+    // user table
+    var first_name = req.body.firstname;
+    var last_name = req.body.lastname;
+    var gender = req.body.gender;
+    var date_of_birth = req.body.dob;
+    var email  = req.body.email;
+    var phone_number = req.body.phone;
+    var art_category = req.body.art;
+    //var art_category_tag = req.body.tag; // there is no field for tag
+    var skill_lvl = req.body.skill;
+    
+    //  account table
+    var username = req.body.username;
+    var password = req.body.password;
+
+    var todb_user = 'INSERT INTO user (first_name, last_name, gender, date_of_birth, email, phone_number, art_category, skill_lvl) VALUES (?,?,?,?,?,?,?,?);'
+    pool.query(todb_user,[first_name, last_name, gender, date_of_birth, email, phone_number, art_category, skill_lvl],(err, result) => {
+        var get_id = 'SELECT user_id FROM user WHERE email = ?;'
+        pool.query(get_id, [email], (err2, result2) => {
+            console.log(result2[0].user_id);
+            user_id = result2[0].user_id;
+            var todb_account = 'INSERT INTO account (username, password, acc_created, user) VALUES (?,?,now(),?);'
+            pool.query(todb_account,[username, password, user_id],(err, result3) => {
+                console.log(result3);
+            }); 
+        })
+    });
+ });
+ 
 app.post('/logout', (req, res) => {
     console.log("____________________________________");
     console.log(req.session);
@@ -187,5 +244,5 @@ app.post('/upload', (req, res) => {
     //     pool.query(todb, (error, result) => {/* return res.json({ fileName: file.name, filePath: filepath }); */ });
     // });
 });
-
 app.listen(port, () => console.log('app listening on port ' + port));  
+

@@ -30,26 +30,27 @@ class SignUp extends Component {
         console.log(this);
     }
     
-      handleSubmit = (e) => {
+      signUp = (e) => {
         e.preventDefault();
-        console.log(this.state);
+         axios.post('/signup', this.state)
+        .then(response => {
+            window.location = "/retrive";
+        })
+        .catch(error => {
+            console.log(error)
+        });
+        this.props.history.push('/login');
+
+
       }
 
-    register = e =>{
-        e.preventDefault();
-        axios.post('/register', this.state).then(response =>{
-            //console.log(response);
-            //console.log(this.state);
-        })
-        this.props.history.push('/login');
-    }
-      
     render() {
+        const {firstname, lastname, username, email, gender, dob, phone, art, skill, password, confirmpassword} = this.state;
         return (
         <>
         <NavbarHome />
         <div className="container-signup">
-            <form onSubmit={this.handleSubmit}>
+            <form>
             <h1 className="heading-signup">Sign Up</h1>
             <p>Please fill the form to create an account with DoReMeet.</p>
             <small> All fields are required. </small>
@@ -145,7 +146,7 @@ class SignUp extends Component {
             </div> 
             
             <div className="input">
-                <Button className='btn' buttonStyle='btn--primary' buttonSize='btn--large' onClick={this.register}> Sign Up </Button>
+                <Button className='btn' buttonStyle='btn--primary' buttonSize='btn--large' onClick={this.signUp}> Sign Up </Button>
             </div>
 
             &nbsp; 

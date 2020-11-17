@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`account` (
   `account_id` TINYINT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(64) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
---  `acc_created` DATETIME NOT NULL,
+  `acc_created` DATETIME NOT NULL,
 --  `activate` INT acc_createdactivate NOT NULL DEFAULT 0,
   `user` TINYINT NULL,
   PRIMARY KEY (`account_id`),
