@@ -26,7 +26,7 @@ const CommunityPage = (stateObj) => {
     formData.append('post_title', stateObj.postName);
     formData.append('post_category', stateObj.postCategory);
 
-    await axios.post('/upload', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+    await axios.post('/makePost', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
   };
 
   const submitHandler = (event) => {
