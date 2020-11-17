@@ -75,12 +75,12 @@ app.post('/makePost', (req, res) => {
      });
 });
 
-// app.get("/recent5", (req, res) => {
-//     var todb = "SELECT * FROM communityPage ORDER BY comm_pg_id DESC LIMIT 5";
-//     pool.query(todb, (error, result) => {
-//         res.send(result);
-//     })
-// });
+ app.get("/recent5", (req, res) => {
+     var todb = "SELECT * FROM communityPage ORDER BY comm_pg_id DESC LIMIT 5";
+     pool.query(todb, (error, result) => {
+         res.send(result);
+     })
+ });
 
 app.post('/login', (req, res) => {
     console.log("____________start_______________")
