@@ -30,11 +30,11 @@ const Profile = (stateObj) => {
                 <div className="profileContainer">
                     <div className="profileChildImg">
                         <img className="profileImage" src={`${stateObj.file}`} />
-                        <form class="post-container" onSubmit={() => upload}>
+                        {/* <form class="post-container" onSubmit={() => upload}>
                             <input type='file' className='custom-file-input' id='customFile' onChange={() => onChange} />
                             <label className='custom-file-label' htmlFor='customFile'></label>
                             <input type='submit' value='Upload' />
-                        </form>
+                        </form> */}
                     </div>
                     <div className="profileChildInfo">
                         <h2 style={{ display: "inline-block", marginBottom: "5px" }}>Profile Name</h2>
@@ -60,18 +60,18 @@ const Profile = (stateObj) => {
                         <br />
                     </div>
                     <div>
-                        <img style={{ height: "200px", marginLeft: "20px" }} src='assets/placeholder-img.jpg' />
-                        <img style={{ height: "200px", marginLeft: "10px" }} src='assets/placeholder-img.jpg' />
-                        <img style={{ height: "200px", marginLeft: "10px" }} src='assets/placeholder-img.jpg' />
-                        <img style={{ height: "200px", marginLeft: "10px" }} src='assets/placeholder-img.jpg' />
+                        <img style={{ height: "180px", marginLeft: "20px" }} src='assets/placeholder-img.jpg' />
+                        <img style={{ height: "180px", marginLeft: "10px" }} src='assets/placeholder-img.jpg' />
+                        <img style={{ height: "180px", marginLeft: "10px" }} src='assets/placeholder-img.jpg' />
+                        <img style={{ height: "180px", marginLeft: "10px" }} src='assets/placeholder-img.jpg' />
                     </div>
                     <div>
                         <br />
                         <h3 style={{ marginLeft: "20px" }}> Community Posts:</h3>
-                        <img style={{ height: "400px", marginLeft: "20px" }} src='assets/placeholder-img.jpg' />
-                        <img style={{ height: "400px", marginLeft: "20px" }} src='assets/placeholder-img.jpg' />
-                        <h2 style={{ marginLeft: "210px", marginRight: "210px", display: "inline-block" }}> Post Title</h2>
-                        <h2 style={{ marginLeft: "210px", display: "inline-block" }}> Post Title</h2>
+                        <img style={{ height: "320px", marginLeft: "20px" }} src='assets/placeholder-img.jpg' />
+                        <img style={{ height: "320px", marginLeft: "80px" }} src='assets/placeholder-img.jpg' />
+                        <h2 style={{ marginLeft: "170px", marginRight: "150px", display: "inline-block" }}> Post Title</h2>
+                        <h2 style={{ marginLeft: "220px", display: "inline-block" }}> Post Title</h2>
                     </div>
                 </div>
             </header>
