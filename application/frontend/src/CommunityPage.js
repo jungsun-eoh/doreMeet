@@ -19,13 +19,14 @@ const CommunityPage = (stateObj) => {
   };
 
   const postHandler = async e => {
+    e.preventDefault();
     const formData = new FormData();
     stateObj.setPostFile(stateObj.file);
     formData.append('file', stateObj.file);
     formData.append('post_title', stateObj.postName);
     formData.append('post_category', stateObj.postCategory);
 
-    await axios.post('/makePost', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+    await axios.post('/upload', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
   };
 
   const submitHandler = (event) => {
@@ -93,7 +94,7 @@ const CommunityPage = (stateObj) => {
                 <button className="post" id="postbutton" onClick={openPost}>Post</button>
               </div>
               <div class="post-popup" id="postform">
-                <form class="post-container" onSubmit={() => postHandler}>
+                <form class="post-container" onSubmit={postHandler}>
                   <h2>Post Something</h2>
                   <input type="text" onChange={e => stateObj.setPostName(e.target.value)} placeholder="Name" required />
                   <div>
@@ -104,7 +105,7 @@ const CommunityPage = (stateObj) => {
                     </select>
                  </div>
                   <label htmlFor="post-file">Select file: </label>
-                  <input type='file' className='custom-file-input' id='customFile' onChange={() => onChange} />
+                  <input type='file' className='custom-file-input' id='customFile' onChange={onChange} />
                   <div>
                    <input type='submit' />
                  </div>

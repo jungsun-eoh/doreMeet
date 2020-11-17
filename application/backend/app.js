@@ -56,6 +56,11 @@ app.get("/searchPost", (req, res) => {
 });
 
 app.post('/makePost', (req, res) => {
+    console.log("test");
+    console.log(req.files);
+    if (req.files === null) {
+        return console.log(res.status(400).json({ msg: 'No file uploaded' }));
+      }
     var filepath = `/../frontend/public/assets/postImages/${req.files.file.name}`;
 
     req.files.file.mv(`${__dirname}${filepath}`, err => {
