@@ -28,8 +28,12 @@ class LogIn extends Component {
     login = e =>{
         e.preventDefault();
         axios.post('/login', this.state).then(response =>{
+            if(response.data){
+                this.props.history.push('/Community');
+            }else{
+                 alert("Your username or password is incorrect");
+            }
         });
-        this.props.history.push('/Community');
     }
 
     render(){
