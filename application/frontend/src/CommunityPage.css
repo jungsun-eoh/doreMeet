@@ -14,7 +14,7 @@
     text-align: center;
 }
 
-.PostFormat {
+.PostFormFormat {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -23,19 +23,40 @@
 .RecentPosts {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     flex-direction: column;
     text-align: center;
-    margin-top: 40px;
+    margin: 40px 40px 40px 40px;
+    overflow: auto;
 }
 
 .PostImage {
-    object-fit: none;
+    width: 500px;
+    height: 450px;
+    float: left;
+    margin-left: 50px;
+    margin-right: 50px;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
-.RecentPostsFormat {
-    margin-bottom: 40px;
+.PostTitle {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    text-align: center;
 }
+
+.PostCategory {
+    text-align: center;
+}
+
+.PostDescription {
+    font-size: 20px;
+    text-align: left;
+    margin-left: 50px;
+    margin-right: 50px;
+    padding-bottom: 50px;
+}
+
 .search {
     padding: 6px;
     font-size: 30px;

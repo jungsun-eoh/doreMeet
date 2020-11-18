@@ -37,11 +37,12 @@ const CommunityPage = (stateObj) => {
       if(response.data.length > 0){
         console.log(response.data.length);
         let _html = "";
+        _html += `<h3>Search Results</h3>`
         _html += `<div class="RecentPostsFormat">
-                  <h3>Search Results</h3>
                   <img class="PostImage" src="assets/postImages/${response.data[0].post_file}" alt="Post Image"/>
                   <p class="PostTitle">${response.data[0].post_title}</p>
                   <p class="PostCategory">${response.data[0].post_category}</p>
+                  <p class="PostDescription">Post Description</p>
                   </div>`;
         document.getElementById("recent-posts").innerHTML = _html;
       }else{
@@ -72,11 +73,12 @@ const CommunityPage = (stateObj) => {
        axios.get('/recent5').then(response => {
          console.log(response.data[0]);
          let _html = "";
-         _html += `<h3>Recent Posts</h3>`;
+         _html += `<h1>Recent Posts</h1>`;
          response.data.forEach(post => {_html += `<div class="RecentPostsFormat">
                    <img class="PostImage" src="assets/postImages/${post.post_file}" alt="Post Image"> \
-                   <p class="PostTitle">${post.post_title}</p>
-                   <p class="PostCategory">${post.post_category}</p>
+                   <h2 class="PostTitle">${post.post_title}</h2>
+                   <h3 class="PostCategory">${post.post_category}</h3>
+                   <p class="PostDescription">Post Description</p>
                    </div>`;})
          document.getElementById("recent-posts").innerHTML = _html;
        }).catch(function (error) {
@@ -106,7 +108,7 @@ const CommunityPage = (stateObj) => {
                   <input class="searchButtons" type='submit' />
                 </form>
               </div>
-              <div className="PostFormat">
+              <div className="PostFormFormat">
                 <label htmlFor="postbutton">Share your work with us here!</label>
                 <button className="post" id="postbutton" onClick={openPost}>Post</button>
               </div>
