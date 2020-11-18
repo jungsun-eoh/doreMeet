@@ -47,11 +47,7 @@ app.get("/searchPost", (req, res) => {
 
     var todb = 'SELECT * FROM communityPage WHERE post_title = ? AND post_category = ?;';
     pool.query(todb,[post_title, post_category] ,(err, result) => {
-        if(err){
-            res.send({err:err})
-        }else{
-            res.send(result);
-        }
+        res.send(result);
     })
 });
 
