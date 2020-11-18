@@ -34,14 +34,25 @@ const CommunityPage = (stateObj) => {
     alert("You are searching for " + stateObj.searchTitle + " " + stateObj.searchCategory);
 
     axios.get('/searchPost', { params: { post_title: stateObj.searchTitle, post_category: stateObj.searchCategory } }).then(response => {
-      let _html = "";
-      _html += `<div class="RecentPostsFormat">
-                <h3>Search Results</h3>
-                <img class="PostImage" src="assets/postImages/${response.data[0].post_file}" alt="Post Image"/>
-                <p class="PostTitle">${response.data[0].post_title}</p>
-                <p class="PostCategory">${response.data[0].post_category}</p>
-                </div>`;
-      document.getElementById("recent-posts").innerHTML = _html;
+      if(response.data.length > 0){
+        console.log(response.data.length);
+        let _html = "";
+        _html += `<div class="RecentPostsFormat">
+                  <h3>Search Results</h3>
+                  <img class="PostImage" src="assets/postImages/${response.data[0].post_file}" alt="Post Image"/>
+                  <p class="PostTitle">${response.data[0].post_title}</p>
+                  <p class="PostCategory">${response.data[0].post_category}</p>
+                  </div>`;
+        document.getElementById("recent-posts").innerHTML = _html;
+      }else{
+        let _html = "";
+        _html += `<div class="RecentPostsFormat">
+                  <h3>Search Results</h3>
+                  <p>Sorry, we couldn't find anything</p>
+                  </div>`;
+        document.getElementById("recent-posts").innerHTML = _html;
+      }
+
     }).catch(function (error) {
       stateObj.setResultTitle("Not Found");
       stateObj.setResultCategory("Not Found");
@@ -57,21 +68,21 @@ const CommunityPage = (stateObj) => {
     document.getElementById("postform").style.display = "none";
   }
 
-   useEffect(() => {
-     axios.get('/recent5').then(response => {
-       console.log(response.data[0]);
-       let _html = "";
-       _html += `<h3>Recent Posts</h3>`;
-       response.data.forEach(post => {_html += `<div class="RecentPostsFormat">
-                 <img class="PostImage" src="assets/postImages/${post.post_file}" alt="Post Image"> \
-                 <p class="PostTitle">${post.post_title}</p>
-                 <p class="PostCategory">${post.post_category}</p>
-                 </div>`;})
-       document.getElementById("recent-posts").innerHTML = _html;
-     }).catch(function (error) {
-       console.log('fail')
+     useEffect(() => {
+       axios.get('/recent5').then(response => {
+         console.log(response.data[0]);
+         let _html = "";
+         _html += `<h3>Recent Posts</h3>`;
+         response.data.forEach(post => {_html += `<div class="RecentPostsFormat">
+                   <img class="PostImage" src="assets/postImages/${post.post_file}" alt="Post Image"> \
+                   <p class="PostTitle">${post.post_title}</p>
+                   <p class="PostCategory">${post.post_category}</p>
+                   </div>`;})
+         document.getElementById("recent-posts").innerHTML = _html;
+       }).catch(function (error) {
+         console.log('fail')
+       });
      });
-   });
 
   return (
     <>
