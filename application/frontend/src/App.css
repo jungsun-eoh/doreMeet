@@ -236,3 +236,21 @@
   padding-left: 100px;
   padding-right: 100px;
 }
+
+.price {
+  list-style-type: none;
+  border: 1px solid #eee;
+  padding: 25px 25px 25px 25px;
+  -webkit-transition: 0.3s;
+  margin: 7px;
+  transition: 0.3s;
+  text-align: center;
+  background: rgb(145, 242, 255);
+  color: #333;
+}
+
+@media only screen and (max-width: 600px) {
+  .pricing-columns {
+    width: 100%;
+  }
+}

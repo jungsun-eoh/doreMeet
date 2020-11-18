@@ -15,8 +15,8 @@ class FAQ extends Component {
             <div className='FooterBanner'>
               <h1> FAQs </h1>
            </div>
-           <h1 style={{fontSize: 44, marginTop: 20, marginBottom: 20, marginLeft: 30, marginright: 30, textAlign:'center'}}> Need Help? </h1>
-           <p style={{fontSize: 24, marginTop: 20, marginBottom: 20, marginLeft: 30, marginright: 30, textAlign:'center'}}> 
+           <h1 style={{fontSize: 44, marginTop: 20, marginBottom: 20, marginLeft: 30, marginRight: 30, textAlign:'center'}}> Need Help? </h1>
+           <p style={{fontSize: 24, marginTop: 20, marginBottom: 20, marginLeft: 30, marginRight: 30, textAlign:'center'}}> 
            Check the popularly asked questions, and if you still can't find the answer <b><a href="/ContactUs">Contact Us here</a></b></p>
            <br />
            <Accordion 

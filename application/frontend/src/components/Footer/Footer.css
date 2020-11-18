@@ -13,7 +13,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    margin-bottom: 24px;
+    margin-bottom: 12px;
     padding: 24px;
     color: #ffffff;
   }
@@ -35,11 +35,12 @@
   .footer-input {
     padding: 8px 75px;
     border-radius: 2px;
-    margin-right: 10px;
+    margin-right: 8px;
     outline: none;
     border: none;
+    width: 60px;
     font-size: 18px;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     border: 1px solid #ffffff;
   }
   

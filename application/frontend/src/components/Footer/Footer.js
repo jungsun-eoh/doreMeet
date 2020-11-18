@@ -14,13 +14,13 @@ function Footer() {
         </p>
         <div className='input-areas'>
           <form>
-            <input
+            <table><tr><td><input
               className='footer-input'
               name='email'
               type='email'
               placeholder='Enter your email here'
-            />
-            <Button buttonStyle='btn--primary'>Subscribe</Button>
+            /></td> &nbsp; &nbsp;<td>
+            <Button buttonStyle='btn--primary'>Subscribe</Button></td></tr></table>
           </form>
         </div>
       </section>
@@ -32,28 +32,27 @@ function Footer() {
             <a href='/ContactUs'> <p> Contact Us </p></a>
             <a href='/Terms'> <p> Terms &amp; Conditions </p></a>
             <a href='/Privacy'> <p> Privacy Policy </p></a>
-            <a href='/Careers'> <p> Careers </p></a>
           </div>
         </div>
       </div>
       <section class='social-media'>
         <div class='social-media-wrap'>
           <div class='social-icons'>
-            <a href="/"
+            <a href="www.facebook.com"
               class='social-icon-link facebook'
               target='_blank'
               aria-label='Facebook'
             >
               <i class='fab fa-facebook-f' />
             </a>
-            <a href="/"
+            <a href="www.instagram.com"
               class='social-icon-link instagram'
               target='_blank'
               aria-label='Instagram'
             >
               <i class='fab fa-instagram' />
             </a>
-            <a href="/"
+            <a href="www.twitter.com"
               class='social-icon-link twitter'
               target='_blank'
               aria-label='Twitter'
