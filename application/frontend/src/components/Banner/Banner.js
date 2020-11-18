@@ -3,8 +3,6 @@ import { Button } from '../Navbar/Buttons';
 import { Link } from 'react-router-dom';
 
 import './Banner.css';
-//import logo from './assets/drm_banner.gif';
-//<img src={logo} alt='Banner' width='100%' height='600px'></img>
 
 function Banner() {
   return (
@@ -20,12 +18,3 @@ function Banner() {
 }
 
 export default Banner;
-/*
-<div class='container'>
-        <img src={logo} alt='Banner' width='100%' height='600px'></img>
-        <div class='centered animated bounce'><h1> CONNECT &amp; CREATE </h1></div>
-        <div class='centered after'><h3><b> Secondary Tagline </b></h3></div>
-        <button class='logIn-button'>Log In</button> 
-        <button class='signUp-button'> Sign Up</button>
-      </div>
-    </div>*/

@@ -70,22 +70,25 @@ const Settings = (stateObj) => {
                         <h1>Settings</h1>
                     </div>
                     
-                    <input style={{position: "center", width: '30%'}} type='button' value="Edit Settings"  onClick={getUser}/><br/>
+                    <input style={{position: "center", width: '10%', marginLeft:950, marginTop:10}} type='button' value="Edit Settings"  onClick={getUser}/><br/>
                     <form className="settingsForm" onSubmit={updateUser}>
                         
                         <label for="fname">First Name Currently: {stateObj.currentFirstName}<b id="first_name"></b></label><br/>
                         <input onChange={e => stateObj.setFirstName(e.target.value)} className="settingsFields" type="text" id="fname"/><br/>
                         <label for="lname">Last Name Currently: {stateObj.currentLastName}<b id="last_name"></b></label><br/>
                         <input onChange={e => stateObj.setLastName(e.target.value)} className="settingsFields" type="text" id="lname"/><br/>
-                        <p>Your name will not be available for other users to view to protect your privacy</p><br/>
-
-                        <h4>Gender Currently: {stateObj.currentGender}<b id="gender"></b></h4>
-                        <input onChange={e => stateObj.setGender(e.target.value)} type="radio" id="male" name="gender" value="m"/>
-                        <label for="male">Male</label><br/>
-                        <input onChange={e => stateObj.setGender(e.target.value)} type="radio" id="female" name="gender" value="f"/>
-                        <label for="female">Female</label><br/>
-                        <input onChange={e => stateObj.setGender(e.target.value)} type="radio" id="none" name="gender" value="0"/>
-                        <label for="none">None</label><br/><br/>
+                        <p>Your name will not be available for other users to view to protect your privacy</p><br />
+                       
+                        <table>
+                        <tr>
+                            <td><h4>Gender Currently: {stateObj.currentGender}<b id="gender"></b></h4></td>&nbsp;  &nbsp; 
+                            <td><input onChange={e => stateObj.setGender(e.target.value)} type="radio" id="male" name="gender" value="m"/>
+                            <label for="male">Male</label></td> &nbsp;  &nbsp; 
+                            <td><input onChange={e => stateObj.setGender(e.target.value)} type="radio" id="female" name="gender" value="f"/>
+                            <label for="female">Female</label></td>&nbsp;  &nbsp;
+                            <td><input onChange={e => stateObj.setGender(e.target.value)} type="radio" id="none" name="gender" value="0"/>
+                            <label for="none">None</label></td>
+                        </tr></table>
 
                         <label for="birthday">Date of Birth Curently: {stateObj.currentDOB}<b id="date_of_birth"></b></label><br/>
                         <input onChange={e => stateObj.setDOB(e.target.value)} className="settingsFields" type = "date" id="birthday" max="2002-01-01"/>
@@ -130,13 +133,15 @@ const Settings = (stateObj) => {
                         <input style={{width: "100px"}} onChange={e => stateObj.setMaximumAge(e.target.value)} className="settingsFields" type="number" id="maxAge" min="18"/><br/>
                         <p>The maximum age of people you will match with</p><br/>
 
-                        <h4>Prefered Match Gender Currently: {stateObj.currentPreferedGender}</h4>
-                        <input onChange={e => stateObj.setPreferedGender(e.target.value)} type="radio" id="preferedMale" name="preferedGender" value="male"/>
-                        <label for="preferedMale">Male</label><br/>
-                        <input onChange={e => stateObj.setPreferedGender(e.target.value)} type="radio" id="preferedFemale" name="preferedGender" value="female"/>
-                        <label for="preferedFemale">Female</label><br/>
-                        <input onChange={e => stateObj.setPreferedGender(e.target.value)} type="radio" id="preferedNone" name="preferedGender" value="none"/>
-                        <label for="preferedNone">None</label>
+                        <table>
+                        <tr>
+                            <td><h4>Prefered Match Gender Currently: {stateObj.currentPreferedGender}</h4></td>&nbsp;  &nbsp;
+                            <td><input onChange={e => stateObj.setPreferedGender(e.target.value)} type="radio" id="preferedMale" name="preferedGender" value="male"/>
+                            <label for="preferedMale">Male</label></td>&nbsp;  &nbsp;
+                            <td><input onChange={e => stateObj.setPreferedGender(e.target.value)} type="radio" id="preferedFemale" name="preferedGender" value="female"/>
+                            <label for="preferedFemale">Female</label></td>&nbsp;  &nbsp;
+                            <td><input onChange={e => stateObj.setPreferedGender(e.target.value)} type="radio" id="preferedNone" name="preferedGender" value="none"/>
+                            <label for="preferedNone">None</label></td></tr></table>
                         <p>Your prefered gender for the people you will match with</p><br/>
 
                         <label for="preferedSkill">Prefered Skill Level Currently: {stateObj.currentPreferedSkillLevel}</label><br/>
