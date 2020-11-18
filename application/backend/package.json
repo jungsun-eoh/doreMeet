@@ -7,15 +7,16 @@
     "dev": "node app.js",
     "client": "cd .. && cd frontend && npm start",
     "start": "concurrently \"npm run dev\" \" npm run client\""
-    
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cookie-parser": "^1.4.5",
     "concurrently": "^5.3.0",
+    "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.0",
+    "express-mysql-session": "^2.1.4",
+    "express-session": "^1.17.1",
     "mysql": "^2.18.1",
     "mysql2": "^2.2.5",
     "promise": "^8.1.0"
