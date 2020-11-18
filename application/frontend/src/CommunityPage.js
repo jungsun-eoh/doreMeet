@@ -47,8 +47,8 @@ const CommunityPage = (stateObj) => {
         document.getElementById("recent-posts").innerHTML = _html;
       }else{
         let _html = "";
+        _html += `<h3>Search Results</h3>`
         _html += `<div class="RecentPostsFormat">
-                  <h3>Search Results</h3>
                   <p>Sorry, we couldn't find anything</p>
                   </div>`;
         document.getElementById("recent-posts").innerHTML = _html;
