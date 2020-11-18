@@ -30,9 +30,9 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user` (
   `gender` CHAR(1) NOT NULL,
   `date_of_birth` DATETIME NOT NULL,
   `email` VARCHAR(128) NOT NULL,
-  `phone_number` INT NULL,
+  `phone_number` VARCHAR(11) NULL,
   `art_category` VARCHAR(10) NOT NULL,
-  `art_category_tag` VARCHAR(10) NOT NULL,
+  `art_category_tag` VARCHAR(10) NULL,
   `skill_lvl` CHAR(1) NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC))
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`account` (
   `account_id` TINYINT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(64) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
---  `acc_created` DATETIME NOT NULL,
+  `acc_created` DATETIME NOT NULL,
 --  `activate` INT acc_createdactivate NOT NULL DEFAULT 0,
   `user` TINYINT NULL,
   PRIMARY KEY (`account_id`),
@@ -280,6 +280,15 @@ CREATE TABLE IF NOT EXISTS `mydb`.`communityPage` (
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
+
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_category`,`post_file`)
+VALUES								            ('Test',	     'Music',		    'b.png');	
+
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`gender`,`date_of_birth`,`email`,  	`phone_number`,`art_category`,`skill_lvl`)
+VALUES					         ('first',		  'last',		  'f',	  '2020-12-01','	mail@mail',	'7073334444',	  'D',			    'I');
+
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`)
+VALUES						          ('123',		  '123',		  1);
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

@@ -13,7 +13,7 @@ function Highlights() {
               src='assets/placeholder-img.jpg'
               text='Amateur Salsa Dance at Local Competition'
               label='Dance'
-              path='#'
+              path='/'
             />
             <HighlightItem
               src='assets/placeholder-img.jpg'

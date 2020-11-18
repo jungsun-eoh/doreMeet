@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { Button } from './Buttons';
 import { MenuItems } from './MenuItems';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import './Navbar.css';
 
 class Navbar extends Component {
@@ -11,15 +12,22 @@ class Navbar extends Component {
         this.setState({clicked: !this.state.clicked})
     }
 
+    logout = e =>{
+        e.preventDefault();
+        axios.post('/logout').then(response =>{
+        })
+        this.props.history.push("/");
+    }
+
     render() {
         return(
             <nav className='NavbarItems'>
-                <Link to='/' > 
-                <h1 className='navbar-logo'><img src="DoReMeetLogo.png" height="30px"/>DoReMeet</h1>
+                <a href={'/'}>
+                <h1 className='navbar-logo'><img src="DoReMeetLogo.png" alt="Logo" height="30px"/> DoReMeet</h1>
                 <div className='menu-icon' onClick={this.handleClick}>
                     <i className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
                 </div>
-                </Link>
+                </a>
                 <ul className={this.state.clicked ? 'nav-menu active' : 'nav-menu'}>
                     {MenuItems.map((item, index) => {
                         return(
@@ -31,10 +39,12 @@ class Navbar extends Component {
                         )
                     })}
                 </ul>
-                <Link to='/'><Button><b>Log Out</b></Button></Link>
+                <a href='/Settings'><i class="fas fa-cog fa-lg" style={{paddingRight:4}}></i></a>
+                &nbsp; &nbsp;
+                <Button onClick={() => this.logout}><b>Log Out</b></Button>
             </nav>
         )
     }
 }
 
-export default Navbar;
+export default withRouter(Navbar);

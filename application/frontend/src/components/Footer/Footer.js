@@ -1,7 +1,6 @@
 import React from 'react';
 import './Footer.css';
 import { Button } from '../Navbar/Buttons';
-import { Link } from 'react-router-dom';
 
 function Footer() {
   return (
@@ -11,7 +10,7 @@ function Footer() {
           Subscribe to Our Newsletter
         </h4>
         <p className='footer-subscription-text'>
-          Get the company details, comapny news and special offers delivered right to your inbox.
+          Get the company details, company news and special offers delivered right to your inbox.
         </p>
         <div className='input-areas'>
           <form>
@@ -28,42 +27,39 @@ function Footer() {
       <div class='footer-links'>
         <div className='footer-link-wrapper'>
           <div class='footer-link-items'>
-            <Link to='/sign-up'> <p> FAQs </p></Link>
-            <Link to='/sign-up'> <p> Guidelines </p></Link>
-            <Link to='/sign-up'> <p> Contact Us </p></Link>
-            <Link to='/sign-up'> <p> Terms &amp; Conditions </p></Link>
-            <Link to='/sign-up'> <p> Privacy Policy </p></Link>
-            <Link to='/sign-up'> <p> Careers </p></Link>
+            <a href ='/FAQ'> <p> FAQs </p></a>
+            <a href='/Guidelines'> <p> Guidelines </p></a>
+            <a href='/ContactUs'> <p> Contact Us </p></a>
+            <a href='/Terms'> <p> Terms &amp; Conditions </p></a>
+            <a href='/Privacy'> <p> Privacy Policy </p></a>
+            <a href='/Careers'> <p> Careers </p></a>
           </div>
         </div>
       </div>
       <section class='social-media'>
         <div class='social-media-wrap'>
           <div class='social-icons'>
-            <Link
+            <a href="/"
               class='social-icon-link facebook'
-              to='/'
               target='_blank'
               aria-label='Facebook'
             >
               <i class='fab fa-facebook-f' />
-            </Link>
-            <Link
+            </a>
+            <a href="/"
               class='social-icon-link instagram'
-              to='/'
               target='_blank'
               aria-label='Instagram'
             >
               <i class='fab fa-instagram' />
-            </Link>
-            <Link
+            </a>
+            <a href="/"
               class='social-icon-link twitter'
-              to='/'
               target='_blank'
               aria-label='Twitter'
             >
               <i class='fab fa-twitter' />
-            </Link>
+            </a>
           </div>
         </div>
       </section>
