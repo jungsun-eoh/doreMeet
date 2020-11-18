@@ -157,10 +157,10 @@ class SignUp extends Component {
             
             <p>By creating an account you agree to our Terms &amp; Privacy.</p>
             <br /><br />
-            <div className="input">
+            <div className="input" style={{marginBottom: 50}}>
                 <label className="sub-heading"> <b> Already have an account? </b> &nbsp;  &nbsp;  </label>
                 <Link to='/login'><Button className='btn' buttonStyle='btn--primary' buttonSize='btn--large'> Log In </Button></Link>
-                </div>
+            </div>
                 <br />
 
             </form>
