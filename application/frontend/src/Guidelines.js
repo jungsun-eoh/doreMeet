@@ -1,3 +1,9 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: Guidelines.js
+**Desc: The guidelines for the website, contains the rules that should be followed, accessed through the footer
+*/
+
 import React, { Component } from 'react';
 import NavbarHome from './components/Navbar/NavbarHome';
 import Footer from './components/Footer/Footer';

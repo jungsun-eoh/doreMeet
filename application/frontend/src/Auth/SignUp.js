@@ -1,3 +1,9 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: SignUp.js
+**Desc: This is the signup page. Contains all the fields that users must fill out in order to create an account
+*/
+
 import React, { Component } from 'react';
 import { Button } from '../components/Navbar/Buttons';
 import NavbarHome from '../components/Navbar/NavbarHome';

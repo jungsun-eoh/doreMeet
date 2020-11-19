@@ -1,3 +1,8 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: Company.js
+**Desc: Super simple page just talking about the "company" stuff, can be accessed through the landing page
+*/
 import React, { Component } from 'react';
 import NavbarHome from './components/Navbar/NavbarHome';
 import Footer from './components/Footer/Footer';

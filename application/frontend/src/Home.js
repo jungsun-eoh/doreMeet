@@ -1,3 +1,10 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: Home.js
+**Desc: This is the landing page of the site. From here users can access preliminary info before they login
+or signup. They can also do those two aforementioned things here as well.
+*/
+
 import React from 'react';
 import Banner from './components/Banner/Banner';
 import Highlights from './components/Highlights/Highlights';

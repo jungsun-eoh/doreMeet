@@ -1,3 +1,10 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: Settings.js
+**Desc: The settings page, displays all the current settings and also allwos users to change settings.
+Accessed through the logged in Navbar not the home nav bar.
+*/
+
 import React from 'react';
 import './App.css';
 import axios from 'axios';

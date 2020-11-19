@@ -1,3 +1,9 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: Banner.js
+**Desc: This is the banner that is displayed on the landing page.
+*/
+
 import React from 'react';
 import { Button } from '../Navbar/Buttons';
 import { Link } from 'react-router-dom';

@@ -1,3 +1,10 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: MatchingPage.js
+**Desc: This is the match page, users are matched with other users automatically based on their art category
+and preferences.
+*/
+
 import React from 'react';
 import './App.css';
 import './MatchingPage.css';

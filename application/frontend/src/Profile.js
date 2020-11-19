@@ -1,3 +1,9 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: Profile.js
+**Desc: Displays the profile of the user that is currently logged in. Accessed through the logged in navbar.
+*/
+
 import React, { Component } from 'react';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';

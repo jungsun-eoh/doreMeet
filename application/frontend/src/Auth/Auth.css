@@ -1,3 +1,9 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: Auth.css
+**Desc: Contains all the neccessary css for the Login and Signup page
+*/
+
 .container-signup{
     background: rgb(238,253,255);
     background: linear-gradient(90deg, rgba(238,253,255,1) 36%, rgba(215,255,235,1) 100%);

@@ -1,3 +1,9 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: Privacy.js
+**Desc: Contains all the information regarding the privacy policy. Accessed through the footer.
+*/
+
 import React, { Component } from 'react';
 import NavbarHome from './components/Navbar/NavbarHome';
 import Footer from './components/Footer/Footer';

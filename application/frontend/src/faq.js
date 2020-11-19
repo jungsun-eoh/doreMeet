@@ -1,3 +1,9 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: faq.js
+**Desc: Simple FAQ page that can be accessed through the footer
+*/
+
 import React, {Component } from 'react';
 import NavbarHome from './components/Navbar/NavbarHome';
 import Accordion from './components/Accordion/Accordion';

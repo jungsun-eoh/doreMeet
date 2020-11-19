@@ -1,3 +1,9 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: MenuItems.js
+**Desc: Contains the items for the navbar past the landing page in the main part of the site
+*/
+
 export const MenuItems = [
     {
         title: 'Community',

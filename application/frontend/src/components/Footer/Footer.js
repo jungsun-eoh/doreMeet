@@ -1,3 +1,9 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: Footer.js
+**Desc: The footer that is displayed on all the pages of the site. Contains all the neccessary legal information
+links and things of that nature.
+*/
 import React from 'react';
 import './Footer.css';
 import { Button } from '../Navbar/Buttons';

@@ -1,3 +1,9 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: Pricing.js
+**Desc: Contains information on the pricing of premium accounts. Accessed through the landing page
+*/
+
 import React, { Component } from 'react';
 import NavbarHome from './components/Navbar/NavbarHome';
 import Footer from './components/Footer/Footer';
