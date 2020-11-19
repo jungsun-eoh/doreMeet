@@ -21,7 +21,7 @@
 a.) **SSH into the EC2 instance:**<br>
 $ ssh -i "Team02.pem" ubuntu@ec2-13-52-247-220.us-west-1.compute.amazonaws.com (locate the .pem file before doing this).<br>
 
-b.) **Connect to databse using MySQLWorkbench** <br>
+b.) **Connect to database using MySQLWorkbench** <br>
 Create a new connection over Standard TCP/IP over SSH<br>
 SSH Hostname: ec2-13-52-247-220.us-west-1.compute.amazonaws.com<br>
 SSH Username: ubuntu<br>
