@@ -93,7 +93,7 @@ const Settings = (stateObj) => {
                         </tr></table>
 
                         <label for="birthday">Date of Birth Curently: {stateObj.currentDOB}<b id="date_of_birth"></b></label><br/>
-                        <input onChange={e => stateObj.setDOB(e.target.value)} className="settingsFields" type = "date" id="birthday" max="2002-01-01"/>
+                        <input style={{marginTop: "0px", marginBottom: "0px"}} onChange={e => stateObj.setDOB(e.target.value)} className="settingsFields" type = "date" id="birthday" max="2002-01-01"/>
                         <p>You must be 18 or older to use this site</p><br/>
 
                         <label for="email">Email Currently: {stateObj.currentEmail}<b id="email"></b></label>
