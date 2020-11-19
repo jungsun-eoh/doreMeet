@@ -4,10 +4,10 @@
 **Desc: Super simple page just talking about the "company" stuff, can be accessed through the landing page
 */
 import React, { Component } from 'react';
-import NavbarHome from './components/Navbar/NavbarHome';
-import Footer from './components/Footer/Footer';
+import NavbarHome from '../components/Navbar/NavbarHome';
+import Footer from '../components/Footer/Footer';
 import { BrowserRouter as Router } from 'react-router-dom';
-import './App.css';
+import '../App.css';
 
 class Company extends Component {
 

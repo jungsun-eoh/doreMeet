@@ -5,11 +5,11 @@
 */
 
 import React, {Component } from 'react';
-import NavbarHome from './components/Navbar/NavbarHome';
-import Accordion from './components/Accordion/Accordion';
-import Footer from './components/Footer/Footer';
+import NavbarHome from '../components/Navbar/NavbarHome';
+import Accordion from '../components/Accordion/Accordion';
+import Footer from '../components/Footer/Footer';
 import { BrowserRouter as Router } from 'react-router-dom';
-import './App.css';
+import '../App.css';
 
 class FAQ extends Component {
 

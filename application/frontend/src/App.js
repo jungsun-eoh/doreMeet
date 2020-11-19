@@ -6,22 +6,22 @@ facilitate actions between pages.
 */
 import React from 'react';
 import './App.css';
-import Home from './Home';
+import Home from './LandingPage/Home';
+import Company from './LandingPage/Company';
+import Pricing from './LandingPage/Pricing';
 import LogIn from './Auth/LogIn';
 import SignUp from './Auth/SignUp';
-import CommunityPage from './CommunityPage';
-import FAQ from './faq';
-import Terms from './Terms';
-import Privacy from './Privacy';
-import Pricing from './Pricing';
-import Company from './Company';
-import ContactUs from './ContactUs';
-import Guidelines from './Guidelines'
-import Settings from './Settings';
-import MatchingPage from './MatchingPage';
-import Chat from './Chat';
-import Profile from './Profile';
-import Premium from './Premium';
+import CommunityPage from './CommunityPage/CommunityPage';
+import MatchingPage from './Matches/MatchingPage';
+import Chat from './Chat/Chat';
+import Settings from './Account/Settings';
+import Profile from './Account/Profile';
+import Premium from './Account/Premium';
+import FAQ from './FooterPages/faq';
+import Terms from './FooterPages/Terms';
+import Privacy from './FooterPages/Privacy';
+import ContactUs from './FooterPages/ContactUs';
+import Guidelines from './FooterPages/Guidelines';
 import {Route, BrowserRouter as Router, Switch, Link} from 'react-router-dom';
 
 function App() {
@@ -187,16 +187,6 @@ function App() {
       </Switch>
     </Router>
   );
-
-  // This is the old approach we were using where we switched using our stateObj
-  // switch(screenState){
-  //   case 'Community':
-  //     return CommunityPage(stateObj);
-  //   case 'Settings':
-  //     return Settings(stateObj);
-  //   case 'Match':
-  //     return MatchingPage(stateObj);
-  // }
 }
 
 export default App;

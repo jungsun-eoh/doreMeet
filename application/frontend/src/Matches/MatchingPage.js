@@ -6,12 +6,11 @@ and preferences.
 */
 
 import React from 'react';
-import './App.css';
+import '../App.css';
 import './MatchingPage.css';
-import axios from 'axios';
-import Navbar from './components/Navbar/Navbar';
+import Navbar from '../components/Navbar/Navbar';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Footer from "./components/Footer/Footer";
+import Footer from "../components/Footer/Footer";
 
 const MatchingPage = (stateObj) => {
   return(

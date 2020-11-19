@@ -6,10 +6,10 @@ Accessed through the logged in Navbar not the home nav bar.
 */
 
 import React from 'react';
-import './App.css';
+import '../App.css';
 import axios from 'axios';
-import Navbar from './components/Navbar/Navbar';
-import Footer from './components/Footer/Footer';
+import Navbar from '../components/Navbar/Navbar';
+import Footer from '../components/Footer/Footer';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 
