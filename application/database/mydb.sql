@@ -281,14 +281,14 @@ CREATE TABLE IF NOT EXISTS `mydb`.`communityPage` (
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
-INSERT INTO `mydb`.`communitypage`(`post_title`,`post_category`,`post_file`)
+INSERT INTO `mydb`.`communityPage`(`post_title`,`post_category`,`post_file`)
 VALUES								            ('Test',	     'Music',		    'b.png');	
 
 INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`gender`,`date_of_birth`,`email`,  	`phone_number`,`art_category`,`skill_lvl`)
 VALUES					         ('first',		  'last',		  'f',	  '2020-12-01','	mail@mail',	'7073334444',	  'D',			    'I');
 
-INSERT INTO `mydb`.`account`(`username`,`password`,`user`)
-VALUES						          ('123',		  '123',		  1);
+INSERT INTO `mydb`.`account`(`username`,`password`, `acc_created`,`user`)
+VALUES						          ('123',		  '123',	now(),	  1);
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

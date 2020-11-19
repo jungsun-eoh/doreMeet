@@ -25,7 +25,7 @@ const CommunityPage = (stateObj) => {
     formData.append('file', stateObj.file);
     formData.append('post_title', stateObj.postName);
     formData.append('post_category', stateObj.postCategory);
-
+    closePost();
     await axios.post('/makePost', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
   };
 
@@ -37,17 +37,18 @@ const CommunityPage = (stateObj) => {
       if(response.data.length > 0){
         console.log(response.data.length);
         let _html = "";
+        _html += `<h1>Search Results</h1>`
         _html += `<div class="RecentPostsFormat">
-                  <h3>Search Results</h3>
                   <img class="PostImage" src="assets/postImages/${response.data[0].post_file}" alt="Post Image"/>
-                  <p class="PostTitle">${response.data[0].post_title}</p>
-                  <p class="PostCategory">${response.data[0].post_category}</p>
+                  <h2 class="PostTitle">${response.data[0].post_title}</h2>
+                  <h3 class="PostCategory">${response.data[0].post_category}</h3>
+                  <p class="PostDescription">Post Description</p>
                   </div>`;
         document.getElementById("recent-posts").innerHTML = _html;
       }else{
         let _html = "";
-        _html += `<div class="RecentPostsFormat">
-                  <h3>Search Results</h3>
+        _html += `<h1>Search Results</h1>`
+        _html += `<div class="NoResult">
                   <p>Sorry, we couldn't find anything</p>
                   </div>`;
         document.getElementById("recent-posts").innerHTML = _html;
@@ -72,11 +73,13 @@ const CommunityPage = (stateObj) => {
        axios.get('/recent5').then(response => {
          console.log(response.data[0]);
          let _html = "";
-         _html += `<h3>Recent Posts</h3>`;
+         _html += `<h1>Recent Posts</h1>`;
          response.data.forEach(post => {_html += `<div class="RecentPostsFormat">
-                   <img class="PostImage" src="assets/postImages/${post.post_file}" alt="Post Image"> \
-                   <p class="PostTitle">${post.post_title}</p>
-                   <p class="PostCategory">${post.post_category}</p>
+                   <img class="PostImage" src="assets/postImages/${post.post_file}" alt="Post Image">
+                   <h2 class="PostTitle">${post.post_title}</h2>
+                   <h3 class="PostCategory">${post.post_category}</h3>
+                   <p class="PostDescription">Post DescriptionPost DescriptionPost DescriptionPost DescriptionPost DescriptionPost DescriptionPost DescriptionPost 
+                   DescriptionPost Description</p>                   
                    </div>`;})
          document.getElementById("recent-posts").innerHTML = _html;
        }).catch(function (error) {
@@ -92,7 +95,10 @@ const CommunityPage = (stateObj) => {
           <header className="App-header">
             <div class="description">
               <h2 align='center' top='30%'> Community Page </h2>
-              <h4 align='center'>Check out other peoples' art works or post some of your own amazing collaborations with fellow DoReMeet users</h4>
+              <p style={{fontSize: 22, marginLeft: 40, marginRight: 40 }} align='center'>See how other people are using DoReMeet to bring their artistic dreams to life, or post some of your own amazing collaborations with fellow DoReMeet users 
+              <br />
+              <br />
+              Check out our <a href="#highlight-section"> Highlights section </a> to see the most liked posts of the month.</p>
             </div>
             <div class="PageContainer">
               <div class="SearchContainer">
@@ -102,38 +108,47 @@ const CommunityPage = (stateObj) => {
                     <option value={"Music"}>Music</option>
                     <option value={"Dance"}>Dance</option>
                     <option value={"Art"}>Art</option>
+                    <option value={"Cinema"}>Cinema</option>
+                    <option value={"Photography "}>Photography</option>
+                    {/* <option value={"M"}>Music</option>
+                    <option value={"D"}>Dance</option>
+                    <option value={"A"}>Art</option>
+                    <option value={"C"}>Cinema</option>
+                    <option value={"P"}>Photography</option> */}
                  </select>
                   <input class="searchButtons" type='submit' />
                 </form>
               </div>
-              <div className="PostFormat">
+              <div className="PostFormFormat">
                 <label htmlFor="postbutton">Share your work with us here!</label>
                 <button className="post" id="postbutton" onClick={openPost}>Post</button>
               </div>
               <div class="post-popup" id="postform">
                 <form class="post-container" onSubmit={postHandler}>
-                  <h2>Post Something</h2>
+                  <h2> Post your creative collaborations! </h2>
                   <input type="text" onChange={e => stateObj.setPostName(e.target.value)} placeholder="Name" required />
                   <div>
                     <select onChange={e => { stateObj.setPostCategory(e.target.value); }}>
                      <option >Music</option>
                      <option >Dance</option>
                      <option >Art</option>
+                     <option >Cinema</option>
+                    <option >Photography</option>
                     </select>
                  </div>
-                  <label htmlFor="post-file">Select file: </label>
+                  <label htmlFor="post-file"> Select file: </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <input type='file' className='custom-file-input' id='customFile' onChange={onChange} />
                   <div>
                    <input type='submit' />
                  </div>
                   <div>
-                   <button onClick={closePost}>Close</button>
+                   <button type= "button" onClick={closePost}>Close</button>
                   </div>
                 </form>
              </div>
               <div class="RecentPosts" id="recent-posts">
               </div>
-              <div>
+              <div id='highlight-section' >
                 <Highlights />
               </div>
             </div>
