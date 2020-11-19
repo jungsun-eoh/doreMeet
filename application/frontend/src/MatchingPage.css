@@ -32,6 +32,7 @@
     justify-content: center;
     word-wrap: break-word;
     margin-left: 100px;
+    margin-right: 100px;
 }
 
 .ProfilePicture {
@@ -108,9 +109,31 @@
     height: 0;
 }
 
-@media only screen and (max-width: 1680px) {
+.MediaFiles {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 95px;
+    margin-top: 20px;
+}
+
+.Thumbnail {
+    width: 100px;
+    height: 100px;
+    margin-right: 75px;
+}
+
+@media only screen and (max-width: 1854px) {
     .ProfilePicture {
-        max-width: 600px;
+        max-width: 700px;
+    }
+    .Thumbnail {
+        margin-right: 50px;
+    }
+}
+
+@media only screen and (max-width: 1754px) {
+    .ProfilePicture {
+        max-width: 650px;
     }
     .UserInformation {
         width: 40%;
@@ -118,10 +141,47 @@
     .ConnectButton, .PassButton {
         width: 30%;
     }
+    .Thumbnail {
+        margin-right: 35px;
+    }
+}
+
+@media only screen and (max-width: 1680px) {
+    .ProfilePicture {
+        max-width: 600px;
+    }
+    .UserInformation {
+        width: 40%;
+    }
+    .Spacing {
+        margin-bottom: 20px;
+    }
+    .ConnectButton, .PassButton {
+        width: 30%;
+    }
+    .MediaFiles {
+        margin-top: 20px;
+    }
+    .Thumbnail {
+        margin-right: 20px;
+    }
+}
+
+@media only screen and (max-width: 1558px) {
+    .UserInformation {
+        width: 30%;
+    }
+    .ConnectButton, .PassButton {
+        font-size: 28px;
+        width: 30%;
+    }
 }
 
 @media only screen and (max-width: 1280px) {
     .ProfilePicture {
         max-width: 500px;
+    }
+    .MediaFiles {
+        margin-top: 0px;
     }
 }

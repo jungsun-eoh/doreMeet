@@ -25,7 +25,7 @@ const CommunityPage = (stateObj) => {
     formData.append('file', stateObj.file);
     formData.append('post_title', stateObj.postName);
     formData.append('post_category', stateObj.postCategory);
-
+    closePost();
     await axios.post('/makePost', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
   };
 
@@ -37,18 +37,18 @@ const CommunityPage = (stateObj) => {
       if(response.data.length > 0){
         console.log(response.data.length);
         let _html = "";
-        _html += `<h3>Search Results</h3>`
+        _html += `<h1>Search Results</h1>`
         _html += `<div class="RecentPostsFormat">
                   <img class="PostImage" src="assets/postImages/${response.data[0].post_file}" alt="Post Image"/>
-                  <p class="PostTitle">${response.data[0].post_title}</p>
-                  <p class="PostCategory">${response.data[0].post_category}</p>
+                  <h2 class="PostTitle">${response.data[0].post_title}</h2>
+                  <h3 class="PostCategory">${response.data[0].post_category}</h3>
                   <p class="PostDescription">Post Description</p>
                   </div>`;
         document.getElementById("recent-posts").innerHTML = _html;
       }else{
         let _html = "";
-        _html += `<h3>Search Results</h3>`
-        _html += `<div class="RecentPostsFormat">
+        _html += `<h1>Search Results</h1>`
+        _html += `<div class="NoResult">
                   <p>Sorry, we couldn't find anything</p>
                   </div>`;
         document.getElementById("recent-posts").innerHTML = _html;
@@ -75,10 +75,11 @@ const CommunityPage = (stateObj) => {
          let _html = "";
          _html += `<h1>Recent Posts</h1>`;
          response.data.forEach(post => {_html += `<div class="RecentPostsFormat">
-                   <img class="PostImage" src="assets/postImages/${post.post_file}" alt="Post Image"> \
+                   <img class="PostImage" src="assets/postImages/${post.post_file}" alt="Post Image">
                    <h2 class="PostTitle">${post.post_title}</h2>
                    <h3 class="PostCategory">${post.post_category}</h3>
-                   <p class="PostDescription">Post Description</p>
+                   <p class="PostDescription">Post DescriptionPost DescriptionPost DescriptionPost DescriptionPost DescriptionPost DescriptionPost DescriptionPost 
+                   DescriptionPost Description</p>                   
                    </div>`;})
          document.getElementById("recent-posts").innerHTML = _html;
        }).catch(function (error) {
@@ -141,7 +142,7 @@ const CommunityPage = (stateObj) => {
                    <input type='submit' />
                  </div>
                   <div>
-                   <button onClick={closePost}>Close</button>
+                   <button type= "button" onClick={closePost}>Close</button>
                   </div>
                 </form>
              </div>

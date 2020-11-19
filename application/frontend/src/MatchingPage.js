@@ -48,6 +48,13 @@ const MatchingPage = (stateObj) => {
                 </div>
               </div>
               <div class='break'></div>
+              <div class="MediaFiles" >
+                <img class="Thumbnail" src='assets/placeholder-img.jpg' alt='Placeholder img'/>
+                <img className="Thumbnail" src='assets/placeholder-img.jpg' alt='Placeholder img'/>
+                <img className="Thumbnail" src='assets/placeholder-img.jpg' alt='Placeholder img'/>
+                <img className="Thumbnail" src='assets/placeholder-img.jpg' alt='Placeholder img'/>
+                <img className="Thumbnail" src='assets/placeholder-img.jpg' alt='Placeholder img'/>
+              </div>
               <div class='Links'>
                 <a href="https://www.spotify.com">
                   <img class="Logo" src='assets/spotifylogo.png' alt="Spotify Logo"/>
