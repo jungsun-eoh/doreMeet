@@ -18,6 +18,21 @@
 7. Database name (basically the name that contains all your tables)
 8. Instructions on how to use the above information.
 
+a.) **SSH into the EC2 instance:**
+$ ssh -i "Team02.pem" ubuntu@ec2-13-52-247-220.us-west-1.compute.amazonaws.com (locate the .pem file before doing this).
+
+b.) **Connect to databse using MySQLWorkbench**
+Create a new connection over Standard TCP/IP over SSH
+SSH Hostname: ec2-13-52-247-220.us-west-1.compute.amazonaws.com
+SSH Username: ubuntu
+SSH Key File: path to Team02.pem file
+MySQL Hostname: mydb.cxfxbt23l5bi.us-west-1.rds.amazonaws.com
+MySQL Server Port: 3306
+Username: root
+Password: CSC648TEAM02!
+Default Schema: **leave blank**
+
+
 # Most important things to Remember
 ## These values need to kept update to date throughout the semester. <br>
 ## <strong>Failure to do so will result it points be deducted from milestone submissions.</strong><br>
