@@ -1,4 +1,10 @@
 
+/*
+**CSC 648 Team 02 DoReMeet
+**File: database.js
+**Desc: Contains credential used to connect to the database
+*/
+
 const mysql = require('mysql');
 
 const pool = mysql.createPool({
@@ -11,6 +17,5 @@ const pool = mysql.createPool({
     insecureAuth: true,
     queueLimit: 0
 });
-
 
 module.exports = pool;
