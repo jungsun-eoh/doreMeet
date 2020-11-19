@@ -62,7 +62,7 @@ const Chat = (stateObj) => {
                     <span>This is a test message</span>
                   </div>
                   <div className='RightMessage'>
-                    <span>This is a test messageThis is a test messageThis is a test messageThis is a test messageThis is a test message</span>
+                    <span>This is a test messageThis is a test message This is a test messageThis is a test message This is a test message</span>
                   </div>
                 </div>
                 <div class='TextArea'>

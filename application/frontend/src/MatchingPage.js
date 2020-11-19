@@ -14,7 +14,9 @@ const MatchingPage = (stateObj) => {
           <Navbar/>
           <header className="App-header">
             <div className="description">
-              <h2 align='center' top='30%'> Connect with or Pass your Potential Match! </h2>
+              <h2 align='center' top='30%'> Find the Right Match for yourself from these Potential Match!</h2>
+              <br />
+              <p style={{fontSize: 22, marginLeft: 40, marginRight: 40 }} align='center'>If you find someone you want to collaborate with, "Connect" with them, or else "Pass" to keep looking for the right match</p>
             </div>
             <div class="MatchProfile">
               <div class="Picture">
@@ -25,7 +27,7 @@ const MatchingPage = (stateObj) => {
                   <h3>Robert, 26</h3>
                 </div>
                 <div class="Spacing">
-                  <p>Bio: ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+                  <p>Bio: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
                 </div>
                 <div class="Spacing">
                   <p class="InfoLabel">Art:</p>

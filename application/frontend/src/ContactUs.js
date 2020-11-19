@@ -57,9 +57,10 @@ class ContactUs extends Component {
                 <input type="text" name='message' value={this.state.message} placeholder="Share your Questions/Concerns/Suggestions" required onChange={this.handleChange} /></label>
             </div>
 
-            <div className="input">
-                <Button className='btn' buttonStyle='btn--primary' buttonSize='btn--large' onClick={this.register}> Send Message </Button>
-            </div> </div>
+            <br />
+
+            <div style={{alignItems:'center', justifyContent:'center', marginLeft: 320}}><Button className='btn' buttonStyle='btn--primary' buttonSize='btn--large' onClick={this.register}> Send Message </Button></div>
+            </div>
            </form>
           
           <Footer />

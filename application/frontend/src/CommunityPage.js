@@ -94,7 +94,10 @@ const CommunityPage = (stateObj) => {
           <header className="App-header">
             <div class="description">
               <h2 align='center' top='30%'> Community Page </h2>
-              <h4 align='center'>Check out other peoples' art works or post some of your own amazing collaborations with fellow DoReMeet users</h4>
+              <p style={{fontSize: 22, marginLeft: 40, marginRight: 40 }} align='center'>See how other people are using DoReMeet to bring their artistic dreams to life, or post some of your own amazing collaborations with fellow DoReMeet users 
+              <br />
+              <br />
+              Check out our <a href="#highlight-section"> Highlights section </a> to see the most liked posts of the month.</p>
             </div>
             <div class="PageContainer">
               <div class="SearchContainer">
@@ -104,6 +107,13 @@ const CommunityPage = (stateObj) => {
                     <option value={"Music"}>Music</option>
                     <option value={"Dance"}>Dance</option>
                     <option value={"Art"}>Art</option>
+                    <option value={"Cinema"}>Cinema</option>
+                    <option value={"Photography "}>Photography</option>
+                    {/* <option value={"M"}>Music</option>
+                    <option value={"D"}>Dance</option>
+                    <option value={"A"}>Art</option>
+                    <option value={"C"}>Cinema</option>
+                    <option value={"P"}>Photography</option> */}
                  </select>
                   <input class="searchButtons" type='submit' />
                 </form>
@@ -114,16 +124,18 @@ const CommunityPage = (stateObj) => {
               </div>
               <div class="post-popup" id="postform">
                 <form class="post-container" onSubmit={postHandler}>
-                  <h2>Post Something</h2>
+                  <h2> Post your creative collaborations! </h2>
                   <input type="text" onChange={e => stateObj.setPostName(e.target.value)} placeholder="Name" required />
                   <div>
                     <select onChange={e => { stateObj.setPostCategory(e.target.value); }}>
                      <option >Music</option>
                      <option >Dance</option>
                      <option >Art</option>
+                     <option >Cinema</option>
+                    <option >Photography</option>
                     </select>
                  </div>
-                  <label htmlFor="post-file">Select file: </label>
+                  <label htmlFor="post-file"> Select file: </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <input type='file' className='custom-file-input' id='customFile' onChange={onChange} />
                   <div>
                    <input type='submit' />
@@ -135,7 +147,7 @@ const CommunityPage = (stateObj) => {
              </div>
               <div class="RecentPosts" id="recent-posts">
               </div>
-              <div>
+              <div id='highlight-section' >
                 <Highlights />
               </div>
             </div>

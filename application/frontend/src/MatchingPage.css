@@ -1,7 +1,9 @@
 .MatchProfile {
     display: flex;
     flex-wrap: wrap;
-    padding-top: 50px;
+    padding-top: 60px;
+    padding-bottom: 5px;
+    padding-right: 50px;
 }
 
 .description{
@@ -17,20 +19,20 @@
 
 .Picture{
     position: relative;
-    margin-right: 40px;
+    margin-left: 45px;
     flex-grow: 1;
 }
 
 .UserInformation {
     flex-grow: 1;
     flex-shrink: 0;
-    max-width: 671px;
+    max-width: 700px;
     display:flex;
     flex-direction: column;
+    justify-content: center;
     word-wrap: break-word;
-    margin-right: 40px;
+    margin-left: 100px;
 }
-
 
 .ProfilePicture {
     border-radius: 10px;
@@ -49,7 +51,7 @@
 }
 
 .ConnectButton:hover {
-    background-color: rgb(106,198,196);
+    background-color: rgb(77, 201, 199);
     cursor: pointer;
 }
 
@@ -65,7 +67,7 @@
 }
 
 .PassButton:hover{
-    background-color: rgb(235, 162, 173);
+    background-color: rgb(236, 109, 128);
     cursor: pointer;
 }
 
@@ -73,7 +75,7 @@
     float: left;
     background-color: rgb(219, 250, 246);
     border-radius: 10px;
-    padding: 5px;
+    padding: 3px 10px 3px 10px;
     font-size: 22px;
     margin-right: 7px;
     margin-bottom: 7px;
@@ -92,7 +94,7 @@
 }
 
 .Spacing {
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 
 .Logo {
