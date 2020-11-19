@@ -40,7 +40,7 @@ const Premium = (stateObj) => {
                         <label for="cardNumber">Card Number</label><br/>
                         <input style={{width: "480px"}} className="settingsFields" id="cardNumber" type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}"  maxlength="19" placeholder="xxxx xxxx xxxx xxxx"/><br/>
                         <label for="expiration">Expiration Date (MM/YY)</label> 
-                        <label style={{marginLeft: "70px"}} for="cvv">CVV</label><br/>
+                        <label style={{marginLeft: "80px"}} for="cvv">CVV</label><br/>
                         <input style={{width: "236px", marginRight: "2px"}} className="settingsFields" id="expiration" type="numeric"/>
                         <input style={{width: "236px", marginLeft: "2px"}} className="settingsFields" id="cvv" type="numeric"/>
                         

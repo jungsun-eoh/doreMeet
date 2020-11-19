@@ -27,7 +27,7 @@ const MatchingPage = (stateObj) => {
                   <h3>Robert, 26</h3>
                 </div>
                 <div class="Spacing">
-                  <p>Bio: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+                  <p class="Bio">Bio: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
                 </div>
                 <div class="Spacing">
                   <p class="InfoLabel">Art:</p>

@@ -177,11 +177,37 @@
     }
 }
 
-@media only screen and (max-width: 1280px) {
+@media only screen and (max-width: 1342px) {
+    .UserInformation {
+        width: 28%;
+    }
+    .ConnectButton, .PassButton {
+        font-size: 23px;
+        width: 32%;
+        height: 150%;
+    }
+
+    .Bio, .InfoLabel, .SurroundText {
+        font-size: 20px;
+    }
+
+    .Thumbnail {
+        width: 80px;
+        height: 80px;
+        margin-right: 50px;
+    }
+}
+
+@media only screen and (max-width: 1307px) {
     .ProfilePicture {
         max-width: 500px;
     }
     .MediaFiles {
         margin-top: 0px;
+    }
+    .Thumbnail {
+        width: 70px;
+        height: 70px;
+        margin-right: 35px;
     }
 }
