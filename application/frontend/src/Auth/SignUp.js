@@ -160,8 +160,8 @@ class SignUp extends Component {
             <div className="input">
                 <label><input type="checkbox" checked="checked" name="remember" /> Remember Me </label>
             </div>
-            
-            <p>By creating an account you agree to our Terms &amp; Privacy.</p>
+            <br />
+            <p>By creating an account you agree to our <a href="/Guidelines">Guidelines</a>, <a href="Terms">Terms &amp; Conditions</a> and <a href="Privacy">Privacy Policy.</a></p>
             <br /><br />
             <div className="input" style={{marginBottom: 50}}>
                 <label className="sub-heading"> <b> Already have an account? </b> &nbsp;  &nbsp;  </label>
