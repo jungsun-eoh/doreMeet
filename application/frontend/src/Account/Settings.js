@@ -131,7 +131,7 @@ const Settings = (stateObj) => {
                         <select onChange={e => stateObj.setSkillLevel(e.target.value)} id = "skill">
                             <option value={"B"}>Beginner</option>
                             <option value={"I"}>Intermediate</option>
-                            <option value={"A"}>Advanced</option>
+                            <option value={"E"}>Expert</option>
                         </select></td></tr></table>
                         <p>Generally begginers have less than 5 years of experience and advanced has more than 7 years of experience</p><br/>
 
