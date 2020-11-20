@@ -22,7 +22,7 @@ function App() {
       <div className="about-container">
         <img src="/assets/about.jpg" style={{ width: 480, height: 400, marginLeft: 100, marginTop: 80, 
           marginBottom: 80, marginRight: 20, float: 'left'}} />
-        <h1 style={{marginBottom: 0, marginTop: 190, textAlign:'left'}} > Why Do Re Meet? </h1>
+        <h1 style={{marginBottom: 0, marginTop: 160, textAlign:'left'}} > Why Do Re Meet? </h1>
         <h3 style={{marginTop: 20, marginLeft: 40, marginRight: 40}}>
           DoReMeet offers a no pressure setting to connect and learn with/from people. The users range from experts to novices and users have the 
           opportunity to find these matches based on their choice, for either a fun collaboration or for serious, paid work. We do not limit the user base to any category, 
