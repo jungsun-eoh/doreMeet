@@ -30,7 +30,7 @@ function App() {
         </h3></div>
           <h1 style={{textAlign:'center', marginTop: 100, marginBottom: 5}}>Our 5 Popular Art Categories</h1>
           <AwesomeSlider style={{height: "450px", padding:"30px 30px", marginTop: 20, marginBottom: 80}}>
-          <div data-src="/assets/music.jpg"><a href="/Community"><h1 className="slider-text-block"> MUSIC </h1></a></div>
+          <div data-src="/assets/Music.jpg"><a href="/Community"><h1 className="slider-text-block"> MUSIC </h1></a></div>
           <div data-src="/assets/dance.jpg"><a href="/Community"><h1 className="slider-text-block"> DANCE </h1></a></div>
           <div data-src="/assets/paint.jpg"><a href="/Community"><h1 className="slider-text-block"> ART </h1></a></div>
           <div data-src="/assets/film.jpg"><a href="/Community"><h1 className="slider-text-block"> CINEMA </h1></a></div>
