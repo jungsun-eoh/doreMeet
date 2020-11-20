@@ -1,7 +1,14 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: Profile.js
+**Desc: Displays the profile of the user that is currently logged in. Accessed through the logged in navbar. 
+Users can edit parts of their Profile like media, bio, tags, and linked social media accounts.
+*/
+
 import React, { Component } from 'react';
-import Navbar from './components/Navbar/Navbar';
-import Footer from './components/Footer/Footer';
-import HighlightItem from './components/Highlights/HighlightItem';
+import Navbar from '../components/Navbar/Navbar';
+import Footer from '../components/Footer/Footer';
+import HighlightItem from '../components/Highlights/HighlightItem';
 import axios from 'axios';
 import { BrowserRouter as Router } from 'react-router-dom';
 

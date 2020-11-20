@@ -1,8 +1,14 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: Premium.js
+**Desc: This is the page where users will be able to pay for premium features. Can be accessed through
+the settings or the match page when they reach the max matches
+*/
+
 import React from 'react';
-import './App.css';
-import axios from 'axios';
-import Navbar from './components/Navbar/Navbar';
-import Footer from './components/Footer/Footer';
+import '../App.css';
+import Navbar from '../components/Navbar/Navbar';
+import Footer from '../components/Footer/Footer';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 

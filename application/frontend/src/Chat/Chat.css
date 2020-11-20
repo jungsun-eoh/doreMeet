@@ -1,3 +1,9 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: Chat.css
+**Desc: Contains all the css for the chat page
+*/
+
 .ChatContainer {
     display: flex;
     flex-wrap: wrap;

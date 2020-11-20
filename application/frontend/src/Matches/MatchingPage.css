@@ -1,3 +1,9 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: MatchingPage.css
+**Desc: Contains all the neccessary css for the matching page
+*/
+
 .MatchProfile {
     display: flex;
     flex-wrap: wrap;

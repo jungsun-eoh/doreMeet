@@ -1,10 +1,17 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: CommunityPage.js
+**Desc: Contains all the code needed for the community page. Calls on the backend through axios and
+recieves json responses that it then displays accordingly on the page.
+*/
+
 import React, {useEffect, useState} from 'react';
-import './App.css';
+import '../App.css';
 import './CommunityPage.css';
 import axios from 'axios';
-import Navbar from './components/Navbar/Navbar';
-import Highlights from './components/Highlights/Highlights';
-import Footer from './components/Footer/Footer';
+import Navbar from '../components/Navbar/Navbar';
+import Highlights from '../components/Highlights/Highlights';
+import Footer from '../components/Footer/Footer';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 
@@ -17,7 +24,7 @@ const CommunityPage = (stateObj) => {
     stateObj.setFileName(e.target.files[0].name);
 
   };
-
+  //Handles the posting of projects to the community page
   const postHandler = async e => {
     e.preventDefault();
     const formData = new FormData();
@@ -28,7 +35,7 @@ const CommunityPage = (stateObj) => {
     closePost();
     await axios.post('/makePost', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
   };
-
+  //Sends the search terms to the backend and gets the response 
   const submitHandler = (event) => {
     event.preventDefault();
     alert("You are searching for " + stateObj.searchTitle + " " + stateObj.searchCategory);
@@ -60,15 +67,15 @@ const CommunityPage = (stateObj) => {
       stateObj.setResultFile("");
     });
   };
-
+  //Simply opens up the post box
   const openPost = () => {
     document.getElementById("postform").style.display = "block";
   }
-
+  //Closes the post box
   const closePost = () => {
     document.getElementById("postform").style.display = "none";
   }
-
+    //Upon entering the page the most recent 5 posts are displayed
      useEffect(() => {
        axios.get('/recent5').then(response => {
          console.log(response.data[0]);

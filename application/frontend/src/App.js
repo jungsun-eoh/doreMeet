@@ -1,22 +1,29 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: App.js
+**Desc: The main hub for all the frontend code, contains our stateObj and Router switch to
+facilitate actions between pages.
+*/
 import React from 'react';
 import './App.css';
-import Home from './Home';
+import Home from './LandingPage/Home';
+import Company from './LandingPage/Company';
+import Pricing from './LandingPage/Pricing';
 import LogIn from './Auth/LogIn';
 import SignUp from './Auth/SignUp';
-import CommunityPage from './CommunityPage';
-import FAQ from './faq';
-import Terms from './Terms';
-import Privacy from './Privacy';
-import Pricing from './Pricing';
-import Company from './Company';
-import ContactUs from './ContactUs';
-import Guidelines from './Guidelines'
-import Settings from './Settings';
-import MatchingPage from './MatchingPage';
-import Chat from './Chat';
-import Profile from './Profile';
-import Premium from './Premium';
+import CommunityPage from './CommunityPage/CommunityPage';
+import MatchingPage from './Matches/MatchingPage';
+import Chat from './Chat/Chat';
+import Settings from './Account/Settings';
+import Profile from './Account/Profile';
+import Premium from './Account/Premium';
+import FAQ from './FooterPages/faq';
+import Terms from './FooterPages/Terms';
+import Privacy from './FooterPages/Privacy';
+import ContactUs from './FooterPages/ContactUs';
+import Guidelines from './FooterPages/Guidelines';
 import {Route, BrowserRouter as Router, Switch, Link} from 'react-router-dom';
+
 function App() {
 
   const [firstName, setFirstName] = React.useState('');
@@ -69,6 +76,7 @@ function App() {
   const [file, setFile] = React.useState('');
   const [fileName, setFileName] = React.useState('');
 
+  //stateObj is our big hub object that will hold all the info for the users session
   const stateObj = {
     //user stuff
     firstName: firstName,
@@ -88,6 +96,7 @@ function App() {
     skillLevel: skillLevel,
     setSkillLevel: setSkillLevel,
 
+    //Settings page stuff for displaying current settings
     currentFirstName: currentFirstName,
     currentLastName: currentLastName,
     currentGender: currentGender,
@@ -103,6 +112,7 @@ function App() {
     userPassword: userPassword,
     setUserPassword: setUserPassword,
 
+    //Settings page stuff for displaying current settings
     currentUserName: currentUserName,
     currentUserPassword: currentUserPassword,
 
@@ -118,6 +128,7 @@ function App() {
     meetingPreference: meetingPreference,
     setMeetingPreference: setMeetingPreference,
 
+    //Settings page stuff for displaying current settings
     currentMinimumAge: currentMinimumAge,
     currentMaximumAge: currentMaximumAge,
     currentPreferedGender: currentPreferedGender,
@@ -154,6 +165,7 @@ function App() {
   }
 
   return(
+    //Router will switch to the specified path based on the link or a tag that the user clicks on
     <Router>
       <Switch>
         <Route path='/' exact component={Home}/>
@@ -175,15 +187,6 @@ function App() {
       </Switch>
     </Router>
   );
-
-  // switch(screenState){
-  //   case 'Community':
-  //     return CommunityPage(stateObj);
-  //   case 'Settings':
-  //     return Settings(stateObj);
-  //   case 'Match':
-  //     return MatchingPage(stateObj);
-  // }
 }
 
 export default App;

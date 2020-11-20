@@ -1,3 +1,8 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: app.js
+**Desc: Contains all backend functionality (sending/retreiving data to the database)
+*/
 const { query, json, response } = require("express");
 const express = require("express");
 const session = require("express-session");
@@ -9,6 +14,7 @@ const mysql = require('mysql');
 const fileUpload = require('express-fileupload');
 //const db = require('./conf/database');
 
+//connection credentials to the database
 const pool = mysql.createPool({
     // changed host for debug. consider changing fields
     host: "localhost",
@@ -20,6 +26,7 @@ const pool = mysql.createPool({
     queueLimit: 0
 });
 
+//used to track user states (logged in / logged out)
 var sessionStore = new mysqlStore({/*test*/}, require('./database.js'));
 var sessionOptions = {
     key: "loginkey",
@@ -31,6 +38,7 @@ var sessionOptions = {
 }
 //const pool = require("./database.js");
 
+
 var bodyParser = require('body-parser');
 app.use(cookieParser());
 app.use(session(sessionOptions));
@@ -38,9 +46,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 app.use(fileUpload());
 
-
+//Test response
 app.get("/", (req, res) => res.send("Backend simple get response"));
 
+//Searches within the communityPage table
 app.get("/searchPost", (req, res) => {
     var post_title = req.query.post_title;
     var post_category = req.query.post_category;
@@ -51,6 +60,7 @@ app.get("/searchPost", (req, res) => {
     })
 });
 
+//Inserts into the communityPage table
 app.post('/makePost', (req, res) => {
     console.log("test");
     console.log(req.files);
@@ -71,6 +81,7 @@ app.post('/makePost', (req, res) => {
      });
 });
 
+//Retrieves the latest five entries in the communityPage table
  app.get("/recent5", (req, res) => {
      var todb = "SELECT * FROM communityPage ORDER BY comm_pg_id DESC LIMIT 5";
      pool.query(todb, (error, result) => {
@@ -78,6 +89,7 @@ app.post('/makePost', (req, res) => {
      })
  });
 
+ //Checks if the user's input has an existing row in the account table, then creates a cookie to track their login state
 app.post('/login', (req, res) => {
     console.log("____________start_______________")
             console.log(req.body);
@@ -104,6 +116,7 @@ app.post('/login', (req, res) => {
     })
 });
 
+//Inserts into the User and Account table
  app.post('/signup', (req, res) => {
     console.log(req.body);
 
@@ -136,6 +149,7 @@ app.post('/login', (req, res) => {
     });
  });
  
+ //Deletes the logged in user's cookie table to log the user out
 app.post('/logout', (req, res) => {
     console.log("logging out: " + req.session.userId);
     if(req.session.userId){
@@ -155,6 +169,7 @@ app.post('/logout', (req, res) => {
 
 })
 
+//Gets the user's data from the User and Account table
 app.get('/getUser', (req, res) => {
     console.log("____________________________________1");
     console.log("session: " + req.session.userId);
@@ -173,6 +188,7 @@ app.get('/getUser', (req, res) => {
 
 })
 
+//Updates the user's information in the User and Account table
 app.post('/updateUser', (req, res) => {
     /*to be used once empty string is rejected*/
     // for (let key in req.body) {
@@ -204,6 +220,7 @@ app.post('/updateUser', (req, res) => {
     })
 })
 
+//Upload for profile page: incomplete
 app.post('/upload', (req, res) => {
     console.log("test");
     console.log(req.files);
@@ -223,5 +240,7 @@ app.post('/upload', (req, res) => {
     //     pool.query(todb, (error, result) => {/* return res.json({ fileName: file.name, filePath: filepath }); */ });
     // });
 });
+
+//listening port
 app.listen(port, () => console.log('app listening on port ' + port));  
 

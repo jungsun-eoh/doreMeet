@@ -1,3 +1,9 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: Navbar.js
+**Desc: The navbar that is used for users that have logged in. Contains links to the Community, Matching, Chat,
+Profile, and Settings page. Also has a logout button.
+*/
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Button } from './Buttons';

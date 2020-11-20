@@ -1,3 +1,8 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: MenuItemsHome.js
+**Desc: The items that are displayed on the home navbar.
+*/
 export const MenuItemsHome = [
     {
         title: 'Company',

@@ -1,4 +1,8 @@
-
+/*
+**CSC 648 Team 02 DoReMeet
+**File: Banner.css
+**Desc: Contains all the css neccessary for the banner
+*/
 .container-ban {
   background: rgb(238,253,255);
   background: linear-gradient(90deg, rgba(238,253,255,1) 36%, rgba(215,255,235,1) 100%);

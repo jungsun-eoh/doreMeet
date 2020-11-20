@@ -1,8 +1,14 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: Terms.js
+**Desc: This page contains all the terms and conditions required for usage of the site. Accessed through the footer
+*/
+
 import React, { Component } from 'react';
-import NavbarHome from './components/Navbar/NavbarHome';
-import Footer from './components/Footer/Footer';
+import NavbarHome from '../components/Navbar/NavbarHome';
+import Footer from '../components/Footer/Footer';
 import { BrowserRouter as Router } from 'react-router-dom';
-import './App.css';
+import '../App.css';
 
 class Terms extends Component {
 
