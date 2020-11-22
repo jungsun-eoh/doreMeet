@@ -1,0 +1,130 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: CommunityPage.css
+**Desc: Contains all the css needed for the community page
+*/
+.PageContainer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.SearchContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.PostFormFormat {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.RecentPosts {
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.RecentPostsFormat {
+    margin: 40px 40px 40px 40px;
+}
+
+.PostImage {
+    width: 500px;
+    height: 500px;
+    float: left;
+    margin-left: 50px;
+    margin-right: 150px;
+}
+
+.PostTitle {
+    padding-top: 50px;
+}
+
+.PostCategory {
+    padding-bottom: 20px;
+}
+
+.PostDescription {
+    font-size: 20px;
+    text-align: left;
+}
+
+.NoResult {
+    margin-top: 40px;
+    text-align: center;
+}
+.search {
+    padding: 6px;
+    font-size: 30px;
+}
+
+.searchBar{
+    font-size: 20px;
+    border-radius: 5px;
+    height: 40px;
+    width: 300px;
+    padding: 2px 23px 2px 30px;
+    margin-right: 8px;
+}
+
+.searchButtons{
+    font-size: 20px;
+    border-radius: 5px;
+    height: 43px;
+    width: 100px;
+    margin-right:8px;
+    margin-left:8px;
+}
+
+.searchButtons:hover{
+    cursor: pointer;
+}
+
+.post{
+    height: 40px;
+    width: 100px;
+    font-size: 20px;
+    background-color:rgb(126,218,216);
+    color:black;
+    border-radius: 4px;
+    border: none;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.post:hover{
+    background-color: rgb(106, 198, 196);
+    cursor: pointer;
+}
+
+.post-popup{
+    position: fixed;
+    right:35%;
+    top:30%;
+    display : none;
+    text-align: center;
+    z-index: 3;
+}
+
+.post-container{
+    border: solid;
+    border-radius: 10px;
+    background-color: rgb(96, 228, 210);
+    max-width: 900px;
+    padding: 30px;
+}
+
+.searches{
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: auto;
+}
