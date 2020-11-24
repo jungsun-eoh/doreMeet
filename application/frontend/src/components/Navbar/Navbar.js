@@ -22,7 +22,6 @@ class Navbar extends Component {
         e.preventDefault();
         axios.post('/logout').then(response =>{
         })
-        this.props.history.push("/");
     }
 
     render() {
@@ -47,7 +46,7 @@ class Navbar extends Component {
                 </ul>
                 <a href='/Settings'><i class="fas fa-cog fa-lg" style={{paddingRight:4}}></i></a>
                 &nbsp; &nbsp;
-                <Button onClick={() => this.logout}><b>Log Out</b></Button>
+                <Button onClick={this.logout}><b>Log Out</b></Button>
             </nav>
         )
     }

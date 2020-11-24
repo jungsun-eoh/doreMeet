@@ -186,6 +186,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`file_Path` (
   `social_profile_2` VARCHAR(128) NULL,
   `social_profile_3` VARCHAR(128) NULL,
   `social_profile_4` VARCHAR(128) NULL,
+  `bio` VARCHAR(255) NULL,
   `user` TINYINT NULL,
   PRIMARY KEY (`file_path_id`),
   INDEX `file_path_user_FK_idx` (`user` ASC),
@@ -285,7 +286,7 @@ INSERT INTO `mydb`.`communityPage`(`post_title`,`post_category`,`post_file`)
 VALUES								            ('Test',	     'Music',		    'b.png');	
 
 INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`gender`,`date_of_birth`,`email`,  	`phone_number`,`art_category`,`skill_lvl`)
-VALUES					         ('first',		  'last',		  'f',	  '2020-12-01','	mail@mail',	'7073334444',	  'D',			    'I');
+VALUES					         ('first',		  'last',		  'f',	  '2000-11-21','	mail@mail',	'7073334444',	  'D',			    'I');
 
 INSERT INTO `mydb`.`account`(`username`,`password`, `acc_created`,`user`)
 VALUES						          ('123',		  '123',	now(),	  1);

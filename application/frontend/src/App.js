@@ -22,7 +22,7 @@ import Terms from './FooterPages/Terms';
 import Privacy from './FooterPages/Privacy';
 import ContactUs from './FooterPages/ContactUs';
 import Guidelines from './FooterPages/Guidelines';
-import {Route, BrowserRouter as Router, Switch, Link} from 'react-router-dom';
+import {Route, BrowserRouter as Router, Switch} from 'react-router-dom';
 
 function App() {
 
@@ -35,20 +35,20 @@ function App() {
   const [artCategory, setArtCategory] = React.useState('');
   const [skillLevel, setSkillLevel] = React.useState('');
 
-  const [currentFirstName, setCurrentFirstName] = React.useState('');
-  const [currentLastName, setCurrentLastName] = React.useState('');
-  const [currentGender, setCurrentGender] = React.useState('');
-  const [currentDOB, setCurrentDOB] = React.useState('');
-  const [currentEmail, setCurrentEmail] = React.useState('');
-  const [currentPhoneNumber, setCurrentPhoneNumber] = React.useState('');
-  const [currentArtCategory, setCurrentArtCategory] = React.useState('');
-  const [currentSkillLevel, setCurrentSkillLevel] = React.useState('');
+  // const [currentFirstName, setCurrentFirstName] = React.useState('');
+  // const [currentLastName, setCurrentLastName] = React.useState('');
+  // const [currentGender, setCurrentGender] = React.useState('');
+  // const [currentDOB, setCurrentDOB] = React.useState('');
+  // const [currentEmail, setCurrentEmail] = React.useState('');
+  // const [currentPhoneNumber, setCurrentPhoneNumber] = React.useState('');
+  // const [currentArtCategory, setCurrentArtCategory] = React.useState('');
+  // const [currentSkillLevel, setCurrentSkillLevel] = React.useState('');
 
   const [userName, setUserName] = React.useState('');
   const [userPassword, setUserPassword] = React.useState('');
 
-  const [currentUserName, setCurrentUserName] = React.useState('');
-  const [currentUserPassword, setCurrentUserPassword] = React.useState('');
+  // const [currentUserName, setCurrentUserName] = React.useState('');
+  // const [currentUserPassword, setCurrentUserPassword] = React.useState('');
 
   const [minimumAge, setMinimumAge] = React.useState('');
   const [maximumAge, setMaximumAge] = React.useState('');
@@ -56,11 +56,11 @@ function App() {
   const [preferedSkill, setPreferedSkill] = React.useState('');
   const [meetingPreference, setMeetingPreference] = React.useState('');
 
-  const [currentMinimumAge, setCurrentMinimumAge] = React.useState('');
-  const [currentMaximumAge, setCurrentMaximumAge] = React.useState('');
-  const [currentPreferedGender, setCurrentPreferedGender] = React.useState('');
-  const [currentPreferedSkill, setCurrentPreferedSkill] = React.useState('');
-  const [currentMeetingPrefernce, setCurrentMeetingPrefernce] = React.useState('');
+  // const [currentMinimumAge, setCurrentMinimumAge] = React.useState('');
+  // const [currentMaximumAge, setCurrentMaximumAge] = React.useState('');
+  // const [currentPreferedGender, setCurrentPreferedGender] = React.useState('');
+  // const [currentPreferedSkill, setCurrentPreferedSkill] = React.useState('');
+  // const [currentMeetingPrefernce, setCurrentMeetingPrefernce] = React.useState('');
 
   const [category, setCategory] = React.useState('Music');
   const [searchTitle, setSearchTitle] = React.useState('');
@@ -75,6 +75,10 @@ function App() {
 
   const [file, setFile] = React.useState('');
   const [fileName, setFileName] = React.useState('');
+
+  const [profilePic, setProfilePic] = React.useState('');
+  const [bio, setBio] = React.useState('');
+  const [age, setAge] = React.useState('');
 
   //stateObj is our big hub object that will hold all the info for the users session
   const stateObj = {
@@ -96,15 +100,22 @@ function App() {
     skillLevel: skillLevel,
     setSkillLevel: setSkillLevel,
 
+    bio: bio,
+    setBio: setBio,
+    profilePic: profilePic,
+    setProfilePic: setProfilePic,
+    age: age,
+    setAge: setAge,
+
     //Settings page stuff for displaying current settings
-    currentFirstName: currentFirstName,
-    currentLastName: currentLastName,
-    currentGender: currentGender,
-    currentDOB: currentDOB,
-    currentEmail: currentEmail,
-    currentPhoneNumber: currentPhoneNumber,
-    currentArtCategory: currentArtCategory,
-    currentSkillLevel: currentSkillLevel,
+    // currentFirstName: currentFirstName,
+    // currentLastName: currentLastName,
+    // currentGender: currentGender,
+    // currentDOB: currentDOB,
+    // currentEmail: currentEmail,
+    // currentPhoneNumber: currentPhoneNumber,
+    // currentArtCategory: currentArtCategory,
+    // currentSkillLevel: currentSkillLevel,
 
     //account stuff
     userName: userName,
@@ -113,8 +124,8 @@ function App() {
     setUserPassword: setUserPassword,
 
     //Settings page stuff for displaying current settings
-    currentUserName: currentUserName,
-    currentUserPassword: currentUserPassword,
+    // currentUserName: currentUserName,
+    // currentUserPassword: currentUserPassword,
 
     //preference stuff
     minimumAge: minimumAge,
@@ -129,11 +140,11 @@ function App() {
     setMeetingPreference: setMeetingPreference,
 
     //Settings page stuff for displaying current settings
-    currentMinimumAge: currentMinimumAge,
-    currentMaximumAge: currentMaximumAge,
-    currentPreferedGender: currentPreferedGender,
-    currentPreferedSkill: currentPreferedSkill,
-    currentMeetingPrefernce: currentMeetingPrefernce,
+    // currentMinimumAge: currentMinimumAge,
+    // currentMaximumAge: currentMaximumAge,
+    // currentPreferedGender: currentPreferedGender,
+    // currentPreferedSkill: currentPreferedSkill,
+    // currentMeetingPrefernce: currentMeetingPrefernce,
 
     //community page stuff
     category: category,
