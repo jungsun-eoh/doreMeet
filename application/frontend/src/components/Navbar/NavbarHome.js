@@ -1,3 +1,11 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: NavbarHome.js
+**Desc: The navbar that is displayed on the landing page before the user logs in. Links to company and pricing.
+Also has a login button
+*/
+
+//TODO: update community page linking, right now you dont have to log in for testing purposes
 import React, { Component } from 'react';
 import { Button } from './Buttons';
 import { MenuItemsHome } from './MenuItemsHome';

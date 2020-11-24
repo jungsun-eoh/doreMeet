@@ -1,3 +1,9 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: Footer.js
+**Desc: The footer that is displayed on all the pages of the site. Contains all the neccessary legal information
+links and things of that nature.
+*/
 import React from 'react';
 import './Footer.css';
 import { Button } from '../Navbar/Buttons';
@@ -38,21 +44,21 @@ function Footer() {
       <section class='social-media'>
         <div class='social-media-wrap'>
           <div class='social-icons'>
-            <a href="www.facebook.com"
+            <a href="http://www.facebook.com"
               class='social-icon-link facebook'
               target='_blank'
               aria-label='Facebook'
             >
               <i class='fab fa-facebook-f' />
             </a>
-            <a href="www.instagram.com"
+            <a href="http://www.instagram.com"
               class='social-icon-link instagram'
               target='_blank'
               aria-label='Instagram'
             >
               <i class='fab fa-instagram' />
             </a>
-            <a href="www.twitter.com"
+            <a href="http://www.twitter.com"
               class='social-icon-link twitter'
               target='_blank'
               aria-label='Twitter'

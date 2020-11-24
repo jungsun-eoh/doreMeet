@@ -1,3 +1,9 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: Highlights.js
+**Desc: Displays the highlighted projects for the site. Displayed in the landing page and also
+ the community page
+*/
 import React from 'react';
 import './Highlights.css';
 import HighlightItem from './HighlightItem';

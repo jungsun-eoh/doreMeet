@@ -1,3 +1,9 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: Login.js
+**Desc: This is the login page. Accessed through the landing page or landing page navbar.
+*/
+
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Button } from '../components/Navbar/Buttons';

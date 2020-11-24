@@ -1,3 +1,9 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: HighlightItem.js
+**Desc: Contains the items that are displayed for Highlights.js
+*/
+
 import React from 'react';
 //import { Link, } from 'react-router-dom';
 

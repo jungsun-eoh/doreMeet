@@ -1,8 +1,15 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: Settings.js
+**Desc: The settings page, displays all the current settings and also allwos users to change settings.
+Accessed through the logged in Navbar not the home nav bar.
+*/
+
 import React from 'react';
-import './App.css';
+import '../App.css';
 import axios from 'axios';
-import Navbar from './components/Navbar/Navbar';
-import Footer from './components/Footer/Footer';
+import Navbar from '../components/Navbar/Navbar';
+import Footer from '../components/Footer/Footer';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 
@@ -68,9 +75,11 @@ const Settings = (stateObj) => {
                 <header className="App-header">
                     <div className="description">
                         <h1>Settings</h1>
+                        <p style={{fontSize: 22, marginLeft: 40, marginRight: 40 }} align='center'>The settings you choose reflect your match preferences. your potential matches will be based on these choices.<br/>
+                        You can update your settings anytime and get customized results.</p>
                     </div>
                     
-                    <input style={{position: "center", width: '10%', marginLeft:950, marginTop:10}} type='button' value="Edit Settings"  onClick={getUser}/><br/>
+                    <input style={{position: "center", width: '10%', marginLeft:1050, marginTop:10}} type='button' value="Edit Settings"  onClick={getUser}/><br/>
                     <form className="settingsForm" onSubmit={updateUser}>
                         
                         <label for="fname">First Name Currently: {stateObj.currentFirstName}<b id="first_name"></b></label><br/>
@@ -91,33 +100,39 @@ const Settings = (stateObj) => {
                         </tr></table>
 
                         <label for="birthday">Date of Birth Curently: {stateObj.currentDOB}<b id="date_of_birth"></b></label><br/>
-                        <input onChange={e => stateObj.setDOB(e.target.value)} className="settingsFields" type = "date" id="birthday" max="2002-01-01"/>
+                        <input style={{marginTop: "0px", marginBottom: "0px"}} onChange={e => stateObj.setDOB(e.target.value)} className="settingsFields" type = "date" id="birthday" max="2002-01-01"/>
                         <p>You must be 18 or older to use this site</p><br/>
 
                         <label for="email">Email Currently: {stateObj.currentEmail}<b id="email"></b></label>
                         <input onChange={e => stateObj.setEmail(e.target.value)} className="settingsFields" type = "email" id = "email"/>
                         <p>Your email is not viewable for other users for your privacy</p><br/>
 
-                        <label for="phone">Phone Number Currently: {stateObj.currentPhoneNumber}<b id="phone_number"></b></label><br/>
-                        <input style={{width: "120px"}} onChange={e => stateObj.setPhoneNumber(e.target.value)} className="settingsFields" type = "tel" id = "phone" placeholder="123-456-7890" pattern = "[0-9]{3}-[0-9]{3}-[0-9]{4}"/>
-                        <p>Required only for 2-factor identification</p><br/>
+                        <table><tr><td><label for="phone">Phone Number Currently: {stateObj.currentPhoneNumber}<b id="phone_number"></b></label><br/></td>
+                        &nbsp; &nbsp; &nbsp;
+                        <td>
+                        <input style={{width: "150px"}} onChange={e => stateObj.setPhoneNumber(e.target.value)} className="settingsFields" type = "tel" id = "phone" placeholder="123-456-7890" pattern = "[0-9]{3}-[0-9]{3}-[0-9]{4}"/>
+                       </td></tr></table> <p>Required only for 2-factor identification</p><br/>
 
-                        <label for="art">Art Category Currently: {stateObj.currentArtCategory}<b id="art_category"></b></label><br/>
+                       <table><tr><td><label for="art">Art Category Currently: {stateObj.currentArtCategory}<b id="art_category"></b></label></td>
+                        &nbsp; &nbsp; &nbsp; &nbsp; 
+                        <td>
                         <select onChange={e => stateObj.setArtCategory(e.target.value)} id = "art">
                             <option value={"Music"}>Music</option>
                             <option value={"Dance"}>Dance</option>
                             <option value={"Art"}>Art</option>
                             <option value={"Cinema"}>Cinema</option>
                             <option value={"Photography"}>Photography</option>
-                            </select><br/>
+                            </select></td></tr></table>
                         <p>When switching categories make sure to update your skill level and content</p><br/>
 
-                        <label for="skill">Skill Level Currently: {stateObj.currentSkillLevel}<b id="skill_lvl"></b></label><br/>
+                        <table><tr><td><label for="skill">Skill Level Currently: {stateObj.currentSkillLevel}<b id="skill_lvl"></b></label></td>
+                        &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+                        <td>
                         <select onChange={e => stateObj.setSkillLevel(e.target.value)} id = "skill">
                             <option value={"B"}>Beginner</option>
                             <option value={"I"}>Intermediate</option>
-                            <option value={"A"}>Advanced</option>
-                        </select> 
+                            <option value={"E"}>Expert</option>
+                        </select></td></tr></table>
                         <p>Generally begginers have less than 5 years of experience and advanced has more than 7 years of experience</p><br/>
 
                         <label for = "username">Username Currently: {stateObj.currentUserName}<b id="username"></b></label><br/>
@@ -126,12 +141,17 @@ const Settings = (stateObj) => {
                         <input onChange={e => stateObj.setPassword(e.target.value)} className="settingsFields" type = "password" id="pwd"/><br/>
                         <p></p><br/>
 
-                        <label for = "minAge">Minimum Age (18+) Currently: {stateObj.currentMinimumAge}</label><br/>
-                        <input style={{width: "100px"}} onChange={e => stateObj.setMinimumAge(e.target.value)} className="settingsFields" type="number" id="minAge" min="18"/><br/>
+                        <table><tr><td><label for = "minAge">Minimum Age (18+) Currently: {stateObj.currentMinimumAge}</label></td>
+                        &nbsp; &nbsp;
+                        <td>
+                        <input style={{width: "100px"}} onChange={e => stateObj.setMinimumAge(e.target.value)} className="settingsFields" type="number" id="minAge" min="18"/>
+                        </td></tr></table>
                         <p>The minimum age of people you will match with</p>
-                        <label for = "maxAge">Maximum Age Currently: {stateObj.currentMaximumAge}</label><br/>
-                        <input style={{width: "100px"}} onChange={e => stateObj.setMaximumAge(e.target.value)} className="settingsFields" type="number" id="maxAge" min="18"/><br/>
-                        <p>The maximum age of people you will match with</p><br/>
+                        <table><tr><td><label for = "maxAge">Maximum Age Currently: {stateObj.currentMaximumAge}</label></td>
+                        &nbsp; &nbsp; &nbsp; &nbsp;
+                        <td>
+                        <input style={{width: "100px"}} onChange={e => stateObj.setMaximumAge(e.target.value)} className="settingsFields" type="number" id="maxAge" min="18"/>
+                        </td></tr></table><p>The maximum age of people you will match with</p><br/>
 
                         <table>
                         <tr>
@@ -144,19 +164,21 @@ const Settings = (stateObj) => {
                             <label for="preferedNone">None</label></td></tr></table>
                         <p>Your prefered gender for the people you will match with</p><br/>
 
-                        <label for="preferedSkill">Prefered Skill Level Currently: {stateObj.currentPreferedSkillLevel}</label><br/>
+                        <table><tr><td><label for="preferedSkill">Prefered Skill Level Currently: {stateObj.currentPreferedSkillLevel}</label></td> 
+                        &nbsp;  &nbsp;<td>
                         <select onChange={e => stateObj.setPreferedSkillLevel(e.target.value)} id = "preferedSkill">
                             <option value={"B"}>Begginer</option>
                             <option value={"I"}>Intermediate</option>
                             <option value={"E"}>Expert</option>
-                        </select> 
+                        </select></td></tr></table> 
                         <p>Your prefered skill level for the people you will match with</p><br/>
 
-                        <label for="preferedMeet">Prefered Meeting Type Currently: {stateObj.currentMeetingPreference}</label><br/>
+                        <table><tr><td><label for="preferedMeet">Prefered Meeting Type Currently: {stateObj.currentMeetingPreference}</label><br/></td> 
+                        &nbsp;<td>
                         <select onChange={e => stateObj.setMeetingPreference(e.target.value)} id = "preferedMeet">
                             <option value={"Online"}>Online</option>
                             <option value={"Offline"}>Offline</option>
-                        </select>
+                        </select></td></tr></table> 
                         <p>Your prefrence for meeting online or offline</p><br/>
 
                         <input style={{position: "relative",left:"100px"}} type='submit' value="Confirm Changes"/>

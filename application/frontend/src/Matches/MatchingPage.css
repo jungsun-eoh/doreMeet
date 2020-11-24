@@ -1,0 +1,219 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: MatchingPage.css
+**Desc: Contains all the neccessary css for the matching page
+*/
+
+.MatchProfile {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 60px;
+    padding-bottom: 5px;
+    padding-right: 50px;
+}
+
+.description{
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: rgb(219, 250, 246);
+}
+
+.break{
+    flex-basis: 100%;
+    height: 0;
+}
+
+.Picture{
+    position: relative;
+    margin-left: 45px;
+    flex-grow: 1;
+}
+
+.UserInformation {
+    flex-grow: 1;
+    flex-shrink: 0;
+    max-width: 700px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    word-wrap: break-word;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.ProfilePicture {
+    border-radius: 10px;
+    margin-right: 10px;
+    margin-left: 50px;
+}
+
+.ConnectButton {
+    border-radius: 10px;
+    height: 90px;
+    width: 220px;
+    background-color: rgb(126,218,216);
+    border: none;
+    outline: none;
+    font-size: 30px;
+}
+
+.ConnectButton:hover {
+    background-color: rgb(77, 201, 199);
+    cursor: pointer;
+}
+
+.PassButton{
+    border-radius: 10px;
+    height: 90px;
+    width: 220px;
+    background-color: rgb(255,182,193);
+    border: none;
+    outline: none;
+    font-size: 30px;
+    margin-right: 20px;
+}
+
+.PassButton:hover{
+    background-color: rgb(236, 109, 128);
+    cursor: pointer;
+}
+
+.SurroundText{
+    float: left;
+    background-color: rgb(219, 250, 246);
+    border-radius: 10px;
+    padding: 3px 10px 3px 10px;
+    font-size: 22px;
+    margin-right: 7px;
+    margin-bottom: 7px;
+}
+
+.InfoLabel{
+    float: left;
+    margin-right: 10px;
+}
+
+.Links {
+    margin-top: 40px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.Spacing {
+    margin-bottom: 40px;
+}
+
+.Logo {
+    width: 75px;
+    height: 75px;
+    margin-right: 100px;
+}
+
+.break {
+    flex-basis: 100%;
+    height: 0;
+}
+
+.MediaFiles {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 95px;
+    margin-top: 20px;
+}
+
+.Thumbnail {
+    width: 100px;
+    height: 100px;
+    margin-right: 75px;
+}
+
+@media only screen and (max-width: 1854px) {
+    .ProfilePicture {
+        max-width: 700px;
+    }
+    .Thumbnail {
+        margin-right: 50px;
+    }
+}
+
+@media only screen and (max-width: 1754px) {
+    .ProfilePicture {
+        max-width: 650px;
+    }
+    .UserInformation {
+        width: 40%;
+    }
+    .ConnectButton, .PassButton {
+        width: 30%;
+    }
+    .Thumbnail {
+        margin-right: 35px;
+    }
+}
+
+@media only screen and (max-width: 1680px) {
+    .ProfilePicture {
+        max-width: 600px;
+    }
+    .UserInformation {
+        width: 40%;
+    }
+    .Spacing {
+        margin-bottom: 20px;
+    }
+    .ConnectButton, .PassButton {
+        width: 30%;
+    }
+    .MediaFiles {
+        margin-top: 20px;
+    }
+    .Thumbnail {
+        margin-right: 20px;
+    }
+}
+
+@media only screen and (max-width: 1558px) {
+    .UserInformation {
+        width: 30%;
+    }
+    .ConnectButton, .PassButton {
+        font-size: 28px;
+        width: 30%;
+    }
+}
+
+@media only screen and (max-width: 1342px) {
+    .UserInformation {
+        width: 28%;
+    }
+    .ConnectButton, .PassButton {
+        font-size: 23px;
+        width: 32%;
+        height: 150%;
+    }
+
+    .Bio, .InfoLabel, .SurroundText {
+        font-size: 20px;
+    }
+
+    .Thumbnail {
+        width: 80px;
+        height: 80px;
+        margin-right: 50px;
+    }
+}
+
+@media only screen and (max-width: 1307px) {
+    .ProfilePicture {
+        max-width: 500px;
+    }
+    .MediaFiles {
+        margin-top: 0px;
+    }
+    .Thumbnail {
+        width: 70px;
+        height: 70px;
+        margin-right: 35px;
+    }
+}

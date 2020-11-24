@@ -1,10 +1,17 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: Chat.js
+**Desc: Contains the code for the chat page.
+*/
+
+//TODO: Implement full chat functionality including: message displaying, communication with backend, message logging
+
 import React from 'react';
-import './App.css';
+import '../App.css';
 import './Chat.css';
-import axios from 'axios';
-import Navbar from './components/Navbar/Navbar';
+import Navbar from '../components/Navbar/Navbar';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Footer from "./components/Footer/Footer";
+import Footer from "../components/Footer/Footer";
 
 const Chat = (stateObj) => {
   return(
@@ -62,7 +69,7 @@ const Chat = (stateObj) => {
                     <span>This is a test message</span>
                   </div>
                   <div className='RightMessage'>
-                    <span>This is a test messageThis is a test messageThis is a test messageThis is a test messageThis is a test message</span>
+                    <span>This is a test messageThis is a test message This is a test messageThis is a test message This is a test message</span>
                   </div>
                 </div>
                 <div class='TextArea'>

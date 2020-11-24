@@ -1,10 +1,15 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: ContactUs.js
+**Desc: Contact page that users can use to voice concerns or ask questions, accessed through footer
+*/
 import React, { Component } from 'react';
-import NavbarHome from './components/Navbar/NavbarHome';
-import { Button } from './components/Navbar/Buttons';
-import Footer from './components/Footer/Footer';
+import NavbarHome from '../components/Navbar/NavbarHome';
+import { Button } from '../components/Navbar/Buttons';
+import Footer from '../components/Footer/Footer';
 import { BrowserRouter as Router } from 'react-router-dom';
-import './Auth/Auth.css';
-import './App.css';
+import '../Auth/Auth.css';
+import '../App.css';
 
 class ContactUs extends Component {
     state = {
@@ -57,9 +62,10 @@ class ContactUs extends Component {
                 <input type="text" name='message' value={this.state.message} placeholder="Share your Questions/Concerns/Suggestions" required onChange={this.handleChange} /></label>
             </div>
 
-            <div className="input">
-                <Button className='btn' buttonStyle='btn--primary' buttonSize='btn--large' onClick={this.register}> Send Message </Button>
-            </div> </div>
+            <br />
+
+            <div style={{alignItems:'center', justifyContent:'center', marginLeft: 320}}><Button className='btn' buttonStyle='btn--primary' buttonSize='btn--large' onClick={this.register}> Send Message </Button></div>
+            </div>
            </form>
           
           <Footer />

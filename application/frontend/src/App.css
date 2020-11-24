@@ -1,3 +1,9 @@
+/*
+**CSC 648 Team 02 DoReMeet
+**File: App.css
+**Desc: This css file contains a bunch of css for various files including App.js, Premium.js, Settings.js, etc.
+*/
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -34,7 +40,7 @@
   text-align: left;
   margin-left: auto;
   margin-right: auto;
-  width: 14em
+  width: 14em;
 }
 
 .settingsForm{
@@ -61,14 +67,19 @@
   font-size: 14px;
 }
 
-.settingsForm input[type=email]{
-  margin:0;
+.settingsForm 
+input[type=email]{
+  margin:0px;
 }
 
 .settingsForm input[type=password]{
   margin:0;
   width: 240px;
   height:40px;
+}
+
+.settingsForm input[type=text]{
+  margin: 0px;
 }
 
 .settingsForm input[type=submit]{
@@ -161,7 +172,7 @@
   margin-right: auto;
   margin-top: 4%;
   margin-bottom: 4%;
-  width: 50em
+  width: 50em;
 }
 
 .profileImage{
@@ -175,8 +186,8 @@
 }
 
 .profileContainer{
-  margin-left: 7%;
-  margin-right: 7%
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
 .profileContainer p{
@@ -187,15 +198,19 @@
 }
 
 .profileChildImg{
+  position: relative;
+  display: column;
   width: 25%;
   float: left;
   padding:20px;
 }
 
 .profileChildInfo{
+  position: relative;
   width: 75%;
+  display: column;
   float: left;
-  padding:20px;
+  padding-left:50px;
 }
 
 .profileContainer button{
@@ -211,6 +226,13 @@
   border: 2px solid;
   border-color: rgb(89, 190, 189);
   outline: none;
+}
+
+@media only screen and (max-width: 1150px) {
+  
+  .profileChildInfo{
+    margin-left: 30px;
+  } 
 }
 
 .company-container {
@@ -249,7 +271,16 @@
   color: #333;
 }
 
+.premiumPrice{
+    border: 1px solid #eee;
+    padding: 15px 5px 50px 5px;
+    text-align: center;
+    background: rgb(145, 242, 255);
+    color: #333;
+}
+
 @media only screen and (max-width: 600px) {
+  
   .pricing-columns {
     width: 100%;
   }
