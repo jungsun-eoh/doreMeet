@@ -19,7 +19,7 @@ const pool = mysql.createPool({
     // changed host for debug. consider changing fields
     host: "localhost",
     user: "root",
-    password: "root",
+    password: "CSC648TEAM02!",
     database: "mydb",
     connectionLimit: 50,
     insecureAuth: true,
@@ -51,22 +51,31 @@ app.get("/", (req, res) => res.send("Backend simple get response"));
 
 //Searches within the communityPage table
 app.get("/searchPost", (req, res) => {
+    
     var post_title = req.query.post_title;
     var post_category = req.query.post_category;
 
     var todb = 'SELECT * FROM communityPage WHERE post_title = ? AND post_category = ?;';
     pool.query(todb,[post_title, post_category] ,(err, result) => {
-        res.send(result);
+        if (err || result == ''){
+            console.log(err);
+            console.log("searching fail");
+        }else{
+            //console.log(result);
+            res.send(result);
+            console.log("searching pass");
+        }
+        
     })
 });
 
 //Inserts into the communityPage table
 app.post('/makePost', (req, res) => {
-    console.log("test");
-    console.log(req.files);
+    //console.log("test");
+    //console.log(req.files);
     if (req.files === null) {
         return console.log(res.status(400).json({ msg: 'No file uploaded' }));
-      }
+    }
     var filepath = `/../frontend/public/assets/postImages/${req.files.file.name}`;
 
     req.files.file.mv(`${__dirname}${filepath}`, err => {
@@ -76,7 +85,11 @@ app.post('/makePost', (req, res) => {
 
         var todb = 'INSERT INTO communityPage (post_title, post_category, post_file) VALUES (?,?,?);'
         pool.query(todb, [post_title, post_category, post_file] ,(err, result) => {
-            console.log(err);  /* return res.json({ fileName: file.name, filePath: filepath }); */
+            if(err){
+                console.log(err);
+            }else{
+                console.log("post pass")
+            }  /* return res.json({ fileName: file.name, filePath: filepath }); */
         });
      });
 });
@@ -93,17 +106,11 @@ app.post('/makePost', (req, res) => {
 app.post('/login', (req, res) => {
     console.log("____________start_______________")
             console.log(req.body);
-    var todb = "SELECT * FROM `mydb`.`account`WHERE (username = '" + req.body.username + "' AND password = '" + req.body.password + "')";
+    var todb = "SELECT * FROM `mydb`.`account` WHERE (username = '" + req.body.username + "' AND password = '" + req.body.password + "')";
     pool.query(todb, (error, result) => {
-        if (result.length == 1) {
-            // console.log(res.redirect('/'));
-            req.session.username = result[0].username;
-            req.session.userId = result[0].user;
-            console.log(req.session);
-            res.send(req.session);
-    console.log("____________end1_______________")
+    console.log("____________start_______________")
 
-        } else {
+        if (result == '') {
             console.log("incorrect creds");
             console.log(error);
             console.log("____________0_______________")
@@ -111,6 +118,14 @@ app.post('/login', (req, res) => {
             res.send(null);
     console.log("____________end2_______________")
 
+        } else {
+            console.log("____________start_______________")
+            // console.log(res.redirect('/'));
+            req.session.username = result[0].username;
+            req.session.userId = result[0].user;
+            console.log(req.session);
+            res.send(req.session);
+    console.log("____________end1_______________")
 
         }
     })
@@ -170,13 +185,14 @@ app.post('/logout', (req, res) => {
 })
 
 //Gets the user's data from the User and Account table
-app.get('/getUser', (req, res) => {
+app.get('/getUsers', (req, res) => {
     console.log("____________________________________1");
     console.log("session: " + req.session.userId);
     console.log("____________________________________2");
+    console.log("GET USER TEST");
 
     var todb = 'SELECT * FROM `account` AS A LEFT OUTER JOIN `user` AS B ON `account_id` = `user_id` WHERE `user_id` = ?';
-    pool.query(todb, [req.session.userId], (error, result) => {
+    pool.query(todb, [1], (error, result) => {
         if (error) {
             console.log("getuser error");
             res.send(result);
@@ -194,7 +210,6 @@ app.post('/updateUser', (req, res) => {
     // for (let key in req.body) {
     //     console.log(key, req.body[key]);
     // }
-
     console.log(req.body);
     console.log(req.session.userId);
 
@@ -220,26 +235,71 @@ app.post('/updateUser', (req, res) => {
     })
 })
 
+app.get('/getProfile', (req, res) => {
+    console.log("____________________________________1");
+    console.log("session: " + req.session.userId);
+    console.log("____________________________________2");
+
+    var todb = 'SELECT * FROM `file_Path` WHERE `user` = ?';
+    pool.query(todb, [1], (error, result) => {
+        if (error) {
+            console.log("getprofile error");
+            //res.data.join(result);
+        } else {
+            console.log("getprofile pass");
+            //res.data.join(result);
+            res.send(result);
+
+        }
+    })
+    // var todb = 'SELECT * FROM `user` WHERE `user_id` = ?';
+    // pool.query(todb, [1], (error, result) => {
+    //     if (error) {
+    //         console.log("getuser error");
+    //         res.data.join(result);
+    //     } else {
+    //         console.log("getuser pass");
+    //         res.data.join(result);
+    //     }
+    // })
+
+})
+
 //Upload for profile page: incomplete
 app.post('/upload', (req, res) => {
     console.log("test");
     console.log(req.files);
-    // if (req.files === null) {
-    //     return res.status(400).json({ msg: 'No file uploaded' });
-    //   }
+    if (req.files === null) {
+        return res.status(400).json({ msg: 'No file uploaded' });
+      }
     
-    //   const file = req.files.file;
+      const file = req.files.file;
 
 
-    // var filepath = `/../frontend/public/assets/postImages/${req.files.file.name}`;
-    // req.files.file.mv(`${__dirname}${filepath}`, err => {
-    //     if (err) {
-    //         console.error(err);
-    //       }
-    //     var todb;
-    //     pool.query(todb, (error, result) => {/* return res.json({ fileName: file.name, filePath: filepath }); */ });
-    // });
+    var filepath = `/../frontend/public/assets/users/1/${req.files.file.name}`;
+    req.files.file.mv(`${__dirname}${filepath}`, err => {
+        if (err) {
+            console.error(err);
+          }
+          var todb =   
+          "UPDATE file_path SET profile_pic = ? WHERE user = 1";
+        pool.query(todb, [req.files.file.name],(error, result) => {
+            if(error){
+            console.log("upload fail");
+
+                console.log(error);
+            }else{
+            console.log("upload pass");
+
+                console.log(result);
+                
+            } });
+    });
 });
+
+// var todb = 'INSERT * FROM file_path WHERE user = 1;'
+// pool.query(todb, [req.files.file.name],(error, result) => {
+//     /* return res.json({ fileName: file.name, filePath: filepath }); */ });
 
 //listening port
 app.listen(port, () => console.log('app listening on port ' + port));  
