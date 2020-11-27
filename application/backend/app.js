@@ -39,7 +39,7 @@ var sessionOptions = {
 }
 //const pool = require("./database.js");
 
-
+var cors = require('cors');
 var bodyParser = require('body-parser');
 app.use(cookieParser());
 app.use(session(sessionOptions));
@@ -49,7 +49,7 @@ app.use(fileUpload());
 //app.use(express.static(__dirname + "/../frontend/build"));
 console.log(__dirname + "/../../..")
 app.use(express.static(path.join(__dirname, "../../../")));
-
+app.use(cors());
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
