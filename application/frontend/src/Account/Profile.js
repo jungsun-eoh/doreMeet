@@ -94,6 +94,13 @@ const Profile = (stateObj) => {
         console.log(e.target.files[0].name);
     };
 
+    const openPost = () => {
+        document.getElementById("postform").style.display = "block";
+    }
+
+    const closePost = () => {
+        document.getElementById("postform").style.display = "none";
+    }
 
     return (
         <Router>
@@ -102,15 +109,19 @@ const Profile = (stateObj) => {
                 <div className="description">
                     <h1>Your Profile!</h1>
                 </div>
+                <div style={{right: "65%"}} class="post-popup" id="postform">
+                    <form class="post-container" onSubmit={upload}>
+                                <input type='file' className='custom-file-input' id='customFile' onChange={onChange} />
+                                <label className='custom-file-label' htmlFor='customFile'></label>
+                                <input type='submit' value='Upload' /><br/>
+                                <button onClick={closePost}>Close</button>
+                    </form>
+                </div>
                 <input style={{ position: "center", width: '10%', marginLeft: 'auto', marginRight: 20, marginTop: 10 }} type='button' value="show Profile" onClick={getProfile} /><br />
                 <div className="profileContainer">
                     <div className="profileChildImg">
-                        <img className="profileImage" src={`/assets/users/1/${stateObj.profilePic}`} />
-                        <form class="post-container" onSubmit={upload}>
-                            <input type='file' className='custom-file-input' id='customFile' onChange={onChange} />
-                            <label className='custom-file-label' htmlFor='customFile'></label>
-                            <input type='submit' value='upload' />
-                        </form>
+                        <img onClick={openPost} style={{cursor: "pointer"}}className="profileImage" src={`/assets/users/1/${stateObj.profilePic}`} />
+                        <div onClick={openPost} className="editPic"><i class="fas fa-camera"></i>Edit</div>
                     </div>
                     <div className="profileChildInfo">
                         <h2 style={{ display: "inline-block", marginBottom: "5px" }}> Name {stateObj.firstName + " " + stateObj.lastName}</h2>
