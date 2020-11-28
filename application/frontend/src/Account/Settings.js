@@ -16,7 +16,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 const Settings = (stateObj) => {
 
     const getUser = (event) => {
-    axios.get('/getUser').then(response => {
+    axios.get('/getUsers').then(response => {
         console.log(response.data[0]);
         document.getElementById("first_name").innerHTML = response.data[0].first_name;
         document.getElementById("last_name").innerHTML = response.data[0].last_name;
@@ -39,6 +39,7 @@ const Settings = (stateObj) => {
         stateObj.setSkillLevel(response.data[0].skill_lvl);
         stateObj.setUserName(response.data[0].username);
       }).catch(function (error) {
+          console.log(error)
         console.log("Not Found");
       });
     }
@@ -81,7 +82,7 @@ const Settings = (stateObj) => {
                     
                     <input style={{position: "center", width: '10%', marginLeft:1050, marginTop:10}} type='button' value="Edit Settings"  onClick={getUser}/><br/>
                     <form className="settingsForm" onSubmit={updateUser}>
-                        
+                        <h3>Settings</h3>
                         <label for="fname">First Name Currently: {stateObj.currentFirstName}<b id="first_name"></b></label><br/>
                         <input onChange={e => stateObj.setFirstName(e.target.value)} className="settingsFields" type="text" id="fname"/><br/>
                         <label for="lname">Last Name Currently: {stateObj.currentLastName}<b id="last_name"></b></label><br/>
@@ -100,19 +101,27 @@ const Settings = (stateObj) => {
                         </tr></table>
 
                         <label for="birthday">Date of Birth Curently: {stateObj.currentDOB}<b id="date_of_birth"></b></label><br/>
-                        <input style={{marginTop: "0px", marginBottom: "0px"}} onChange={e => stateObj.setDOB(e.target.value)} className="settingsFields" type = "date" id="birthday" max="2002-01-01"/>
+                        <input style={{marginTop: "0px", marginBottom: "0px", width: "240px"}} onChange={e => stateObj.setDOB(e.target.value)} className="settingsFields" type = "date" id="birthday" max="2002-01-01"/>
                         <p>You must be 18 or older to use this site</p><br/>
 
-                        <label for="email">Email Currently: {stateObj.currentEmail}<b id="email"></b></label>
+                        <label for="email">Email Currently: {stateObj.currentEmail}<b id="email"></b></label><br/>
                         <input onChange={e => stateObj.setEmail(e.target.value)} className="settingsFields" type = "email" id = "email"/>
                         <p>Your email is not viewable for other users for your privacy</p><br/>
 
                         <table><tr><td><label for="phone">Phone Number Currently: {stateObj.currentPhoneNumber}<b id="phone_number"></b></label><br/></td>
-                        &nbsp; &nbsp; &nbsp;
                         <td>
                         <input style={{width: "150px"}} onChange={e => stateObj.setPhoneNumber(e.target.value)} className="settingsFields" type = "tel" id = "phone" placeholder="123-456-7890" pattern = "[0-9]{3}-[0-9]{3}-[0-9]{4}"/>
                        </td></tr></table> <p>Required only for 2-factor identification</p><br/>
 
+                       <label for = "username">Username Currently: {stateObj.currentUserName}<b id="username"></b></label><br/>
+                        <input onChange={e => stateObj.setUserName(e.target.value)} className="settingsFields" type = "text" id="username" /><br/>
+                        <label for = "pwd">Password</label><br/>
+                        <input onChange={e => stateObj.setPassword(e.target.value)} className="settingsFields" type = "password" id="pwd"/><br/>
+                        <p></p><br/>
+                        <input style={{position: "relative"}} type='submit' value="Confirm Settings Changes"/>
+                    </form>
+                    <form className="settingsForm" onSubmit={updateUser}>
+                        <h3>Preferences</h3>
                        <table><tr><td><label for="art">Art Category Currently: {stateObj.currentArtCategory}<b id="art_category"></b></label></td>
                         &nbsp; &nbsp; &nbsp; &nbsp; 
                         <td>
@@ -134,12 +143,6 @@ const Settings = (stateObj) => {
                             <option value={"E"}>Expert</option>
                         </select></td></tr></table>
                         <p>Generally begginers have less than 5 years of experience and advanced has more than 7 years of experience</p><br/>
-
-                        <label for = "username">Username Currently: {stateObj.currentUserName}<b id="username"></b></label><br/>
-                        <input onChange={e => stateObj.setUserName(e.target.value)} className="settingsFields" type = "text" id="username" /><br/>
-                        <label for = "pwd">Password</label><br/>
-                        <input onChange={e => stateObj.setPassword(e.target.value)} className="settingsFields" type = "password" id="pwd"/><br/>
-                        <p></p><br/>
 
                         <table><tr><td><label for = "minAge">Minimum Age (18+) Currently: {stateObj.currentMinimumAge}</label></td>
                         &nbsp; &nbsp;
@@ -181,7 +184,7 @@ const Settings = (stateObj) => {
                         </select></td></tr></table> 
                         <p>Your prefrence for meeting online or offline</p><br/>
 
-                        <input style={{position: "relative",left:"100px"}} type='submit' value="Confirm Changes"/>
+                        <input style={{position: "relative"}} type='submit' value="Confirm Preference Changes"/>
                         <br/>
                         <button style={{backgroundColor: "#ffd700"}}><a style={{textDecoration: "none",color: "black"}} href={'/Premium'}>Upgrade to Premium Account</a></button><br/>
                         <button style={{backgroundColor: "#06EFB7",width: "198px", marginRight: "3px"}}>Pause Account</button>

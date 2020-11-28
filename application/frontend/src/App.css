@@ -70,6 +70,7 @@
 .settingsForm 
 input[type=email]{
   margin:0px;
+  width: 240px;
 }
 
 .settingsForm input[type=password]{
@@ -80,12 +81,13 @@ input[type=email]{
 
 .settingsForm input[type=text]{
   margin: 0px;
+  width: 240px;
 }
 
 .settingsForm input[type=submit]{
   margin-bottom: 20px;
   height: 40px;
-  width: 200px;
+  width: 400px;
   font-size: 20px;
   font-weight: 600;
   background-color:rgb(126,218,216);
@@ -203,6 +205,19 @@ input[type=email]{
   width: 25%;
   float: left;
   padding:20px;
+}
+
+.editPic{
+  padding-left: 4px;
+  padding-right: 4px;
+  margin-bottom: 30px;
+  margin-left: 30px;
+  left: 0;
+  bottom: 0;
+  position: absolute;
+  background-color:rgb(126,218,216);
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .profileChildInfo{

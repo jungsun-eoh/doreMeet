@@ -56,8 +56,7 @@ class Navbar extends Component {
                 &nbsp; &nbsp;                
                 <Button onClick={e=>this.logout(e)}>Log Out</Button>                
             </nav>
-            </BrowserRouter>
-            
+            </BrowserRouter>            
         )
     }
 }

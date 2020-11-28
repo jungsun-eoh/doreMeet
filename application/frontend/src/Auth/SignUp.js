@@ -24,7 +24,9 @@ class SignUp extends Component {
         art:'M',
         skill: 'B',
         password: '',
-        confirmpassword: ''
+        confirmpassword: '',
+        emailError: '',
+        formError: ''
       }
     
       handleChange = (e) => {
@@ -34,10 +36,9 @@ class SignUp extends Component {
         })
         console.log(e.target.value)
         console.log(this);
-    }
+      }
     
       signUp = (e) => {
-        e.preventDefault();
          axios.post('/signup', this.state)
         .then(response => {
             window.location = "/retrive";
@@ -48,6 +49,32 @@ class SignUp extends Component {
         this.props.history.push('/login');
 
 
+      }
+
+      handleSubmit = event => {
+          console.log("Entered handleSubmit");
+          event.preventDefault();
+          const isValid = this.validate();
+          if(isValid){
+            this.signUp();
+          }
+      }
+
+      validate = () =>{
+        let emailError = "";
+        let formError = "";
+
+        if(!this.state.email.includes("@")){
+            emailError = "Invalid Email";
+            formError = "Error: please review your form!"
+        }
+
+        if(emailError){
+            this.setState({emailError});
+            this.setState({formError});
+            return false;
+        }
+        return true;
       }
 
     render() {
@@ -82,8 +109,10 @@ class SignUp extends Component {
 
             <div className="input">
                 <label htmlFor="email" className="sub-heading"> <b> Email </b>
-                <input type="email" name='email' value={this.state.email} placeholder="Enter Email" required onChange={this.handleChange} /></label>
+                <input style={{marginBottom: '0px'}} type="email" name='email' value={this.state.email} placeholder="Enter Email" required onChange={this.handleChange} /></label>
+                <h4 style={{marginBottom: "20px", fontWeight: "600",color: 'red'}}>{this.state.emailError}</h4>
             </div>
+
 
             <div className="input">
                 <label htmlFor="dob" className="sub-heading"> <b> Date of Birth </b>
@@ -152,7 +181,8 @@ class SignUp extends Component {
             </div> 
             
             <div className="input">
-                <Button className='btn' buttonStyle='btn--primary' buttonSize='btn--large' onClick={this.signUp}> Sign Up </Button>
+                <Button className='btn' buttonStyle='btn--primary' buttonSize='btn--large' onClick={this.handleSubmit}> Sign Up </Button>
+                <h4 style={{marginBottom: "20px", fontWeight: "600",color: 'red'}}>{this.state.formError}</h4>
             </div>
 
             &nbsp; 
