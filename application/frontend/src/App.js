@@ -77,7 +77,7 @@ function App() {
   const [fileName, setFileName] = React.useState('');
 
   const [profilePic, setProfilePic] = React.useState('');
-  const [bio, setBio] = React.useState('');
+  const [bio, setBio] = React.useState('Placeholder bio!');
   const [age, setAge] = React.useState('');
 
   //stateObj is our big hub object that will hold all the info for the users session

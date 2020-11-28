@@ -250,6 +250,22 @@ input[type=email]{
   } 
 }
 
+.tagInput{
+  border: 2px solid lightgray;
+  border-radius: 40px;
+  height: 40px;
+  margin-left: 20px;
+  margin-right: 20px;
+  outline: none;
+}
+
+.textAreaProfile{
+  height: 200px;
+  width: 500px;
+  padding: 10px;
+  font-size: 18px;
+}
+
 .company-container {
   margin: 40px 40px 40px 40px;
   overflow: auto
