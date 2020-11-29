@@ -57,6 +57,8 @@ const CommunityPage = (stateObj) => {
                   </div>`;
         document.getElementById("search-post").innerHTML = _html;
         document.getElementById("recent-posts").innerHTML = '';
+        document.getElementById("PlusButton").addEventListener("click", voteplus);
+        document.getElementById("MinusButton").addEventListener("click", voteminus);
       }else{
         let _html = "";
         _html += `<h1>Search Results</h1>`
@@ -65,8 +67,6 @@ const CommunityPage = (stateObj) => {
                   </div>`;
         document.getElementById("search-post").innerHTML = _html;
         document.getElementById("recent-posts").innerHTML = '';
-        document.getElementById("PlusButton").addEventListener("click", voteplus);
-        document.getElementById("MinusButton").addEventListener("click", voteminus);
       }
 
     }).catch(function (error) {
