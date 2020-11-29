@@ -52,8 +52,8 @@ const CommunityPage = (stateObj) => {
                   <h4 class="PostVotes">${response.data[0].post_votes}</h4>
                   <p class="PostDescription">Post Description</p>
                   <p hidden class="PostID">${response.data[0].comm_pg_id}</p>
-                  <button onClick={voteplus}>+</button>
-                  <button onClick={voteminus}>-</button>
+                  <button id="PlusButton" type="button">+</button>
+                  <button id="MinusButton" type="button">-</button>
                   </div>`;
         document.getElementById("search-post").innerHTML = _html;
         document.getElementById("recent-posts").innerHTML = '';
@@ -65,6 +65,8 @@ const CommunityPage = (stateObj) => {
                   </div>`;
         document.getElementById("search-post").innerHTML = _html;
         document.getElementById("recent-posts").innerHTML = '';
+        document.getElementById("PlusButton").addEventListener("click", voteplus);
+        document.getElementById("MinusButton").addEventListener("click", voteminus);
       }
 
     }).catch(function (error) {
@@ -102,11 +104,14 @@ const CommunityPage = (stateObj) => {
                    <h2 class="PostTitle">${post.post_title}</h2>
                    <h3 class="PostCategory">${post.post_category}</h3>
                    <p class="PostDescription">Post DescriptionPost DescriptionPost DescriptionPost DescriptionPost DescriptionPost DescriptionPost DescriptionPost 
-                   DescriptionPost Description</p>                   
+                   DescriptionPost Description</p>   
+                   <button id="PlusButton" type="button">+</button>
+                   <button id="MinusButton" type="button">-</button>      
                    </div>`;})
          document.getElementById("recent-posts").innerHTML = _html;
-        document.getElementById("search-post").innerHTML = '';
-
+         document.getElementById("search-post").innerHTML = '';
+         document.getElementById("PlusButton").addEventListener("click", voteplus);
+         document.getElementById("MinusButton").addEventListener("click", voteminus);
        }).catch(function (error) {
          console.log('fail')
        });
