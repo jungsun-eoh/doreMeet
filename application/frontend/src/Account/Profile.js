@@ -126,31 +126,30 @@ const Profile = (stateObj) => {
                     <div className="profileChildInfo">
                         <h2 style={{ display: "inline-block", marginBottom: "5px" }}> Name {stateObj.firstName + " " + stateObj.lastName}</h2>
                         <p>Age: {stateObj.age}</p>
-                        <p>D/O/B: {stateObj.DOB}</p>
+                        <p>Gender: {stateObj.gender}</p>
                         <p style={{ color: "#656c75" }}>Location: Placeholder Location (Hidden)</p>
                         <p>Art Category: {stateObj.artCategory}</p><br />
                         <img style={{ height: "100px", position: 'relative' }} src="/assets/spotifylogo.png"></img>
                         <img style={{ height: "100px", marginLeft: "70px", position: 'relative' }} src="/assets/twitterlogo.png"></img>
                         <img style={{ height: "100px", marginLeft: "70px", position: 'relative' }} src="/assets/youtubelogo.png"></img>
+                        <img style={{ height: "100px", marginLeft: "70px", position: 'relative' }} src="/assets/instagramlogo.png"></img>
                     </div>
                     <br /><br />
 
                     <div style={{ display: "inline-block", display: 'column', float: 'left', paddingLeft: 50 }}>
                         <h3><u>Tags:</u></h3>
                         <br />
-                        <button style={{ backgroundColor: "rgb(219, 250, 246)" }}>Placeholder Tag</button>
-                        <button style={{ backgroundColor: "rgb(219, 250, 246)" }}>Placeholder Tag</button>
-                        <button style={{ backgroundColor: "rgb(219, 250, 246)" }}>Placeholder Tag</button>
-                        <button style={{ backgroundColor: "rgb(219, 250, 246)" }}>Placeholder Tag</button>
-                        <button style={{ backgroundColor: "rgb(219, 250, 246)" }}>Placeholder Tag</button>
+                        <input style={{width:"200px", marginRight: "20px"}} className="tagInput" type="text" placeholder={stateObj.firstName}></input>
+                        <input style={{width:"200px", marginRight: "20px"}} className="tagInput" type="text" placeholder={stateObj.firstName}></input>
+                        <input style={{width:"200px", marginRight: "20px"}} className="tagInput" type="text" placeholder={stateObj.firstName}></input>
+                        <input style={{width:"200px", marginRight: "20px"}} className="tagInput" type="text" placeholder={stateObj.firstName}></input>
                         <br /><br />
 
 
-                        <h3><u>Bio:</u></h3>
-                        <p style={{ marginRight: 80 }}>{stateObj.bio}</p>
+                        <h3><u>Bio (Max characters 240):</u></h3>
+                        <textarea maxLength={240} style={{outline: "none"}} className="textAreaProfile" placeholder={stateObj.bio}></textarea>
                         <br /><br />
                     </div>
-
 
                     <div style={{ display: "inline-block" }}>
                         <h3 style={{ paddingLeft: 50 }}><u>Media:</u></h3>
