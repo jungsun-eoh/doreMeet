@@ -56,6 +56,8 @@ const Settings = (stateObj) => {
         if(stateObj.artCategory !== '')formData.append("art_category", stateObj.artCategory);
         if(stateObj.skillLevel !== '')formData.append("skill_lvl", stateObj.skillLevel);
         if(stateObj.userName !== '')formData.append("username", stateObj.userName);
+        if(stateObj.userPassword !== '')formData.append("password", stateObj.userPassword);
+
         
 
         axios.post('/updateUser', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
@@ -116,7 +118,7 @@ const Settings = (stateObj) => {
                        <label for = "username">Username Currently: {stateObj.currentUserName}<b id="username"></b></label><br/>
                         <input onChange={e => stateObj.setUserName(e.target.value)} className="settingsFields" type = "text" id="username" /><br/>
                         <label for = "pwd">Password</label><br/>
-                        <input onChange={e => stateObj.setPassword(e.target.value)} className="settingsFields" type = "password" id="pwd"/><br/>
+                        <input onChange={e => stateObj.setUserPassword(e.target.value)} className="settingsFields" type = "password" id="pwd"/><br/>
                         <p></p><br/>
                         <input style={{position: "relative"}} type='submit' value="Confirm Settings Changes"/>
                     </form>

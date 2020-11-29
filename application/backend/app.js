@@ -260,11 +260,18 @@ app.post('/updateUser', (req, res) => {
             var todb = "UPDATE account SET username = ? WHERE user = ? ";
             pool.query(todb, [req.body.username, req.session.userId],(error, result) => {
                 if (error) {
-                    console.log("update account error");
+                    console.log("update username error");
                 } else {
-                    console.log("update account pass");
+                    console.log("update username pass");
                 }
-
+            });
+            var todb = "UPDATE account SET password = ? WHERE user = ? ";
+            pool.query(todb, [req.body.password, req.session.userId],(error, result) => {
+                if (error) {
+                    console.log("update password error");
+                } else {
+                    console.log("update password pass");
+                }
             });
         }
     })
