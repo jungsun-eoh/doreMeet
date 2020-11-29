@@ -49,16 +49,22 @@ const CommunityPage = (stateObj) => {
                   <img class="PostImage" src="assets/postImages/${response.data[0].post_file}" alt="Post Image"/>
                   <h2 class="PostTitle">${response.data[0].post_title}</h2>
                   <h3 class="PostCategory">${response.data[0].post_category}</h3>
+                  <h4 class="PostVotes">${response.data[0].post_votes}</h4>
                   <p class="PostDescription">Post Description</p>
+                  <p hidden class="PostID">${response.data[0].comm_pg_id}</p>
+                  <button onClick={voteplus}>+</button>
+                  <button onClick={voteminus}>-</button>
                   </div>`;
-        document.getElementById("recent-posts").innerHTML = _html;
+        document.getElementById("search-post").innerHTML = _html;
+        document.getElementById("recent-posts").innerHTML = '';
       }else{
         let _html = "";
         _html += `<h1>Search Results</h1>`
         _html += `<div class="NoResult">
                   <p>Sorry, we couldn't find anything</p>
                   </div>`;
-        document.getElementById("recent-posts").innerHTML = _html;
+        document.getElementById("search-post").innerHTML = _html;
+        document.getElementById("recent-posts").innerHTML = '';
       }
 
     }).catch(function (error) {
@@ -67,6 +73,16 @@ const CommunityPage = (stateObj) => {
       stateObj.setResultFile("");
     });
   };
+
+  const voteplus = () => {
+    axios.post('/voteplus');
+    console.log("vote test");
+  };
+  const voteminus = () => {
+    axios.post('/voteminus');
+    console.log("vote test");
+  };
+
   //Simply opens up the post box
   const openPost = () => {
     document.getElementById("postform").style.display = "block";
@@ -89,6 +105,8 @@ const CommunityPage = (stateObj) => {
                    DescriptionPost Description</p>                   
                    </div>`;})
          document.getElementById("recent-posts").innerHTML = _html;
+        document.getElementById("search-post").innerHTML = '';
+
        }).catch(function (error) {
          console.log('fail')
        });
@@ -154,7 +172,10 @@ const CommunityPage = (stateObj) => {
                 </form>
              </div>
               <div class="RecentPosts" id="recent-posts">
+                </div>
+                <div class="SearchPost" id="search-post">
               </div>
+              <p id="vote"></p>
               <div id='highlight-section' >
                 <Highlights />
               </div>

@@ -282,8 +282,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`communityPage` (
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
-INSERT INTO `mydb`.`communityPage`(`post_title`,`post_category`,`post_file`)
-VALUES								            ('Test',	     'Music',		    'b.png');	
+INSERT INTO `mydb`.`communityPage`(`post_title`,`post_category`,`post_file`, `post_votes`)
+VALUES								            ('Test',	     'Music',		    'b.png', 1);	
 
 INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`gender`,`date_of_birth`,`email`,  	`phone_number`,`art_category`,`skill_lvl`)
 VALUES					         ('first',		  'last',		  'f',	  '2000-11-21','	mail@mail',	'7073334444',	  'D',			    'I');

@@ -18,6 +18,7 @@ const fileUpload = require('express-fileupload');
 const pool = mysql.createPool({
     // changed host for debug. consider changing fields
     host: "localhost",
+    //host: "mydb.cxfxbt23l5bi.us-west-1.rds.amazonaws.com",
     user: "root",
     password: "CSC648TEAM02!",
     database: "mydb",
@@ -83,7 +84,7 @@ app.post('/makePost', (req, res) => {
         var post_category = req.body.post_category;
         var post_file = req.files.file.name;
 
-        var todb = 'INSERT INTO communityPage (post_title, post_category, post_file) VALUES (?,?,?);'
+        var todb = 'INSERT INTO communityPage (post_title, post_category, post_file, post_votes) VALUES (?,?,?,1);'
         pool.query(todb, [post_title, post_category, post_file] ,(err, result) => {
             if(err){
                 console.log(err);
@@ -93,6 +94,38 @@ app.post('/makePost', (req, res) => {
         });
      });
 });
+
+app.post('/voteplus', (req,res) => {
+    console.log("vote test");
+    var todb = 'UPDATE communitypage SET post_votes = post_votes + 1 WHERE comm_pg_id = 1;';
+    pool.query(todb,/*req.comm_pg_id,*/(err, result) => {
+        if (err || result == ''){
+            console.log(err);
+            console.log("vote+ fail");
+        }else{
+            //console.log(result);
+            res.send(result);
+            console.log("vote+ pass");
+        }
+        
+    })
+})
+
+app.post('/voteminus', (req,res) => {
+    console.log("vote test");
+    var todb = 'UPDATE communitypage SET post_votes = post_votes - 1 WHERE comm_pg_id = 1;';
+    pool.query(todb,/*req.comm_pg_id,*/(err, result) => {
+        if (err || result == ''){
+            console.log(err);
+            console.log("vote- fail");
+        }else{
+            //console.log(result);
+            res.send(result);
+            console.log("vote- pass");
+        }
+        
+    })
+})
 
 //Retrieves the latest five entries in the communityPage table
  app.get("/recent5", (req, res) => {
@@ -176,10 +209,12 @@ app.post('/logout', (req, res) => {
                 console.log("destroy cookie");
                 res.clearCookie('loginkey');
                 res.send(req.session);
+                //res.redirect('/');                
             }
         })
     }else{
             console.log("none to destroy '/logout'");
+            //res.redirect('/');
     }
 
 })
@@ -231,6 +266,23 @@ app.post('/updateUser', (req, res) => {
                 }
 
             });
+        }
+    })
+})
+
+app.post('/updatePreferences', (req, res) => {
+
+    console.log(req.body);
+    console.log(req.session.userId);
+
+    var todb = "UPDATE user SET " +
+        "min_age = ?, max_age = ?, gender = ?, art_preference = ?, skill_lvl = ?, meeting_pref = ?, art_category = ?" +
+        "WHERE user_id = ?";
+    pool.query(todb, [req.body.min_age, req.body.max_age, req.body.gender, req.body.art_preference, req.body.skill_lvl, req.body.meeting_pref ,req.body.art_category, req.session.userId], (error, result) => {
+        if (error) {
+            console.log("update pref error");
+        } else {
+            console.log("update pref pass");
         }
     })
 })
