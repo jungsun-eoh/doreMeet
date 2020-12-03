@@ -102,6 +102,70 @@ const Profile = (stateObj) => {
         document.getElementById("postform").style.display = "none";
     }
 
+    //Stuff for media file 1
+    const uploadMedia1 = async e => {
+        e.preventDefault();
+    }
+
+    const changeMedia1 = (e) => {
+    }
+
+    const openMedia1 = () => {
+        document.getElementById("media1").style.display = "block";
+    }
+
+    const closeMedia1 = () => {
+        document.getElementById("media1").style.display = "none";
+    }
+
+    //stuff for media file 2
+    const uploadMedia2 = async e => {
+        e.preventDefault();
+    }
+
+    const changeMedia2 = (e) => {
+    }
+
+    const openMedia2 = () => {
+        document.getElementById("media2").style.display = "block";
+    }
+
+    const closeMedia2 = () => {
+        document.getElementById("media2").style.display = "none";
+    }
+
+    //Stuff for media file 3
+    const uploadMedia3 = async e => {
+        e.preventDefault();
+    }
+
+    const changeMedia3 = (e) => {
+    }
+
+    const openMedia3 = () => {
+        document.getElementById("media3").style.display = "block";
+    }
+
+    const closeMedia3 = () => {
+        document.getElementById("media3").style.display = "none";
+    }
+
+    //Stuff for media file 4
+    const uploadMedia4 = async e => {
+        e.preventDefault();
+    }
+
+    const changeMedia4 = (e) => {
+    }
+
+    const openMedia4 = () => {
+        document.getElementById("media4").style.display = "block";
+    }
+
+    const closeMedia4 = () => {
+        document.getElementById("media4").style.display = "none";
+    }
+
     return (
         <Router>
             <Navbar />
@@ -117,7 +181,46 @@ const Profile = (stateObj) => {
                                 <button onClick={closePost}>Close</button>
                     </form>
                 </div>
+                
+                <div style={{right: "65%"}} class="post-popup" id="media1">
+                        <form class="post-container" onSubmit={uploadMedia1}>
+                            <input type='file' className='custom-file-input' id='customFile' onChange={changeMedia1} />
+                            <label className='custom-file-label' htmlFor='customFile'></label>
+                            <input type='submit' value='Upload' /><br/>
+                            <button onClick={closeMedia1}>Close</button>
+                        </form>
+                    </div>
+
+                    <div style={{right: "47%"}} class="post-popup" id="media2">
+                        <form class="post-container" onSubmit={uploadMedia2}>
+                            <input type='file' className='custom-file-input' id='customFile' onChange={changeMedia2} />
+                            <label className='custom-file-label' htmlFor='customFile'></label>
+                            <input type='submit' value='Upload' /><br/>
+                            <button onClick={closeMedia2}>Close</button>
+                        </form>
+                    </div>
+
+                    <div style={{right: "30%"}} class="post-popup" id="media3">
+                        <form class="post-container" onSubmit={uploadMedia3}>
+                            <input type='file' className='custom-file-input' id='customFile' onChange={changeMedia3} />
+                            <label className='custom-file-label' htmlFor='customFile'></label>
+                            <input type='submit' value='Upload' /><br/>
+                            <button onClick={closeMedia3}>Close</button>
+                        </form>
+                    </div>
+
+                    <div style={{right: "15%"}} class="post-popup" id="media4">
+                        <form class="post-container" onSubmit={uploadMedia4}>
+                            <input type='file' className='custom-file-input' id='customFile' onChange={changeMedia4} />
+                            <label className='custom-file-label' htmlFor='customFile'></label>
+                            <input type='submit' value='Upload' /><br/>
+                            <button onClick={closeMedia4}>Close</button>
+                        </form>
+                    </div>
+                
                 <input style={{ position: "center", width: '10%', marginLeft: 'auto', marginRight: 20, marginTop: 10 }} type='button' value="show Profile" onClick={getProfile} /><br />
+                
+                
                 <div className="profileContainer">
                     <div className="profileChildImg">
                         <img onClick={openPost} style={{cursor: "pointer"}}className="profileImage" src={`/assets/users/1/${stateObj.profilePic}`} />
@@ -154,10 +257,10 @@ const Profile = (stateObj) => {
                     <div style={{ display: "inline-block" }}>
                         <h3 style={{ paddingLeft: 50 }}><u>Media:</u></h3>
                         <div style={{ paddingLeft: 50 }}>
-                            <img style={{ height: "160px", margin: "15px 5px 0 5px" }} src='assets/placeholder-img.jpg' />
-                            <img style={{ height: "160px", margin: "15px 5px 0 5px" }} src='assets/placeholder-img.jpg' />
-                            <img style={{ height: "160px", margin: "15px 5px 0 5px" }} src='assets/placeholder-img.jpg' />
-                            <img style={{ height: "160px", margin: "15px 5px 0 5px" }} src='assets/placeholder-img.jpg' />
+                            <img onClick={openMedia1} style={{ height: "160px", margin: "15px 5px 0 5px" }} src='assets/placeholder-img.jpg' />
+                            <img onClick={openMedia2} style={{ height: "160px", margin: "15px 5px 0 5px" }} src='assets/placeholder-img.jpg' />
+                            <img onClick={openMedia3} style={{ height: "160px", margin: "15px 5px 0 5px" }} src='assets/placeholder-img.jpg' />
+                            <img onClick={openMedia4} style={{ height: "160px", margin: "15px 5px 0 5px" }} src='assets/placeholder-img.jpg' />
                         </div>
                         <small style={{ paddingLeft: 50 }}><a href="#">Load More</a></ small>
                         <br /><br />
