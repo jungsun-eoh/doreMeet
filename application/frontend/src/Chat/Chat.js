@@ -13,6 +13,8 @@ import Navbar from '../components/Navbar/Navbar';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Footer from "../components/Footer/Footer";
 import SideBar from "./SideBar";
+import MessageList from "./MessageList";
+import SendMessageForm from "./SendMessageForm";
 
 const DUMMY_CONTACTS = [
   {
@@ -49,9 +51,10 @@ const Chat = (stateObj) => {
         <div className="App">
           <Navbar/>
         </div>
+        <div style={{display: "flex"}}>
         <SideBar contacts={state.contacts}/>
-        {/* <MessageList messages={this.state.messages}/>
-        <SendMessageForm/> */}
+        <MessageList messages={state.messages}/>
+        </div>
         <Footer/>
       </Router>
     </>
