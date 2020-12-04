@@ -68,6 +68,28 @@ const Settings = (stateObj) => {
         // axios.post('/updateUser');
 
     };
+    const updatePreferences = (event) => {
+
+        const formData = new FormData();
+        if(stateObj.artCategory !== '')formData.append("art_category", stateObj.artCategory);
+        if(stateObj.skillLevel !== '')formData.append("skill_lvl", stateObj.skillLevel);
+        if(stateObj.minimumAge !== '')formData.append("min_age", stateObj.minimumAge);
+        if(stateObj.maximumAge !== '')formData.append("max_age", stateObj.maximumAge);
+        if(stateObj.preferedGender !== '')formData.append("gender", stateObj.preferedGender);
+        if(stateObj.preferedSkillLevel !== '')formData.append("skill_lvl_pref", stateObj.preferedSkillLevel);
+        if(stateObj.meetingPreference !== '')formData.append("meeting_pref", stateObj.meetingPreference);
+
+
+        
+
+        axios.post('/updatePreferences', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
+            console.log(response.data[0]);
+        }).catch(function (error) {
+            console.log("Not Found");
+          });;
+        // axios.post('/updateUser');
+
+    };
 // onChange={e => stateObj.setFirstName(stateObj.currentFirstName)}
     return(
         <>
@@ -122,7 +144,7 @@ const Settings = (stateObj) => {
                         <p></p><br/>
                         <input style={{position: "relative"}} type='submit' value="Confirm Settings Changes"/>
                     </form>
-                    <form className="settingsForm" onSubmit={updateUser}>
+                    <form className="settingsForm" onSubmit={updatePreferences}>
                         <h3>Preferences</h3>
                        <table><tr><td><label for="art">Art Category Currently: {stateObj.currentArtCategory}<b id="art_category"></b></label></td>
                         &nbsp; &nbsp; &nbsp; &nbsp; 
@@ -135,7 +157,6 @@ const Settings = (stateObj) => {
                             <option value={"Photography"}>Photography</option>
                             </select></td></tr></table>
                         <p>When switching categories make sure to update your skill level and content</p><br/>
-
                         <table><tr><td><label for="skill">Skill Level Currently: {stateObj.currentSkillLevel}<b id="skill_lvl"></b></label></td>
                         &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
                         <td>
@@ -146,13 +167,13 @@ const Settings = (stateObj) => {
                         </select></td></tr></table>
                         <p>Generally begginers have less than 5 years of experience and advanced has more than 7 years of experience</p><br/>
 
-                        <table><tr><td><label for = "minAge">Minimum Age (18+) Currently: {stateObj.currentMinimumAge}</label></td>
+                        <table><tr><td><label for = "minAge">Minimum Age (18+) Currently: {stateObj.currentMinimumAge}<b id="min_age"></b></label></td>
                         &nbsp; &nbsp;
                         <td>
                         <input style={{width: "100px"}} onChange={e => stateObj.setMinimumAge(e.target.value)} className="settingsFields" type="number" id="minAge" min="18"/>
                         </td></tr></table>
                         <p>The minimum age of people you will match with</p>
-                        <table><tr><td><label for = "maxAge">Maximum Age Currently: {stateObj.currentMaximumAge}</label></td>
+                        <table><tr><td><label for = "maxAge">Maximum Age Currently: {stateObj.currentMaximumAge}<b id="max_age"></b></label></td>
                         &nbsp; &nbsp; &nbsp; &nbsp;
                         <td>
                         <input style={{width: "100px"}} onChange={e => stateObj.setMaximumAge(e.target.value)} className="settingsFields" type="number" id="maxAge" min="18"/>
@@ -160,16 +181,16 @@ const Settings = (stateObj) => {
 
                         <table>
                         <tr>
-                            <td><h4>Prefered Match Gender Currently: {stateObj.currentPreferedGender}</h4></td>&nbsp;  &nbsp;
-                            <td><input onChange={e => stateObj.setPreferedGender(e.target.value)} type="radio" id="preferedMale" name="preferedGender" value="male"/>
+                            <td><h4>Prefered Match Gender Currently: {stateObj.currentPreferedGender}</h4><b id="gender"></b></td>&nbsp;  &nbsp;
+                            <td><input onChange={e => stateObj.setPreferedGender(e.target.value)} type="radio" id="preferedMale" name="preferedGender" value="m"/>
                             <label for="preferedMale">Male</label></td>&nbsp;  &nbsp;
-                            <td><input onChange={e => stateObj.setPreferedGender(e.target.value)} type="radio" id="preferedFemale" name="preferedGender" value="female"/>
+                            <td><input onChange={e => stateObj.setPreferedGender(e.target.value)} type="radio" id="preferedFemale" name="preferedGender" value="f"/>
                             <label for="preferedFemale">Female</label></td>&nbsp;  &nbsp;
-                            <td><input onChange={e => stateObj.setPreferedGender(e.target.value)} type="radio" id="preferedNone" name="preferedGender" value="none"/>
+                            <td><input onChange={e => stateObj.setPreferedGender(e.target.value)} type="radio" id="preferedNone" name="preferedGender" value="0"/>
                             <label for="preferedNone">None</label></td></tr></table>
                         <p>Your prefered gender for the people you will match with</p><br/>
 
-                        <table><tr><td><label for="preferedSkill">Prefered Skill Level Currently: {stateObj.currentPreferedSkillLevel}</label></td> 
+                        <table><tr><td><label for="preferedSkill">Prefered Skill Level Currently: {stateObj.currentPreferedSkillLevel}<b id="skill_lvl_pref"></b></label></td> 
                         &nbsp;  &nbsp;<td>
                         <select onChange={e => stateObj.setPreferedSkillLevel(e.target.value)} id = "preferedSkill">
                             <option value={"B"}>Begginer</option>
@@ -178,7 +199,7 @@ const Settings = (stateObj) => {
                         </select></td></tr></table> 
                         <p>Your prefered skill level for the people you will match with</p><br/>
 
-                        <table><tr><td><label for="preferedMeet">Prefered Meeting Type Currently: {stateObj.currentMeetingPreference}</label><br/></td> 
+                        <table><tr><td><label for="preferedMeet">Prefered Meeting Type Currently: {stateObj.currentMeetingPreference}<b id="meeting_pref"></b></label><br/></td> 
                         &nbsp;<td>
                         <select onChange={e => stateObj.setMeetingPreference(e.target.value)} id = "preferedMeet">
                             <option value={"Online"}>Online</option>

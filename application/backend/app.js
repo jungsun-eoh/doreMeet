@@ -227,7 +227,7 @@ app.get('/getUsers', (req, res) => {
     console.log("GET USER TEST");
 
     var todb = 'SELECT * FROM `account` AS A LEFT OUTER JOIN `user` AS B ON `account_id` = `user_id` WHERE `user_id` = ?';
-    pool.query(todb, [1], (error, result) => {
+    pool.query(todb, [req.session.userId], (error, result) => {
         if (error) {
             console.log("getuser error");
             res.send(result);
@@ -282,13 +282,26 @@ app.post('/updatePreferences', (req, res) => {
     console.log(req.body);
     console.log(req.session.userId);
 
-    var todb = "UPDATE user SET " +
-        "min_age = ?, max_age = ?, gender = ?, art_preference = ?, skill_lvl = ?, meeting_pref = ?, art_category = ?" +
-        "WHERE user_id = ?";
-    pool.query(todb, [req.body.min_age, req.body.max_age, req.body.gender, req.body.art_preference, req.body.skill_lvl, req.body.meeting_pref ,req.body.art_category, req.session.userId], (error, result) => {
+    //req.session.userId
+    var todb = "UPDATE preferences SET " +
+        "min_age = ?, max_age = ?, gender = ?,  skill_lvl_pref = ?, meeting_pref = ?" +
+        "WHERE user = ?";
+    pool.query(todb, [req.body.min_age, req.body.max_age, req.body.gender,  req.body.skill_lvl_pref, req.body.meeting_pref , req.session.userId], (error, result) => {
         if (error) {
+            console.log(error);
             console.log("update pref error");
         } else {
+            var todb =
+            "UPDATE user SET " +
+            "art_category = ?,  skill_lvl = ?" +
+            "WHERE user_id = ?";
+            pool.query(todb, [req.body.art_category, req.body.skill_lvl, req.session.userId],(error, result) => {
+                if (error) {
+                    console.log("update user error");
+                } else {
+                    console.log("update user pass");
+                }
+            });
             console.log("update pref pass");
         }
     })
@@ -300,7 +313,7 @@ app.get('/getProfile', (req, res) => {
     console.log("____________________________________2");
 
     var todb = 'SELECT * FROM `file_Path` WHERE `user` = ?';
-    pool.query(todb, [1], (error, result) => {
+    pool.query(todb, [req.session.userId], (error, result) => {
         if (error) {
             console.log("getprofile error");
             //res.data.join(result);
@@ -311,16 +324,6 @@ app.get('/getProfile', (req, res) => {
 
         }
     })
-    // var todb = 'SELECT * FROM `user` WHERE `user_id` = ?';
-    // pool.query(todb, [1], (error, result) => {
-    //     if (error) {
-    //         console.log("getuser error");
-    //         res.data.join(result);
-    //     } else {
-    //         console.log("getuser pass");
-    //         res.data.join(result);
-    //     }
-    // })
 
 })
 
@@ -335,14 +338,14 @@ app.post('/upload', (req, res) => {
       const file = req.files.file;
 
 
-    var filepath = `/../frontend/public/assets/users/1/${req.files.file.name}`;
+    var filepath = `/../frontend/public/assets/users/${req.session.userId}/${req.files.file.name}`;
     req.files.file.mv(`${__dirname}${filepath}`, err => {
         if (err) {
             console.error(err);
           }
           var todb =   
-          "UPDATE file_path SET profile_pic = ? WHERE user = 1";
-        pool.query(todb, [req.files.file.name],(error, result) => {
+          "UPDATE file_path SET profile_pic = ? WHERE user = ?";
+        pool.query(todb, [req.files.file.name, req.session.userId],(error, result) => {
             if(error){
             console.log("upload fail");
 

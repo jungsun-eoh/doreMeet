@@ -145,13 +145,13 @@ CREATE TABLE IF NOT EXISTS `mydb`.`preferences` (
   `min_age` CHAR(2) NULL,
   `max_age` CHAR(2) NULL,
   `min_location` CHAR(3) NULL,
-  `max_location` CHAR(3) NOT NULL,
+  `max_location` CHAR(3) NULL,
   `gender` CHAR(1) NULL,
-  `art_preference` VARCHAR(10) NOT NULL,
-  `skill_lvl` CHAR(1) NULL,
-  `meeting_pref` VARCHAR(10) NOT NULL,
+  `art_preference` VARCHAR(10) NULL,
+  `skill_lvl_pref` CHAR(1) NULL,
+  `meeting_pref` VARCHAR(10) NULL,
   `user` TINYINT NOT NULL,
-  `matches` TINYINT NOT NULL,
+  `matches` TINYINT NULL,
   PRIMARY KEY (`preferences_id`),
   INDEX `preferences_user_FK_idx` (`user` ASC),
   INDEX `preferences_matches_FK_idx` (`matches` ASC),
@@ -285,12 +285,17 @@ ENGINE = InnoDB;
 INSERT INTO `mydb`.`communityPage`(`post_title`,`post_category`,`post_file`, `post_votes`)
 VALUES								            ('Test',	     'Music',		    'b.png', 1);	
 
+
 INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`gender`,`date_of_birth`,`email`,  	`phone_number`,`art_category`,`skill_lvl`)
 VALUES					         ('first',		  'last',		  'f',	  '2000-11-21','	mail@mail',	'7073334444',	  'D',			    'I');
 
 INSERT INTO `mydb`.`account`(`username`,`password`, `acc_created`,`user`)
 VALUES						          ('123',		  '123',	now(),	  1);
 
+INSERT INTO `mydb`.`file_Path` (`profile_pic`, `bio`, `user`)
+VALUES ('blobbored.png', "This is test user 1 s bio (First Last)", 1);
+
+INSERT INTO `mydb`.`preferences` (`user`) VALUES(1);
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

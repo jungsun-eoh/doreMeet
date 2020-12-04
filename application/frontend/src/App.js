@@ -53,7 +53,7 @@ function App() {
   const [minimumAge, setMinimumAge] = React.useState('');
   const [maximumAge, setMaximumAge] = React.useState('');
   const [preferedGender, setPreferedGender] = React.useState('');
-  const [preferedSkill, setPreferedSkill] = React.useState('');
+  const [preferedSkillLevel, setPreferedSkillLevel] = React.useState('');
   const [meetingPreference, setMeetingPreference] = React.useState('');
 
   // const [currentMinimumAge, setCurrentMinimumAge] = React.useState('');
@@ -72,6 +72,8 @@ function App() {
   const [resultTitle, setResultTitle] = React.useState('');
   const [resultCategory, setResultCategory] = React.useState('');
   const [resultFile, setResultFile] = React.useState('');
+
+  const [postID, setPostID] = React.useState('');
 
   const [file, setFile] = React.useState('');
   const [fileName, setFileName] = React.useState('');
@@ -134,8 +136,8 @@ function App() {
     setMaximumAge: setMaximumAge,
     preferedGender: preferedGender,
     setPreferedGender: setPreferedGender,
-    preferedSkill: preferedSkill,
-    setPreferedSkill: setPreferedSkill,
+    preferedSkillLevel: preferedSkillLevel,
+    setPreferedSkillLevel: setPreferedSkillLevel,
     meetingPreference: meetingPreference,
     setMeetingPreference: setMeetingPreference,
 
@@ -169,6 +171,8 @@ function App() {
     setResultFile: setResultFile,
     postFile: postFile,
     setPostFile: setPostFile,
+    postID: postID,
+    setPostID: setPostID,
 
     //screen stuff
     screenState: screenState,
