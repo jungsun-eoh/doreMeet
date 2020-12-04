@@ -4,6 +4,44 @@
 **Desc: Contains all the css for the chat page
 */
 
+.sideBar{
+    width: 400px;
+    height: 100vh;
+    border-right: 1px rgb(155, 155, 155) solid;
+    border-top: 1px  rgb(155, 155, 155) solid;
+    overflow: auto;
+}
+
+.sideBarHeader{
+    text-align: center;
+    background-color: rgb(192, 233, 232);
+}
+
+.sideBarElement{
+    display: flex;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color:rgb(188, 207, 207);
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.sideBarText{
+    font-weight: 600;
+    font-size: 20px;
+    text-align: center;
+    padding-top: 10px;
+    margin-left: 45px;
+}
+
+.sideBarPic{
+    height:50px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
 .ChatContainer {
     display: flex;
     flex-wrap: wrap;
@@ -11,7 +49,7 @@
 }
 
 .ChatList {
-    width: 35%;
+    width: 250px;
     height: 100%;
     display: flex;
     flex-wrap: wrap;
