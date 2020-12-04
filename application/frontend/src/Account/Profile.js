@@ -166,6 +166,58 @@ const Profile = (stateObj) => {
         document.getElementById("media4").style.display = "none";
     }
 
+    //Add Spotify Link
+    const setSpotifyLink = async e => {
+        e.preventDefault();
+    }
+
+    const openSpotifyLinkForm = () => {
+        document.getElementById("spotifyLinkForm").style.display = "block";
+    }
+
+    const closeSpotifyLinkForm = () => {
+        document.getElementById("spotifyLinkForm").style.display = "none";
+    }
+
+    //Add Twitter Link
+    const setTwitterLink = async e => {
+        e.preventDefault();
+    }
+
+    const openTwitterLinkForm = () => {
+        document.getElementById("twitterLinkForm").style.display = "block";
+    }
+
+    const closeTwitterLinkForm = () => {
+        document.getElementById("twitterLinkForm").style.display = "none";
+    }
+
+    //Add Youtube Link
+    const setYoutubeLink = async e => {
+        e.preventDefault();
+    }
+
+    const openYoutubeLinkForm = () => {
+        document.getElementById("youtubeLinkForm").style.display = "block";
+    }
+
+    const closeYoutubeLinkForm = () => {
+        document.getElementById("youtubeLinkForm").style.display = "none";
+    }
+
+    //Add Instagram Link
+    const setInstagramLink = async e => {
+        e.preventDefault();
+    }
+
+    const openInstagramLinkForm = () => {
+        document.getElementById("instagramLinkForm").style.display = "block";
+    }
+
+    const closeInstagramLinkForm = () => {
+        document.getElementById("instagramLinkForm").style.display = "none";
+    }
+
     return (
         <Router>
             <Navbar />
@@ -217,6 +269,42 @@ const Profile = (stateObj) => {
                             <button onClick={closeMedia4}>Close</button>
                         </form>
                     </div>
+
+                    <div style={{right: "35%"}} className="post-popup" id="spotifyLinkForm">
+                        <form className="post-container" onSubmit={setSpotifyLink}>
+                            <label htmlFor='spotifyLink'>Spotify Link:</label>
+                            <input type='text' id='spotifyLink' placeholder='Input your Spotify link here'/>
+                            <input type='submit' value='Submit'/><br/>
+                            <button onClick={closeSpotifyLinkForm}>Close</button>
+                        </form>
+                    </div>
+
+                    <div style={{right: "27%"}} class="post-popup" id="twitterLinkForm">
+                        <form class="post-container" onSubmit={setTwitterLink}>
+                            <label for='twitterLink'>Twitter Link:</label>
+                            <input type='text' id='twitterLink' placeholder='Input your Twitter link here'/>
+                            <input type='submit' value='Submit'/><br/>
+                            <button onClick={closeTwitterLinkForm}>Close</button>
+                        </form>
+                    </div>
+
+                    <div style={{right: "15%"}} className="post-popup" id="youtubeLinkForm">
+                        <form className="post-container" onSubmit={setYoutubeLink}>
+                            <label htmlFor='youtubeLink'>Youtube Link:</label>
+                            <input type='text' id='youtubeLink' placeholder='Input your Youtube link here'/>
+                            <input type='submit' value='Submit'/><br/>
+                            <button onClick={closeYoutubeLinkForm}>Close</button>
+                        </form>
+                    </div>
+
+                    <div style={{right: "5%"}} className="post-popup" id="instagramLinkForm">
+                        <form className="post-container" onSubmit={setInstagramLink}>
+                            <label htmlFor='instagramLink'>Instagram Link:</label>
+                            <input type='text' id='instagramLink' placeholder='Input your Instagram link here'/>
+                            <input type='submit' value='Submit'/><br/>
+                            <button onClick={closeInstagramLinkForm}>Close</button>
+                        </form>
+                    </div>
                 
                 <input style={{ position: "center", width: '10%', marginLeft: 'auto', marginRight: 20, marginTop: 10 }} type='button' value="show Profile" onClick={getProfile} /><br />
                 
@@ -232,14 +320,14 @@ const Profile = (stateObj) => {
                         <p>Gender: {stateObj.gender}</p>
                         <p style={{ color: "#656c75" }}>Location: Placeholder Location (Hidden)</p>
                         <p>Art Category: {stateObj.artCategory}</p><br />
-                        <img style={{ height: "100px", position: 'relative' }} src="/assets/spotifylogo.png"></img>
-                        <img style={{ height: "100px", marginLeft: "70px", position: 'relative' }} src="/assets/twitterlogo.png"></img>
-                        <img style={{ height: "100px", marginLeft: "70px", position: 'relative' }} src="/assets/youtubelogo.png"></img>
-                        <img style={{ height: "100px", marginLeft: "70px", position: 'relative' }} src="/assets/instagramlogo.png"></img>
+                        <img onClick={openSpotifyLinkForm} style={{ height: "100px", position: 'relative' }} src="/assets/spotifylogo.png"></img>
+                        <img onClick={openTwitterLinkForm} style={{ height: "100px", marginLeft: "70px", position: 'relative' }} src="/assets/twitterlogo.png"></img>
+                        <img onClick={openYoutubeLinkForm} style={{ height: "100px", marginLeft: "70px", position: 'relative' }} src="/assets/youtubelogo.png"></img>
+                        <img onClick={openInstagramLinkForm} style={{ height: "100px", marginLeft: "70px", position: 'relative' }} src="/assets/instagramlogo.png"></img>
                     </div>
                     <br /><br />
 
-                    <div style={{ display: "inline-block", display: 'column', float: 'left', paddingLeft: 50 }}>
+                    <div style={{ display: "inline-block", float: 'left', paddingLeft: 50 }}>
                         <h3><u>Tags:</u></h3>
                         <br />
                         <input style={{width:"200px", marginRight: "20px"}} className="tagInput" type="text" placeholder={stateObj.firstName}></input>
