@@ -45,6 +45,15 @@
 .messageContainer{
     height:90vh;
     width:100%;
+    border-top: 1px  rgb(155, 155, 155) solid;
+}
+
+.tutorialContainer{
+    height:90vh;
+    width:100%;
+    border-top: 1px  rgb(155, 155, 155) solid;
+    text-align: center;
+    font-size: 30px;
 }
 
 .message {
@@ -79,7 +88,7 @@
 }
 
 .sendMessageForm {
-    background: #F5F5F5;
+    background: #999999;
     display: flex;
     box-sizing: border-box;
     height: 60px;
@@ -90,7 +99,7 @@
     padding: 15px 10px;
     border: none;
     margin: 0;
-    background: #F5F5F5;
+    background: #d3d3d3;
     font-weight: 200;
 }
 

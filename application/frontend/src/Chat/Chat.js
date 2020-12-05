@@ -48,9 +48,13 @@ const DUMMY_MESSAGES = [
 
 const Chat = (stateObj) => {
 
+  const [screenState, setScreenState] = React.useState('tutorial')
+
   const state= {
     contacts: DUMMY_CONTACTS,
-    messages: DUMMY_MESSAGES
+    messages: DUMMY_MESSAGES,
+    screenState: screenState,
+    setScreenState: setScreenState
   }
 
   return(
@@ -59,13 +63,7 @@ const Chat = (stateObj) => {
         <div className="App">
           <Navbar/>
         </div>
-        <div style={{display: "flex"}}>
-        <SideBar contacts={state.contacts}/>
-        <div>
-        <MessageList messages={state.messages}/>
-        <SendMessageForm/>
-        </div>
-        </div>
+        <SideBar messages={state.messages} contacts={state.contacts} setScreen={state.setScreenState} screen={state.screenState}/>
         <Footer/>
       </Router>
     </>
