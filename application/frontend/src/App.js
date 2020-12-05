@@ -46,6 +46,7 @@ function App() {
 
   const [userName, setUserName] = React.useState('');
   const [userPassword, setUserPassword] = React.useState('');
+  const [newPassword, setNewPassword] = React.useState('');
 
   // const [currentUserName, setCurrentUserName] = React.useState('');
   // const [currentUserPassword, setCurrentUserPassword] = React.useState('');
@@ -124,6 +125,8 @@ function App() {
     setUserName: setUserName,
     userPassword: userPassword,
     setUserPassword: setUserPassword,
+    newPassword: newPassword,
+    setNewPassword: setNewPassword,
 
     //Settings page stuff for displaying current settings
     // currentUserName: currentUserName,
