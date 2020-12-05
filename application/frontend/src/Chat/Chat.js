@@ -35,7 +35,15 @@ const DUMMY_MESSAGES = [
   {
     userName: "You",
     text: "Hello there"
-  }
+  },
+  {
+    userName: "John Tester",
+    text: "How are you doing today"
+  },
+  {
+    userName: "You",
+    text: "Im doing fine, lkadsjflajdslfjsadlfjsaldkfjlsadjflsadjflsajdlfjasdfkjsadlkfjads"
+  },
 ]
 
 const Chat = (stateObj) => {
@@ -53,7 +61,10 @@ const Chat = (stateObj) => {
         </div>
         <div style={{display: "flex"}}>
         <SideBar contacts={state.contacts}/>
+        <div>
         <MessageList messages={state.messages}/>
+        <SendMessageForm/>
+        </div>
         </div>
         <Footer/>
       </Router>

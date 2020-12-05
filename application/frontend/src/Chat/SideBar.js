@@ -5,7 +5,7 @@ import './Chat.css';
 class SideBar extends React.Component{
     render(){
         return(
-            <div className="sideBar">
+            <div style={{display: "inline"}} className="sideBar">
                 <div className="sideBarHeader">
                 <h2>Matches</h2>
                 </div>
@@ -22,6 +22,7 @@ class SideBar extends React.Component{
                     })}
                 </ul>
             </div>
+            
         )
     }
 }

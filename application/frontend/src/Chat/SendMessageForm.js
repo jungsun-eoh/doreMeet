@@ -5,7 +5,7 @@ import './Chat.css';
 class SendMessageForm extends React.Component{
     render(){
         return(
-            <form>
+            <form className="sendMessageForm">
                 <input type="text" placeholder="Type your message here and hit enter"/>
             </form>
         )
