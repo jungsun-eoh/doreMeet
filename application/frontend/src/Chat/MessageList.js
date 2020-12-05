@@ -5,8 +5,21 @@ import './Chat.css';
 class MessageList extends React.Component{
     render(){
         return(
-            <div className="messageContainer">
-                MessageList
+            <div style={{display:"block"}} className="messageContainer">
+                <ul className="messageList">
+                    {this.props.messages.map(messages => {
+                        return(
+                            <li className="message" key={messages.id}>
+                                <div>
+                                    <p>{messages.userName}</p>
+                                </div>
+                                <div>
+                                    {messages.text}
+                                </div>
+                            </li>
+                        )
+                    })}
+                </ul>
             </div>
         )
     }
