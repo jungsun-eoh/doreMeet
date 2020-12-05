@@ -57,6 +57,7 @@ const Settings = (stateObj) => {
         if(stateObj.skillLevel !== '')formData.append("skill_lvl", stateObj.skillLevel);
         if(stateObj.userName !== '')formData.append("username", stateObj.userName);
         if(stateObj.userPassword !== '')formData.append("password", stateObj.userPassword);
+        if(stateObj.newPassword !== '')formData.append("new_password", stateObj.newPassword);
 
         
 
@@ -137,10 +138,12 @@ const Settings = (stateObj) => {
                         <input style={{width: "150px"}} onChange={e => stateObj.setPhoneNumber(e.target.value)} className="settingsFields" type = "tel" id = "phone" placeholder="123-456-7890" pattern = "[0-9]{3}-[0-9]{3}-[0-9]{4}"/>
                        </td></tr></table> <p>Required only for 2-factor identification</p><br/>
 
-                       <label for = "username">Username Currently: {stateObj.currentUserName}<b id="username"></b></label><br/>
+                        <label for = "username">Username Currently: {stateObj.currentUserName}<b id="username"></b></label><br/>
                         <input onChange={e => stateObj.setUserName(e.target.value)} className="settingsFields" type = "text" id="username" /><br/>
-                        <label for = "pwd">Password</label><br/>
+                        <label for = "pwd">Current Password:</label><br/>
                         <input onChange={e => stateObj.setUserPassword(e.target.value)} className="settingsFields" type = "password" id="pwd"/><br/>
+                        <label for = "pwd">New Password:</label><br/>
+                        <input onChange={e => stateObj.setNewPassword(e.target.value)} className="settingsFields" type = "new_password" id="newpwd"/><br/>
                         <p></p><br/>
                         <input style={{position: "relative"}} type='submit' value="Confirm Settings Changes"/>
                     </form>
