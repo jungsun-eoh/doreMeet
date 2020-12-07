@@ -4,11 +4,21 @@ import './Chat.css';
 import MessageList from './MessageList';
 import SendMessageForm from './SendMessageForm';
 
+
+
 class SideBar extends React.Component{
 
-    //TODO: Add a const in sidebar comp so that we switch screen state within MessageList ezpz
-    changeScreen(){
-        console.log("hello")
+    constructor() {
+        super();
+        this.state = {
+            messageScreen: "tutorial"
+        }
+        this.changeScreen = this.changeScreen.bind(this);
+    }
+
+
+    changeScreen = (name) => {
+        this.setState({messageScreen: name})
     }
 
     render(){
@@ -22,7 +32,7 @@ class SideBar extends React.Component{
                         {this.props.contacts.map(contacts => {
                             return(
                                 <li key={contacts.id}>
-                                    <div onClick={this.changeScreen} className="sideBarElement">
+                                    <div onClick={ () =>this.changeScreen(contacts.userName)} className="sideBarElement">
                                         <img className="sideBarPic" src={contacts.picture}></img>
                                         <p className="sideBarText">{contacts.userName}</p>
                                     </div>
@@ -32,7 +42,7 @@ class SideBar extends React.Component{
                     </ul>
                 </div>
                 <div style={{width: "100%"}}>
-                <MessageList messages={this.props.messages} screen={this.props.screen}/>
+                <MessageList messages={this.props.messages} screen={this.state.messageScreen}/>
                 <SendMessageForm/>
                 </div>
                 

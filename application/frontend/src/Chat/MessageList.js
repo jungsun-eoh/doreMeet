@@ -4,7 +4,7 @@ import './Chat.css';
 
 class MessageList extends React.Component{
     render(){
-        if(this.props.screen === 'tutorial'){
+        if(this.props.screen === "tutorial"){
             return(
                 <div style={{display:"block"}} className="tutorialContainer">
                     <div style={{backgroundColor: "#8de2e2"}}>
