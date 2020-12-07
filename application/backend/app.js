@@ -61,6 +61,7 @@ app.get("/searchPost", (req, res) => {
         if (err || result == ''){
             console.log(err);
             console.log("searching fail");
+            res.send(err)
         }else{
             //console.log(result);
             res.send(result);
