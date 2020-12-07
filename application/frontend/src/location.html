@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LocationIQ-test</title>
+      </head>
+  <body>
+    
+    <div>Street Number: <span id="street-num"></span></div>
+    <div>Street: <span id="street"></span></div>
+    <div>City: <span id="city"></span></div>
+    <div>State: <span id="state"></span></div>
+    <div>Zipcode: <span id="zipcode"></span></div>
+    <div>Country: <span id="country"></span></div>
+    <div>Latitude: <span id="latitude"></span></div>
+    <div>Longitude: <span id="longitude"></span></div>
+    <button onclick="getAddress()">Address</button>
+
+
+    
+        
+    <script>
+
+      var street_num = document.getElementById("street-num");
+      var street = document.getElementById("street");
+      var city = document.getElementById("city");
+      var state = document.getElementById("state");
+      var zipcode = document.getElementById("zipcode");
+      var country = document.getElementById("country");
+      var latitude = document.getElementById("latitude");
+      var longitude = document.getElementById("longitude");
+      var geo_code = { lat : latitude, lng: longitude };  
+
+/*
+function InteriorPoint(checkPoint, centerPoint, km=10) {
+    var ky = 40000 / 360;
+    var kx = Math.cos(Math.PI * centerPoint.lat / 180.0) * ky;
+    var dx = Math.abs(centerPoint.lng - checkPoint.lng) * kx;
+    var dy = Math.abs(centerPoint.lat - checkPoint.lat) * ky;
+    return Math.sqrt(dx * dx + dy * dy) <= km;
+}
+*/
+
+      function getAddress(){
+        if(navigator.geolocation){
+          navigator.geolocation.getCurrentPosition(showAddress);
+        }
+        else{
+          latitude.innerHTML = "Geolocation is not supported in this broswer! Try using Chrome!"
+        }
+      }
+
+      function InteriorPoint(checkPoint, centerPoint, km){
+        
+        var ky = 40000/360;
+        var kx = Math.cos(Math.PI * centerPoint.lat / 180.0) * ky;
+        var dx = Math.abs(centerPoint.lng - checkPoint.lng) * kx;
+        var dy = Math.abs(centerPoint.lat - checkPoint.lat) * ky;
+        return Math.sqrt(dx*dx + dy*dy) <= km;
+      }
+
+      function showAddress(position){
+        //latitude.innerHTML = position.coords.latitude;
+        //longitude.innerHTML = position.coords.longitude;
+
+        const LAT = position.coords.latitude;
+        const LNG = position.coords.longitude;
+
+        const KEY = "pk.5ccd8f4faf59486715879cb50f809a39";
+
+        let url = `https://us1.locationiq.com/v1/reverse.php?key=${KEY}&lat=${LAT}&lon=${LNG}&format=json`;
+
+        fetch(url).then(response => response.json()).then(data => {
+          console.log(data);
+           street_num.innerHTML = data.address.house_number;
+           street.innerHTML = data.address.road;
+           city.innerHTML = data.address.city;
+           state.innerHTML = data.address.state;
+           zipcode.innerHTML = data.address.postcode;
+           country.innerHTML = data.address.country;
+           latitude.innerHTML = data.lat;
+           longitude.innerHTML = data.lon;
+           
+           // backend code
+           var temp = { lat: latitude.innerHTML, lng: longitude.innerHTML}; // calling from databse
+           var me = { lat: 33.788441, lng: -118.170573 }; // user location
+           var km = 161;
+
+           var n = InteriorPoint(temp, me, km);
+
+          console.log(n);
+        })
+        .catch(err => console.warn(err.message));
+      }
+    </script>
+  </body>
+</html>
