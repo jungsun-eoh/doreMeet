@@ -113,6 +113,15 @@ const MatchingPage = (stateObj) => {
     });
     index += 1; //queues up next match
   }
+
+  const leaveSiteConfirmation = (e) => {
+    if(window.confirm('You are leaving DoReMeet, are you sure?')){
+    }
+    else{
+      e.preventDefault();
+    }
+  }
+
   return (
     <>
       <Router>
@@ -164,16 +173,16 @@ const MatchingPage = (stateObj) => {
                 <img className="Thumbnail" src='assets/placeholder-img.jpg' alt='Placeholder img' />
               </div>
               <div class='Links'>
-                <a href="https://www.spotify.com">
+                <a href="https://www.spotify.com" onClick={leaveSiteConfirmation}>
                   <img class="Logo" src='assets/spotifylogo.png' alt="Spotify Logo" />
                 </a>
-                <a href="https://www.youtube.com">
+                <a href="https://www.youtube.com" onClick={leaveSiteConfirmation}>
                   <img class="Logo" src='assets/youtubelogo.png' alt='Youtube Logo' />
                 </a>
-                <a href="https://www.instagram.com">
+                <a href="https://www.instagram.com" onClick={leaveSiteConfirmation}>
                   <img class="Logo" src='assets/instagramlogo.png' alt='Instagram Logo' />
                 </a>
-                <a href="https://www.twitter.com">
+                <a href="https://www.twitter.com" onClick={leaveSiteConfirmation}>
                   <img class="Logo" src='assets/twitterlogo.png' alt='Twitter Logo' />
                 </a>
               </div>
