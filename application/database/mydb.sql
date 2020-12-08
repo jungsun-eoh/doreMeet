@@ -300,7 +300,7 @@ VALUES						          ('123',		  '123',	now(),	  1);
 
 INSERT INTO `mydb`.`file_Path` (`profile_pic`, `bio`, `user`)
 VALUES ('blobbored.png', "This is test user 1 s bio (First Last)", 1),
-		('blobbored.png', "bbbbbbbbbbbbbbb bob's bio (First Last)", 2);
+		('blobbored.png', "bbbbbbbbbbbbbbb bob's bio (First Last)", 2),
         ('test.png', "aaaaaaaaaaaaaaaaaaaaa", 3);
 
 INSERT INTO `mydb`.`preferences` (`user`) VALUES(1);

@@ -67,7 +67,7 @@ const Profile = (stateObj) => {
             console.log(error);
             console.log("Not Found");
         })
-        await axios.get('/getProfile').then(response => {
+        await axios.get('/getProfile', ).then(response => {
             console.log(response.data[0]);
             stateObj.setProfilePic(response.data[0].profile_pic);
             stateObj.setBio(response.data[0].bio);
