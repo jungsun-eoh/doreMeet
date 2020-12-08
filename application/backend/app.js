@@ -338,29 +338,7 @@ app.get('/getProfile', (req, res) => {
 
 })
 
-app.post('/getProfile2', (req, res) => {
-    console.log("____________________________________1");
 
-    console.log(req.body);
-    console.log(req.body.currentMatch);
-
-
-
-    var todb = 'SELECT * FROM `file_Path` WHERE `user` = ?';
-    pool.query(todb, [req.body.currentMatch], (error, result) => {
-        if (error || result == '') {
-            console.log("getprofile error");
-            //res.data.join(result);
-        } else {
-            console.log("getprofile pass");
-            console.log(result);
-            //res.data.join(result);
-            res.send(result);
-
-        }
-    })
-
-})
 
 //Upload for profile page: incomplete
 app.post('/upload', (req, res) => {
@@ -394,47 +372,100 @@ app.post('/upload', (req, res) => {
     });
 });
 
+app.post('/getProfile2', (req, res) => {
+    console.log("getProfile2: " + req.body);
+
+    var todb = 'SELECT * FROM `file_Path` WHERE `user` = ?';
+    pool.query(todb, [req.body.currentMatch], (error, result) => {
+        if (error || result == '') {
+            console.log("getprofile error");
+            //res.data.join(result);
+        } else {
+            console.log("getprofile pass");
+            // console.log(result);
+            //res.data.join(result);
+            res.send(result);
+        }
+    })
+})
+
 //Searches within the communityPage table
 app.get("/searchMatches", (req, res) => {
-    console.log(req.session.userId);
-    var user_id = 1;
     var art_category = 'd';
     
     var todb = 'SELECT * FROM user where art_category = ? and user_id != ?;';
-    pool.query(todb,[ art_category, user_id] ,(err, result) => {
+    pool.query(todb,[ art_category, req.session.userId] ,(err, result) => {
         if (err || result == ''){
-            console.log("matching search fail");
-            // console.log(err);
+            console.log(req.session.userId + " searchMatches fail");
             res.send(err);
         }else{
-            //console.log(result);
-            console.log("matching search pass");
-            // console.log(result);
+            console.log(req.session.userId + " searchMatches pass");
             res.send(result);
-            
         }
     })
     
 });
 
-//var user_id = req.query.userID;
-var user_id = 2;
-var art_category = 'd';
+app.post("/pass", (req, res) => {
+    var todb = 'INSERT INTO `matches2` (`user1`,`match_status`,`user2`) VALUES(?, ?, ?);'; 
+    pool.query(todb,[req.session.userId, 0, req.body.currentMatch] ,(err, result) => {
+        if (err || result == ''){
+            console.log("pass fail");
+        }else{
+            console.log("pass pass");
+            res.send(result);
+            
+        }
+    })
+});
 
-var todb = 'SELECT * FROM user where art_category = ? and user_id != ?;';
-pool.query(todb,[ art_category, user_id] ,(err, result) => {
-    if (err || result == ''){
-        console.log("matching search fail");
-        console.log(err);
-    }else{
-        //console.log(result);
-        console.log("matching search pass");
-        result.forEach(element => {
-            console.log(element)
-        });
-    }
-    console.log("\n\n\n")
-})
+app.post("/connect", (req, res) => {
+    var todb = 'INSERT INTO `matches2` (`user1`,`match_status`,`user2`) VALUES(?, ?, ?);';
+    pool.query(todb,[req.session.userId, 1, req.body.currentMatch] ,(err, result) => {
+        if (err || result == ''){
+            console.log("connect fail");
+        }else{
+            console.log("connect pass");
+            res.send(result);
+            
+        }
+    })
+});
+
+app.post("/checkMatch", (req, res) => {
+    var todb = 'SELECT * FROM matches2 WHERE `user1` = ? AND `user2` = ?;';
+    pool.query(todb,[req.session.userId, req.body.currentMatch] ,(err, result) => {
+        if (err || result == ''){
+            console.log(req.session.userId + "checkMatch fail" + req.body.currentMatch);
+            res.send(result);
+            
+        }else{
+            console.log("checkMatch pass");
+            console.log(req.session.userId + " checkMatch pass " + req.body.currentMatch);
+            console.log(result);
+            res.send(result);
+        }
+    })
+});
+
+//var user_id = req.query.userID;
+// var user_id = 2;
+// var art_category = 'd';
+
+// var todb = 'SELECT * FROM user where art_category = ? and user_id != ?;';
+// pool.query(todb,[ art_category, user_id] ,(err, result) => {
+//     if (err || result == ''){
+//         console.log("matching search fail");
+//         console.log(err);
+//     }else{
+//         //console.log(result);
+//         console.log("matching search pass");
+//         result.forEach(element => {
+//             console.log(element)
+//         });
+//     }
+//     console.log("\n\n\n")
+// })
 
 
 //listening port

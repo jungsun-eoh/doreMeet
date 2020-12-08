@@ -26,31 +26,91 @@ const MatchingPage = (stateObj) => {
       // })
     }).catch(error => {
       console.log(error)
-    });
+    })
+    index = 0;
   }
 
-  const loadCurrentMatch = (e) => {
-    if (index == matches.length) {
+  const loadCurrentMatch = async (event) => {
+
+    event.preventDefault();
+    console.log("==========================0");
+    if (index === matches.length) {
       return alert("no more potential matches");
     }
 
     const formData = new FormData();
     formData.append("currentMatch", matches[index].user_id);
 
-    axios.post('/getProfile2', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
-      stateObj.setProfilePic(response.data[0].profile_pic);
-      stateObj.setBio(response.data[0].bio);
+    var matchStatus;
+    await axios.post('/checkMatch', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
+      console.log(response.data[0]);
+      if (typeof response.data[0] === 'undefined') {
+        matchStatus = 0;
+        console.log("match: " + matchStatus + " not decided");
+      } else {
+        matchStatus = 1;
+        console.log("match: " + matchStatus + " decided already");
+
+      }
+      // if (!matchStatus) { //if user has not decided
+      if (1) {
+        console.log("matchstatus is undecided, retrieveing match's info");
+        axios.post('/getProfile2', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
+          console.log(stateObj.profilePic);
+          stateObj.setProfilePic(response.data[0].profile_pic);
+          stateObj.setBio(response.data[0].bio);
+        }).catch(function (error) {
+          console.log(error);
+        });
+        console.log(stateObj.firstName + " " + stateObj.lastName);
+        stateObj.setFirstName(matches[index].first_name);
+        stateObj.setLastName(matches[index].last_name);
+        stateObj.setGender(matches[index].gender);
+        stateObj.setDOB(matches[index].date_of_birth);
+        stateObj.setArtCategory(matches[index].art_category);
+        //stateObj.setArtTag(); none yet?
+        stateObj.setSkillLevel(matches[index].skill_lvl);
+        console.log("==========================2");
+      } else {
+        console.log("user already decided");
+        console.log("==========================3");
+        //user already passed 
+        index += 1;
+        return;
+      }
+    }).catch(function (error) {
+      console.log(error);
+      console.log("checkMatch fail");
+    });
+    console.log("==========================1");
+  }
+
+  const pass = (e) => {
+    if (index === matches.length) {
+      return alert("no more potential matches");
+    }
+    const formData = new FormData();
+    console.log(matches[index].user_id);
+    formData.append("currentMatch", matches[index].user_id);
+    axios.post('/pass', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
+      console.log(response);
     }).catch(function (error) {
       console.log(error);
     });
-    stateObj.setFirstName(matches[index].first_name);
-    stateObj.setLastName(matches[index].last_name);
-    stateObj.setGender(matches[index].gender);
-    stateObj.setDOB(matches[index].date_of_birth);
-    stateObj.setArtCategory(matches[index].art_category);
-    //stateObj.setArtTag(); none yet?
-    stateObj.setSkillLevel(matches[index].skill_lvl);
-    //console.log(stateObj);
+    index += 1; //queues up next match
+  }
+
+  const connect = (e) => {
+    const formData = new FormData();
+    if (index === matches.length) {
+      return alert("no more potential matches");
+    }
+    formData.append("currentMatch", matches[index].user_id);
+    axios.post('/connect', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
+      console.log(response);
+    }).catch(function (error) {
+      console.log(error);
+    });
     index += 1; //queues up next match
   }
   return (
@@ -64,20 +124,22 @@ const MatchingPage = (stateObj) => {
               <br />
               <p style={{ fontSize: 22, marginLeft: 40, marginRight: 40 }} align='center'>If you find someone you want to collaborate with, "Connect" with them, or else "Pass" to keep looking for the right match</p>
             </div>
+            <input style={{ position: "center", width: '10%', marginLeft: 1050, marginTop: 10 }} type='button' value="Start Match" onClick={match} /><br />
+            <input style={{ position: "center", width: '10%', marginLeft: 1050, marginTop: 10 }} type='button' value="load first Match" onClick={loadCurrentMatch} /><br />
             <div class="MatchProfile">
               <div class="Picture">
-                <img class="ProfilePicture" src='assets/placeholder-img.jpg' alt='Profile Picture' />
+                <img class="ProfilePicture" src={stateObj.profilepic} alt='Profile Picture' />
               </div>
               <div class="UserInformation">
                 <div class="Spacing">
-                  <h3>Robert, 26</h3>
+                  <h3>{stateObj.firstName} {stateObj.lastName}</h3>
                 </div>
                 <div class="Spacing">
-                  <p class="Bio">Bio: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+                  <p class="Bio">{stateObj.bio}</p>
                 </div>
                 <div class="Spacing">
                   <p class="InfoLabel">Art:</p>
-                  <p class="SurroundText">Dance</p>
+                  <p class="SurroundText">{stateObj.art_category}</p>
                 </div>
                 <div class="Spacing">
                   <p class="InfoLabel">Tags:</p>
@@ -89,8 +151,8 @@ const MatchingPage = (stateObj) => {
                   <p class="SurroundText">Hip Hop</p>
                 </div>
                 <div class="Spacing">
-                  <button class="PassButton" onClick={match}>Pass</button>
-                  <button class="ConnectButton" onClick={loadCurrentMatch}>Connect</button>
+                  <button class="PassButton" onClick={pass}>Pass</button>
+                  <button class="ConnectButton" onClick={connect}>Connect</button>
                 </div>
               </div>
               <div class='break'></div>

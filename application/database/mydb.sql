@@ -282,6 +282,17 @@ CREATE TABLE IF NOT EXISTS `mydb`.`communityPage` (
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `mydb`.`matches2`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`matches2` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`matches2` (
+  `user1` int NOT NULL,
+  `match_status` int NOT NULL,
+  `user2` int NOT NULL)
+ENGINE = InnoDB;
+
 INSERT INTO `mydb`.`communityPage`(`post_title`,`post_category`,`post_file`, `post_votes`)
 VALUES								            ('Test',	     'Music',		    'b.png', 1);	
 
