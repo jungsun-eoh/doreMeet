@@ -11,8 +11,64 @@ import './MatchingPage.css';
 import Navbar from '../components/Navbar/Navbar';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Footer from "../components/Footer/Footer";
+import axios from 'axios';
 
+var matches;
+var index = 0;
 const MatchingPage = (stateObj) => {
+
+
+  const match = (e) => {
+    index = 0;
+    console.log("000----------------------------")
+    axios.get('/searchMatches').then(response => {
+      matches = response.data;
+      response.data.forEach(element => {
+        console.log(element);
+      })
+      console.log(matches);
+    })
+      .catch(error => {
+        console.log(error)
+      });
+  }
+
+  const loadCurrentMatch = (e) => {
+    if(index == matches.length){
+      return alert("no more potential matches");
+    }
+    console.log("111-------------------------");
+    console.log(matches[index]);
+    console.log("222-------------------------");
+    const formData = new FormData();
+    console.log(matches[index].user_id);
+ 
+    formData.append("currentMatch", matches[index].user_id);
+
+    console.log("333-------------------------");
+
+    axios.post('/getProfile2', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response2 => {
+      console.log(response2.data[0]);
+      stateObj.setProfilePic(response2.data[0].profile_pic);
+      stateObj.setBio(response2.data[0].bio);
+    }).catch(function (error) {
+      console.log(error);
+      console.log("Not Found");
+    });
+    console.log("======================================================")
+    stateObj.setFirstName(matches[index].first_name);
+    stateObj.setLastName(matches[index].last_name);
+    stateObj.setGender(matches[index].gender);
+    stateObj.setDOB(matches[index].date_of_birth);
+    stateObj.setArtCategory(matches[index].art_category);
+    stateObj.setSkillLevel(matches[index].skill_lvl);
+        //console.log(stateObj);
+        console.log(index);
+
+        index += 1;
+        console.log(index);
+  }
+
   return(
     <>
       <Router>
@@ -49,8 +105,8 @@ const MatchingPage = (stateObj) => {
                   <p class="SurroundText">Hip Hop</p>
                 </div>
                 <div class="Spacing">
-                  <button class="PassButton">Pass</button>
-                  <button class="ConnectButton">Connect</button>
+                  <button class="PassButton" onClick={match}>Pass</button>
+                  <button class="ConnectButton" onClick={loadCurrentMatch}>Connect</button>
                 </div>
               </div>
               <div class='break'></div>

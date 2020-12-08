@@ -35,7 +35,7 @@ var sessionOptions = {
     store: sessionStore,
     cookie: {secure: false, httpOne: false, maxAge:36000},
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: true
 }
 //const pool = require("./database.js");
 
@@ -220,7 +220,7 @@ app.post('/logout', (req, res) => {
 
 })
 
-//Gets the user's data from the User and Account table
+//Gets the user's data from the User and Account table for settings
 app.get('/getUsers', (req, res) => {
     console.log("____________________________________1");
     console.log("session: " + req.session.userId);
@@ -340,6 +340,30 @@ app.get('/getProfile', (req, res) => {
 
 })
 
+app.post('/getProfile2', (req, res) => {
+    console.log("____________________________________1");
+
+    console.log(req.body);
+    console.log(req.body.currentMatch);
+
+
+
+    var todb = 'SELECT * FROM `file_Path` WHERE `user` = ?';
+    pool.query(todb, [req.body.currentMatch], (error, result) => {
+        if (error) {
+            console.log("getprofile error");
+            //res.data.join(result);
+        } else {
+            console.log("getprofile pass");
+            console.log(result);
+            //res.data.join(result);
+            res.send(result);
+
+        }
+    })
+
+})
+
 //Upload for profile page: incomplete
 app.post('/upload', (req, res) => {
     console.log("test");
@@ -371,6 +395,48 @@ app.post('/upload', (req, res) => {
             } });
     });
 });
+
+//Searches within the communityPage table
+app.get("/searchMatches", (req, res) => {
+    console.log(session.userId);
+    var user_id = 1;
+    var art_category = 'd';
+    
+    var todb = 'SELECT * FROM user where art_category = ? and user_id != ?;';
+    pool.query(todb,[ art_category, user_id] ,(err, result) => {
+        if (err || result == ''){
+            console.log("matching search fail");
+            // console.log(err);
+            res.send(err);
+        }else{
+            //console.log(result);
+            console.log("matching search pass");
+            // console.log(result);
+            res.send(result);
+            
+        }
+    })
+    
+});
+
+//var user_id = req.query.userID;
+var user_id = 1;
+var art_category = 'd';
+
+var todb = 'SELECT * FROM user where art_category = ? and user_id != ?;';
+pool.query(todb,[ art_category, user_id] ,(err, result) => {
+    if (err || result == ''){
+        console.log("matching search fail");
+        console.log(err);
+    }else{
+        //console.log(result);
+        console.log("matching search pass");
+        result.forEach(element => {
+            console.log(element)
+        });
+    }
+    console.log("\n\n\n")
+})
 
 // var todb = 'INSERT * FROM file_path WHERE user = 1;'
 // pool.query(todb, [req.files.file.name],(error, result) => {
