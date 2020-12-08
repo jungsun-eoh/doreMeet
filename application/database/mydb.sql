@@ -290,7 +290,8 @@ DROP TABLE IF EXISTS `mydb`.`matches2` ;
 CREATE TABLE IF NOT EXISTS `mydb`.`matches2` (
   `user1` int NOT NULL,
   `match_status` int NOT NULL,
-  `user2` int NOT NULL)
+  `user2` int NOT NULL,
+	UNIQUE `unique_index`(`user1`, `user2`))
 ENGINE = InnoDB;
 
 INSERT INTO `mydb`.`communityPage`(`post_title`,`post_category`,`post_file`, `post_votes`)
