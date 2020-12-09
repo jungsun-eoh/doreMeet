@@ -80,6 +80,7 @@ function App() {
   const [fileName, setFileName] = React.useState('');
 
   const [profilePic, setProfilePic] = React.useState('');
+  const [profilePicPath, setProfilePicPath] = React.useState('');
   const [bio, setBio] = React.useState('Placeholder bio!');
   const [age, setAge] = React.useState('');
 
@@ -107,6 +108,9 @@ function App() {
     setBio: setBio,
     profilePic: profilePic,
     setProfilePic: setProfilePic,
+    profilePicPath: profilePicPath,
+    setProfilePicPath: setProfilePicPath,
+
     age: age,
     setAge: setAge,
 

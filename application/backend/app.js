@@ -12,6 +12,7 @@ const app = express();
 const port = 5000;
 const mysql = require('mysql');
 const fileUpload = require('express-fileupload');
+const mkdirp = require('mkdirp');
 //const db = require('./conf/database');
 
 //connection credentials to the database
@@ -41,6 +42,7 @@ var sessionOptions = {
 
 
 var bodyParser = require('body-parser');
+const e = require("express");
 app.use(cookieParser());
 app.use(session(sessionOptions));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -352,13 +354,17 @@ app.post('/upload', (req, res) => {
 
 
     var filepath = `/../frontend/public/assets/users/${req.session.userId}/${req.files.file.name}`;
+    var dir = `../frontend/public/assets/users/${req.session.userId}/`;
+    var frontpath = dir.substring(dir.indexOf("/assets/"));
+
+    var test = mkdirp.sync(dir);
     req.files.file.mv(`${__dirname}${filepath}`, err => {
-        if (err || result == '') {
+        if (err) {
             console.error(err);
           }
           var todb =   
-          "UPDATE file_path SET profile_pic = ? WHERE user = ?";
-        pool.query(todb, [req.files.file.name, req.session.userId],(error, result) => {
+          "UPDATE file_path SET profile_pic = ?, picture_path = ? WHERE user = ?";
+        pool.query(todb, [req.files.file.name, frontpath, req.session.userId],(error, result) => {
             if(error || result == ''){
             console.log("upload fail");
 

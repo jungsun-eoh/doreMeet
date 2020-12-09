@@ -70,6 +70,7 @@ const Profile = (stateObj) => {
         await axios.get('/getProfile', ).then(response => {
             console.log(response.data[0]);
             stateObj.setProfilePic(response.data[0].profile_pic);
+            stateObj.setProfilePicPath(response.data[0].picture_path);
             stateObj.setBio(response.data[0].bio);
         }).catch(function (error) {
             console.log(error);
@@ -83,7 +84,7 @@ const Profile = (stateObj) => {
         formData.append('type', 'profile');
         await axios.post('/upload', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
             console.log(response.data[0]);
-            stateObj.setFile(`/assets/users/1/${response.data[0].post_file}`);
+            stateObj.setFile(`${response.data[0].picture_path} + ${response.data[0].post_file}`);
         });
     }
     const onChange = (e) => {
@@ -311,7 +312,7 @@ const Profile = (stateObj) => {
                 
                 <div className="profileContainer">
                     <div className="profileChildImg">
-                        <img onClick={openPost} style={{cursor: "pointer"}}className="profileImage" src={`/assets/users/1/${stateObj.profilePic}`} />
+                        <img onClick={openPost} style={{cursor: "pointer"}}className="profileImage" src={`${stateObj.profilePicPath+stateObj.profilePic}`} />
                         <div onClick={openPost} className="editPic"><i class="fas fa-camera"></i>Edit</div>
                     </div>
                     <div className="profileChildInfo">
