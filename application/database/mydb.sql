@@ -308,12 +308,13 @@ VALUES					 ('first',		  'last',		  'f',	   '2000-11-21','	mail@mail',			'707333
                          
                          
 INSERT INTO `mydb`.`account`(`username`,`password`, `acc_created`,`user`)
-VALUES						          ('123',		  '123',	now(),	  1);
+VALUES						('123',	  	'123',		now(),	  		1),
+							('234',	  	'234',		now(),	  		2);
 
-INSERT INTO `mydb`.`file_Path` (`profile_pic`, `bio`, `user`)
-VALUES ('blobbored.png', "This is test user 1 s bio (First Last)", 1),
-		('blobbored.png', "bbbbbbbbbbbbbbb bob's bio (First Last)", 2),
-        ('test.png', "aaaaaaaaaaaaaaaaaaaaa", 3);
+INSERT INTO `mydb`.`file_Path` (`profile_pic`, `picture_path`, `bio`, `user`)
+VALUES ('blobbored.png', "/assets/users/1/", "This is test user 1 s bio (First Last)", 1),
+		('blobconfused.png', "/assets/users/2/", "bbbbbbbbbbbbbbb bob's bio (First Last)", 2),
+        ('test.png', "/assets/users/3/", "aaaaaaaaaaaaaaaaaaaaa", 3);
 
 INSERT INTO `mydb`.`preferences` (`user`) VALUES(1);
 

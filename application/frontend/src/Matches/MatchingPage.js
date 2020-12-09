@@ -58,6 +58,7 @@ const MatchingPage = (stateObj) => {
         axios.post('/getProfile2', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
           console.log(stateObj.profilePic);
           stateObj.setProfilePic(response.data[0].profile_pic);
+          stateObj.setProfilePicPath(response.data[0].picture_path);
           stateObj.setBio(response.data[0].bio);
         }).catch(function (error) {
           console.log(error);
@@ -137,7 +138,7 @@ const MatchingPage = (stateObj) => {
             <input style={{ position: "center", width: '10%', marginLeft: 1050, marginTop: 10 }} type='button' value="load first Match" onClick={loadCurrentMatch} /><br />
             <div class="MatchProfile">
               <div class="Picture">
-                <img class="ProfilePicture" src={stateObj.profilepic} alt='Profile Picture' />
+                <img class="ProfilePicture" src={stateObj.profilePicPath+stateObj.profilePic} alt='Profile Picture' />
               </div>
               <div class="UserInformation">
                 <div class="Spacing">
