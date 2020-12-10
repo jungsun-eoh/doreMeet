@@ -12,6 +12,7 @@ const app = express();
 const port = 5000;
 const mysql = require('mysql');
 const fileUpload = require('express-fileupload');
+const mkdirp = require('mkdirp');
 //const db = require('./conf/database');
 
 //connection credentials to the database
@@ -33,7 +34,7 @@ var sessionOptions = {
     key: "loginkey",
     secret: "login signature",
     store: sessionStore,
-    cookie: {secure: false, httpOne: false, maxAge:36000},
+    cookie: {secure: false, httpOne: false, maxAge:9000000},
     resave: false,
     saveUninitialized: false
 }
@@ -41,6 +42,7 @@ var sessionOptions = {
 
 
 var bodyParser = require('body-parser');
+const e = require("express");
 app.use(cookieParser());
 app.use(session(sessionOptions));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -61,6 +63,7 @@ app.get("/searchPost", (req, res) => {
         if (err || result == ''){
             console.log(err);
             console.log("searching fail");
+            res.send(err)
         }else{
             //console.log(result);
             res.send(result);
@@ -86,8 +89,9 @@ app.post('/makePost', (req, res) => {
 
         var todb = 'INSERT INTO communityPage (post_title, post_category, post_file, post_votes) VALUES (?,?,?,1);'
         pool.query(todb, [post_title, post_category, post_file] ,(err, result) => {
-            if(err){
+            if(err || result == ''){
                 console.log(err);
+                console.log("post error")
             }else{
                 console.log("post pass")
             }  /* return res.json({ fileName: file.name, filePath: filepath }); */
@@ -219,16 +223,13 @@ app.post('/logout', (req, res) => {
 
 })
 
-//Gets the user's data from the User and Account table
+//Gets the user's data from the User and Account table for settings
 app.get('/getUsers', (req, res) => {
-    console.log("____________________________________1");
     console.log("session: " + req.session.userId);
-    console.log("____________________________________2");
-    console.log("GET USER TEST");
 
     var todb = 'SELECT * FROM `account` AS A LEFT OUTER JOIN `user` AS B ON `account_id` = `user_id` WHERE `user_id` = ?';
     pool.query(todb, [req.session.userId], (error, result) => {
-        if (error) {
+        if (error  || result == '') {
             console.log("getuser error");
             res.send(result);
         } else {
@@ -253,14 +254,14 @@ app.post('/updateUser', (req, res) => {
         "first_name = ?, last_name = ?, gender = ?, date_of_birth = ?, email = ?, phone_number = ?, art_category = ?,  skill_lvl = ?" +
         "WHERE user_id = ?";
     pool.query(todb, [req.body.first_name, req.body.last_name, req.body.gender, req.body.date_of_birth, req.body.email, req.body.phone_number ,req.body.art_category , req.body.skill_lvl, req.session.userId], (error, result) => {
-        if (error) {
+        if (error || result == '') {
             console.log(error);
             console.log("update user error");
         } else {
             console.log("update user pass");
             var todb = "UPDATE account SET username = ? WHERE user = ? ";
             pool.query(todb, [req.body.username, req.session.userId],(error, result) => {
-                if (error) {
+                if (error || result == '') {
                     console.log("update username error");
                 } else {
                     console.log("update username pass");
@@ -276,7 +277,7 @@ app.post('/updateUser', (req, res) => {
                     } else {
                         todb = "UPDATE account SET password = ? WHERE user = ? ";
                         pool.query(todb, [req.body.new_password, req.session.userId],(error, result) => {
-                            if (error) {
+                            if (error  || result == '') {
                                 console.log(error);
                                 console.log("update password error");
                             } else {
@@ -308,7 +309,7 @@ app.post('/updatePreferences', (req, res) => {
             "art_category = ?,  skill_lvl = ?" +
             "WHERE user_id = ?";
             pool.query(todb, [req.body.art_category, req.body.skill_lvl, req.session.userId],(error, result) => {
-                if (error) {
+                if (error || result == '') {
                     console.log("update user error");
                 } else {
                     console.log("update user pass");
@@ -326,7 +327,7 @@ app.get('/getProfile', (req, res) => {
 
     var todb = 'SELECT * FROM `file_Path` WHERE `user` = ?';
     pool.query(todb, [req.session.userId], (error, result) => {
-        if (error) {
+        if (error || result == '') {
             console.log("getprofile error");
             //res.data.join(result);
         } else {
@@ -338,6 +339,8 @@ app.get('/getProfile', (req, res) => {
     })
 
 })
+
+
 
 //Upload for profile page: incomplete
 app.post('/upload', (req, res) => {
@@ -351,14 +354,18 @@ app.post('/upload', (req, res) => {
 
 
     var filepath = `/../frontend/public/assets/users/${req.session.userId}/${req.files.file.name}`;
+    var dir = `../frontend/public/assets/users/${req.session.userId}/`;
+    var frontpath = dir.substring(dir.indexOf("/assets/"));
+
+    var test = mkdirp.sync(dir);
     req.files.file.mv(`${__dirname}${filepath}`, err => {
         if (err) {
             console.error(err);
           }
           var todb =   
-          "UPDATE file_path SET profile_pic = ? WHERE user = ?";
-        pool.query(todb, [req.files.file.name, req.session.userId],(error, result) => {
-            if(error){
+          "UPDATE file_path SET profile_pic = ?, picture_path = ? WHERE user = ?";
+        pool.query(todb, [req.files.file.name, frontpath, req.session.userId],(error, result) => {
+            if(error || result == ''){
             console.log("upload fail");
 
                 console.log(error);
@@ -371,9 +378,101 @@ app.post('/upload', (req, res) => {
     });
 });
 
-// var todb = 'INSERT * FROM file_path WHERE user = 1;'
-// pool.query(todb, [req.files.file.name],(error, result) => {
-//     /* return res.json({ fileName: file.name, filePath: filepath }); */ });
+app.post('/getProfile2', (req, res) => {
+    console.log("getProfile2: " + req.body);
+
+    var todb = 'SELECT * FROM `file_Path` WHERE `user` = ?';
+    pool.query(todb, [req.body.currentMatch], (error, result) => {
+        if (error || result == '') {
+            console.log("getprofile error");
+            //res.data.join(result);
+        } else {
+            console.log("getprofile pass");
+            // console.log(result);
+            //res.data.join(result);
+            res.send(result);
+        }
+    })
+})
+
+//Searches within the communityPage table
+app.get("/searchMatches", (req, res) => {
+    var art_category = 'd';
+    
+    var todb = 'SELECT * FROM user where art_category = ? and user_id != ?;';
+    pool.query(todb,[ art_category, req.session.userId] ,(err, result) => {
+        if (err || result == ''){
+            console.log(req.session.userId + " searchMatches fail");
+            res.send(err);
+        }else{
+            console.log(req.session.userId + " searchMatches pass");
+            res.send(result);
+        }
+    })
+    
+});
+
+app.post("/pass", (req, res) => {
+    var todb = 'INSERT INTO `matches2` (`user1`,`match_status`,`user2`) VALUES(?, ?, ?);'; 
+    pool.query(todb,[req.session.userId, 0, req.body.currentMatch] ,(err, result) => {
+        if (err || result == ''){
+            console.log("pass fail");
+        }else{
+            console.log("pass pass");
+            res.send(result);
+            
+        }
+    })
+});
+
+app.post("/connect", (req, res) => {
+    var todb = 'INSERT INTO `matches2` (`user1`,`match_status`,`user2`) VALUES(?, ?, ?);';
+    pool.query(todb,[req.session.userId, 1, req.body.currentMatch] ,(err, result) => {
+        if (err || result == ''){
+            console.log("connect fail");
+        }else{
+            console.log("connect pass");
+            res.send(result);
+            
+        }
+    })
+});
+
+app.post("/checkMatch", (req, res) => {
+    var todb = 'SELECT * FROM matches2 WHERE `user1` = ? AND `user2` = ?;';
+    pool.query(todb,[req.session.userId, req.body.currentMatch] ,(err, result) => {
+        if (err || result == ''){
+            console.log(req.session.userId + "checkMatch fail" + req.body.currentMatch);
+            res.send(result);
+            
+        }else{
+            console.log("checkMatch pass");
+            console.log(req.session.userId + " checkMatch pass " + req.body.currentMatch);
+            console.log(result);
+            res.send(result);
+        }
+    })
+});
+
+//var user_id = req.query.userID;
+// var user_id = 2;
+// var art_category = 'd';
+
+// var todb = 'SELECT * FROM user where art_category = ? and user_id != ?;';
+// pool.query(todb,[ art_category, user_id] ,(err, result) => {
+//     if (err || result == ''){
+//         console.log("matching search fail");
+//         console.log(err);
+//     }else{
+//         //console.log(result);
+//         console.log("matching search pass");
+//         result.forEach(element => {
+//             console.log(element)
+//         });
+//     }
+//     console.log("\n\n\n")
+// })
+
 
 //listening port
 app.listen(port, () => console.log('app listening on port ' + port));  

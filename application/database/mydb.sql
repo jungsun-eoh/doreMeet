@@ -282,18 +282,39 @@ CREATE TABLE IF NOT EXISTS `mydb`.`communityPage` (
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `mydb`.`matches2`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`matches2` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`matches2` (
+  `user1` int NOT NULL,
+  `match_status` int NOT NULL,
+  `user2` int NOT NULL,
+	UNIQUE `unique_index`(`user1`, `user2`))
+ENGINE = InnoDB;
+
 INSERT INTO `mydb`.`communityPage`(`post_title`,`post_category`,`post_file`, `post_votes`)
 VALUES								            ('Test',	     'Music',		    'b.png', 1);	
 
 
 INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`gender`,`date_of_birth`,`email`,  	`phone_number`,`art_category`,`skill_lvl`)
-VALUES					         ('first',		  'last',		  'f',	  '2000-11-21','	mail@mail',	'7073334444',	  'D',			    'I');
-
+VALUES					 ('first',		  'last',		  'f',	   '2000-11-21','	mail@mail',			'7073334444',	'D',		'I'),
+						 ('Bob', 		 'Smith',		  'M',	   '2000-12-1',	'	Bobh@mail.com',		'7071112222',	'D',		'B'),
+						 ('Bobba', 		 'Smith',		  'F',	   '2000-10-1',	'	Bobba@mail.com',	'7071112223',	'D',		'E'),
+						 ('Bin', 		 'Smith',		  'F',	   '2000-09-1',	'	Bin@mail.com',		'7071112224',	'A',		'B'),
+						 ('So', 		 'Smith',		  'F',	   '2000-08-1',	'	So@mail.com',		'7071112225',	'M',		'B'),
+						 ('Bobert', 	 'Smith',		  'M',	   '2000-07-1',	'	Bobert@mail.com',	'7071112226',	'P',		'B');
+                         
+                         
 INSERT INTO `mydb`.`account`(`username`,`password`, `acc_created`,`user`)
-VALUES						          ('123',		  '123',	now(),	  1);
+VALUES						('123',	  	'123',		now(),	  		1),
+							('234',	  	'234',		now(),	  		2);
 
-INSERT INTO `mydb`.`file_Path` (`profile_pic`, `bio`, `user`)
-VALUES ('blobbored.png', "This is test user 1 s bio (First Last)", 1);
+INSERT INTO `mydb`.`file_Path` (`profile_pic`, `picture_path`, `bio`, `user`)
+VALUES ('blobbored.png', "/assets/users/1/", "This is test user 1 s bio (First Last)", 1),
+		('blobconfused.png', "/assets/users/2/", "bbbbbbbbbbbbbbb bob's bio (First Last)", 2),
+        ('test.png', "/assets/users/3/", "aaaaaaaaaaaaaaaaaaaaa", 3);
 
 INSERT INTO `mydb`.`preferences` (`user`) VALUES(1);
 

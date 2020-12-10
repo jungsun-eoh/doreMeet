@@ -5,7 +5,7 @@
 recieves json responses that it then displays accordingly on the page.
 */
 
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import '../App.css';
 import './CommunityPage.css';
 import axios from 'axios';
@@ -96,7 +96,7 @@ const CommunityPage = (stateObj) => {
     //Upon entering the page the most recent 5 posts are displayed
      useEffect(() => {
        axios.get('/recent5').then(response => {
-         console.log(response.data[0]);
+        //  console.log(response.data[0]);
          let _html = "";
          _html += `<h1>Recent Posts</h1>`;
          response.data.forEach(post => {_html += `<div class="RecentPostsFormat">
@@ -113,7 +113,7 @@ const CommunityPage = (stateObj) => {
          document.getElementById("PlusButton").addEventListener("click", voteplus);
          document.getElementById("MinusButton").addEventListener("click", voteminus);
        }).catch(function (error) {
-         console.log('fail')
+        //  console.log('fail')
        });
      });
 
