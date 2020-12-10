@@ -22,6 +22,7 @@ import Terms from './FooterPages/Terms';
 import Privacy from './FooterPages/Privacy';
 import ContactUs from './FooterPages/ContactUs';
 import Guidelines from './FooterPages/Guidelines';
+import Error from './404Page.js';
 import {Route, BrowserRouter as Router, Switch} from 'react-router-dom';
 
 function App() {
@@ -202,6 +203,7 @@ function App() {
         <Route path="/Chat" children={Chat(stateObj)}/>
         <Route path="/Profile" children={Profile(stateObj)}/>
         <Route path="/Premium" children={Premium(stateObj)}/>
+        <Route component={Error}/>
       </Switch>
     </Router>
   );
