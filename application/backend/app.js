@@ -438,16 +438,16 @@ app.post("/connect", (req, res) => {
     })
 });
 
+//match_status 0:pass 1:connect
 app.post("/checkMatch", (req, res) => {
     var todb = 'SELECT * FROM matches2 WHERE `user1` = ? AND `user2` = ?;';
     pool.query(todb,[req.session.userId, req.body.currentMatch] ,(err, result) => {
         if (err || result == ''){
-            console.log(req.session.userId + "checkMatch fail" + req.body.currentMatch);
+            console.log(req.session.userId + "No match status " + req.body.currentMatch);
             res.send(result);
             
         }else{
-            console.log("checkMatch pass");
-            console.log(req.session.userId + " checkMatch pass " + req.body.currentMatch);
+            process.stdout.write(req.session.userId + " a match status exist " + req.body.currentMatch + " ");
             console.log(result);
             res.send(result);
         }
