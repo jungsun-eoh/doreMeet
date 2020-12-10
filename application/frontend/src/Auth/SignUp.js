@@ -39,10 +39,10 @@ class SignUp extends Component {
         console.log(this);
       }
     
-      signUp = (e) => {
-         axios.post('/signup', this.state)
+      signUp = async (e) => {
+         await axios.post('/signup', this.state)
         .then(response => {
-            window.location = "/retrive";
+            axios.post('/profileInit', this.state);
         })
         .catch(error => {
             console.log(error)

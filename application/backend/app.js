@@ -186,7 +186,6 @@ app.post('/login', (req, res) => {
     //  account table
     var username = req.body.username;
     var password = req.body.password;
-
     var todb_user = 'INSERT INTO user (first_name, last_name, gender, date_of_birth, email, phone_number, art_category, skill_lvl) VALUES (?,?,?,?,?,?,?,?);'
     pool.query(todb_user,[first_name, last_name, gender, date_of_birth, email, phone_number, art_category, skill_lvl],(err, result) => {
         var get_id = 'SELECT user_id FROM user WHERE email = ?;'
@@ -196,11 +195,29 @@ app.post('/login', (req, res) => {
             var todb_account = 'INSERT INTO account (username, password, acc_created, user) VALUES (?,?,now(),?);'
             pool.query(todb_account,[username, password, user_id],(err, result3) => {
                 console.log(result3);
+                res.send("done");
             }); 
         })
     });
  });
  
+ //initializes profile on signup
+ app.post("/profileInit", (req, res) => {
+    var email  = req.body.email;
+    var get_id = 'SELECT user_id FROM user WHERE email = ?;'
+    pool.query(get_id, [email], (err2, result2) => {
+        console.log(result2[0].user_id);
+        var user_id = result2[0].user_id;
+    if(result2){
+        var todb = 'INSERT INTO `file_path` (`user`) VALUES (?);'
+        pool.query(todb,[user_id],(err, result4) => {
+            console.log(result4);
+            console.log(result2[0].user_id);
+        });
+    }
+    });
+});
+
  //Deletes the logged in user's cookie table to log the user out
 app.post('/logout', (req, res) => {
     console.log("logging out: " + req.session.userId);
@@ -242,10 +259,6 @@ app.get('/getUsers', (req, res) => {
 
 //Updates the user's information in the User and Account table
 app.post('/updateUser', (req, res) => {
-    /*to be used once empty string is rejected*/
-    // for (let key in req.body) {
-    //     console.log(key, req.body[key]);
-    // }
     console.log(req.body);
     console.log(req.session.userId);
 
@@ -379,7 +392,7 @@ app.post('/upload', (req, res) => {
 });
 
 app.post('/getProfile2', (req, res) => {
-    console.log("getProfile2: " + req.body);
+    console.log(req.body);
 
     var todb = 'SELECT * FROM `file_Path` WHERE `user` = ?';
     pool.query(todb, [req.body.currentMatch], (error, result) => {
@@ -397,19 +410,26 @@ app.post('/getProfile2', (req, res) => {
 
 //Searches within the communityPage table
 app.get("/searchMatches", (req, res) => {
-    var art_category = 'd';
-    
-    var todb = 'SELECT * FROM user where art_category = ? and user_id != ?;';
-    pool.query(todb,[ art_category, req.session.userId] ,(err, result) => {
+    var todb = 'SELECT art_category  FROM user WHERE user_id = ?;';
+    pool.query(todb,[req.session.userId] ,(err, result) => {
         if (err || result == ''){
-            console.log(req.session.userId + " searchMatches fail");
-            res.send(err);
+            console.log("artCat search fail");
+            console.log(err);
         }else{
-            console.log(req.session.userId + " searchMatches pass");
-            res.send(result);
+            //console.log(result);
+            console.log(result[0].art_category);
+            var todb = 'SELECT * FROM user where art_category = ? and user_id != ?;';
+            pool.query(todb,[ result[0].art_category, req.session.userId] ,(err, result) => {
+                if (err || result == ''){
+                    console.log(req.session.userId + " searchMatches fail");
+                    res.send(err);
+                }else{
+                    console.log(req.session.userId + " searchMatches pass");
+                    res.send(result);
+                }
+            })
         }
     })
-    
 });
 
 app.post("/pass", (req, res) => {
@@ -438,7 +458,7 @@ app.post("/connect", (req, res) => {
     })
 });
 
-//match_status 0:pass 1:connect
+//match_status: // 0:pass // 1:connect //
 app.post("/checkMatch", (req, res) => {
     var todb = 'SELECT * FROM matches2 WHERE `user1` = ? AND `user2` = ?;';
     pool.query(todb,[req.session.userId, req.body.currentMatch] ,(err, result) => {
@@ -454,25 +474,52 @@ app.post("/checkMatch", (req, res) => {
     })
 });
 
-//var user_id = req.query.userID;
-// var user_id = 2;
-// var art_category = 'd';
+//gets the all the users that ______ has clicked "Connect" on
+app.post("/getConnected", (req, res) => {
+    var connectedMatches = [];
+    var todb = `SELECT user2 FROM mydb.matches2 WHERE (match_status = '1' AND user1 = '1');`
+    pool.query(todb ,(err, result) => {
+       
+        if (err || result == ''){
+            console.log("error");
+        }else{
+            var json =  JSON.parse(JSON.stringify(result));
+            for (i = 0; i < json.length; i++) {
+                connectedMatches.push(json[i].user2);
+            }
+            console.log("got [" + connectedMatches.length + "] connected matches: ");
+            res.send(connectedMatches);
+        }
+    })
 
-// var todb = 'SELECT * FROM user where art_category = ? and user_id != ?;';
-// pool.query(todb,[ art_category, user_id] ,(err, result) => {
-//     if (err || result == ''){
-//         console.log("matching search fail");
-//         console.log(err);
-//     }else{
-//         //console.log(result);
-//         console.log("matching search pass");
-//         result.forEach(element => {
-//             console.log(element)
-//         });
-//     }
-//     console.log("\n\n\n")
-// })
+});
 
+//gets the all the users that ______ has clicked "Connect" on and* has recieved a "Connect" back.
+app.post("/getSuccessfulMatches", (req, res) => {
+    const connectedMatches = [];
+    for (var key in req.body.connectedMatches) {
+        connectedMatches.push(req.body.connectedMatches[key]);
+    }
+    var successfulMatches = [];
+    todb = `SELECT user1 FROM mydb.matches2 WHERE (match_status = '1' AND user1 = ? AND user2 = '1')`;
+    var index = 0;
+    connectedMatches.forEach(function(connectedMatch) {
+        pool.query(todb,connectedMatch,(err, result) => {
+            if(err || result == ''){
+                console.log("checking if " + connectedMatch + " connected with you..." + 1 + " false");
+                index += 1;
+            }else{
+                console.log("checking if " + connectedMatch + " connected with you..." + 1 + " true");
+                successfulMatches.push(connectedMatch);
+                index += 1;
+            }
+            if(index >= connectedMatches.length){
+                console.log("Connected back to you: " + successfulMatches); console.log();
+                res.send(successfulMatches);
+            }
+        });
+    });
+});
 
 //listening port
 app.listen(port, () => console.log('app listening on port ' + port));  
