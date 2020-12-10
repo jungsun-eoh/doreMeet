@@ -26,7 +26,8 @@ class SignUp extends Component {
         password: '',
         confirmpassword: '',
         emailError: '',
-        formError: ''
+        formError: '',
+        dobError: ''
       }
     
       handleChange = (e) => {
@@ -64,12 +65,21 @@ class SignUp extends Component {
         let emailError = "";
         let formError = "";
 
+        let dobError = "";
+
         if(!this.state.email.includes("@")){
             emailError = "Invalid Email";
             formError = "Error: please review your form!"
         }
+        var g1 = new Date("2002-01-01");
+        var g2 = new Date(this.state.dob.toString());
+        if(g2.getTime()>g1.getTime()){
+            dobError = "You're too young to use this site!"
+            formError = "Error: please review your form!"
+        }
 
-        if(emailError){
+        if(emailError || dobError){
+            this.setState({dobError});
             this.setState({emailError});
             this.setState({formError});
             return false;
@@ -117,6 +127,7 @@ class SignUp extends Component {
             <div className="input">
                 <label htmlFor="dob" className="sub-heading"> <b> Date of Birth </b>
                 <input type="date" name="dob"  max="2002-01-01"  value={this.state.dob} placeholder="Enter Date of Birth" required onChange={this.handleChange}/></label>
+                <h4 style={{marginBottom: "20px", fontWeight: "600",color: 'red'}}>{this.state.dobError}</h4>
             </div>
 
             <div className="input">
@@ -181,7 +192,7 @@ class SignUp extends Component {
             </div> 
             
             <div className="input">
-                <Button className='btn' buttonStyle='btn--primary' buttonSize='btn--large' onClick={this.handleSubmit}> Sign Up </Button>
+                <Button className='btn' buttonStyle='btn--primary' buttonSize='btn--large' onClick={this.handleSubmit}>Sign Up</Button>
                 <h4 style={{marginBottom: "20px", fontWeight: "600",color: 'red'}}>{this.state.formError}</h4>
             </div>
 
