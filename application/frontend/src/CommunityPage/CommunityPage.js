@@ -42,7 +42,7 @@ const CommunityPage = (stateObj) => {
 
     axios.get('/searchPost', { params: { post_title: stateObj.searchTitle, post_category: stateObj.searchCategory } }).then(response => {
       if(response.data.length > 0){
-        console.log(response.data.length);
+        //console.log(response.data.length);
         let _html = "";
         _html += `<h1>Search Results</h1>`
         _html += `<div class="RecentPostsFormat">
@@ -51,9 +51,8 @@ const CommunityPage = (stateObj) => {
                   <h3 class="PostCategory">${response.data[0].post_category}</h3>
                   <h4 class="PostVotes">${response.data[0].post_votes}</h4>
                   <p class="PostDescription">Post Description</p>
-                  <p hidden class="PostID">${response.data[0].comm_pg_id}</p>
-                  <button id="PlusButton" type="button">+</button>
-                  <button id="MinusButton" type="button">-</button>
+                  <button id="PlusButton" value="${response.data[0].comm_pg_id}"  type="button">+</button>
+                  <button id="MinusButton" value="${response.data[0].comm_pg_id}" type="button">-</button>
                   </div>`;
         document.getElementById("search-post").innerHTML = _html;
         document.getElementById("recent-posts").innerHTML = '';
@@ -77,12 +76,16 @@ const CommunityPage = (stateObj) => {
   };
 
   const voteplus = () => {
-    axios.post('/voteplus');
-    console.log("vote test");
+    const formData = new FormData();
+    formData.append('comm_pg_id', document.getElementById("PlusButton").value);
+    axios.post('/voteplus', formData);
+    console.log("vote+ button test");
   };
   const voteminus = () => {
-    axios.post('/voteminus');
-    console.log("vote test");
+    const formData = new FormData();
+    formData.append('comm_pg_id', document.getElementById("MinusButton").value);
+    axios.post('/voteminus', formData);
+    console.log("vote- button test");
   };
 
   //Simply opens up the post box
@@ -105,9 +108,9 @@ const CommunityPage = (stateObj) => {
                    <h3 class="PostCategory">${post.post_category}</h3>
                    <p class="PostDescription">Post DescriptionPost DescriptionPost DescriptionPost DescriptionPost DescriptionPost DescriptionPost DescriptionPost 
                    DescriptionPost Description</p>   
-                   <button id="PlusButton" type="button">+</button>
-                   <button id="MinusButton" type="button">-</button>      
                    </div>`;})
+                  //  <button id="PlusButton" type="button">+</button>
+                  //  <button id="MinusButton" type="button">-</button>      
          document.getElementById("recent-posts").innerHTML = _html;
          document.getElementById("search-post").innerHTML = '';
          document.getElementById("PlusButton").addEventListener("click", voteplus);

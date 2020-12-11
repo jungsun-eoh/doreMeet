@@ -100,9 +100,9 @@ app.post('/makePost', (req, res) => {
 });
 
 app.post('/voteplus', (req,res) => {
-    console.log("vote test");
-    var todb = 'UPDATE communitypage SET post_votes = post_votes + 1 WHERE comm_pg_id = 1;';
-    pool.query(todb,/*req.comm_pg_id,*/(err, result) => {
+    console.log("vote+ test " + req.body.comm_pg_id);
+    var todb = 'UPDATE communitypage SET post_votes = post_votes + 1 WHERE comm_pg_id = ?;';
+    pool.query(todb,req.comm_pg_id,(err, result) => {
         if (err || result == ''){
             console.log(err);
             console.log("vote+ fail");
@@ -116,9 +116,9 @@ app.post('/voteplus', (req,res) => {
 })
 
 app.post('/voteminus', (req,res) => {
-    console.log("vote test");
-    var todb = 'UPDATE communitypage SET post_votes = post_votes - 1 WHERE comm_pg_id = 1;';
-    pool.query(todb,/*req.comm_pg_id,*/(err, result) => {
+    console.log("vote- test " + req.body.comm_pg_id);
+    var todb = 'UPDATE communitypage SET post_votes = post_votes - 1 WHERE comm_pg_id = ?;';
+    pool.query(todb,req.comm_pg_id,(err, result) => {
         if (err || result == ''){
             console.log(err);
             console.log("vote- fail");
