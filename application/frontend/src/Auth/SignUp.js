@@ -27,7 +27,17 @@ class SignUp extends Component {
         confirmpassword: '',
         emailError: '',
         formError: '',
-        dobError: ''
+        dobError: '',
+        //locationIQ stuff
+        street_num: '',
+        street: '',
+        city: '',
+        state: '',
+        zipcode: '',
+        country: '',
+        latitude: '',
+        longitude: '',
+        geo_code: ''  
       }
     
       handleChange = (e) => {
@@ -40,6 +50,7 @@ class SignUp extends Component {
       }
     
       signUp = (e) => {
+         this.getAddress();
          axios.post('/signup', this.state)
         .then(response => {
             window.location = "/retrive";
@@ -85,6 +96,37 @@ class SignUp extends Component {
             return false;
         }
         return true;
+      }
+
+       getAddress(){
+        if(navigator.geolocation){
+          navigator.geolocation.getCurrentPosition(this.showAddress);
+        }
+        else{
+          this.state.latitude = "Geolocation is not supported in this broswer! Try using Chrome!"
+        }
+      }
+
+      showAddress(position){
+
+        const LAT = position.coords.latitude;
+        const LNG = position.coords.longitude;
+
+        const KEY = "pk.5ccd8f4faf59486715879cb50f809a39";
+
+        let url = `https://us1.locationiq.com/v1/reverse.php?key=${KEY}&lat=${LAT}&lon=${LNG}&format=json`;
+
+        fetch(url).then(response => response.json()).then(data => {
+           this.state.street_num = data.address.house_number;
+           this.state.street = data.address.road;
+           this.state.city = data.address.city;
+           this.state.state = data.address.state;
+           this.state.zipcode = data.address.postcode;
+           this.state.country = data.address.country;
+           this.state.latitude = data.lat;
+           this.state.longitude = data.lon;
+        })
+        .catch(err => console.warn(err.message));
       }
 
     render() {
