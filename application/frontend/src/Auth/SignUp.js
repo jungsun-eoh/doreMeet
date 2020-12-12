@@ -49,11 +49,12 @@ class SignUp extends Component {
         console.log(this);
       }
     
-      signUp = (e) => {
-         this.getAddress();
-         axios.post('/signup', this.state)
+      signUp = async (e) => {
+        this.getAddress();
+        await axios.post('/signup', this.state)
         .then(response => {
-            window.location = "/retrive";
+             axios.post('/profileInit', this.state);
+             axios.post('/prefInit', this.state);
         })
         .catch(error => {
             console.log(error)

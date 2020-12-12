@@ -1,6 +1,20 @@
 import React from 'react';
 import '../App.css';
 import './Chat.css';
+import axios from 'axios';
+
+const getMatches = async () => {
+    await axios.post('/getConnected').then(response => {
+        console.log(response.data);
+        const formData = new FormData();
+        for (var key in response.data) {
+            formData.append('connectedMatches', response.data[key]);
+        }
+        axios.post('/getSuccessfulMatches', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
+            console.log(response.data);
+        });
+    });
+  }
 
 class MessageList extends React.Component{
     render(){
@@ -16,6 +30,7 @@ class MessageList extends React.Component{
                         <li>Start off a conversation by introducing yourself!</li>
                         <li>Break the ice by discussing common interests.</li>
                         <li>Find a project you're both interested in and begin collaborating!</li>
+        <input style={{ position: "center", width: '10%', marginLeft: 'auto', marginRight: 20, marginTop: 10 }} type='button' value="Matches" onClick={getMatches} /><br />
                     </ul>
                 </div>
             )
