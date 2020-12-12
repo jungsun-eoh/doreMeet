@@ -1,0 +1,14 @@
+INSERT INTO `matches2` (`user1`, `match_status`, `user2`) VALUES (0, 0, 0);
+INSERT INTO `mydb`.`communityPage`(`post_title`,`post_category`,`post_file`,`post_votes`) VALUES ('Test',   'Music',    'b.png',    1);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`gender`,`date_of_birth`,`email`,`phone_number`,`art_category`,`skill_lvl`) VALUES ('first', 'last',     'f','2000-11-21',   'mail@mail',        '7073334444',   'D',    'I');
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`gender`,`date_of_birth`,`email`,`phone_number`,`art_category`,`skill_lvl`) VALUES ('Bob',   'Smith',    'M','2000-12-1',    'Bobh@mail.com',    '7071112222',   'D',    'B');
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`gender`,`date_of_birth`,`email`,`phone_number`,`art_category`,`skill_lvl`) VALUES ('Bobba', 'Smith',    'F','2000-10-1',    'Bobba@mail.com',   '7071112223',   'D',    'E');
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`gender`,`date_of_birth`,`email`,`phone_number`,`art_category`,`skill_lvl`) VALUES ('Bin',   'Smith',    'F','2000-09-1',    'Bin@mail.com',     '7071112224',   'A',    'B');
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`gender`,`date_of_birth`,`email`,`phone_number`,`art_category`,`skill_lvl`) VALUES ('So',    'Smith',    'F','2000-08-1',    'So@mail.com',      '7071112225',   'M',    'B');
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`gender`,`date_of_birth`,`email`,`phone_number`,`art_category`,`skill_lvl`) VALUES ('Bobert','Smith',    'M','2000-07-1',    'Bobert@mail.com',  '7071112226',   'P',    'B');
+INSERT INTO `mydb`.`account`(`username`,`password`,`acc_created`,`user`) VALUES ('123', '123',  now(),  1);
+INSERT INTO `mydb`.`account`(`username`,`password`,`acc_created`,`user`) VALUES ('234', '234',  now(),  2);
+INSERT INTO `mydb`.`file_Path`(`user`,`picture_path`,`profile_pic`,`bio`) VALUES (1,    "/assets/users/1/",   'blobbored.png',    "This is test user 1 s bio (First Last)");
+INSERT INTO `mydb`.`file_Path`(`user`,`picture_path`,`profile_pic`,`bio`) VALUES (2,    "/assets/users/2/",   'blobconfused.png', "bbbbbbbbbbbbbbb bob's bio (First Last)");
+INSERT INTO `mydb`.`file_Path`(`user`,`picture_path`,`profile_pic`,`bio`) VALUES (3,    "/assets/users/3/",   'test.png',         "aaaaaaaaaaaaaaaaaaaaa");
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(1);

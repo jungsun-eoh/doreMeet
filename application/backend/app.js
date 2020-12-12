@@ -13,6 +13,8 @@ const port = 5000;
 const mysql = require('mysql');
 const fileUpload = require('express-fileupload');
 const mkdirp = require('mkdirp');
+const fs = require('fs');
+const dir = `${__dirname}/../database/transaction.sql`;
 //const db = require('./conf/database');
 
 //connection credentials to the database
@@ -49,6 +51,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 app.use(fileUpload());
 
+fs.closeSync(fs.openSync(dir, 'a'));
 //Test response
 app.get("/", (req, res) => res.send("Backend simple get response"));
 
@@ -141,29 +144,23 @@ app.post('/voteminus', (req,res) => {
 
  //Checks if the user's input has an existing row in the account table, then creates a cookie to track their login state
 app.post('/login', (req, res) => {
-    console.log("____________start_______________")
-            console.log(req.body);
+    console.log("_________loggin in with__________")
+    console.log(req.body);
     var todb = "SELECT * FROM `mydb`.`account` WHERE (username = '" + req.body.username + "' AND password = '" + req.body.password + "')";
-    pool.query(todb, (error, result) => {
-    console.log("____________start_______________")
-
+    pool.query(todb, (error, result) => { 
+        console.log("____________start_______________")
         if (result == '') {
             console.log("incorrect creds");
             console.log(error);
-            console.log("____________0_______________")
-            console.log(req.session);
+            console.log("____________end_______________")
             res.send(null);
-    console.log("____________end2_______________")
-
         } else {
-            console.log("____________start_______________")
             // console.log(res.redirect('/'));
             req.session.username = result[0].username;
             req.session.userId = result[0].user;
-            console.log(req.session);
+            console.log("Logged in: " + req.session.username + " " + req.session.userId);
             res.send(req.session);
-    console.log("____________end1_______________")
-
+            console.log("____________end_______________")
         }
     })
 });
@@ -242,15 +239,13 @@ app.post('/logout', (req, res) => {
 
 //Gets the user's data from the User and Account table for settings
 app.get('/getUsers', (req, res) => {
-    console.log("session: " + req.session.userId);
-
     var todb = 'SELECT * FROM `account` AS A LEFT OUTER JOIN `user` AS B ON `account_id` = `user_id` WHERE `user_id` = ?';
     pool.query(todb, [req.session.userId], (error, result) => {
         if (error  || result == '') {
-            console.log("getuser error");
+            console.log("getuser error session: " + req.session.userId);
             res.send(result);
         } else {
-            console.log("getuser pass");
+            console.log("getuser pass  session: " + req.session.userId);
             res.send(result);
         }
     })
@@ -303,15 +298,12 @@ app.post('/updateUser', (req, res) => {
     })
 })
 
+//Updates the user's match preferences in User and Preference tables
 app.post('/updatePreferences', (req, res) => {
-
     console.log(req.body);
     console.log(req.session.userId);
 
-    //req.session.userId
-    var todb = "UPDATE preferences SET " +
-        "min_age = ?, max_age = ?, gender = ?,  skill_lvl_pref = ?, meeting_pref = ?" +
-        "WHERE user = ?";
+    var todb = "UPDATE preferences SET min_age = ?, max_age = ?, gender = ?,  skill_lvl_pref = ?, meeting_pref = ? WHERE user = ?";
     pool.query(todb, [req.body.min_age, req.body.max_age, req.body.gender,  req.body.skill_lvl_pref, req.body.meeting_pref , req.session.userId], (error, result) => {
         if (error) {
             console.log(error);
@@ -334,26 +326,18 @@ app.post('/updatePreferences', (req, res) => {
 })
 
 app.get('/getProfile', (req, res) => {
-    console.log("____________________________________1");
-    console.log("session: " + req.session.userId);
-    console.log("____________________________________2");
-
     var todb = 'SELECT * FROM `file_Path` WHERE `user` = ?';
     pool.query(todb, [req.session.userId], (error, result) => {
         if (error || result == '') {
-            console.log("getprofile error");
+            console.log("getprofile error session: " + req.session.userId);
             //res.data.join(result);
         } else {
-            console.log("getprofile pass");
+            console.log("getprofile pass  session: " + req.session.userId);
             //res.data.join(result);
             res.send(result);
-
         }
     })
-
 })
-
-
 
 //Upload for profile page: incomplete
 app.post('/upload', (req, res) => {
@@ -521,6 +505,21 @@ app.post("/getSuccessfulMatches", (req, res) => {
     });
 });
 
-//listening port
+var todb = 'SELECT * FROM `matches2` WHERE `user1` = ? AND `user2` = ? AND `match_status` = ?';
+var todbValues = [0, 0, 0];
+pool.query(todb, todbValues, (err, result) => {
+    var i = 0;
+    var queryArray;
+    if (err || result == '') {
+        console.log("flag not found: executing transaction.sql");
+        fs.readFile(dir, function (err, data) {
+            if (err) console.log(err);
+            queryArray = data.toString().split("\n");
+            for (i in queryArray) {pool.query(queryArray[i]);}
+            console.log("Queries done: " + i);
+        });
+    } else {console.log("flag found: skipping transaction.sql");}
+})
+
 app.listen(port, () => console.log('app listening on port ' + port));  
 
