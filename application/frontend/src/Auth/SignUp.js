@@ -42,7 +42,8 @@ class SignUp extends Component {
       signUp = async (e) => {
          await axios.post('/signup', this.state)
         .then(response => {
-            axios.post('/profileInit', this.state);
+             axios.post('/profileInit', this.state);
+             axios.post('/prefInit', this.state);
         })
         .catch(error => {
             console.log(error)

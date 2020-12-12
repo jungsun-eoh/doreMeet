@@ -102,9 +102,10 @@ app.post('/makePost', (req, res) => {
      });
 });
 
+    // var todb = 'UPDATE communitypage SET `post_votes` = `post_votes` + 1 WHERE `comm_pg_id` = ?;'; //does not work?
 app.post('/voteplus', (req,res) => {
     console.log("vote+ test " + req.body.comm_pg_id);
-    var todb = 'UPDATE communitypage SET post_votes = post_votes + 1 WHERE comm_pg_id = ?;';
+    var todb = 'UPDATE communitypage SET `post_votes` = `post_votes` + 1 WHERE `comm_pg_id` = ' + req.body.comm_pg_id + ';';
     pool.query(todb,req.comm_pg_id,(err, result) => {
         if (err || result == ''){
             console.log(err);
@@ -120,7 +121,7 @@ app.post('/voteplus', (req,res) => {
 
 app.post('/voteminus', (req,res) => {
     console.log("vote- test " + req.body.comm_pg_id);
-    var todb = 'UPDATE communitypage SET post_votes = post_votes - 1 WHERE comm_pg_id = ?;';
+    var todb = 'UPDATE `communitypage` SET `post_votes` = `post_votes` - 1 WHERE `comm_pg_id` = ' + req.body.comm_pg_id + ';';
     pool.query(todb,req.comm_pg_id,(err, result) => {
         if (err || result == ''){
             console.log(err);
@@ -141,6 +142,14 @@ app.post('/voteminus', (req,res) => {
          res.send(result);
      })
  });
+
+ //Gets top 3 voted post on the community page
+ app.get("/highlights", (req, res) => {
+    var todb = "SELECT * FROM communityPage ORDER BY post_votes DESC LIMIT 3";
+    pool.query(todb, (error, result) => {
+        res.send(result);
+    });
+});
 
  //Checks if the user's input has an existing row in the account table, then creates a cookie to track their login state
 app.post('/login', (req, res) => {
@@ -207,6 +216,22 @@ app.post('/login', (req, res) => {
         var user_id = result2[0].user_id;
     if(result2){
         var todb = 'INSERT INTO `file_path` (`user`) VALUES (?);'
+        pool.query(todb,[user_id],(err, result4) => {
+            console.log(result4);
+            console.log(result2[0].user_id);
+        });
+    }
+    });
+});
+
+app.post("/prefInit", (req, res) => {
+    var email  = req.body.email;
+    var get_id = 'SELECT user_id FROM user WHERE email = ?;'
+    pool.query(get_id, [email], (err2, result2) => {
+        console.log(result2[0].user_id);
+        var user_id = result2[0].user_id;
+    if(result2){
+        var todb = 'INSERT INTO `preferences` (`user`) VALUES (?);'
         pool.query(todb,[user_id],(err, result4) => {
             console.log(result4);
             console.log(result2[0].user_id);
@@ -505,21 +530,41 @@ app.post("/getSuccessfulMatches", (req, res) => {
     });
 });
 
-var todb = 'SELECT * FROM `matches2` WHERE `user1` = ? AND `user2` = ? AND `match_status` = ?';
-var todbValues = [0, 0, 0];
-pool.query(todb, todbValues, (err, result) => {
-    var i = 0;
-    var queryArray;
-    if (err || result == '') {
-        console.log("flag not found: executing transaction.sql");
-        fs.readFile(dir, function (err, data) {
-            if (err) console.log(err);
-            queryArray = data.toString().split("\n");
-            for (i in queryArray) {pool.query(queryArray[i]);}
-            console.log("Queries done: " + i);
-        });
-    } else {console.log("flag found: skipping transaction.sql");}
-})
 
+//this reads each line from transaction.sql and executes each query
+//Note: race condition causes incorrect Id numbers (based on order in the data file)
+//so will not be used atm
+//
+// const recordData = 0; //set this to 1 if you want to add data
+// function loadData(){
+// var todb = 'SELECT * FROM `matches2` WHERE `user1` = ? AND `user2` = ? AND `match_status` = ?';
+// var todbValues = [0, 0, 0];
+// pool.query(todb, todbValues, (err, result) => {
+//     var h = 0;
+//     var queryArray;
+//     if (err || result == '') {
+//         console.log("flag not found: executing transaction.sql");
+//         fs.readFile(dir, function (err, data) {
+//             if (err) console.log(err);
+//             queryArray = data.toString().split("\n");
+//             for (let i in queryArray) 
+//             {
+//                 pool.query(queryArray[i], (err, result) => {
+//                     if (err || result == '') {
+//                         if(err){
+//                             console.log(err.sqlMessage)
+//                         }
+//                     }
+//                     else{
+//                         h+=1;
+//                     }
+//             });
+//         }
+//             console.log("Queries done: " + h);
+//         });
+//     } else {console.log("flag found: skipping transaction.sql");}
+// })
+// }
+// loadData();
 app.listen(port, () => console.log('app listening on port ' + port));  
 
