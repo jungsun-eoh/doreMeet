@@ -170,7 +170,7 @@ const CommunityPage = (stateObj) => {
                     </select>
                  </div>
                   <label htmlFor="post-file"> Select file: </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <input type='file' className='custom-file-input' id='customFile' onChange={onChange} />
+                  <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={onChange} />
                   <div>
                    <input type='submit' />
                  </div>
