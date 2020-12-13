@@ -89,8 +89,14 @@ const Profile = (stateObj) => {
     }
     const onChange = (e) => {
         e.preventDefault();
-        stateObj.setFile(e.target.files[0]);
-        stateObj.setFileName(e.target.files[0].name);
+        if (e.target.files[0].size > 10485760) {
+            alert("File is too big, max file size is 10 MB.");
+            e.target.value = '';
+        }
+        else {
+            stateObj.setFile(e.target.files[0]);
+            stateObj.setFileName(e.target.files[0].name);
+        }
         console.log(e.target.files[0]);
         console.log(e.target.files[0].name);
     };
