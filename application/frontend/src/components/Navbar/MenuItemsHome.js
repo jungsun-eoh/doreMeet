@@ -11,7 +11,7 @@ export const MenuItemsHome = [
     },
     {
         title: 'Community',
-        url: '/Community',
+        url: '/CommunityHome',
         cName: 'nav-links',
     },
     {

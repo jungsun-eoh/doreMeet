@@ -12,6 +12,7 @@ import Pricing from './LandingPage/Pricing';
 import LogIn from './Auth/LogIn';
 import SignUp from './Auth/SignUp';
 import CommunityPage from './CommunityPage/CommunityPage';
+import CommunityPageHome from './CommunityPageHome';
 import MatchingPage from './Matches/MatchingPage';
 import Chat from './Chat/Chat';
 import Settings from './Account/Settings';
@@ -206,6 +207,7 @@ function App() {
         <Route path='/ContactUs' component={ContactUs} />
         <Route path="/Settings" children={Settings(stateObj)}/>
         <Route path="/Community" children={CommunityPage(stateObj)}/>
+        <Route path="/CommunityHome" children={CommunityPageHome(stateObj)}/>
         <Route path="/Match" children={MatchingPage(stateObj)}/>
         <Route path="/Chat" children={Chat(stateObj)}/>
         <Route path="/Profile" children={Profile(stateObj)}/>
