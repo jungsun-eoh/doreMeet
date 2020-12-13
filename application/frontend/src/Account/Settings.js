@@ -58,7 +58,7 @@ const Settings = (stateObj) => {
         if(stateObj.userName !== '')formData.append("username", stateObj.userName);
         if(stateObj.userPassword !== '')formData.append("password", stateObj.userPassword);
         if(stateObj.newPassword !== '')formData.append("new_password", stateObj.newPassword);
-
+        if(stateObj.searchRadius !== '')formData.append("searchRadius", stateObj.searchRadius);
         
 
         axios.post('/updateUser', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
@@ -210,8 +210,15 @@ const Settings = (stateObj) => {
                         </select></td></tr></table> 
                         <p>Your prefrence for meeting online or offline</p><br/>
 
+                        <table><tr><td><label for="searchRadius">Prefered Search Radius Currently (Miles): {stateObj.currentMeetingPreference}<b id="meeting_pref"></b></label><br/></td> 
+                        &nbsp;<td>
+                        <input style={{width: "100px"}} onChange={e => stateObj.setSearchRadius(e.target.value)} className="settingsFields" type="number"  min="1" max="100"/>
+                        </td></tr></table> 
+                        <p>Your prefrence for the maximum distance by which you'll match with people</p><br/>
+
                         <input style={{position: "relative"}} type='submit' value="Confirm Preference Changes"/>
                         <br/>
+
                         <button style={{backgroundColor: "#ffd700"}}><a style={{textDecoration: "none",color: "black"}} href={'/Premium'}>Upgrade to Premium Account</a></button><br/>
                         <button style={{backgroundColor: "#06EFB7",width: "198px", marginRight: "3px"}}>Pause Account</button>
                         <button style={{backgroundColor: "#FD7D7D",width: "198px"}}>Delete Account</button><br/>

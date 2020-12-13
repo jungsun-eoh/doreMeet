@@ -5,17 +5,22 @@
 and preferences.
 */
 
-import React from 'react';
+import React, {useState} from 'react';
 import '../App.css';
 import './MatchingPage.css';
 import Navbar from '../components/Navbar/Navbar';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Footer from "../components/Footer/Footer";
 import axios from 'axios';
+import { Button } from '../components/Navbar/Buttons';
 
 var matches;
 var index = 0;
+
+
 const MatchingPage = (stateObj) => {
+
+  const [screen, setScreen] = useState(false);
 
   //starts the match process, ideally have on page load (when user navigates to match)
   const match = (e) => {
@@ -130,6 +135,30 @@ const MatchingPage = (stateObj) => {
     }
   }
 
+  const switchScreen = () =>{
+    console.log("test");
+    setScreen(true);
+  }
+
+  if(!screen){
+    return(
+      <div className="App">
+          <Navbar />
+          <header className="App-header">
+            <div style={{height: "100%"}} className="description">
+              <h2 align='center' top='30%'> Welcome to the matching page!</h2>
+              <br />
+                <ul style={{listStylePosition: "inside", textAlign: "center", fontSize: "30px"}}>
+                  <li>Make sure that your profile is all set up</li>
+                  <li>Check that your preferences are up to date</li>
+                  <li>Click on the button below to begin matching!</li>
+                </ul>
+                <p  style={{ fontSize: 22, marginTop: "50px", cursor: "pointer", marginLeft: "auto", marginRight: "auto", backgroundColor: "#7EDAD8", width: "300px", borderRadius: "15px" }} align='center' onClick={ () =>switchScreen()}>Click Here!</p>
+              </div>
+        </header>
+        </div>
+    );
+  }
   return (
     <>
       <Router>
@@ -137,7 +166,7 @@ const MatchingPage = (stateObj) => {
           <Navbar />
           <header className="App-header">
             <div className="description">
-              <h2 align='center' top='30%'> Find the Right Match for yourself from these Potential Match!</h2>
+              <h2 align='center' top='30%'> Find the Right Match for yourself from these Potential Matches!</h2>
               <br />
               <p style={{ fontSize: 22, marginLeft: 40, marginRight: 40 }} align='center'>If you find someone you want to collaborate with, "Connect" with them, or else "Pass" to keep looking for the right match</p>
             </div>

@@ -57,6 +57,7 @@ function App() {
   const [preferedGender, setPreferedGender] = React.useState('');
   const [preferedSkillLevel, setPreferedSkillLevel] = React.useState('');
   const [meetingPreference, setMeetingPreference] = React.useState('');
+  const [searchRadius, setSearchRadius] = React.useState('');
 
   // const [currentMinimumAge, setCurrentMinimumAge] = React.useState('');
   // const [currentMaximumAge, setCurrentMaximumAge] = React.useState('');
@@ -148,6 +149,8 @@ function App() {
     setPreferedSkillLevel: setPreferedSkillLevel,
     meetingPreference: meetingPreference,
     setMeetingPreference: setMeetingPreference,
+    searchRadius: searchRadius,
+    setSearchRadius: setSearchRadius,
 
     //Settings page stuff for displaying current settings
     // currentMinimumAge: currentMinimumAge,
