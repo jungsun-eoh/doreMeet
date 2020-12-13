@@ -234,7 +234,7 @@ const Profile = (stateObj) => {
                 </div>
                 <div style={{right: "65%"}} class="post-popup" id="postform">
                     <form class="post-container" onSubmit={upload}>
-                                <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={onChange} />
+                                <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={onChange} required/>
                                 <label className='custom-file-label' htmlFor='customFile'></label>
                                 <input type='submit' value='Upload' /><br/>
                                 <button onClick={closePost}>Close</button>
@@ -243,7 +243,7 @@ const Profile = (stateObj) => {
                 
                 <div style={{right: "65%"}} class="post-popup" id="media1">
                         <form class="post-container" onSubmit={uploadMedia1}>
-                            <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={changeMedia1} />
+                            <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={changeMedia1} required/>
                             <label className='custom-file-label' htmlFor='customFile'></label>
                             <input type='submit' value='Upload' /><br/>
                             <button onClick={closeMedia1}>Close</button>
@@ -252,7 +252,7 @@ const Profile = (stateObj) => {
 
                     <div style={{right: "47%"}} class="post-popup" id="media2">
                         <form class="post-container" onSubmit={uploadMedia2}>
-                            <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={changeMedia2} />
+                            <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={changeMedia2} required/>
                             <label className='custom-file-label' htmlFor='customFile'></label>
                             <input type='submit' value='Upload' /><br/>
                             <button onClick={closeMedia2}>Close</button>
@@ -261,7 +261,7 @@ const Profile = (stateObj) => {
 
                     <div style={{right: "30%"}} class="post-popup" id="media3">
                         <form class="post-container" onSubmit={uploadMedia3}>
-                            <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={changeMedia3} />
+                            <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={changeMedia3} required/>
                             <label className='custom-file-label' htmlFor='customFile'></label>
                             <input type='submit' value='Upload' /><br/>
                             <button onClick={closeMedia3}>Close</button>
@@ -270,7 +270,7 @@ const Profile = (stateObj) => {
 
                     <div style={{right: "15%"}} class="post-popup" id="media4">
                         <form class="post-container" onSubmit={uploadMedia4}>
-                            <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={changeMedia4} />
+                            <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={changeMedia4} required/>
                             <label className='custom-file-label' htmlFor='customFile'></label>
                             <input type='submit' value='Upload' /><br/>
                             <button onClick={closeMedia4}>Close</button>
@@ -280,7 +280,7 @@ const Profile = (stateObj) => {
                     <div style={{right: "35%"}} className="post-popup" id="spotifyLinkForm">
                         <form className="post-container" onSubmit={setSpotifyLink}>
                             <label htmlFor='spotifyLink'>Spotify Link:</label>
-                            <input type='text' id='spotifyLink' placeholder='Input your Spotify link here'/>
+                            <input type='text' id='spotifyLink' placeholder='Input your Spotify link here' required/>
                             <input type='submit' value='Submit'/><br/>
                             <button onClick={closeSpotifyLinkForm}>Close</button>
                         </form>
@@ -289,7 +289,7 @@ const Profile = (stateObj) => {
                     <div style={{right: "27%"}} class="post-popup" id="twitterLinkForm">
                         <form class="post-container" onSubmit={setTwitterLink}>
                             <label for='twitterLink'>Twitter Link:</label>
-                            <input type='text' id='twitterLink' placeholder='Input your Twitter link here'/>
+                            <input type='text' id='twitterLink' placeholder='Input your Twitter link here' required/>
                             <input type='submit' value='Submit'/><br/>
                             <button onClick={closeTwitterLinkForm}>Close</button>
                         </form>
@@ -298,7 +298,7 @@ const Profile = (stateObj) => {
                     <div style={{right: "15%"}} className="post-popup" id="youtubeLinkForm">
                         <form className="post-container" onSubmit={setYoutubeLink}>
                             <label htmlFor='youtubeLink'>Youtube Link:</label>
-                            <input type='text' id='youtubeLink' placeholder='Input your Youtube link here'/>
+                            <input type='text' id='youtubeLink' placeholder='Input your Youtube link here' required/>
                             <input type='submit' value='Submit'/><br/>
                             <button onClick={closeYoutubeLinkForm}>Close</button>
                         </form>
@@ -307,7 +307,7 @@ const Profile = (stateObj) => {
                     <div style={{right: "5%"}} className="post-popup" id="instagramLinkForm">
                         <form className="post-container" onSubmit={setInstagramLink}>
                             <label htmlFor='instagramLink'>Instagram Link:</label>
-                            <input type='text' id='instagramLink' placeholder='Input your Instagram link here'/>
+                            <input type='text' id='instagramLink' placeholder='Input your Instagram link here' required/>
                             <input type='submit' value='Submit'/><br/>
                             <button onClick={closeInstagramLinkForm}>Close</button>
                         </form>
