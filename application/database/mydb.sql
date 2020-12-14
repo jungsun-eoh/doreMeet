@@ -269,6 +269,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`communityPage` (
   `last_name` VARCHAR(64) NULL,
   `post_title` VARCHAR(64) NOT NULL,
   `post_category` VARCHAR(10) NOT NULL,
+  `post_description` VARCHAR(256) NULL,
   `post_file` VARCHAR(128) NULL,
   `post_votes` INT NULL,
   `post_creation` DATETIME NULL,
@@ -295,7 +296,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`matches2` (
 ENGINE = InnoDB;
 
 INSERT INTO `matches2` (`user1`, `match_status`, `user2`) VALUES (0, 0, 0);
-INSERT INTO `mydb`.`communityPage`(`post_title`,`post_category`,`post_file`,`post_votes`) VALUES ('Test',   'Music',    'b.png',    1);
+
 INSERT INTO `mydb`.`user`(`user_id`, `first_name`,`last_name`,`gender`,`date_of_birth`,`email`,`phone_number`,`art_category`,`skill_lvl`) VALUES (1, 'first', 'last',     'f','2000-11-21',    'mail@mail',        '7073334444',   'D',    'I');
 INSERT INTO `mydb`.`user`(`user_id`, `first_name`,`last_name`,`gender`,`date_of_birth`,`email`,`phone_number`,`art_category`,`skill_lvl`) VALUES (2, 'Bob',   'Smith',    'M','2000-12-12',    'Bobh@mail.com',    '7071112222',   'D',    'B');
 INSERT INTO `mydb`.`user`(`user_id`, `first_name`,`last_name`,`gender`,`date_of_birth`,`email`,`phone_number`,`art_category`,`skill_lvl`) VALUES (3, 'Bobba', 'Smith',    'F','2000-10-22',    'Bobba@mail.com',   '7071112223',   'D',    'E');
@@ -303,6 +304,27 @@ INSERT INTO `mydb`.`user`(`user_id`, `first_name`,`last_name`,`gender`,`date_of_
 INSERT INTO `mydb`.`user`(`user_id`, `first_name`,`last_name`,`gender`,`date_of_birth`,`email`,`phone_number`,`art_category`,`skill_lvl`) VALUES (5, 'So',    'Smith',    'F','2000-08-13',    'So@mail.com',      '7071112225',   'M',    'B');
 INSERT INTO `mydb`.`user`(`user_id`, `first_name`,`last_name`,`gender`,`date_of_birth`,`email`,`phone_number`,`art_category`,`skill_lvl`) VALUES (6, 'Bobert','Smith',    'M','2000-07-16',    'Bobert@mail.com',  '7071112226',   'P',    'B');
 INSERT INTO `mydb`.`user`(`user_id`, `first_name`,`last_name`,`gender`,`date_of_birth`,`email`,`phone_number`,`art_category`,`skill_lvl`) VALUES (7, 'AHHHHH','Smith',    'M','2000-03-11',    'what@mail.com',    '7071112226',   'P',    'B');
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Alan',		'Holhs',	'1995-01-01',	'M',	'alan.holhs@gmail.com',		'Music',	'I',9877891234);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('John',		'Adams',	'2001-01-01',	'M',	'johnadams_22@gmail.com',	'Art',		'B',4231231234);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Jack',		'Gomez',	'1990-01-01',	'M',	'jack_g@yahoo.com',			'Dance',	'I',8980980865);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Jill',		'Rhodes',	'1992-01-01',	'F',	'jill_rho@mail.com',		'Dance',	'I',4345324412);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Mary',		'Beth',		'1987-01-01',	'F',	'mary_beth@gmail.com',		'Photo',	'E',4545436223);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Anne',		'Sullivan',	'1994-01-01',	'F',	'anne.sull12@gmail.com',	'Music',	'B',8878665576);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Jesus',		'Chavez',	'1989-01-01',	'M',	'j_chavez@yahoo.com',		'Film',		'E',6756744666);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Sabrina',	'Umbay',	'1991-01-01',	'F',	'sabrina.umbay@mail.com',	'Film',		'B',5654545444);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Bill',		'Lenox',	'1993-01-01',	'M',	'bill.lenox@yahoo.com',		'Music',	'I',7987568456);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Nick',		'Calum',	'1998-01-01',	'M',	'nickcalum98@yahoo.com',	'Music',	'E',4758475455);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Maddy',		'Jackson',	'2000-01-01',	'F',	'maddy_jack@gmail.com',		'Dance',	'B',3454356543);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Alex',		'Singh',	'2002-01-01',	'M',	'alex_singh24@yahoo.com',	'Art',		'I',4234325535);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Peter',		'Nye',		'1985-01-01',	'M',	'peter.n@gmail.com',		'Photo',	'B',5435576656);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Maya',		'Gomez',	'1993-01-01',	'F',	'maya.gomez@yahoo.com',		'Film',		'E',7543764756);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('David',		'Goliath',	'1990-01-01',	'M',	'david.gol@hotmail.com',	'Art',		'B',3432453346);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Mario',		'Flores',	'1991-01-01',	'F',	'mario.g.flores@gmail.com',	'Music',	'E',5678945675);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Lucy',		'Bell',		'1996-01-01',	'F',	'lucy_bell12@gmail.com',	'Music',	'I',5656500546);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Brad',		'Lint',		'2001-01-01',	'M',	'brand.lint@mail.com',	'	Dance',		'B',5468980990);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Felix',		'Johnson',	'2002-01-01',	'M',	'felix_jnson@yahoo.com',	'Film',		'E',4385406954);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Tom',		'Ford',		'1991-01-01',	'M',	'tom_ford415@gmail.com',	'Photo',	'B',5465787687);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Frankie',	'Dane',		'1996-01-01',	'F',	'frankie.dane@mail.com',	'Art',		'I',6576588885);
 INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('123', '123',    1);
 INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('234', '234',    2);
 INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('235', '235',    3);
@@ -310,9 +332,55 @@ INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('236', '236',
 INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('237', '237',    5);
 INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('238', '238',    6);
 INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('239', '239',    7);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('alanh','abc123',8);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('johna','1234er',9);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('jGomz','cfnm23',10);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('jrhod','jcje844',11);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('mary','jfbh458',12);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('annes','bfv324',13);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('jchavz','4358uj',14);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('sabby','t95086t',15);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('bill.l','jihgvm8',16);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('nick','hguirc',17);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('maddy','gcmtr',18);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('alex.s','mymtm',19);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('pete','ervgrg',20);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('maya','345452',21);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('david','fcjvc.r',22);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('mario','fcnn48',23);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('lucs','xwer35',24);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('brad','nuyu8',25);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('felix','rnxfgu',26);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('tommy','4354c',27);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('frankie','hfuhe7',28);
 INSERT INTO `mydb`.`file_Path`(`user`,`picture_path`,`profile_pic`,`bio`) VALUES (1,    "/assets/users/1/",   'blobbored.png',    "This is test user 1 s bio (First Last)");
-INSERT INTO `mydb`.`file_Path`(`user`,`picture_path`,`profile_pic`,`bio`) VALUES (2,    "/assets/users/2/",   'blobconfused.png', "bbbbbbbbbbbbbbb bob's bio (First Last)");
+INSERT INTO `mydb`.`file_Path`(`user`,`picture_path`,`profile_pic`,`bio`) VALUES (2,    "/assets/users/2/",   'blobconfused.png', "bbbbbbbbbbbbbbb bob's bio (Bob Smith)");
 INSERT INTO `mydb`.`file_Path`(`user`,`picture_path`,`profile_pic`,`bio`) VALUES (3,    "/assets/users/3/",   'test.png',         "aaaaaaaaaaaaaaaaaaaaa");
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (4);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (5);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (6);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (7);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (8);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (9);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (10);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (11);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (12);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (13);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (14);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (15);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (16);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (17);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (18);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (19);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (20);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (21);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (22);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (23);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (24);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (25);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (26);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (27);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (28);
 INSERT INTO `mydb`.`preferences`(`user`) VALUES(1);
 INSERT INTO `mydb`.`preferences`(`user`) VALUES(2);
 INSERT INTO `mydb`.`preferences`(`user`) VALUES(3);
@@ -320,6 +388,27 @@ INSERT INTO `mydb`.`preferences`(`user`) VALUES(4);
 INSERT INTO `mydb`.`preferences`(`user`) VALUES(5);
 INSERT INTO `mydb`.`preferences`(`user`) VALUES(6);
 INSERT INTO `mydb`.`preferences`(`user`) VALUES(7);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(8);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(9);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(10);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(11);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(12);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(13);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(14);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(15);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(16);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(17);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(18);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(19);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(20);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(21);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(22);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(23);
+
+INSERT INTO `mydb`.`communityPage`(`post_title`,`post_category`,`post_description`,`post_file`,`post_votes`,`user`) VALUES ('Test',   'Music', 'I am first',    'b.png',    3, 1);
+INSERT INTO communityPage (`post_title`, `post_category`, `post_file`, `post_votes`, `user`) VALUES ('Egg Wobble','Art','egg.gif',25,'1');
+INSERT INTO communityPage (`post_title`, `post_category`, `post_file`, `post_votes`, `user`) VALUES ('Avocado Blob','Art','477709683319373824.gif',22,'1');
+
 
 
 

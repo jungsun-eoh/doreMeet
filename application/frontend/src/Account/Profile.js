@@ -65,17 +65,32 @@ const Profile = (stateObj) => {
 
         }).catch(function (error) {
             console.log(error);
-            console.log("Not Found");
+            console.log("{User} Not Found");
         })
         await axios.get('/getProfile', ).then(response => {
             console.log(response.data[0]);
             stateObj.setProfilePic(response.data[0].profile_pic);
             stateObj.setProfilePicPath(response.data[0].picture_path);
             stateObj.setBio(response.data[0].bio);
+            if(response.data[0].video_path){stateObj.setuploadmedia1(`${response.data[0].picture_path}${response.data[0].video_path}`)}  else{stateObj.setuploadmedia1('assets/placeholder-img.jpg')};
+            if(response.data[0].video_desc){stateObj.setuploadmedia2(`${response.data[0].picture_path}${response.data[0].video_desc}`)}  else{stateObj.setuploadmedia2('assets/placeholder-img.jpg')};;
+            if(response.data[0].audio_path){stateObj.setuploadmedia3(`${response.data[0].picture_path}${response.data[0].audio_path}`)}  else{stateObj.setuploadmedia3('assets/placeholder-img.jpg')};;
+            if(response.data[0].audio_descp){stateObj.setuploadmedia4(`${response.data[0].picture_path}${response.data[0].audio_descp}`)}else{stateObj.setuploadmedia4('assets/placeholder-img.jpg')};;
         }).catch(function (error) {
             console.log(error);
-            console.log("Not Found");
+            console.log("{Profile} Found");
         })
+
+        //src="assets/postImages/${response.data[0].post_file}"
+        await axios.get('getCommunityPosts').then(response => {
+            console.log(response);
+            stateObj.setCommunityPost1(`assets/postImages/${response.data[0].post_file}`);
+            stateObj.setCommunityPost2(`assets/postImages/${response.data[1].post_file}`);
+            stateObj.setCommunityPost3(`assets/postImages/${response.data[2].post_file}`);
+        }).catch(function (error) {
+            console.log(error);
+            console.log("{CommPost} Not Found");
+        });
     }
     const upload = async e => {
         e.preventDefault();
@@ -112,6 +127,13 @@ const Profile = (stateObj) => {
     //Stuff for media file 1
     const uploadMedia1 = async e => {
         e.preventDefault();
+        const formData = new FormData();
+        formData.append('file', stateObj.file);
+        formData.append('type', 'media1');
+        await axios.post('/uploadMedia', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
+            console.log(response.data[0]);
+            stateObj.setuploadmedia1(`${response.data[0].picture_path} + ${response.data[0].post_file}`);
+        });
     }
 
     const changeMedia1 = (e) => {
@@ -128,6 +150,13 @@ const Profile = (stateObj) => {
     //stuff for media file 2
     const uploadMedia2 = async e => {
         e.preventDefault();
+        const formData = new FormData();
+        formData.append('file', stateObj.file);
+        formData.append('type', 'media2');
+        await axios.post('/uploadMedia', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
+            console.log(response.data[0]);
+            stateObj.setuploadmedia2(`${response.data[0].picture_path} + ${response.data[0].post_file}`);
+        });
     }
 
     const changeMedia2 = (e) => {
@@ -144,6 +173,13 @@ const Profile = (stateObj) => {
     //Stuff for media file 3
     const uploadMedia3 = async e => {
         e.preventDefault();
+        const formData = new FormData();
+        formData.append('file', stateObj.file);
+        formData.append('type', 'media3');
+        await axios.post('/uploadMedia', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
+            console.log(response.data[0]);
+            stateObj.setuploadmedia3(`${response.data[0].picture_path} + ${response.data[0].post_file}`);
+        });
     }
 
     const changeMedia3 = (e) => {
@@ -160,6 +196,13 @@ const Profile = (stateObj) => {
     //Stuff for media file 4
     const uploadMedia4 = async e => {
         e.preventDefault();
+        const formData = new FormData();
+        formData.append('file', stateObj.file);
+        formData.append('type', 'media4');
+        await axios.post('/uploadMedia', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
+            console.log(response.data[0]);
+            stateObj.setuploadmedia4(`${response.data[0].picture_path} + ${response.data[0].post_file}`);
+        });
     }
 
     const changeMedia4 = (e) => {
@@ -243,7 +286,7 @@ const Profile = (stateObj) => {
                 
                 <div style={{right: "65%"}} class="post-popup" id="media1">
                         <form class="post-container" onSubmit={uploadMedia1}>
-                            <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={changeMedia1} required/>
+                            <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={onChange} required/>
                             <label className='custom-file-label' htmlFor='customFile'></label>
                             <input type='submit' value='Upload' /><br/>
                             <button onClick={closeMedia1}>Close</button>
@@ -252,7 +295,7 @@ const Profile = (stateObj) => {
 
                     <div style={{right: "47%"}} class="post-popup" id="media2">
                         <form class="post-container" onSubmit={uploadMedia2}>
-                            <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={changeMedia2} required/>
+                            <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={onChange} required/>
                             <label className='custom-file-label' htmlFor='customFile'></label>
                             <input type='submit' value='Upload' /><br/>
                             <button onClick={closeMedia2}>Close</button>
@@ -261,7 +304,7 @@ const Profile = (stateObj) => {
 
                     <div style={{right: "30%"}} class="post-popup" id="media3">
                         <form class="post-container" onSubmit={uploadMedia3}>
-                            <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={changeMedia3} required/>
+                            <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={onChange} required/>
                             <label className='custom-file-label' htmlFor='customFile'></label>
                             <input type='submit' value='Upload' /><br/>
                             <button onClick={closeMedia3}>Close</button>
@@ -270,7 +313,7 @@ const Profile = (stateObj) => {
 
                     <div style={{right: "15%"}} class="post-popup" id="media4">
                         <form class="post-container" onSubmit={uploadMedia4}>
-                            <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={changeMedia4} required/>
+                            <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={onChange} required/>
                             <label className='custom-file-label' htmlFor='customFile'></label>
                             <input type='submit' value='Upload' /><br/>
                             <button onClick={closeMedia4}>Close</button>
@@ -352,12 +395,12 @@ const Profile = (stateObj) => {
                     <div style={{ display: "inline-block" }}>
                         <h3 style={{ paddingLeft: 50 }}><u>Media:</u></h3>
                         <div style={{ paddingLeft: 50 }}>
-                            <img onClick={openMedia1} style={{ height: "160px", margin: "15px 5px 0 5px" }} src='assets/placeholder-img.jpg' />
-                            <img onClick={openMedia2} style={{ height: "160px", margin: "15px 5px 0 5px" }} src='assets/placeholder-img.jpg' />
-                            <img onClick={openMedia3} style={{ height: "160px", margin: "15px 5px 0 5px" }} src='assets/placeholder-img.jpg' />
-                            <img onClick={openMedia4} style={{ height: "160px", margin: "15px 5px 0 5px" }} src='assets/placeholder-img.jpg' />
+                            <img onClick={openMedia1} style={{ height: "160px", margin: "15px 5px 0 5px" }} src={`${stateObj.uploadmedia1}`} />
+                            <img onClick={openMedia2} style={{ height: "160px", margin: "15px 5px 0 5px" }} src={`${stateObj.uploadmedia2}`} />
+                            <img onClick={openMedia3} style={{ height: "160px", margin: "15px 5px 0 5px" }} src={`${stateObj.uploadmedia3}`} />
+                            <img onClick={openMedia4} style={{ height: "160px", margin: "15px 5px 0 5px" }} src={`${stateObj.uploadmedia4}`} />
                         </div>
-                        <small style={{ paddingLeft: 50 }}><a href="#">Load More</a></ small>
+                        {/* <small style={{ paddingLeft: 50 }}><a href="#">Load More</a></ small> */}
                         <br /><br />
                     </div>
 
@@ -372,13 +415,13 @@ const Profile = (stateObj) => {
                             <div className='cards_wrapper'>
                                 <ul className='cards_items'>
                                     <HighlightItem
-                                        src='assets/placeholder-img.jpg'
+                                        src={`${stateObj.communityPost1}`}
                                         text='Acoustic Cover'
                                         label='Music'
                                         path='/'
                                     />
                                     <HighlightItem
-                                        src='assets/placeholder-img.jpg'
+                                        src={`${stateObj.communityPost2}`}
                                         text='Piano Cover'
                                         label='Music'
                                         path='/'

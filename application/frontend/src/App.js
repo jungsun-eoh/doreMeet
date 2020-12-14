@@ -82,10 +82,25 @@ function App() {
   const [file, setFile] = React.useState('');
   const [fileName, setFileName] = React.useState('');
 
+  const [highlight1, setHighlight1] = React.useState('');
+  const [highlight2, setHighlight2] = React.useState('');
+  const [highlight3, setHighlight3] = React.useState('');
+
   const [profilePic, setProfilePic] = React.useState('');
   const [profilePicPath, setProfilePicPath] = React.useState('');
   const [bio, setBio] = React.useState('Placeholder bio!');
   const [age, setAge] = React.useState('');
+
+  const [communityPost1, setCommunityPost1] = React.useState('');
+  const [communityPost2, setCommunityPost2] = React.useState('');
+  const [communityPost3, setCommunityPost3] = React.useState('');
+
+  // const [,] = React.useState('');
+  const [uploadmedia1,setuploadmedia1] = React.useState('');
+  const [uploadmedia2,setuploadmedia2] = React.useState('');
+  const [uploadmedia3,setuploadmedia3] = React.useState('');
+  const [uploadmedia4,setuploadmedia4] = React.useState('');
+
 
   //stateObj is our big hub object that will hold all the info for the users session
   const stateObj = {
@@ -113,6 +128,23 @@ function App() {
     setProfilePic: setProfilePic,
     profilePicPath: profilePicPath,
     setProfilePicPath: setProfilePicPath,
+
+    
+    uploadmedia1: uploadmedia1,
+    setuploadmedia1: setuploadmedia1,
+    uploadmedia2: uploadmedia2,
+    setuploadmedia2: setuploadmedia2,
+    uploadmedia3: uploadmedia3,
+    setuploadmedia3: setuploadmedia3,
+    uploadmedia4: uploadmedia4,
+    setuploadmedia4: setuploadmedia4,
+    
+    communityPost1: communityPost1,
+    setCommunityPost1: setCommunityPost1,
+    communityPost2: communityPost2,
+    setCommunityPost2: setCommunityPost2,
+    communityPost3: communityPost3,
+    setCommunityPost3: setCommunityPost3,
 
     age: age,
     setAge: setAge,
@@ -185,6 +217,15 @@ function App() {
     setPostFile: setPostFile,
     postID: postID,
     setPostID: setPostID,
+
+
+
+    highlight1: highlight1,
+    setHighlight1: setHighlight1,
+    highlight2: highlight2,
+    setHighlight2: setHighlight2,
+    highlight3: highlight3,
+    setHighlight3: setHighlight3,
 
     //screen stuff
     screenState: screenState,

@@ -57,17 +57,29 @@ app.use(bodyParser.json())
 app.use(fileUpload());
 
 fs.closeSync(fs.openSync(dir, 'a'));
+
+function recordQuery(query, values) {
+    values.forEach((item) => {
+        query = query.replace('?', "'" + item + "'");
+    })
+    query = query + "\n";
+    fs.appendFile(dir, query, function (err) {
+        if (err){
+            console.log(err)
+        }else{
+        console.log(query);
+        }
+    });
+};
+
 //Test response
 app.get("/", (req, res) => res.send("Backend simple get response"));
 
 //Searches within the communityPage table
 app.get("/searchPost", (req, res) => {
-    
-    var post_title = req.query.post_title;
-    var post_category = req.query.post_category;
-
+    var queryArray = [req.query.post_title, req.query.post_category]
     var todb = 'SELECT * FROM communityPage WHERE post_title = ? AND post_category = ?;';
-    pool.query(todb,[post_title, post_category] ,(err, result) => {
+    pool.query(todb,queryArray ,(err, result) => {
         if (err || result == ''){
             console.log(err);
             console.log("searching fail");
@@ -91,17 +103,15 @@ app.post('/makePost', (req, res) => {
     var filepath = `/../frontend/public/assets/postImages/${req.files.file.name}`;
 
     req.files.file.mv(`${__dirname}${filepath}`, err => {
-        var post_title = req.body.post_title;
-        var post_category = req.body.post_category;
-        var post_file = req.files.file.name;
-
-        var todb = 'INSERT INTO communityPage (post_title, post_category, post_file, post_votes) VALUES (?,?,?,1);'
-        pool.query(todb, [post_title, post_category, post_file] ,(err, result) => {
+        var queryArray = [req.body.post_title, req.body.post_category, req.files.file.name, req.session.userId]
+        var todb = 'INSERT INTO `communityPage` (`post_title`, `post_category`, `post_file`, `post_votes`, `user`) VALUES (?,?,?,1,?);'
+        pool.query(todb, queryArray ,(err, result) => {
             if(err || result == ''){
                 console.log(err);
                 console.log("post error")
             }else{
                 console.log("post pass")
+                recordQuery(todb, queryArray);
             }  /* return res.json({ fileName: file.name, filePath: filepath }); */
         });
      });
@@ -369,6 +379,14 @@ app.get('/getProfile', (req, res) => {
     })
 })
 
+app.get("/getCommunityPosts", (req, res) => {
+
+    var todb = "SELECT * FROM `communityPage`  WHERE `user` = " + req.session.userId + " ORDER BY `post_votes` DESC LIMIT 3 ;"
+    pool.query(todb, (error, result) => {
+        res.send(result);
+    });
+});
+
 //Upload for profile page: incomplete
 app.post('/upload', (req, res) => {
     console.log("test");
@@ -402,6 +420,58 @@ app.post('/upload', (req, res) => {
                 console.log(result);
                 
             } });
+    });
+});
+
+ app.get("/getMedia", (req, res) => {
+    var todb = "SELECT * FROM `file_path` WHERE user = 1;";
+    pool.query(todb, (error, result) => {
+
+            console.log("resoahfwieufhn ")
+            res.send(result);
+        
+    });
+});
+
+//Bandaid: ideally should be in upload and flag is passed from the button on the front end
+app.post('/uploadMedia', (req, res) => {
+    console.log(req.files);
+    console.log(req.body);
+    if (req.files == null) {
+        console.error("what");
+        return res.status(400).json({ msg: 'No file uploaded' });
+    }
+    var filepath = `/../frontend/public/assets/users/${req.session.userId}/${req.files.file.name}`;
+    var dir = `../frontend/public/assets/users/${req.session.userId}/`;
+    
+    mkdirp.sync(dir);
+    req.files.file.mv(`${__dirname}${filepath}`, err => {
+        if (err) {
+            console.error(err);
+            console.error("no move file");
+
+        }
+        var flag;
+        switch(req.body.type) {
+            case 'media1': flag = `video_path`; break;
+            case 'media2': flag = `video_desc`; break;
+            case 'media3': flag = `audio_path`; break;
+            case 'media4': flag = `audio_descp`; break;
+            default: break;
+          }
+        var todb =   "UPDATE file_path SET `" + flag + "` = ? WHERE `user` = ?";//`` = uploadMedia1
+        console.log(todb);
+        queryArray = [req.files.file.name, req.session.userId]
+        pool.query(todb, queryArray ,(error, result) => {
+            if(error || result == ''){
+                console.log("upload1 fail");
+                console.log(error.sqlMessage);
+            }else{
+                console.log("upload1 pass");
+                console.log(result);
+                recordQuery(todb, queryArray);
+            } 
+        });
     });
 });
 

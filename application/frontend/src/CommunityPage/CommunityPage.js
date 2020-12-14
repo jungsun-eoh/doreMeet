@@ -29,6 +29,16 @@ const CommunityPage = (stateObj) => {
       stateObj.setFileName(e.target.files[0].name);
     }
   };
+
+  const getHighlights = e =>{
+    axios.get('/highlights').then(response => {
+      if(response.data.length > 0){
+        response.data.forEach(highlight => {
+          console.log(highlight);
+        });
+      }
+    });
+  }
   //Handles the posting of projects to the community page
   const postHandler = async e => {
     e.preventDefault();
@@ -140,6 +150,7 @@ const CommunityPage = (stateObj) => {
             </div>
             <div class="PageContainer">
               <div class="SearchContainer">
+              <input style={{ position: "center", width: '10%'}} type='button' value="highlight data in console" onClick={getHighlights} /><br />
                 <form class="search" onSubmit={submitHandler}>
                   <input class="searchBar" onChange={e => stateObj.setSearchTitle(e.target.value)} type="text" placeholder="Search" />
                   <select class="searchButtons" onChange={e => { stateObj.setSearchCategory(e.target.value); }}>
