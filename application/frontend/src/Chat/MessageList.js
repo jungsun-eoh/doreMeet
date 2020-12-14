@@ -55,7 +55,7 @@ class MessageList extends React.Component{
                         })}
                     </ul>
                 </div>
-                <form className="sendMessageForm" onSubmit={}>
+                <form className="sendMessageForm">
                     <input type="text" placeholder="Type your message here!"/>
                     <input type="submit" value="Send" style={{width:"160px",right:"0px", backgroundColor:"#C0E9E8", cursor: "pointer" }}></input>
                 </form>
