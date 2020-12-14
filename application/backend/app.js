@@ -3,6 +3,8 @@
 **File: app.js
 **Desc: Contains all backend functionality (sending/retreiving data to the database)
 */
+
+const record = 1; //change to 0 if not making lasting changes (ex. change to 0 if testing)
 const { query, json, response } = require("express");
 const app = require("express")();
 const session = require("express-session");
@@ -111,7 +113,7 @@ app.post('/makePost', (req, res) => {
                 console.log("post error")
             }else{
                 console.log("post pass")
-                recordQuery(todb, queryArray);
+                if(record){recordQuery(todb, queryArray);}
             }  /* return res.json({ fileName: file.name, filePath: filepath }); */
         });
      });
@@ -300,7 +302,7 @@ app.post('/updateUser', (req, res) => {
     var todb =
         "UPDATE user SET " +
         "first_name = ?, last_name = ?, gender = ?, date_of_birth = ?, email = ?, phone_number = ?, art_category = ?,  skill_lvl = ?" +
-        "WHERE user_id = ?";
+        "WHERE user_id = ?;";
     pool.query(todb, [req.body.first_name, req.body.last_name, req.body.gender, req.body.date_of_birth, req.body.email, req.body.phone_number ,req.body.art_category , req.body.skill_lvl, req.session.userId], (error, result) => {
         if (error || result == '') {
             console.log(error);
@@ -343,7 +345,7 @@ app.post('/updatePreferences', (req, res) => {
     console.log(req.body);
     console.log(req.session.userId);
 
-    var todb = "UPDATE preferences SET min_age = ?, max_age = ?, gender = ?,  skill_lvl_pref = ?, meeting_pref = ? WHERE user = ?";
+    var todb = "UPDATE preferences SET min_age = ?, max_age = ?, gender = ?,  skill_lvl_pref = ?, meeting_pref = ? WHERE user = ?;";
     pool.query(todb, [req.body.min_age, req.body.max_age, req.body.gender,  req.body.skill_lvl_pref, req.body.meeting_pref , req.session.userId], (error, result) => {
         if (error) {
             console.log(error);
@@ -352,7 +354,7 @@ app.post('/updatePreferences', (req, res) => {
             var todb =
             "UPDATE user SET " +
             "art_category = ?,  skill_lvl = ?" +
-            "WHERE user_id = ?";
+            "WHERE user_id = ?;";
             pool.query(todb, [req.body.art_category, req.body.skill_lvl, req.session.userId],(error, result) => {
                 if (error || result == '') {
                     console.log("update user error");
@@ -408,7 +410,7 @@ app.post('/upload', (req, res) => {
             console.error(err);
           }
           var todb =   
-          "UPDATE file_path SET profile_pic = ?, picture_path = ? WHERE user = ?";
+          "UPDATE file_path SET profile_pic = ?, picture_path = ? WHERE user = ?;";
         pool.query(todb, [req.files.file.name, frontpath, req.session.userId],(error, result) => {
             if(error || result == ''){
             console.log("upload fail");
@@ -451,15 +453,8 @@ app.post('/uploadMedia', (req, res) => {
             console.error("no move file");
 
         }
-        var flag;
-        switch(req.body.type) {
-            case 'media1': flag = `video_path`; break;
-            case 'media2': flag = `video_desc`; break;
-            case 'media3': flag = `audio_path`; break;
-            case 'media4': flag = `audio_descp`; break;
-            default: break;
-          }
-        var todb =   "UPDATE file_path SET `" + flag + "` = ? WHERE `user` = ?";//`` = uploadMedia1
+        flag = req.body.type;
+        var todb =   "UPDATE file_path SET `" + flag + "` = ? WHERE `user` = ?;";//`` = uploadMedia1
         console.log(todb);
         queryArray = [req.files.file.name, req.session.userId]
         pool.query(todb, queryArray ,(error, result) => {
@@ -469,7 +464,7 @@ app.post('/uploadMedia', (req, res) => {
             }else{
                 console.log("upload1 pass");
                 console.log(result);
-                recordQuery(todb, queryArray);
+                if(record){recordQuery(todb, queryArray)};
             } 
         });
     });

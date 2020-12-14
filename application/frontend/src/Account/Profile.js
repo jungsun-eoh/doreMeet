@@ -72,10 +72,10 @@ const Profile = (stateObj) => {
             stateObj.setProfilePic(response.data[0].profile_pic);
             stateObj.setProfilePicPath(response.data[0].picture_path);
             stateObj.setBio(response.data[0].bio);
-            if(response.data[0].video_path){stateObj.setuploadmedia1(`${response.data[0].picture_path}${response.data[0].video_path}`)}  else{stateObj.setuploadmedia1('assets/placeholder-img.jpg')};
-            if(response.data[0].video_desc){stateObj.setuploadmedia2(`${response.data[0].picture_path}${response.data[0].video_desc}`)}  else{stateObj.setuploadmedia2('assets/placeholder-img.jpg')};;
-            if(response.data[0].audio_path){stateObj.setuploadmedia3(`${response.data[0].picture_path}${response.data[0].audio_path}`)}  else{stateObj.setuploadmedia3('assets/placeholder-img.jpg')};;
-            if(response.data[0].audio_descp){stateObj.setuploadmedia4(`${response.data[0].picture_path}${response.data[0].audio_descp}`)}else{stateObj.setuploadmedia4('assets/placeholder-img.jpg')};;
+            if(response.data[0].media1){stateObj.setuploadmedia1(`${response.data[0].picture_path}${response.data[0].media1}`)}  else{stateObj.setuploadmedia1('assets/placeholder-img.jpg')};
+            if(response.data[0].media2){stateObj.setuploadmedia2(`${response.data[0].picture_path}${response.data[0].media2}`)}  else{stateObj.setuploadmedia2('assets/placeholder-img.jpg')};;
+            if(response.data[0].media3){stateObj.setuploadmedia3(`${response.data[0].picture_path}${response.data[0].media3}`)}  else{stateObj.setuploadmedia3('assets/placeholder-img.jpg')};;
+            if(response.data[0].media4){stateObj.setuploadmedia4(`${response.data[0].picture_path}${response.data[0].media4}`)}else{stateObj.setuploadmedia4('assets/placeholder-img.jpg')};;
         }).catch(function (error) {
             console.log(error);
             console.log("{Profile} Found");

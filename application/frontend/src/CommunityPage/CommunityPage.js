@@ -126,6 +126,7 @@ const CommunityPage = (stateObj) => {
            _html += `<div class="RecentPostsFormat">
                    <img class="PostImage" src="assets/postImages/${post.post_file}" alt="Post Image">
                    <h2 class="PostTitle">${post.post_title}</h2>
+                   <h4 class="PostVotes">${post.post_votes}</h4>
                    <h3 class="PostCategory">${post.post_category}</h3>
                    <p class="PostDescription">${post.post_description}</p>   
                    </div>`;})

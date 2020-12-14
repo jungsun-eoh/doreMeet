@@ -178,10 +178,10 @@ CREATE TABLE IF NOT EXISTS `mydb`.`file_Path` (
   `profile_pic` VARCHAR(128) NULL,
   `picture_path` VARCHAR(128) NULL,
   `picture_desc` VARCHAR(255) NULL,
-  `video_path` VARCHAR(128) NULL,
-  `video_desc` VARCHAR(255) NULL,
-  `audio_path` VARCHAR(128) NULL,
-  `audio_descp` VARCHAR(255) NULL,
+  `media1` VARCHAR(128) NULL,
+  `media2` VARCHAR(255) NULL,
+  `media3` VARCHAR(128) NULL,
+  `media4` VARCHAR(255) NULL,
   `social_profile_1` VARCHAR(128) NULL,
   `social_profile_2` VARCHAR(128) NULL,
   `social_profile_3` VARCHAR(128) NULL,
@@ -321,7 +321,7 @@ INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`ema
 INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('David',		'Goliath',	'1990-01-01',	'M',	'david.gol@hotmail.com',	'Art',		'B',3432453346);
 INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Mario',		'Flores',	'1991-01-01',	'F',	'mario.g.flores@gmail.com',	'Music',	'E',5678945675);
 INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Lucy',		'Bell',		'1996-01-01',	'F',	'lucy_bell12@gmail.com',	'Music',	'I',5656500546);
-INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Brad',		'Lint',		'2001-01-01',	'M',	'brand.lint@mail.com',	'	Dance',		'B',5468980990);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Brad',		'Lint',		'2001-01-01',	'M',	'brand.lint@mail.com',		'Dance',	'B',5468980990);
 INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Felix',		'Johnson',	'2002-01-01',	'M',	'felix_jnson@yahoo.com',	'Film',		'E',4385406954);
 INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Tom',		'Ford',		'1991-01-01',	'M',	'tom_ford415@gmail.com',	'Photo',	'B',5465787687);
 INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Frankie',	'Dane',		'1996-01-01',	'F',	'frankie.dane@mail.com',	'Art',		'I',6576588885);
@@ -408,8 +408,35 @@ INSERT INTO `mydb`.`preferences`(`user`) VALUES(23);
 INSERT INTO `mydb`.`communityPage`(`post_title`,`post_category`,`post_description`,`post_file`,`post_votes`,`user`) VALUES ('Test',   'Music', 'I am first',    'b.png',    3, 1);
 INSERT INTO communityPage (`post_title`, `post_category`, `post_file`, `post_votes`, `user`) VALUES ('Egg Wobble','Art','egg.gif',25,'1');
 INSERT INTO communityPage (`post_title`, `post_category`, `post_file`, `post_votes`, `user`) VALUES ('Avocado Blob','Art','477709683319373824.gif',22,'1');
-UPDATE file_path SET `video_path` = 'Untitled.png' WHERE `user` = '1';
-UPDATE file_path SET `video_desc` = 'test.jpg' WHERE `user` = '1';
+
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('knife painting','Painting of a sunflower field using knife painting skills','Art',1,9,  'knife.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Graffiti wall','collab to design to a grafitti wall in an art studio','Art',1,19,  'wall_collab.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Creative Cocktail','Collab to design a collection of limited edition alcohol bottles','Art',1,22,  'Warsteiner-art-collection-.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Sailing waters','Water painting collab, made in real time','Art',1,22,  'paint_water.jpeg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Abstract Art','Passion project collab on a modern, abstract art piece','Art',1,9,  'art_paint.png');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('School film project','Work with professional for a small film project','Film',1,15,  'unnamed.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Animation','Animated documentary collaboration','Film',1,14,  'blog_filmcontest_2019.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Tribeca Film Festival','Indie film entry for Tribeca Film festival','Film',1,26,  'festival.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Human Rights Film Network','45 mins documentary of Human Rights Violations in 3rd world countries','Film',1,21,  'HRFN logo naam.png');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Shot on Phone','Passion project - making films using smartphones','Film',1,21,  '20170520_Seasons_041-copy.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Photo Gallery','Collaboration to take photos all over NYC for a limited time art show','Photo',1,12,  'Artspace-2019-summershows-043-e1565203966301.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Photo for Fun','Collab to take photos with cameras from over the years','Photo',1,12,  'iStock_000025803714Small.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Instagram collab','Collaboration to capture portraits for instagram portfolio','Photo',1,27,  'collaboration+with+photographer.jpeg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Nikon Photo Contest','Black and white photo collab for the contest','Photo',1,27,  'og.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Landmark Project','Collaboration to capture all of significant landmarks in SF','Photo',1,20,  'unnamed (1).jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Hip hop Collab','Partnered to make a hip hop dance routine for music video','Dance',1,11,  'download.jpeg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Ballet','Collaborated to choreograph a new ballet routine','Dance',1,10,  'dance_collab.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Tap and Jazz','Choreographed a tap and jazz dance routine for Dance competition','Dance',1,18,  'dancers.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Dance for Good','Partnered to teach local kids dance as a means of expressing themselves','Dance',1,10,  'images.jpeg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Contemporary Collab','Partnered for a contemporary dance recital in Boston','Dance',1,25,  'img.png');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('My Album','A music album for everyone','Music',1,8,  'band cover.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Jazz','classic jazz collaboration with budding musicians','Music',1,8,  'music-collaboration.jpeg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Pop Reimagined','Famous pop songs mixed with indie tunes','Music',1,13,  'music.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Revive Instrumental','A collaboration of sounds from everyday life','Music',1,23,  'Album-Covers.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('R&B Cover','A collection of covers for famous 90s R&B songs','Music',1,24,  'app-icon.png');
+
+UPDATE file_path SET `media1` = 'Untitled.png' WHERE `user` = '1';
+UPDATE file_path SET `media2` = 'test.jpg' WHERE `user` = '1';
 
 
 
