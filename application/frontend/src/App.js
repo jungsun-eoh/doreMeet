@@ -70,6 +70,7 @@ function App() {
   const [searchTitle, setSearchTitle] = React.useState('');
   const [searchCategory, setSearchCategory] = React.useState('Music');
   const [postName, setPostName] = React.useState('');
+  const [postDescription, setPostDescription] = React.useState('');
   const [postCategory, setPostCategory] = React.useState('Music');
   const [postFile, setPostFile] = React.useState('');
   const [screenState, setScreenState] = React.useState('Community');
@@ -203,6 +204,9 @@ function App() {
     setPostName: setPostName,
     postCategory: postCategory,
     setPostCategory: setPostCategory,
+    postDescription: postDescription,
+    setPostDescription: setPostDescription,
+
     resultTitle: resultTitle,
     setResultTitle: setResultTitle,
     resultCategory: resultCategory,

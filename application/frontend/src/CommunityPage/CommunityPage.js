@@ -47,6 +47,8 @@ const CommunityPage = (stateObj) => {
     formData.append('file', stateObj.file);
     formData.append('post_title', stateObj.postName);
     formData.append('post_category', stateObj.postCategory);
+    formData.append('post_description', stateObj.postDescription);
+
     closePost();
     await axios.post('/makePost', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
   };
@@ -65,7 +67,7 @@ const CommunityPage = (stateObj) => {
                   <h2 class="PostTitle">${response.data[0].post_title}</h2>
                   <h3 class="PostCategory">${response.data[0].post_category}</h3>
                   <h4 class="PostVotes">${response.data[0].post_votes}</h4>
-                  <p class="PostDescription">Post Description</p>
+                  <p class="PostDescription">${response.data[0].post_description}</p>
                   <button id="PlusButton" value="${response.data[0].comm_pg_id}"  type="button">+</button>
                   <button id="MinusButton" value="${response.data[0].comm_pg_id}" type="button">-</button>
                   </div>`;
@@ -114,15 +116,18 @@ const CommunityPage = (stateObj) => {
     //Upon entering the page the most recent 5 posts are displayed
      useEffect(() => {
        axios.get('/recent5').then(response => {
-        //  console.log(response.data[0]);
+        console.log(response.data);
+
          let _html = "";
          _html += `<h1>Recent Posts</h1>`;
-         response.data.forEach(post => {_html += `<div class="RecentPostsFormat">
+         //button not passing the right id
+         response.data.forEach(post => {
+           if(post.post_description == null){post.post_description = ""};
+           _html += `<div class="RecentPostsFormat">
                    <img class="PostImage" src="assets/postImages/${post.post_file}" alt="Post Image">
                    <h2 class="PostTitle">${post.post_title}</h2>
                    <h3 class="PostCategory">${post.post_category}</h3>
-                   <p class="PostDescription">Post DescriptionPost DescriptionPost DescriptionPost DescriptionPost DescriptionPost DescriptionPost DescriptionPost 
-                   DescriptionPost Description</p>   
+                   <p class="PostDescription">${post.post_description}</p>   
                    </div>`;})
                   //  <button id="PlusButton" type="button">+</button>
                   //  <button id="MinusButton" type="button">-</button>      
@@ -176,6 +181,7 @@ const CommunityPage = (stateObj) => {
                 <form class="post-container" onSubmit={postHandler}>
                   <h2> Post your creative collaborations! </h2>
                   <input type="text" onChange={e => stateObj.setPostName(e.target.value)} placeholder="Name" required />
+                  <input class="postDescription" onChange={e => stateObj.setPostDescription(e.target.value)} type="text" placeholder="Description (optional)" />
                   <div>
                     <select onChange={e => { stateObj.setPostCategory(e.target.value); }}>
                      <option >Music</option>

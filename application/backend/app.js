@@ -103,8 +103,8 @@ app.post('/makePost', (req, res) => {
     var filepath = `/../frontend/public/assets/postImages/${req.files.file.name}`;
 
     req.files.file.mv(`${__dirname}${filepath}`, err => {
-        var queryArray = [req.body.post_title, req.body.post_category, req.files.file.name, req.session.userId]
-        var todb = 'INSERT INTO `communityPage` (`post_title`, `post_category`, `post_file`, `post_votes`, `user`) VALUES (?,?,?,1,?);'
+        var queryArray = [req.body.post_title, req.body.post_category, req.body.post_description, req.files.file.name, 1, req.session.userId]
+        var todb = 'INSERT INTO `communityPage` (`post_title`, `post_category`, `post_description`, `post_file`, `post_votes`, `user`) VALUES (?,?,?,?,1,?);'
         pool.query(todb, queryArray ,(err, result) => {
             if(err || result == ''){
                 console.log(err);

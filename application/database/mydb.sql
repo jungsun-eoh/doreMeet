@@ -268,7 +268,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`communityPage` (
   `first_name` VARCHAR(64)  NULL,
   `last_name` VARCHAR(64) NULL,
   `post_title` VARCHAR(64) NOT NULL,
-  `post_category` VARCHAR(10) NOT NULL,
+  `post_category` VARCHAR(15) NOT NULL,
   `post_description` VARCHAR(256) NULL,
   `post_file` VARCHAR(128) NULL,
   `post_votes` INT NULL,
@@ -408,6 +408,8 @@ INSERT INTO `mydb`.`preferences`(`user`) VALUES(23);
 INSERT INTO `mydb`.`communityPage`(`post_title`,`post_category`,`post_description`,`post_file`,`post_votes`,`user`) VALUES ('Test',   'Music', 'I am first',    'b.png',    3, 1);
 INSERT INTO communityPage (`post_title`, `post_category`, `post_file`, `post_votes`, `user`) VALUES ('Egg Wobble','Art','egg.gif',25,'1');
 INSERT INTO communityPage (`post_title`, `post_category`, `post_file`, `post_votes`, `user`) VALUES ('Avocado Blob','Art','477709683319373824.gif',22,'1');
+UPDATE file_path SET `video_path` = 'Untitled.png' WHERE `user` = '1';
+UPDATE file_path SET `video_desc` = 'test.jpg' WHERE `user` = '1';
 
 
 

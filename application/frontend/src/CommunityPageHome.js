@@ -62,28 +62,28 @@ const CommunityPageHome = (stateObj) => {
     console.log("vote- button test");
   };
     //Upon entering the page the most recent 5 posts are displayed
-     useEffect(() => {
-       axios.get('/recent5').then(response => {
-        //  console.log(response.data[0]);
-         let _html = "";
-         _html += `<h1>Recent Posts</h1>`;
-         response.data.forEach(post => {_html += `<div class="RecentPostsFormat">
-                   <img class="PostImage" src="assets/postImages/${post.post_file}" alt="Post Image">
-                   <h2 class="PostTitle">${post.post_title}</h2>
-                   <h3 class="PostCategory">${post.post_category}</h3>
-                   <p class="PostDescription">Post DescriptionPost DescriptionPost DescriptionPost DescriptionPost DescriptionPost DescriptionPost DescriptionPost 
-                   DescriptionPost Description</p>   
-                   </div>`;})
-                  //  <button id="PlusButton" type="button">+</button>
-                  //  <button id="MinusButton" type="button">-</button>      
-         document.getElementById("recent-posts").innerHTML = _html;
-         document.getElementById("search-post").innerHTML = '';
-         document.getElementById("PlusButton").addEventListener("click", voteplus);
-         document.getElementById("MinusButton").addEventListener("click", voteminus);
-       }).catch(function (error) {
-        //  console.log('fail')
-       });
-     });
+    //  useEffect(() => {
+    //    axios.get('/recent5').then(response => {
+    //     //  console.log(response.data[0]);
+    //      let _html = "";
+    //      _html += `<h1>Recent Posts</h1>`;
+    //      response.data.forEach(post => {_html += `<div class="RecentPostsFormat">
+    //                <img class="PostImage" src="assets/postImages/${post.post_file}" alt="Post Image">
+    //                <h2 class="PostTitle">${post.post_title}</h2>
+    //                <h3 class="PostCategory">${post.post_category}</h3>
+    //                <p class="PostDescription">Post DescriptionPost DescriptionPost DescriptionPost DescriptionPost DescriptionPost DescriptionPost DescriptionPost 
+    //                DescriptionPost Description</p>   
+    //                </div>`;})
+    //               //  <button id="PlusButton" type="button">+</button>
+    //               //  <button id="MinusButton" type="button">-</button>      
+    //      document.getElementById("recent-posts").innerHTML = _html;
+    //      document.getElementById("search-post").innerHTML = '';
+    //      document.getElementById("PlusButton").addEventListener("click", voteplus);
+    //      document.getElementById("MinusButton").addEventListener("click", voteminus);
+    //    }).catch(function (error) {
+    //     //  console.log('fail')
+    //    });
+    //  });
 
   return (
     <>
