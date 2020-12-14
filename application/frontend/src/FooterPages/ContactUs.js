@@ -45,7 +45,7 @@ class ContactUs extends Component {
             <br /><br />
             <p>Thank you for being a valued customer!</p>
            </div>
-           <form onSubmit={this.handleSubmit}>
+           <form onSubmit={this.handleSubmit} style={{maxWidth: '100%'}}>
                <div className="containerContact">
            <div className="input">
                     <label htmlFor="name" className="sub-heading"> <b> Name </b></label>

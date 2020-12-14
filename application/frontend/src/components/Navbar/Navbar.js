@@ -33,14 +33,13 @@ class Navbar extends Component {
 
     render() {
         return(
-            <BrowserRouter>
             <nav className='NavbarItems'>
                 <a href={'/'}>
-                <h1 className='navbar-logo'><img src="DoReMeetLogo.png" alt="Logo" height="30px"/> DoReMeet</h1>
+                <h1 className='navbar-logo'><img src="DoReMeetLogo.png" alt="Logo" height="30px"/> DoReMeet</h1></a>
                 <div className='menu-icon' onClick={this.handleClick}>
                     <i className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
                 </div>
-                </a>
+                
                 <ul className={this.state.clicked ? 'nav-menu active' : 'nav-menu'}>
                     {MenuItems.map((item, index) => {
                         return(
@@ -52,11 +51,9 @@ class Navbar extends Component {
                         )
                     })}
                 </ul>
-                <a href='/Settings'><i class="fas fa-cog fa-lg" style={{paddingRight:4}}></i></a>
-                &nbsp; &nbsp;                
-                <Button onClick={e=>this.logout(e)}>Log Out</Button>                
-            </nav>
-            </BrowserRouter>            
+                <a href='/Settings'><i class="fas fa-cog fa-md" style={{paddingRight:10}}></i></a>      
+                <div style={{marginRight:'10px'}}><Button onClick={e=>this.logout(e)}>Log Out</Button></div>             
+            </nav>         
         )
     }
 }

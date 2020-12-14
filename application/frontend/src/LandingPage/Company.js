@@ -20,7 +20,7 @@ class Company extends Component {
               <h1> COMPANY </h1>
             </div>
             <div className="company-container">
-                <img src="/assets/creativity_company.jpg" style={{ width: 500, height: 450, marginLeft: 50, marginRight: 50,paddingTop: 50, paddingBottom: 50,float: 'left'}}/>
+                <img src="/assets/creativity_company.jpg" className='company-img'/>
                 <h1 style={{paddingTop: 50, paddingBottom: 20, textAlign:'center'}}><i>We aim to let creativity flow without inhibitions</i></h1>
                 <p style={{ fontSize: 20, textAlign:'left', marginLeft: 50, marginRight: 50, paddingBottom: 50}}>
                     Our company's mission is to enable creativity by connecting people with other artists in their vicinty or around the globe.
