@@ -180,6 +180,7 @@ const Profile = (stateObj) => {
         const formData = new FormData();
         formData.append('file', stateObj.file);
         formData.append('type', 'media1');
+        closeMedia1();
         await axios.post('/uploadMedia', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
             console.log(response.data[0]);
             stateObj.setuploadmedia1(`${response.data[0].picture_path} + ${response.data[0].post_file}`);
@@ -203,6 +204,7 @@ const Profile = (stateObj) => {
         const formData = new FormData();
         formData.append('file', stateObj.file);
         formData.append('type', 'media2');
+        closeMedia2();
         await axios.post('/uploadMedia', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
             console.log(response.data[0]);
             stateObj.setuploadmedia2(`${response.data[0].picture_path} + ${response.data[0].post_file}`);
@@ -226,6 +228,7 @@ const Profile = (stateObj) => {
         const formData = new FormData();
         formData.append('file', stateObj.file);
         formData.append('type', 'media3');
+        closeMedia3();
         await axios.post('/uploadMedia', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
             console.log(response.data[0]);
             stateObj.setuploadmedia3(`${response.data[0].picture_path} + ${response.data[0].post_file}`);
@@ -249,6 +252,7 @@ const Profile = (stateObj) => {
         const formData = new FormData();
         formData.append('file', stateObj.file);
         formData.append('type', 'media4');
+        closeMedia4();
         await axios.post('/uploadMedia', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
             console.log(response.data[0]);
             stateObj.setuploadmedia4(`${response.data[0].picture_path} + ${response.data[0].post_file}`);
@@ -266,7 +270,9 @@ const Profile = (stateObj) => {
     //Add Spotify Link
     const setSpotifyLink = async e => {
         e.preventDefault();
-        console.log(stateObj.inputLink);
+        console.log(document.getElementById("spotifyLink").value);
+        //stateObj.spotifyLink = document.getElementById("spotifyLink").value after axios call if successful and for the rest of social media links and bio
+        //I will do this after backend set up - Vincent
         closeSpotifyLinkForm();
     }
 
@@ -281,7 +287,7 @@ const Profile = (stateObj) => {
     //Add Twitter Link
     const setTwitterLink = async e => {
         e.preventDefault();
-        console.log(stateObj.inputLink);
+        console.log(document.getElementById("twitterLink").value);
         closeTwitterLinkForm();
     }
 
@@ -296,7 +302,7 @@ const Profile = (stateObj) => {
     //Add Youtube Link
     const setYoutubeLink = async e => {
         e.preventDefault();
-        console.log(stateObj.inputLink);
+        console.log(document.getElementById("youtubeLink").value);
         closeYoutubeLinkForm();
     }
 
@@ -311,7 +317,8 @@ const Profile = (stateObj) => {
     //Add Instagram Link
     const setInstagramLink = async e => {
         e.preventDefault();
-        console.log(stateObj.inputLink);
+        console.log(document.getElementById("instagramLink").value);
+
         closeInstagramLinkForm();
     }
 
@@ -323,6 +330,23 @@ const Profile = (stateObj) => {
         document.getElementById("instagramLinkForm").style.display = "none";
     }
 
+    const setBio = async e => {
+        e.preventDefault();
+        console.log(document.getElementById("Bio").value);
+        closeBioForm();
+    }
+
+    const openBioForm = () => {
+        if (stateObj.bio !== 'Create a bio!') {
+            document.getElementById("Bio").value = stateObj.bio;
+        }
+        document.getElementById("bioForm").style.display = "block";
+    }
+
+    const closeBioForm = () => {
+        document.getElementById("bioForm").style.display = "none";
+    }
+
     return (
         <Router>
             <Navbar />
@@ -330,16 +354,17 @@ const Profile = (stateObj) => {
                 <div className="description">
                     <h1>Your Profile!</h1>
                 </div>
-                <div style={{right: "65%"}} class="post-popup" id="postform">
+                <div style={{top:"35%", left:"35%"}} class="post-popup" id="postform">
                     <form class="post-container" onSubmit={upload}>
                                 <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={onChange} required/>
                                 <label className='custom-file-label' htmlFor='customFile'></label>
+                                <br/>
                                 <input type='submit' value='Upload' /><br/>
                                 <button onClick={closePost}>Close</button>
                     </form>
                 </div>
                 
-                <div style={{right: "65%"}} class="post-popup" id="media1">
+                <div style={{top:"35%", left:"35%"}} class="post-popup" id="media1">
                         <form class="post-container" onSubmit={uploadMedia1}>
                             <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={onChange} required/>
                             <label className='custom-file-label' htmlFor='customFile'></label>
@@ -348,7 +373,7 @@ const Profile = (stateObj) => {
                         </form>
                     </div>
 
-                    <div style={{right: "47%"}} class="post-popup" id="media2">
+                    <div style={{top:"35%", left:"35%"}} class="post-popup" id="media2">
                         <form class="post-container" onSubmit={uploadMedia2}>
                             <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={onChange} required/>
                             <label className='custom-file-label' htmlFor='customFile'></label>
@@ -357,7 +382,7 @@ const Profile = (stateObj) => {
                         </form>
                     </div>
 
-                    <div style={{right: "30%"}} class="post-popup" id="media3">
+                    <div style={{top:"35%", left:"35%"}} class="post-popup" id="media3">
                         <form class="post-container" onSubmit={uploadMedia3}>
                             <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={onChange} required/>
                             <label className='custom-file-label' htmlFor='customFile'></label>
@@ -366,7 +391,7 @@ const Profile = (stateObj) => {
                         </form>
                     </div>
 
-                    <div style={{right: "15%"}} class="post-popup" id="media4">
+                    <div style={{top:"35%", left:"35%"}} class="post-popup" id="media4">
                         <form class="post-container" onSubmit={uploadMedia4}>
                             <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={onChange} required/>
                             <label className='custom-file-label' htmlFor='customFile'></label>
@@ -375,7 +400,7 @@ const Profile = (stateObj) => {
                         </form>
                     </div>
 
-                    <div style={{right: "35%"}} className="post-popup" id="spotifyLinkForm">
+                    <div style={{top:"35%", left:"35%"}} className="post-popup" id="spotifyLinkForm">
                         <form className="post-container" onSubmit={setSpotifyLink}>
                             <label htmlFor='spotifyLink'>Spotify Link:</label>
                             <input type='text' id='spotifyLink' placeholder='Input your Spotify link here' onChange={e => { stateObj.setInputLink(e.target.value); }} required/>
@@ -384,7 +409,7 @@ const Profile = (stateObj) => {
                         </form>
                     </div>
 
-                    <div style={{right: "27%"}} class="post-popup" id="twitterLinkForm">
+                    <div style={{top:"35%", left:"35%"}} class="post-popup" id="twitterLinkForm">
                         <form class="post-container" onSubmit={setTwitterLink}>
                             <label for='twitterLink'>Twitter Link:</label>
                             <input type='text' id='twitterLink' placeholder='Input your Twitter link here' onChange={e => { stateObj.setInputLink(e.target.value); }} required/>
@@ -393,7 +418,7 @@ const Profile = (stateObj) => {
                         </form>
                     </div>
 
-                    <div style={{right: "15%"}} className="post-popup" id="youtubeLinkForm">
+                    <div style={{top:"35%", left:"35%"}} className="post-popup" id="youtubeLinkForm">
                         <form className="post-container" onSubmit={setYoutubeLink}>
                             <label htmlFor='youtubeLink'>Youtube Link:</label>
                             <input type='text' id='youtubeLink' placeholder='Input your Youtube link here' onChange={e => { stateObj.setInputLink(e.target.value); }} required/>
@@ -402,12 +427,23 @@ const Profile = (stateObj) => {
                         </form>
                     </div>
 
-                    <div style={{right: "5%"}} className="post-popup" id="instagramLinkForm">
+                    <div style={{top:"35%", left:"35%"}} className="post-popup" id="instagramLinkForm">
                         <form className="post-container" onSubmit={setInstagramLink}>
                             <label htmlFor='instagramLink'>Instagram Link:</label>
                             <input type='text' id='instagramLink' placeholder='Input your Instagram link here' onChange={e => { stateObj.setInputLink(e.target.value); }} required/>
                             <input type='submit' value='Submit'/><br/>
                             <button onClick={closeInstagramLinkForm}>Close</button>
+                        </form>
+                    </div>
+
+                    <div style={{top:"35%", left:"35%"}} className="post-popup" id="bioForm">
+                        <form className="post-container" onSubmit={setBio}>
+                            <label htmlFor='Bio'>Your Bio:</label>
+                            <br/>
+                            <textarea id="Bio" maxLength={240} placeholder="Type your bio here!" style={{height: "200px", width:"500px", fontSize:"20px", resize: "none"}} required/>
+                            <br/>
+                            <input type='submit' value='Submit'/><br/>
+                            <button onClick={closeBioForm}>Close</button>
                         </form>
                     </div>
                 
@@ -425,10 +461,14 @@ const Profile = (stateObj) => {
                         <p>Gender: {stateObj.gender}</p>
                         <p style={{ color: "#656c75" }}>Location: Placeholder Location (Hidden)</p>
                         <p>Art Category: {stateObj.artCategory}</p><br />
-                        <img onClick={openSpotifyLinkForm} style={{ height: "100px", position: 'relative' }} src="/assets/spotifylogo.png"></img>
-                        <img onClick={openTwitterLinkForm} style={{ height: "100px", marginLeft: "70px", position: 'relative' }} src="/assets/twitterlogo.png"></img>
-                        <img onClick={openYoutubeLinkForm} style={{ height: "100px", marginLeft: "70px", position: 'relative' }} src="/assets/youtubelogo.png"></img>
-                        <img onClick={openInstagramLinkForm} style={{ height: "100px", marginLeft: "70px", position: 'relative' }} src="/assets/instagramlogo.png"></img>
+                        <img style={{height: "100px", position: 'relative', cursor: "pointer"}} src="/assets/spotifylogo.png" alt="Spotify Logo"/>
+                        <i className="fas fa-edit" style={{cursor: "pointer"}} onClick={openSpotifyLinkForm}/>
+                        <img style={{height: "100px", marginLeft: "70px", position: 'relative', cursor: "pointer"}} src="/assets/twitterlogo.png" alt="Twitter Logo"/>
+                        <i className="fas fa-edit" style={{cursor: "pointer"}} onClick={openTwitterLinkForm}/>
+                        <img style={{height: "100px", marginLeft: "70px", position: 'relative', cursor: "pointer"}} src="/assets/youtubelogo.png" alt="Youtube Logo"/>
+                        <i className="fas fa-edit" style={{cursor: "pointer"}} onClick={openYoutubeLinkForm}/>
+                        <img style={{height: "100px", marginLeft: "70px", position: 'relative', cursor: "pointer"}} src="/assets/instagramlogo.png" alt="Instagram Logo"/>
+                        <i className="fas fa-edit" style={{cursor: "pointer"}} onClick={openInstagramLinkForm}/>
                     </div>
                     <br /><br />
 
@@ -442,8 +482,8 @@ const Profile = (stateObj) => {
                         <br /><br />
 
 
-                        <h3><u>Bio (Max characters 240):</u></h3>
-                        <textarea maxLength={240} style={{outline: "none"}} className="textAreaProfile" placeholder={stateObj.bio}></textarea>
+                        <h3><u>Bio:</u><i className="fas fa-edit" style={{cursor: "pointer", marginLeft:"10px"}} onClick={openBioForm}/></h3>
+                        <p>{stateObj.bio}</p>
                         <br /><br />
                     </div>
 

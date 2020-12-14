@@ -155,7 +155,7 @@ const CommunityPage = (stateObj) => {
             </div>
             <div class="PageContainer">
               <div class="SearchContainer">
-              <input style={{ position: "center", width: '10%'}} type='button' value="highlight data in console" onClick={getHighlights} /><br />
+                {/*<input style={{ position: "center", width: '10%'}} type='button' value="highlight data in console" onClick={getHighlights} /><br />*/}
                 <form class="search" onSubmit={submitHandler}>
                   <input class="searchBar" onChange={e => stateObj.setSearchTitle(e.target.value)} type="text" placeholder="Search" />
                   <select class="searchButtons" onChange={e => { stateObj.setSearchCategory(e.target.value); }}>
@@ -164,12 +164,7 @@ const CommunityPage = (stateObj) => {
                     <option value={"Art"}>Art</option>
                     <option value={"Cinema"}>Cinema</option>
                     <option value={"Photography "}>Photography</option>
-                    {/* <option value={"M"}>Music</option>
-                    <option value={"D"}>Dance</option>
-                    <option value={"A"}>Art</option>
-                    <option value={"C"}>Cinema</option>
-                    <option value={"P"}>Photography</option> */}
-                 </select>
+                  </select>
                   <input class="searchButtons" type='submit' />
                 </form>
               </div>
@@ -181,7 +176,7 @@ const CommunityPage = (stateObj) => {
                 <form class="post-container" onSubmit={postHandler}>
                   <h2> Post your creative collaborations! </h2>
                   <input type="text" onChange={e => stateObj.setPostName(e.target.value)} placeholder="Name" required />
-                  <input class="postDescription" onChange={e => stateObj.setPostDescription(e.target.value)} type="text" placeholder="Description (optional)" />
+                  <textarea class="postDescription" maxLength={240} onChange={e => stateObj.setPostDescription(e.target.value)} placeholder="Description (optional)" />
                   <div>
                     <select onChange={e => { stateObj.setPostCategory(e.target.value); }}>
                      <option >Music</option>
