@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
-import './App.css';
-import './CommunityPage/CommunityPage.css';
+import '../App.css';
+import './CommunityPage.css';
 import axios from 'axios';
-import Navbar from './components/Navbar/NavbarHome';
-import Highlights from './components/Highlights/Highlights';
-import Footer from './components/Footer/Footer';
+import Navbar from '../components/Navbar/NavbarHome';
+import Highlights from '../components/Highlights/Highlights';
+import Footer from '../components/Footer/Footer';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 const CommunityPageHome = (stateObj) => {
