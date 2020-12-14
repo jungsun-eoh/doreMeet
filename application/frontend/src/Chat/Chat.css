@@ -43,7 +43,7 @@
 }
 
 .messageContainer{
-    height:90vh;
+    height:85vh;
     width:100%;
     border-top: 1px  rgb(155, 155, 155) solid;
 }
@@ -91,7 +91,7 @@
     background: #999999;
     display: flex;
     box-sizing: border-box;
-    height: 60px;
+    height: 15vh;
 }
 
 .sendMessageForm input {
@@ -100,6 +100,7 @@
     border: none;
     margin: 0;
     background: #d3d3d3;
+    font-size: 30px;
     font-weight: 200;
 }
 

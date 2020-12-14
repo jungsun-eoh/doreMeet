@@ -4,18 +4,23 @@
 **Desc: Contains all backend functionality (sending/retreiving data to the database)
 */
 const { query, json, response } = require("express");
-const express = require("express");
+const app = require("express")();
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const mysqlStore = require("express-mysql-session")(session);
-const app = express();
+const http = require('http').createServer(app);
 const port = 5000;
 const mysql = require('mysql');
 const fileUpload = require('express-fileupload');
 const mkdirp = require('mkdirp');
 const fs = require('fs');
 const dir = `${__dirname}/../database/transaction.sql`;
+const io = require('socket.io')(http);
 //const db = require('./conf/database');
+
+io.on('connection', (socket) => {
+    console.log("A user has connected");
+});
 
 //connection credentials to the database
 const pool = mysql.createPool({
@@ -566,5 +571,5 @@ app.post("/getSuccessfulMatches", (req, res) => {
 // })
 // }
 // loadData();
-app.listen(port, () => console.log('app listening on port ' + port));  
+http.listen(port, () => console.log('app listening on port ' + port));  
 

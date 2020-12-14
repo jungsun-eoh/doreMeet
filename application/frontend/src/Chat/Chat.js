@@ -13,8 +13,6 @@ import Navbar from '../components/Navbar/Navbar';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Footer from "../components/Footer/Footer";
 import SideBar from "./SideBar";
-import MessageList from "./MessageList";
-import SendMessageForm from "./SendMessageForm";
 
 const DUMMY_CONTACTS = [
   {
@@ -46,6 +44,9 @@ const DUMMY_MESSAGES = [
   },
 ]
 
+//TODO: set up axios call to get the contact list when this page loads
+// We don't need the messages, we can call for that in the sidebar when a match is selected
+
 const Chat = (stateObj) => {
 
   const [screenState, setScreenState] = React.useState('tutorial')
@@ -63,7 +64,7 @@ const Chat = (stateObj) => {
         <div className="App">
           <Navbar/>
         </div>
-        <SideBar messages={state.messages} contacts={state.contacts} setScreen={state.setScreenState} screen={state.screenState}/>
+        <SideBar messages={state.messages} contacts={state.contacts} user={stateObj.userName}/>
         <Footer/>
       </Router>
     </>

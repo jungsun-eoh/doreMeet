@@ -2,6 +2,8 @@ import React from 'react';
 import '../App.css';
 import './Chat.css';
 import axios from 'axios';
+import io from "socket.io-client";
+
 
 const getMatches = async () => {
     await axios.post('/getConnected').then(response => {
@@ -36,21 +38,27 @@ class MessageList extends React.Component{
             )
         }
         return(
-            <div style={{display:"block"}} className="messageContainer">
-                <ul className="messageList">
-                    {this.props.messages.map(messages => {
-                        return(
-                            <li className="message" key={messages.id}>
-                                <div>
-                                    <p>{messages.userName}</p>
-                                </div>
-                                <div>
-                                    {messages.text}
-                                </div>
-                            </li>
-                        )
-                    })}
-                </ul>
+            <div style={{height: "100vh"}}>
+                <div style={{display:"block"}} className="messageContainer">
+                    <ul className="messageList">
+                        {this.props.messages.map(messages => {
+                            return(
+                                <li className="message" key={messages.id}>
+                                    <div>
+                                        <p>{messages.userName}</p>
+                                    </div>
+                                    <div>
+                                        {messages.text}
+                                    </div>
+                                </li>
+                            )
+                        })}
+                    </ul>
+                </div>
+                <form className="sendMessageForm" onSubmit={}>
+                    <input type="text" placeholder="Type your message here!"/>
+                    <input type="submit" value="Send" style={{width:"160px",right:"0px", backgroundColor:"#C0E9E8", cursor: "pointer" }}></input>
+                </form>
             </div>
         )
     }
