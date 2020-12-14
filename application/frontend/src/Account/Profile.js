@@ -255,9 +255,6 @@ const Profile = (stateObj) => {
         });
     }
 
-    const changeMedia4 = (e) => {
-    }
-
     const openMedia4 = () => {
         document.getElementById("media4").style.display = "block";
     }
@@ -269,6 +266,8 @@ const Profile = (stateObj) => {
     //Add Spotify Link
     const setSpotifyLink = async e => {
         e.preventDefault();
+        console.log(stateObj.inputLink);
+        closeSpotifyLinkForm();
     }
 
     const openSpotifyLinkForm = () => {
@@ -282,6 +281,8 @@ const Profile = (stateObj) => {
     //Add Twitter Link
     const setTwitterLink = async e => {
         e.preventDefault();
+        console.log(stateObj.inputLink);
+        closeTwitterLinkForm();
     }
 
     const openTwitterLinkForm = () => {
@@ -295,6 +296,8 @@ const Profile = (stateObj) => {
     //Add Youtube Link
     const setYoutubeLink = async e => {
         e.preventDefault();
+        console.log(stateObj.inputLink);
+        closeYoutubeLinkForm();
     }
 
     const openYoutubeLinkForm = () => {
@@ -308,6 +311,8 @@ const Profile = (stateObj) => {
     //Add Instagram Link
     const setInstagramLink = async e => {
         e.preventDefault();
+        console.log(stateObj.inputLink);
+        closeInstagramLinkForm();
     }
 
     const openInstagramLinkForm = () => {
@@ -373,7 +378,7 @@ const Profile = (stateObj) => {
                     <div style={{right: "35%"}} className="post-popup" id="spotifyLinkForm">
                         <form className="post-container" onSubmit={setSpotifyLink}>
                             <label htmlFor='spotifyLink'>Spotify Link:</label>
-                            <input type='text' id='spotifyLink' placeholder='Input your Spotify link here' required/>
+                            <input type='text' id='spotifyLink' placeholder='Input your Spotify link here' onChange={e => { stateObj.setInputLink(e.target.value); }} required/>
                             <input type='submit' value='Submit'/><br/>
                             <button onClick={closeSpotifyLinkForm}>Close</button>
                         </form>
@@ -382,7 +387,7 @@ const Profile = (stateObj) => {
                     <div style={{right: "27%"}} class="post-popup" id="twitterLinkForm">
                         <form class="post-container" onSubmit={setTwitterLink}>
                             <label for='twitterLink'>Twitter Link:</label>
-                            <input type='text' id='twitterLink' placeholder='Input your Twitter link here' required/>
+                            <input type='text' id='twitterLink' placeholder='Input your Twitter link here' onChange={e => { stateObj.setInputLink(e.target.value); }} required/>
                             <input type='submit' value='Submit'/><br/>
                             <button onClick={closeTwitterLinkForm}>Close</button>
                         </form>
@@ -391,7 +396,7 @@ const Profile = (stateObj) => {
                     <div style={{right: "15%"}} className="post-popup" id="youtubeLinkForm">
                         <form className="post-container" onSubmit={setYoutubeLink}>
                             <label htmlFor='youtubeLink'>Youtube Link:</label>
-                            <input type='text' id='youtubeLink' placeholder='Input your Youtube link here' required/>
+                            <input type='text' id='youtubeLink' placeholder='Input your Youtube link here' onChange={e => { stateObj.setInputLink(e.target.value); }} required/>
                             <input type='submit' value='Submit'/><br/>
                             <button onClick={closeYoutubeLinkForm}>Close</button>
                         </form>
@@ -400,7 +405,7 @@ const Profile = (stateObj) => {
                     <div style={{right: "5%"}} className="post-popup" id="instagramLinkForm">
                         <form className="post-container" onSubmit={setInstagramLink}>
                             <label htmlFor='instagramLink'>Instagram Link:</label>
-                            <input type='text' id='instagramLink' placeholder='Input your Instagram link here' required/>
+                            <input type='text' id='instagramLink' placeholder='Input your Instagram link here' onChange={e => { stateObj.setInputLink(e.target.value); }} required/>
                             <input type='submit' value='Submit'/><br/>
                             <button onClick={closeInstagramLinkForm}>Close</button>
                         </form>
