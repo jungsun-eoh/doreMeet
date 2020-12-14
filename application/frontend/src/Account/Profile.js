@@ -5,14 +5,64 @@
 Users can edit parts of their Profile like media, bio, tags, and linked social media accounts.
 */
 
-import React, { Component } from 'react';
+import React, {useEffect} from 'react';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
 import HighlightItem from '../components/Highlights/HighlightItem';
 import axios from 'axios';
 import { BrowserRouter as Router } from 'react-router-dom';
+
 var test = '';
 const Profile = (stateObj) => {
+
+    useEffect(() => {
+        axios.get('/getUsers').then(response => {
+        console.log(response.data[0]);
+        //2020-12-01
+        response.data[0].date_of_birth = response.data[0].date_of_birth.substring(0, 10);
+        test = response.data[0].date_of_birth.substring(0, 10);
+        stateObj.setDOB(response.data[0].date_of_birth);
+        axios.get('/').then(response => {
+            getAge();
+        });
+        stateObj.setFirstName(response.data[0].first_name);
+        stateObj.setLastName(response.data[0].last_name);
+        stateObj.setGender(response.data[0].gender);
+        stateObj.setDOB(response.data[0].date_of_birth);
+        stateObj.setEmail(response.data[0].email);
+        stateObj.setPhoneNumber(response.data[0].phone_number);
+        stateObj.setArtCategory(response.data[0].art_category);
+        stateObj.setSkillLevel(response.data[0].skill_lvl);
+        stateObj.setUserName(response.data[0].username);
+
+    }).catch(function (error) {
+        console.log(error);
+        console.log("{User} Not Found");
+    })
+        axios.get('/getProfile', ).then(response => {
+            console.log(response.data[0]);
+            stateObj.setProfilePic(response.data[0].profile_pic);
+            stateObj.setProfilePicPath(response.data[0].picture_path);
+            stateObj.setBio(response.data[0].bio);
+            if(response.data[0].video_path){stateObj.setuploadmedia1(`${response.data[0].picture_path}${response.data[0].video_path}`)}  else{stateObj.setuploadmedia1('assets/placeholder-img.jpg')};
+            if(response.data[0].video_desc){stateObj.setuploadmedia2(`${response.data[0].picture_path}${response.data[0].video_desc}`)}  else{stateObj.setuploadmedia2('assets/placeholder-img.jpg')};;
+            if(response.data[0].audio_path){stateObj.setuploadmedia3(`${response.data[0].picture_path}${response.data[0].audio_path}`)}  else{stateObj.setuploadmedia3('assets/placeholder-img.jpg')};;
+            if(response.data[0].audio_descp){stateObj.setuploadmedia4(`${response.data[0].picture_path}${response.data[0].audio_descp}`)}else{stateObj.setuploadmedia4('assets/placeholder-img.jpg')};;
+        }).catch(function (error) {
+            console.log(error);
+            console.log("{Profile} Found");
+        })
+
+        //src="assets/postImages/${response.data[0].post_file}"
+        axios.get('getCommunityPosts').then(response => {
+            console.log(response);
+            stateObj.setCommunityPost1(`assets/postImages/${response.data[0].post_file}`);
+            stateObj.setCommunityPost2(`assets/postImages/${response.data[1].post_file}`);
+            stateObj.setCommunityPost3(`assets/postImages/${response.data[2].post_file}`);
+        }).catch(function (error) {
+            console.log(error);
+            console.log("{CommPost} Not Found");
+        });}, [stateObj.screenState]);
 
     const getAge = (event) => {
         var dateObj = new Date();
@@ -41,7 +91,7 @@ const Profile = (stateObj) => {
         stateObj.setAge(userAge);
     }
 
-    const getProfile = async (event) => {
+    /*const getProfile = async (event) => {
         event.preventDefault();
 
         await axios.get('/getUsers').then(response => {
@@ -91,7 +141,7 @@ const Profile = (stateObj) => {
             console.log(error);
             console.log("{CommPost} Not Found");
         });
-    }
+    }*/
     const upload = async e => {
         e.preventDefault();
         const formData = new FormData();
@@ -356,7 +406,7 @@ const Profile = (stateObj) => {
                         </form>
                     </div>
                 
-                <input style={{ position: "center", width: '10%', marginLeft: 'auto', marginRight: 20, marginTop: 10 }} type='button' value="show Profile" onClick={getProfile} /><br />
+                {/*<input style={{ position: "center", width: '10%', marginLeft: 'auto', marginRight: 20, marginTop: 10 }} type='button' value="show Profile" onClick={getProfile} /><br />*/}
                 
                 
                 <div className="profileContainer">

@@ -17,7 +17,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 const CommunityPage = (stateObj) => {
 
-
   const onChange = e => {
     e.preventDefault();
     if (e.target.files[0].size > 10485760) {
@@ -131,7 +130,7 @@ const CommunityPage = (stateObj) => {
                    <p class="PostDescription">${post.post_description}</p>   
                    </div>`;})
                   //  <button id="PlusButton" type="button">+</button>
-                  //  <button id="MinusButton" type="button">-</button>      
+                  //  <button id="MinusButton" type="button">-</button>
          document.getElementById("recent-posts").innerHTML = _html;
          document.getElementById("search-post").innerHTML = '';
          document.getElementById("PlusButton").addEventListener("click", voteplus);
@@ -139,7 +138,7 @@ const CommunityPage = (stateObj) => {
        }).catch(function (error) {
         //  console.log('fail')
        });
-     });
+     }, [stateObj.screenState]);
 
   return (
     <>
