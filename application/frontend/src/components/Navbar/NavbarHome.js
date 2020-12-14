@@ -12,13 +12,34 @@ import { MenuItemsHome } from './MenuItemsHome';
 import './Navbar.css';
 
 class Navbar extends Component {
-    state = { clicked: false }
+    constructor(props) {
+        super(props);
+        this.state = { 
+        clicked: false,
+        isDesktop: false
+        };
+        this.updatePredicate = this.updatePredicate.bind(this);
+    }
 
     handleClick = () => {
         this.setState({clicked: !this.state.clicked})
     }
 
+    componentDidMount() {
+        this.updatePredicate();
+        window.addEventListener("resize", this.updatePredicate);
+    }
+    
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updatePredicate);
+      }
+
+    updatePredicate() {
+        this.setState({ isDesktop: window.innerWidth > 950 });
+      }
+
     render() {
+        const isDesktop = this.state.isDesktop;
         return(
             <nav className='NavbarItems'>
                 <a href={'/'}>
@@ -38,7 +59,11 @@ class Navbar extends Component {
                         )
                     })}
                 </ul>
-                <a href={'/login'}><Button><b>Log In</b></Button></a>
+                {isDesktop ? (
+                    <a href={'/login'}><Button><b>Log In</b></Button></a>
+                ) : (
+                    <div style={{display: 'none'}} />
+                )}
             </nav>
         )
     }

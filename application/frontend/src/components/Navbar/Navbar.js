@@ -17,7 +17,14 @@ import './Navbar.css';
 export const history = createBrowserHistory({forceRefresh:true})
 
 class Navbar extends Component {
-    state = { clicked: false }
+    constructor(props) {
+        super(props);
+        this.state = { 
+        clicked: false,
+        isDesktop: false
+        };
+        this.updatePredicate = this.updatePredicate.bind(this);
+    }
 
     handleClick = () => {
         this.setState({clicked: !this.state.clicked})
@@ -30,8 +37,23 @@ class Navbar extends Component {
 
         });
     }
+    
+    componentDidMount() {
+        this.updatePredicate();
+        window.addEventListener("resize", this.updatePredicate);
+    }
+    
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updatePredicate);
+      }
+
+    updatePredicate() {
+        this.setState({ isDesktop: window.innerWidth > 950 });
+      }
+
 
     render() {
+        const isDesktop = this.state.isDesktop;
         return(
             <nav className='NavbarItems'>
                 <a href={'/'}>
@@ -51,8 +73,12 @@ class Navbar extends Component {
                         )
                     })}
                 </ul>
-                <a href='/Settings'><i class="fas fa-cog fa-md" style={{paddingRight:10}}></i></a>      
-                <div style={{marginRight:'10px'}}><Button onClick={e=>this.logout(e)}>Log Out</Button></div>             
+                {isDesktop ? (
+                    <><a href='/Settings'><i class="fas fa-cog fa-md" style={{paddingRight:10}}></i></a>      
+                    <div style={{marginRight:'10px'}}><Button onClick={e=>this.logout(e)}>Log Out</Button></div></>
+                ) : (
+                    <div style={{display: 'none'}} />
+                )} 
             </nav>         
         )
     }

@@ -12,7 +12,7 @@ import Pricing from './LandingPage/Pricing';
 import LogIn from './Auth/LogIn';
 import SignUp from './Auth/SignUp';
 import CommunityPage from './CommunityPage/CommunityPage';
-import CommunityPageHome from './CommunityPageHome';
+import CommunityPageHome from './CommunityPage/CommunityPageHome';
 import MatchingPage from './Matches/MatchingPage';
 import Chat from './Chat/Chat';
 import Settings from './Account/Settings';
