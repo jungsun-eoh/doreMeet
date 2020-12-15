@@ -17,7 +17,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 const CommunityPage = (stateObj) => {
 
-
   const onChange = e => {
     e.preventDefault();
     if (e.target.files[0].size > 10485760) {
@@ -29,6 +28,16 @@ const CommunityPage = (stateObj) => {
       stateObj.setFileName(e.target.files[0].name);
     }
   };
+
+  const getHighlights = e =>{
+    axios.get('/highlights').then(response => {
+      if(response.data.length > 0){
+        response.data.forEach(highlight => {
+          console.log(highlight);
+        });
+      }
+    });
+  }
   //Handles the posting of projects to the community page
   const postHandler = async e => {
     e.preventDefault();
@@ -37,6 +46,8 @@ const CommunityPage = (stateObj) => {
     formData.append('file', stateObj.file);
     formData.append('post_title', stateObj.postName);
     formData.append('post_category', stateObj.postCategory);
+    formData.append('post_description', stateObj.postDescription);
+
     closePost();
     await axios.post('/makePost', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
   };
@@ -55,7 +66,7 @@ const CommunityPage = (stateObj) => {
                   <h2 class="PostTitle">${response.data[0].post_title}</h2>
                   <h3 class="PostCategory">${response.data[0].post_category}</h3>
                   <h4 class="PostVotes">${response.data[0].post_votes}</h4>
-                  <p class="PostDescription">Post Description</p>
+                  <p class="PostDescription">${response.data[0].post_description}</p>
                   <button id="PlusButton" value="${response.data[0].comm_pg_id}"  type="button">+</button>
                   <button id="MinusButton" value="${response.data[0].comm_pg_id}" type="button">-</button>
                   </div>`;
@@ -104,18 +115,22 @@ const CommunityPage = (stateObj) => {
     //Upon entering the page the most recent 5 posts are displayed
      useEffect(() => {
        axios.get('/recent5').then(response => {
-        //  console.log(response.data[0]);
+        console.log(response.data);
+
          let _html = "";
          _html += `<h1>Recent Posts</h1>`;
-         response.data.forEach(post => {_html += `<div class="RecentPostsFormat">
+         //button not passing the right id
+         response.data.forEach(post => {
+           if(post.post_description == null){post.post_description = ""};
+           _html += `<div class="RecentPostsFormat">
                    <img class="PostImage" src="assets/postImages/${post.post_file}" alt="Post Image">
                    <h2 class="PostTitle">${post.post_title}</h2>
+                   <h4 class="PostVotes">${post.post_votes}</h4>
                    <h3 class="PostCategory">${post.post_category}</h3>
-                   <p class="PostDescription">Post DescriptionPost DescriptionPost DescriptionPost DescriptionPost DescriptionPost DescriptionPost DescriptionPost 
-                   DescriptionPost Description</p>   
+                   <p class="PostDescription">${post.post_description}</p>   
                    </div>`;})
                   //  <button id="PlusButton" type="button">+</button>
-                  //  <button id="MinusButton" type="button">-</button>      
+                  //  <button id="MinusButton" type="button">-</button>
          document.getElementById("recent-posts").innerHTML = _html;
          document.getElementById("search-post").innerHTML = '';
          document.getElementById("PlusButton").addEventListener("click", voteplus);
@@ -123,7 +138,7 @@ const CommunityPage = (stateObj) => {
        }).catch(function (error) {
         //  console.log('fail')
        });
-     });
+     }, [stateObj.screenState]);
 
   return (
     <>
@@ -140,6 +155,7 @@ const CommunityPage = (stateObj) => {
             </div>
             <div class="PageContainer">
               <div class="SearchContainer">
+                {/*<input style={{ position: "center", width: '10%'}} type='button' value="highlight data in console" onClick={getHighlights} /><br />*/}
                 <form class="search" onSubmit={submitHandler}>
                   <input class="searchBar" onChange={e => stateObj.setSearchTitle(e.target.value)} type="text" placeholder="Search" />
                   <select class="searchButtons" onChange={e => { stateObj.setSearchCategory(e.target.value); }}>
@@ -148,12 +164,7 @@ const CommunityPage = (stateObj) => {
                     <option value={"Art"}>Art</option>
                     <option value={"Cinema"}>Cinema</option>
                     <option value={"Photography "}>Photography</option>
-                    {/* <option value={"M"}>Music</option>
-                    <option value={"D"}>Dance</option>
-                    <option value={"A"}>Art</option>
-                    <option value={"C"}>Cinema</option>
-                    <option value={"P"}>Photography</option> */}
-                 </select>
+                  </select>
                   <input class="searchButtons" type='submit' />
                 </form>
               </div>
@@ -165,6 +176,7 @@ const CommunityPage = (stateObj) => {
                 <form class="post-container" onSubmit={postHandler}>
                   <h2> Post your creative collaborations! </h2>
                   <input type="text" onChange={e => stateObj.setPostName(e.target.value)} placeholder="Name" required />
+                  <textarea class="postDescription" maxLength={240} onChange={e => stateObj.setPostDescription(e.target.value)} placeholder="Description (optional)" />
                   <div>
                     <select onChange={e => { stateObj.setPostCategory(e.target.value); }}>
                      <option >Music</option>

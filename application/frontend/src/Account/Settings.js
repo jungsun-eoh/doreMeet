@@ -95,7 +95,6 @@ const Settings = (stateObj) => {
     return(
         <>
         <Router>
-            
             <div className ="App">
                 <Navbar/>
                 <header className="App-header">

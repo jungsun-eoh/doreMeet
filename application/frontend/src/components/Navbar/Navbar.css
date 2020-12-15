@@ -154,10 +154,10 @@
         color: white; 
         transition: 250ms;
     }
-
+/* 
     Button {
         display: none;
-    }
+    } */
 
     .fa-cog{
         display: none;
