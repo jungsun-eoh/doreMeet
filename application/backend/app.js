@@ -21,6 +21,8 @@ const mkdirp = require('mkdirp');
 const fs = require('fs');
 const dir = `${__dirname}/../database/transaction.sql`;
 const io = require('socket.io')(http);
+const bcrypt = require('bcrypt');
+const saltRounds = 8;
 //const db = require('./conf/database');
 
 io.on('connection', (socket) => {
@@ -32,9 +34,12 @@ const pool = mysql.createPool({
     // changed host for debug. consider changing fields
     host: "localhost",
     //host: "mydb.cxfxbt23l5bi.us-west-1.rds.amazonaws.com",
+    // user: "root",
+    // password: "CSC648TEAM02!",
+    // database: "mydb",
     user: "root",
-    password: "CSC648TEAM02!",
-    database: "mydb",
+    password: "1234",
+    database: "DoreMeet",
     connectionLimit: 50,
     insecureAuth: true,
     queueLimit: 0
@@ -172,33 +177,40 @@ app.post('/voteminus', (req,res) => {
 });
 
  //Checks if the user's input has an existing row in the account table, then creates a cookie to track their login state
-app.post('/login', (req, res) => {
-    console.log("_________loggin in with__________")
-    console.log(req.body);
-    var todb = "SELECT * FROM `mydb`.`account` WHERE (username = '" + req.body.username + "' AND password = '" + req.body.password + "')";
-    pool.query(todb, (error, result) => { 
-        console.log("____________start_______________")
-        if (result == '') {
-            console.log("incorrect creds");
-            console.log(error);
-            console.log("____________end_______________")
-            res.send(null);
-        } else {
-            // console.log(res.redirect('/'));
-            req.session.username = result[0].username;
-            req.session.userId = result[0].user;
-            console.log("Logged in: " + req.session.username + " " + req.session.userId);
-            res.send(req.session);
-            console.log("____________end_______________")
+ app.post('/login', (req, res) => {
+    let username = req.body.username;
+    let password = req.body.password;
+   // let account_id;
+
+    var validate_user_todb = 'SELECT account_id, password FROM account WHERE username = ?;'
+
+    pool.query(validate_user_todb, [username] ,(err, results) => {
+        if(results && results.length == 1){
+            console.log(results);
+
+            let hpass = results[0].password;
+            //account_id = results[0].account_id;
+
+            bcrypt.compare(password, hpass, (err, result) =>{
+                console.log(result);
+                if (result == 1){
+                    //console.log("true");
+                    console.log(res.redirect('/'));
+                }
+                else{
+                    console.log("Wrong Credential");
+                    res.send(null);
+                } 
+            }); // bcryption
         }
-    })
-});
+    }); // query ends here
+}); // log in ends
 
 //Inserts into the User and Account table
- app.post('/signup', (req, res) => {
-    console.log(req.body);
-
+app.post('/signup', (req, res) => {
+      
     // user table
+
     var first_name = req.body.firstname;
     var last_name = req.body.lastname;
     var gender = req.body.gender;
@@ -206,26 +218,157 @@ app.post('/login', (req, res) => {
     var email  = req.body.email;
     var phone_number = req.body.phone;
     var art_category = req.body.art;
-    //var art_category_tag = req.body.tag; // there is no field for tag
+    var art_category_tag = req.body.tag; // there is no field for tag
     var skill_lvl = req.body.skill;
     
     //  account table
+
     var username = req.body.username;
     var password = req.body.password;
-    var todb_user = 'INSERT INTO user (first_name, last_name, gender, date_of_birth, email, phone_number, art_category, skill_lvl) VALUES (?,?,?,?,?,?,?,?);'
-    pool.query(todb_user,[first_name, last_name, gender, date_of_birth, email, phone_number, art_category, skill_lvl],(err, result) => {
-        var get_id = 'SELECT user_id FROM user WHERE email = ?;'
-        pool.query(get_id, [email], (err2, result2) => {
-            console.log(result2[0].user_id);
-            user_id = result2[0].user_id;
-            var todb_account = 'INSERT INTO account (username, password, acc_created, user) VALUES (?,?,now(),?);'
-            pool.query(todb_account,[username, password, user_id],(err, result3) => {
-                console.log(result3);
-                res.send("done");
-            }); 
-        })
-    });
- });
+
+    // user_add table
+    
+    var todb_check_email = 'SELECT * FROM user WHERE email = ?;'
+    var todb_check_username = 'SELECT* FROM account WHERE username = ?;'
+
+    // address table
+    var street_number = req.body.street_num;
+    var street = req.body.street;
+    var city = req.body.city;
+    var state = req.body.state;
+    var zipcode = req.body.zipcode;
+    var country = req.body.country;
+    var latitude = req.body.latitude;
+    var longitude = req.body.longitude;
+
+    console.log(street_number);
+    console.log(street);
+    console.log(city);
+    console.log(state);
+    console.log(zipcode);
+    console.log(country);
+    console.log(latitude);
+    console.log(longitude);
+    
+    // M - 12 F - 9
+    // checks for email
+    pool.query(todb_check_email, [email], (err, results) => {
+        if(results && results.length == 0){
+            // checks for username
+            pool.query(todb_check_username, [username], (err, results) => {
+                if(results && results.length == 0){
+                    var todb_user = 'INSERT INTO user (first_name, last_name, gender, date_of_birth, email, phone_number, art_category, skill_lvl) VALUES (?,?,?,?,?,?,?,?);'
+                    pool.query(todb_user,[first_name, last_name, gender, date_of_birth, email, phone_number, art_category, skill_lvl]
+                    ,(err, result) => {
+                        var get_id = 'SELECT user_id FROM user WHERE email = ?;'
+                        pool.query(get_id, [email], (err2, result2, results) => {
+                            console.log(result2[0].user_id);
+                            user_id = result2[0].user_id; 
+                        bcrypt.hash(password, saltRounds, (err,hash) => { 
+                                console.log(hash);
+                            var todb_account = 'INSERT INTO account (username, password, acc_created, user) VALUES (?,?,now(),?);'
+                            pool.query(todb_account,[username, hash, user_id],(err, result3) => {
+                                if(err) throw err;
+                                else{
+                                    console.log(result3);
+                                    var todb_address = 'INSERT INTO address (street_number, street, city, state, zipcode, country, latitude, longitude) VALUES (?,?,?,?,?,?,?,?);'
+                                    pool.query(todb_address, [street_number, street, city, state, zipcode, country, latitude, longitude], (err, result) => {
+                                        if(err) throw err;
+                                        else{
+                                            console.log(result);
+                                                   
+                                            // addes to user_add table
+                                            var todb_user_add = 'INSERT INTO user_add (user, address) VALUES (?,?);'
+                                            pool.query(todb_user_add, [user_id, user_id], (err, result) => {
+                                            console.log(err);
+                                            console.log(result);
+                                            })
+                                        }
+                                    })
+                                }  
+                            }); 
+                        });
+                            
+                        })
+                    });
+                }
+                else {
+                    errorPrint('Username already exists!');
+                }
+            })
+        }
+        else {
+            errorPrint('Email already exists!');
+        }
+    }) 
+});
+
+
+
+/**
+ * CHECK HERE FOR THE OLD LOGIN and SIGN UP codes
+ * 
+ * 
+ * 
+ */
+// app.post('/login', (req, res) => {
+//     console.log("____________start_______________")
+//             console.log(req.body);
+//     var todb = "SELECT * FROM `mydb`.`account`WHERE (username = '" + req.body.username + "' AND password = '" + req.body.password + "')";
+//     pool.query(todb, (error, result) => {
+//         if (result.length == 1) {
+//             // console.log(res.redirect('/'));
+//             req.session.username = result[0].username;
+//             req.session.userId = result[0].user;
+//             console.log(req.session);
+//             res.send(req.session);
+//     console.log("____________end1_______________")
+
+//         } else {
+//             console.log("incorrect creds");
+//             console.log(error);
+//             console.log("____________0_______________")
+//             console.log(req.session);
+//             res.send(null);
+//     console.log("____________end2_______________")
+
+
+//         }
+//     })
+// });
+
+// //Inserts into the User and Account table
+//  app.post('/signup', (req, res) => {
+//     console.log(req.body);
+
+//     // user table
+//     var first_name = req.body.firstname;
+//     var last_name = req.body.lastname;
+//     var gender = req.body.gender;
+//     var date_of_birth = req.body.dob;
+//     var email  = req.body.email;
+//     var phone_number = req.body.phone;
+//     var art_category = req.body.art;
+//     //var art_category_tag = req.body.tag; // there is no field for tag
+//     var skill_lvl = req.body.skill;
+    
+//     //  account table
+//     var username = req.body.username;
+//     var password = req.body.password;
+
+//     var todb_user = 'INSERT INTO user (first_name, last_name, gender, date_of_birth, email, phone_number, art_category, skill_lvl) VALUES (?,?,?,?,?,?,?,?);'
+//     pool.query(todb_user,[first_name, last_name, gender, date_of_birth, email, phone_number, art_category, skill_lvl],(err, result) => {
+//         var get_id = 'SELECT user_id FROM user WHERE email = ?;'
+//         pool.query(get_id, [email], (err2, result2) => {
+//             console.log(result2[0].user_id);
+//             user_id = result2[0].user_id;
+//             var todb_account = 'INSERT INTO account (username, password, acc_created, user) VALUES (?,?,now(),?);'
+//             pool.query(todb_account,[username, password, user_id],(err, result3) => {
+//                 console.log(result3);
+//             }); 
+//         })
+//     });
+//  });
  
  //initializes profile on signup
  app.post("/profileInit", (req, res) => {
