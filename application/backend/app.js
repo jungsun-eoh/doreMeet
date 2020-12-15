@@ -28,17 +28,7 @@ io.on('connection', (socket) => {
 });
 
 //connection credentials to the database
-const pool = mysql.createPool({
-    // changed host for debug. consider changing fields
-    host: "localhost",
-    //host: "mydb.cxfxbt23l5bi.us-west-1.rds.amazonaws.com",
-    user: "root",
-    password: "CSC648TEAM02!",
-    database: "mydb",
-    connectionLimit: 50,
-    insecureAuth: true,
-    queueLimit: 0
-});
+const pool = require('./database.js');
 
 //used to track user states (logged in / logged out)
 var sessionStore = new mysqlStore({/*test*/}, require('./database.js'));
@@ -415,8 +405,6 @@ app.post('/upload', (req, res) => {
             console.log("upload passpasspasspasspasspasspasspasspass");
 
             if(record){recordQuery(todb, queryArray)};
-                console.log(result);
-                
             } });
     });
 });
@@ -528,7 +516,8 @@ app.get("/searchMatches", (req, res) => {
 
 app.post("/pass", (req, res) => {
     var todb = 'INSERT INTO `matches2` (`user1`,`match_status`,`user2`) VALUES(?, ?, ?);'; 
-    pool.query(todb,[req.session.userId, 0, req.body.currentMatch] ,(err, result) => {
+    var queryArray = [req.session.userId, 0, req.body.currentMatch];
+    pool.query(todb,queryArray ,(err, result) => {
         if (err || result == ''){
             console.log("pass fail");
         }else{
@@ -542,7 +531,8 @@ app.post("/pass", (req, res) => {
 
 app.post("/connect", (req, res) => {
     var todb = 'INSERT INTO `matches2` (`user1`,`match_status`,`user2`) VALUES(?, ?, ?);';
-    pool.query(todb,[req.session.userId, 1, req.body.currentMatch] ,(err, result) => {
+    var queryArray = [req.session.userId, 1, req.body.currentMatch];
+    pool.query(todb,queryArray ,(err, result) => {
         if (err || result == ''){
             console.log("connect fail");
         }else{
