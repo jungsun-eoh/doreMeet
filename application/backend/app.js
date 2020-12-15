@@ -505,10 +505,12 @@ app.post('/uploadMedia', (req, res) => {
     if (req.files === null) {
         return res.status(400).json({ msg: 'No file uploaded' });
       }
-      const file = req.files.file;
+      const file = req.files.file.name;
     var filepath = `/../frontend/public/assets/users/${req.session.userId}/${req.files.file.name}`;
     var dir = `../frontend/public/assets/users/${req.session.userId}/`;
-      
+    var frontpath = dir.substring(dir.indexOf("/assets/")) + file;
+    console.log(frontpath);
+
     mkdirp.sync(dir);
     var filepath = `/../frontend/public/assets/users/${req.session.userId}/${req.files.file.name}`;
     req.files.file.mv(`${__dirname}${filepath}`, err => {
@@ -517,7 +519,7 @@ app.post('/uploadMedia', (req, res) => {
           }
           var todb = "INSERT INTO `media2` (`file_name`, `user`) VALUES (?,?);"
         
-          queryArray = [req.files.file.name, req.session.userId];
+          queryArray = [frontpath, req.session.userId];
         pool.query(todb, queryArray,(error, result) => {
             if(error){
             console.log("upload fail");
