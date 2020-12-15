@@ -56,7 +56,7 @@ class Navbar extends Component {
         const isDesktop = this.state.isDesktop;
         return(
             <nav className='NavbarItems'>
-                <a href={'/'}>
+                <a href={'/Community'}>
                 <h1 className='navbar-logo'><img src="DoReMeetLogo.png" alt="Logo" height="30px"/> DoReMeet</h1></a>
                 <div className='menu-icon' onClick={this.handleClick}>
                     <i className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
