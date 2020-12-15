@@ -4,7 +4,10 @@
 **Desc: Contains all backend functionality (sending/retreiving data to the database)
 */
 
-const record = 1; //change to 0 if not making lasting changes (ex. change to 0 if testing)
+//////////////////////////////////////////////////////////////////////////////////////////
+const record = 0; //change to 1 if making lasting changes (ex. change to 1 if not testing)
+//////////////////////////////////////////////////////////////////////////////////////////
+
 const { query, json, response } = require("express");
 const app = require("express")();
 const session = require("express-session");
@@ -389,52 +392,6 @@ app.get("/getCommunityPosts", (req, res) => {
     });
 });
 
-//Upload for profile page: incomplete
-app.post('/upload', (req, res) => {
-    console.log("test");
-    console.log(req.files);
-    if (req.files === null) {
-        return res.status(400).json({ msg: 'No file uploaded' });
-      }
-    
-      const file = req.files.file;
-
-
-    var filepath = `/../frontend/public/assets/users/${req.session.userId}/${req.files.file.name}`;
-    var dir = `../frontend/public/assets/users/${req.session.userId}/`;
-    var frontpath = dir.substring(dir.indexOf("/assets/"));
-
-    var test = mkdirp.sync(dir);
-    req.files.file.mv(`${__dirname}${filepath}`, err => {
-        if (err) {
-            console.error(err);
-          }
-          var todb =   
-          "UPDATE file_path SET profile_pic = ?, picture_path = ? WHERE user = ?;";
-        pool.query(todb, [req.files.file.name, frontpath, req.session.userId],(error, result) => {
-            if(error || result == ''){
-            console.log("upload fail");
-
-                console.log(error);
-            }else{
-            console.log("upload pass");
-
-                console.log(result);
-                
-            } });
-    });
-});
-
- app.get("/getMedia", (req, res) => {
-    var todb = "SELECT * FROM `file_path` WHERE user = 1;";
-    pool.query(todb, (error, result) => {
-
-            console.log("resoahfwieufhn ")
-            res.send(result);
-        
-    });
-});
-
 //Bandaid: ideally should be in upload and flag is passed from the button on the front end
 app.post('/uploadMedia', (req, res) => {
     console.log(req.files);
@@ -467,6 +424,27 @@ app.post('/uploadMedia', (req, res) => {
                 if(record){recordQuery(todb, queryArray)};
             } 
         });
+    });
+});
+
+//Just like above, but without uploading a file
+app.post('/uploadText', (req, res) => {
+    console.log(req.body);
+    flag = req.body.type;
+    var todb =   "UPDATE file_path SET `" + flag + "` = ? WHERE `user` = ?;";//`` = uploadMedia1
+    queryArray = [req.body.value, req.session.userId]
+    pool.query(todb, queryArray ,(error, result) => {
+        if(error || result == ''){
+            console.log("uploadText fail");
+            console.log(error.sqlMessage);
+            console.log(error.sql);
+
+        }else{
+            console.log("uploadText pass");
+            // console.log(result);
+            res.send(req.body.value);
+            if(record){recordQuery(todb, queryArray)};
+        } 
     });
 });
 

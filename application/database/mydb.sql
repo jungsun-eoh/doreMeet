@@ -438,6 +438,10 @@ INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_categor
 UPDATE file_path SET `media1` = 'Untitled.png' WHERE `user` = '1';
 UPDATE file_path SET `media2` = 'test.jpg' WHERE `user` = '1';
 
+UPDATE file_path SET `social_profile_1` = 'https://www.google.com/' WHERE `user` = '1';
+UPDATE file_path SET `social_profile_2` = 'https://www.google.com/' WHERE `user` = '1';
+UPDATE file_path SET `social_profile_3` = 'https://www.google.com/' WHERE `user` = '1';
+UPDATE file_path SET `social_profile_4` = 'https://www.google.com/' WHERE `user` = '1';
 
 
 

@@ -44,10 +44,17 @@ const Profile = (stateObj) => {
             stateObj.setProfilePic(response.data[0].profile_pic);
             stateObj.setProfilePicPath(response.data[0].picture_path);
             stateObj.setBio(response.data[0].bio);
-            if(response.data[0].video_path){stateObj.setuploadmedia1(`${response.data[0].picture_path}${response.data[0].video_path}`)}  else{stateObj.setuploadmedia1('assets/placeholder-img.jpg')};
-            if(response.data[0].video_desc){stateObj.setuploadmedia2(`${response.data[0].picture_path}${response.data[0].video_desc}`)}  else{stateObj.setuploadmedia2('assets/placeholder-img.jpg')};;
-            if(response.data[0].audio_path){stateObj.setuploadmedia3(`${response.data[0].picture_path}${response.data[0].audio_path}`)}  else{stateObj.setuploadmedia3('assets/placeholder-img.jpg')};;
-            if(response.data[0].audio_descp){stateObj.setuploadmedia4(`${response.data[0].picture_path}${response.data[0].audio_descp}`)}else{stateObj.setuploadmedia4('assets/placeholder-img.jpg')};;
+            if(response.data[0].media1){stateObj.setuploadmedia1(`${response.data[0].picture_path}${response.data[0].media1}`)}  else{stateObj.setuploadmedia1('assets/placeholder-img.jpg')};
+            if(response.data[0].media2){stateObj.setuploadmedia2(`${response.data[0].picture_path}${response.data[0].media2}`)}  else{stateObj.setuploadmedia2('assets/placeholder-img.jpg')};;
+            if(response.data[0].media3){stateObj.setuploadmedia3(`${response.data[0].picture_path}${response.data[0].media3}`)}  else{stateObj.setuploadmedia3('assets/placeholder-img.jpg')};;
+            if(response.data[0].media4){stateObj.setuploadmedia4(`${response.data[0].picture_path}${response.data[0].media4}`)}else{stateObj.setuploadmedia4('assets/placeholder-img.jpg')};;
+
+            //can remove if statement if null links dont lead anywhere
+            if(response.data[0].social_profile_1){stateObj.setSpotifyLink(response.data[0].social_profile_1)}; 
+            if(response.data[0].social_profile_2){stateObj.setTwitterLink(response.data[0].social_profile_2)};  
+            if(response.data[0].social_profile_3){stateObj.setYoutubeLink(response.data[0].social_profile_3)};  
+            if(response.data[0].social_profile_4){stateObj.setInstagramLink(response.data[0].social_profile_4)};  
+
         }).catch(function (error) {
             console.log(error);
             console.log("{Profile} Found");
@@ -271,6 +278,12 @@ const Profile = (stateObj) => {
     const setSpotifyLink = async e => {
         e.preventDefault();
         console.log(document.getElementById("spotifyLink").value);
+        const formData = new FormData();
+        formData.append('value', document.getElementById("spotifyLink").value);
+        formData.append('type', 'social_profile_1');
+        await axios.post('/uploadText', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
+            console.log(response.data);
+        });
         //stateObj.spotifyLink = document.getElementById("spotifyLink").value after axios call if successful and for the rest of social media links and bio
         //I will do this after backend set up - Vincent
         closeSpotifyLinkForm();
@@ -288,6 +301,12 @@ const Profile = (stateObj) => {
     const setTwitterLink = async e => {
         e.preventDefault();
         console.log(document.getElementById("twitterLink").value);
+        const formData = new FormData();
+        formData.append('value', document.getElementById("twitterLink").value);
+        formData.append('type', 'social_profile_2');
+        await axios.post('/uploadText', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
+            console.log(response.data);
+        });
         closeTwitterLinkForm();
     }
 
@@ -303,6 +322,12 @@ const Profile = (stateObj) => {
     const setYoutubeLink = async e => {
         e.preventDefault();
         console.log(document.getElementById("youtubeLink").value);
+        const formData = new FormData();
+        formData.append('value', document.getElementById("youtubeLink").value);
+        formData.append('type', 'social_profile_3');
+        await axios.post('/uploadText', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
+            console.log(response.data);
+        });
         closeYoutubeLinkForm();
     }
 
@@ -318,6 +343,12 @@ const Profile = (stateObj) => {
     const setInstagramLink = async e => {
         e.preventDefault();
         console.log(document.getElementById("instagramLink").value);
+        const formData = new FormData();
+        formData.append('value', document.getElementById("instagramLink").value);
+        formData.append('type', 'social_profile_4');
+        await axios.post('/uploadText', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
+            console.log(response.data);
+        });
 
         closeInstagramLinkForm();
     }
@@ -333,6 +364,12 @@ const Profile = (stateObj) => {
     const setBio = async e => {
         e.preventDefault();
         console.log(document.getElementById("Bio").value);
+        const formData = new FormData();
+        formData.append('value', document.getElementById("Bio").value);
+        formData.append('type', 'bio');
+        await axios.post('/uploadText', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
+            console.log(response.data[0]);
+        });
         closeBioForm();
     }
 
@@ -403,7 +440,7 @@ const Profile = (stateObj) => {
                     <div style={{top:"35%", left:"35%"}} className="post-popup" id="spotifyLinkForm">
                         <form className="post-container" onSubmit={setSpotifyLink}>
                             <label htmlFor='spotifyLink'>Spotify Link:</label>
-                            <input type='text' id='spotifyLink' placeholder='Input your Spotify link here' onChange={e => { stateObj.setInputLink(e.target.value); }} required/>
+                            <input type='text' id='spotifyLink' placeholder='Input your Spotify link here' onChange={e => { stateObj.setSpotifyLink(e.target.value); }} required/>
                             <input type='submit' value='Submit'/><br/>
                             <button onClick={closeSpotifyLinkForm}>Close</button>
                         </form>
@@ -412,7 +449,7 @@ const Profile = (stateObj) => {
                     <div style={{top:"35%", left:"35%"}} class="post-popup" id="twitterLinkForm">
                         <form class="post-container" onSubmit={setTwitterLink}>
                             <label for='twitterLink'>Twitter Link:</label>
-                            <input type='text' id='twitterLink' placeholder='Input your Twitter link here' onChange={e => { stateObj.setInputLink(e.target.value); }} required/>
+                            <input type='text' id='twitterLink' placeholder='Input your Twitter link here' onChange={e => { stateObj.setTwitterLink(e.target.value); }} required/>
                             <input type='submit' value='Submit'/><br/>
                             <button onClick={closeTwitterLinkForm}>Close</button>
                         </form>
@@ -421,7 +458,7 @@ const Profile = (stateObj) => {
                     <div style={{top:"35%", left:"35%"}} className="post-popup" id="youtubeLinkForm">
                         <form className="post-container" onSubmit={setYoutubeLink}>
                             <label htmlFor='youtubeLink'>Youtube Link:</label>
-                            <input type='text' id='youtubeLink' placeholder='Input your Youtube link here' onChange={e => { stateObj.setInputLink(e.target.value); }} required/>
+                            <input type='text' id='youtubeLink' placeholder='Input your Youtube link here' onChange={e => { stateObj.setYoutubeLink(e.target.value); }} required/>
                             <input type='submit' value='Submit'/><br/>
                             <button onClick={closeYoutubeLinkForm}>Close</button>
                         </form>
@@ -430,7 +467,7 @@ const Profile = (stateObj) => {
                     <div style={{top:"35%", left:"35%"}} className="post-popup" id="instagramLinkForm">
                         <form className="post-container" onSubmit={setInstagramLink}>
                             <label htmlFor='instagramLink'>Instagram Link:</label>
-                            <input type='text' id='instagramLink' placeholder='Input your Instagram link here' onChange={e => { stateObj.setInputLink(e.target.value); }} required/>
+                            <input type='text' id='instagramLink' placeholder='Input your Instagram link here' onChange={e => { stateObj.setInstagramLink(e.target.value); }} required/>
                             <input type='submit' value='Submit'/><br/>
                             <button onClick={closeInstagramLinkForm}>Close</button>
                         </form>
