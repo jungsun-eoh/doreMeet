@@ -183,28 +183,26 @@ const Profile = (stateObj) => {
     }
 
     //Stuff for media file 1
-    const uploadMedia1 = async e => {
+    const uploadMedia = async e => {
         e.preventDefault();
         const formData = new FormData();
         formData.append('file', stateObj.file);
         formData.append('type', 'media1');
-        closeMedia1();
+        closeMedia();
         await axios.post('/uploadMedia', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
             console.log(response.data[0]);
             stateObj.setuploadmedia1(`${response.data[0].picture_path} + ${response.data[0].post_file}`);
         });
     }
 
-    const changeMedia1 = (e) => {
+    const openMedia = () => {
+        document.getElementById("media").style.display = "block";
     }
 
-    const openMedia1 = () => {
-        document.getElementById("media1").style.display = "block";
+    const closeMedia = () => {
+        document.getElementById("media").style.display = "none";
     }
-
-    const closeMedia1 = () => {
-        document.getElementById("media1").style.display = "none";
-    }
+    /*
 
     //stuff for media file 2
     const uploadMedia2 = async e => {
@@ -273,7 +271,7 @@ const Profile = (stateObj) => {
 
     const closeMedia4 = () => {
         document.getElementById("media4").style.display = "none";
-    }
+    }*/
 
     //Add Spotify Link
     const setSpotifyLink = async e => {
@@ -424,41 +422,43 @@ const Profile = (stateObj) => {
                     </form>
                 </div>
                 
-                <div style={{top:"35%", left:"35%"}} class="post-popup" id="media1">
-                        <form class="post-container" onSubmit={uploadMedia1}>
+                <div style={{top:"35%", left:"35%"}} class="post-popup" id="media">
+                        <form class="post-container" onSubmit={uploadMedia}>
                             <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={onChange} required/>
                             <label className='custom-file-label' htmlFor='customFile'></label>
                             <input type='submit' value='Upload' /><br/>
-                            <button onClick={closeMedia1}>Close</button>
+                            <button onClick={closeMedia}>Close</button>
                         </form>
                     </div>
 
-                    <div style={{top:"35%", left:"35%"}} class="post-popup" id="media2">
-                        <form class="post-container" onSubmit={uploadMedia2}>
-                            <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={onChange} required/>
-                            <label className='custom-file-label' htmlFor='customFile'></label>
-                            <input type='submit' value='Upload' /><br/>
-                            <button onClick={closeMedia2}>Close</button>
-                        </form>
-                    </div>
+                {/*<div style={{top: "35%", left: "35%"}} class="post-popup" id="media2">
+                    <form class="post-container" onSubmit={uploadMedia2}>
+                        <input type='file' className='custom-file-input' id='customFile' accept="image/*"
+                               onChange={onChange} required/>
+                        <label className='custom-file-label' htmlFor='customFile'></label>
+                        <input type='submit' value='Upload'/><br/>
+                        <button onClick={closeMedia2}>Close</button>
+                    </form>
+                </div>
 
                     <div style={{top:"35%", left:"35%"}} class="post-popup" id="media3">
-                        <form class="post-container" onSubmit={uploadMedia3}>
-                            <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={onChange} required/>
-                            <label className='custom-file-label' htmlFor='customFile'></label>
-                            <input type='submit' value='Upload' /><br/>
-                            <button onClick={closeMedia3}>Close</button>
-                        </form>
+                    <form class="post-container" onSubmit={uploadMedia3}>
+                    <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={onChange} required/>
+                    <label className='custom-file-label' htmlFor='customFile'></label>
+                    <input type='submit' value='Upload' /><br/>
+                    <button onClick={closeMedia3}>Close</button>
+                    </form>
                     </div>
 
                     <div style={{top:"35%", left:"35%"}} class="post-popup" id="media4">
-                        <form class="post-container" onSubmit={uploadMedia4}>
-                            <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={onChange} required/>
-                            <label className='custom-file-label' htmlFor='customFile'></label>
-                            <input type='submit' value='Upload' /><br/>
-                            <button onClick={closeMedia4}>Close</button>
-                        </form>
+                    <form class="post-container" onSubmit={uploadMedia4}>
+                    <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={onChange} required/>
+                    <label className='custom-file-label' htmlFor='customFile'></label>
+                    <input type='submit' value='Upload' /><br/>
+                    <button onClick={closeMedia4}>Close</button>
+                    </form>
                     </div>
+                */}
 
                     <div style={{top:"35%", left:"35%"}} className="post-popup" id="spotifyLinkForm">
                         <form className="post-container" onSubmit={setSpotifyLink}>
@@ -564,12 +564,12 @@ const Profile = (stateObj) => {
                     </div>
 
                     <div style={{ display: "inline-block" }}>
-                        <h3 style={{ paddingLeft: 50 }}><u>Media:</u></h3>
+                        <h3 style={{ paddingLeft: 50 }}><u>Media:</u><i className="fas fa-edit" style={{cursor: "pointer", marginLeft:"10px"}}/></h3>
                         <div style={{ paddingLeft: 50 }}>
-                            <img onClick={openMedia1} style={{ height: "160px", margin: "15px 5px 0 5px" }} src={`${stateObj.uploadmedia1}`} />
-                            <img onClick={openMedia2} style={{ height: "160px", margin: "15px 5px 0 5px" }} src={`${stateObj.uploadmedia2}`} />
+                            <img onClick={openMedia} style={{ height: "160px", margin: "15px 5px 0 5px" }} src={`${stateObj.uploadmedia1}`} />
+                            {/*<img onClick={openMedia2} style={{ height: "160px", margin: "15px 5px 0 5px" }} src={`${stateObj.uploadmedia2}`} />
                             <img onClick={openMedia3} style={{ height: "160px", margin: "15px 5px 0 5px" }} src={`${stateObj.uploadmedia3}`} />
-                            <img onClick={openMedia4} style={{ height: "160px", margin: "15px 5px 0 5px" }} src={`${stateObj.uploadmedia4}`} />
+                            <img onClick={openMedia4} style={{ height: "160px", margin: "15px 5px 0 5px" }} src={`${stateObj.uploadmedia4}`} />*/}
                         </div>
                         {/* <small style={{ paddingLeft: 50 }}><a href="#">Load More</a></ small> */}
                         <br /><br />
