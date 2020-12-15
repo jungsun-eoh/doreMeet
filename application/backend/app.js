@@ -5,7 +5,7 @@
 */
 
 //////////////////////////////////////////////////////////////////////////////////////////
-const record = 0; //change to 1 if making lasting changes (ex. change to 1 if not testing)
+const record = 1; //change to 1 if making lasting changes (ex. change to 1 if not testing)
 //////////////////////////////////////////////////////////////////////////////////////////
 
 const { query, json, response } = require("express");
@@ -69,6 +69,13 @@ function recordQuery(query, values) {
 
 //Test response
 app.get("/", (req, res) => res.send("Backend simple get response"));
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/*                                        Start of Community                                      */
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Searches within the communityPage table
 app.get("/searchPost", (req, res) => {
@@ -160,6 +167,12 @@ app.post('/voteminus', (req,res) => {
         res.send(result);
     });
 });
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/*                                        Start of Sign/Log in                                    */
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
  //Checks if the user's input has an existing row in the account table, then creates a cookie to track their login state
 app.post('/login', (req, res) => {
@@ -272,6 +285,12 @@ app.post('/logout', (req, res) => {
 
 })
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/*                                        Start of Settings                                       */
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 //Gets the user's data from the User and Account table for settings
 app.get('/getUsers', (req, res) => {
     var todb = 'SELECT * FROM `account` AS A LEFT OUTER JOIN `user` AS B ON `account_id` = `user_id` WHERE `user_id` = ?';
@@ -286,7 +305,6 @@ app.get('/getUsers', (req, res) => {
     })
 
 })
-
 //Updates the user's information in the User and Account table
 app.post('/updateUser', (req, res) => {
     console.log(req.body);
@@ -360,6 +378,13 @@ app.post('/updatePreferences', (req, res) => {
     })
 })
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/*                                        Start of Profile                                        */
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//Gets your own profile
 app.get('/getProfile', (req, res) => {
     var todb = 'SELECT * FROM `file_Path` WHERE `user` = ?';
     pool.query(todb, [req.session.userId], (error, result) => {
@@ -473,6 +498,13 @@ app.post('/uploadText', (req, res) => {
     });
 });
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/*                                        Start of Match                                          */
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//This gets the profile of your current match
 app.post('/getProfile2', (req, res) => {
     console.log(req.body);
 
@@ -514,6 +546,7 @@ app.get("/searchMatches", (req, res) => {
     })
 });
 
+//Pass the current match
 app.post("/pass", (req, res) => {
     var todb = 'INSERT INTO `matches2` (`user1`,`match_status`,`user2`) VALUES(?, ?, ?);'; 
     var queryArray = [req.session.userId, 0, req.body.currentMatch];
@@ -529,6 +562,7 @@ app.post("/pass", (req, res) => {
     })
 });
 
+//Connect on current match
 app.post("/connect", (req, res) => {
     var todb = 'INSERT INTO `matches2` (`user1`,`match_status`,`user2`) VALUES(?, ?, ?);';
     var queryArray = [req.session.userId, 1, req.body.currentMatch];
@@ -563,9 +597,8 @@ app.post("/checkMatch", (req, res) => {
 //gets the all the users that ______ has clicked "Connect" on
 app.post("/getConnected", (req, res) => {
     var connectedMatches = [];
-    var todb = `SELECT user2 FROM mydb.matches2 WHERE (match_status = '1' AND user1 = '1');`
-    pool.query(todb ,(err, result) => {
-       
+    var todb = `SELECT user2 FROM mydb.matches2 WHERE (match_status = '1' AND user1 = ` +  req.session.userId + `);`
+    pool.query(todb,  (err, result) => {
         if (err || result == ''){
             console.log("error");
         }else{
@@ -587,15 +620,15 @@ app.post("/getSuccessfulMatches", (req, res) => {
         connectedMatches.push(req.body.connectedMatches[key]);
     }
     var successfulMatches = [];
-    todb = `SELECT user1 FROM mydb.matches2 WHERE (match_status = '1' AND user1 = ? AND user2 = '1')`;
+    todb = `SELECT user1 FROM mydb.matches2 WHERE (match_status = '1' AND user1 = ? AND user2 = ?)`;
     var index = 0;
     connectedMatches.forEach(function(connectedMatch) {
-        pool.query(todb,connectedMatch,(err, result) => {
+        pool.query(todb,[connectedMatch, req.session.userId],(err, result) => {
             if(err || result == ''){
-                console.log("checking if " + connectedMatch + " connected with you..." + 1 + " false");
+                console.log("checking if " + connectedMatch + " connected with you..." +  req.session.userId + " false");
                 index += 1;
             }else{
-                console.log("checking if " + connectedMatch + " connected with you..." + 1 + " true");
+                console.log("checking if " + connectedMatch + " connected with you..." +  req.session.userId + " true");
                 successfulMatches.push(connectedMatch);
                 index += 1;
             }
