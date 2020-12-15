@@ -42,10 +42,6 @@ const Profile = (stateObj) => {
             stateObj.setProfilePic(response.data[0].profile_pic);
             stateObj.setProfilePicPath(response.data[0].picture_path);
             stateObj.setBio(response.data[0].bio);
-            if(response.data[0].media1){stateObj.setuploadmedia1(`${response.data[0].picture_path}${response.data[0].media1}`)}  else{stateObj.setuploadmedia1('assets/placeholder-img.jpg')};
-            if(response.data[0].media2){stateObj.setuploadmedia2(`${response.data[0].picture_path}${response.data[0].media2}`)}  else{stateObj.setuploadmedia2('assets/placeholder-img.jpg')};;
-            if(response.data[0].media3){stateObj.setuploadmedia3(`${response.data[0].picture_path}${response.data[0].media3}`)}  else{stateObj.setuploadmedia3('assets/placeholder-img.jpg')};;
-            if(response.data[0].media4){stateObj.setuploadmedia4(`${response.data[0].picture_path}${response.data[0].media4}`)}else{stateObj.setuploadmedia4('assets/placeholder-img.jpg')};;
 
             //can remove if statement if null links dont lead anywhere
             if(response.data[0].social_profile_1){stateObj.setSpotifyLink(response.data[0].social_profile_1)}; 
@@ -58,16 +54,36 @@ const Profile = (stateObj) => {
             console.log("{Profile} Found");
         })
         axios.get('/getMedia', ).then(response => {
-            console.log(response.data);
+            if(response.data.length > 0) {
+                let _html = "";
+                response.data.forEach(media => {
+                    _html += `<div class="MediaFile"> 
+                                  <img src="${media.file_name}" alt="Media file"/>
+                              </div>`;
+                })
+                document.getElementById("media-files").innerHTML = _html;
+            }
         }).catch(function (error) {
             console.log(error);
             console.log("{Media}  Not Found");
         })
         //src="assets/postImages/${response.data[0].post_file}"
         axios.get('getCommunityPosts').then(response => {
-            stateObj.setCommunityPost1(`assets/postImages/${response.data[0].post_file}`);
+            console.log(response.data);
+            if (response.data.length > 0) {
+                let _html = "";
+                response.data.forEach(post => {
+                    _html += `<div class="PostFormat">
+                                  <img src="assets/postImages/${post.post_file}" alt="Post file"/>
+                                  <p>${post.post_category}</p>
+                                  <p>${post.post_title}</p>
+                              </div>`;
+                })
+                document.getElementById("user-posts").innerHTML = _html;
+            }
+            /*stateObj.setCommunityPost1(`assets/postImages/${response.data[0].post_file}`);
             stateObj.setCommunityPost2(`assets/postImages/${response.data[1].post_file}`);
-            stateObj.setCommunityPost3(`assets/postImages/${response.data[2].post_file}`);
+            stateObj.setCommunityPost3(`assets/postImages/${response.data[2].post_file}`);}*/
         }).catch(function (error) {
             console.log(error);
             console.log("{CommPost} Not Found");
@@ -104,57 +120,6 @@ const Profile = (stateObj) => {
         stateObj.setAge(userAge);
     }
 
-    /*const getProfile = async (event) => {
-        event.preventDefault();
-
-        await axios.get('/getUsers').then(response => {
-            console.log(response.data[0]);
-            //2020-12-01
-            response.data[0].date_of_birth = response.data[0].date_of_birth.substring(0, 10);
-            test = response.data[0].date_of_birth.substring(0, 10);
-            stateObj.setDOB(response.data[0].date_of_birth);
-            axios.get('/').then(response => {
-                getAge();
-            });
-            stateObj.setFirstName(response.data[0].first_name);
-            stateObj.setLastName(response.data[0].last_name);
-            stateObj.setGender(response.data[0].gender);
-            stateObj.setDOB(response.data[0].date_of_birth);
-            stateObj.setEmail(response.data[0].email);
-            stateObj.setPhoneNumber(response.data[0].phone_number);
-            stateObj.setArtCategory(response.data[0].art_category);
-            stateObj.setSkillLevel(response.data[0].skill_lvl);
-            stateObj.setUserName(response.data[0].username);
-
-        }).catch(function (error) {
-            console.log(error);
-            console.log("{User} Not Found");
-        })
-        await axios.get('/getProfile', ).then(response => {
-            console.log(response.data[0]);
-            stateObj.setProfilePic(response.data[0].profile_pic);
-            stateObj.setProfilePicPath(response.data[0].picture_path);
-            stateObj.setBio(response.data[0].bio);
-            if(response.data[0].media1){stateObj.setuploadmedia1(`${response.data[0].picture_path}${response.data[0].media1}`)}  else{stateObj.setuploadmedia1('assets/placeholder-img.jpg')};
-            if(response.data[0].media2){stateObj.setuploadmedia2(`${response.data[0].picture_path}${response.data[0].media2}`)}  else{stateObj.setuploadmedia2('assets/placeholder-img.jpg')};;
-            if(response.data[0].media3){stateObj.setuploadmedia3(`${response.data[0].picture_path}${response.data[0].media3}`)}  else{stateObj.setuploadmedia3('assets/placeholder-img.jpg')};;
-            if(response.data[0].media4){stateObj.setuploadmedia4(`${response.data[0].picture_path}${response.data[0].media4}`)}else{stateObj.setuploadmedia4('assets/placeholder-img.jpg')};;
-        }).catch(function (error) {
-            console.log(error);
-            console.log("{Profile} Found");
-        })
-
-        //src="assets/postImages/${response.data[0].post_file}"
-        await axios.get('getCommunityPosts').then(response => {
-            console.log(response);
-            stateObj.setCommunityPost1(`assets/postImages/${response.data[0].post_file}`);
-            stateObj.setCommunityPost2(`assets/postImages/${response.data[1].post_file}`);
-            stateObj.setCommunityPost3(`assets/postImages/${response.data[2].post_file}`);
-        }).catch(function (error) {
-            console.log(error);
-            console.log("{CommPost} Not Found");
-        });
-    }*/
     const upload = async e => {
         e.preventDefault();
         const formData = new FormData();
@@ -197,7 +162,7 @@ const Profile = (stateObj) => {
         await axios.post('/uploadMedia', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
             console.log(response.data[0]);
             stateObj.setuploadmedia1(`${response.data[0].picture_path} + ${response.data[0].post_file}`);
-        });
+        }).then(window.location.reload());
     }
 
     const openMedia = () => {
@@ -207,76 +172,6 @@ const Profile = (stateObj) => {
     const closeMedia = () => {
         document.getElementById("media").style.display = "none";
     }
-    /*
-
-    //stuff for media file 2
-    const uploadMedia2 = async e => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append('file', stateObj.file);
-        formData.append('type', 'media2');
-        closeMedia2();
-        await axios.post('/uploadMedia', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
-            console.log(response.data[0]);
-            stateObj.setuploadmedia2(`${response.data[0].picture_path} + ${response.data[0].post_file}`);
-        });
-    }
-
-    const changeMedia2 = (e) => {
-    }
-
-    const openMedia2 = () => {
-        document.getElementById("media2").style.display = "block";
-    }
-
-    const closeMedia2 = () => {
-        document.getElementById("media2").style.display = "none";
-    }
-
-    //Stuff for media file 3
-    const uploadMedia3 = async e => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append('file', stateObj.file);
-        formData.append('type', 'media3');
-        closeMedia3();
-        await axios.post('/uploadMedia', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
-            console.log(response.data[0]);
-            stateObj.setuploadmedia3(`${response.data[0].picture_path} + ${response.data[0].post_file}`);
-        });
-    }
-
-    const changeMedia3 = (e) => {
-    }
-
-    const openMedia3 = () => {
-        document.getElementById("media3").style.display = "block";
-    }
-
-    const closeMedia3 = () => {
-        document.getElementById("media3").style.display = "none";
-    }
-
-    //Stuff for media file 4
-    const uploadMedia4 = async e => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append('file', stateObj.file);
-        formData.append('type', 'media4');
-        closeMedia4();
-        await axios.post('/uploadMedia', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
-            console.log(response.data[0]);
-            stateObj.setuploadmedia4(`${response.data[0].picture_path} + ${response.data[0].post_file}`);
-        });
-    }
-
-    const openMedia4 = () => {
-        document.getElementById("media4").style.display = "block";
-    }
-
-    const closeMedia4 = () => {
-        document.getElementById("media4").style.display = "none";
-    }*/
 
     //Add Spotify Link
     const setSpotifyLink = async e => {
@@ -410,6 +305,20 @@ const Profile = (stateObj) => {
         document.getElementById("bioForm").style.display = "none";
     }
 
+    const setTag = async e => {
+        e.preventDefault();
+        closeTagForm();
+        //axios call here
+    }
+
+    const openTagForm = () => {
+        document.getElementById("tagForm").style.display = "block";
+    }
+
+    const closeTagForm = () => {
+        document.getElementById("tagForm").style.display = "none";
+    }
+
     return (
         <Router>
             <Navbar />
@@ -431,45 +340,18 @@ const Profile = (stateObj) => {
                         <form class="post-container" onSubmit={uploadMedia}>
                             <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={onChange} required/>
                             <label className='custom-file-label' htmlFor='customFile'></label>
+                            <br/>
                             <input type='submit' value='Upload' /><br/>
                             <button onClick={closeMedia}>Close</button>
                         </form>
                     </div>
 
-                {/*<div style={{top: "35%", left: "35%"}} class="post-popup" id="media2">
-                    <form class="post-container" onSubmit={uploadMedia2}>
-                        <input type='file' className='custom-file-input' id='customFile' accept="image/*"
-                               onChange={onChange} required/>
-                        <label className='custom-file-label' htmlFor='customFile'></label>
-                        <input type='submit' value='Upload'/><br/>
-                        <button onClick={closeMedia2}>Close</button>
-                    </form>
-                </div>
-
-                    <div style={{top:"35%", left:"35%"}} class="post-popup" id="media3">
-                    <form class="post-container" onSubmit={uploadMedia3}>
-                    <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={onChange} required/>
-                    <label className='custom-file-label' htmlFor='customFile'></label>
-                    <input type='submit' value='Upload' /><br/>
-                    <button onClick={closeMedia3}>Close</button>
-                    </form>
-                    </div>
-
-                    <div style={{top:"35%", left:"35%"}} class="post-popup" id="media4">
-                    <form class="post-container" onSubmit={uploadMedia4}>
-                    <input type='file' className='custom-file-input' id='customFile' accept="image/*" onChange={onChange} required/>
-                    <label className='custom-file-label' htmlFor='customFile'></label>
-                    <input type='submit' value='Upload' /><br/>
-                    <button onClick={closeMedia4}>Close</button>
-                    </form>
-                    </div>
-                */}
 
                     <div style={{top:"35%", left:"35%"}} className="post-popup" id="spotifyLinkForm">
                         <form className="post-container" onSubmit={setSpotifyLink}>
                             <label htmlFor='spotifyLink'>Spotify Link:</label>
                             <input type='text' id='spotifyLink' placeholder='Input your Spotify link here (Example: https://spotify.com)'
-                                   onChange={e => { stateObj.setSpotifyLink(e.target.value); }} required/>
+                                    required/>
                             <input type='submit' value='Submit'/><br/>
                             <button onClick={closeSpotifyLinkForm}>Close</button>
                         </form>
@@ -479,7 +361,7 @@ const Profile = (stateObj) => {
                         <form class="post-container" onSubmit={setTwitterLink}>
                             <label for='twitterLink'>Twitter Link:</label>
                             <input type='text' id='twitterLink' placeholder='Input your Twitter link here (Example: https://twitter.com)'
-                                   onChange={e => { stateObj.setTwitterLink(e.target.value); }} required/>
+                                   required/>
                             <input type='submit' value='Submit'/><br/>
                             <button onClick={closeTwitterLinkForm}>Close</button>
                         </form>
@@ -489,7 +371,7 @@ const Profile = (stateObj) => {
                         <form className="post-container" onSubmit={setYoutubeLink}>
                             <label htmlFor='youtubeLink'>Youtube Link:</label>
                             <input type='text' id='youtubeLink' placeholder='Input your Youtube link here (Example: https://youtube.com)'
-                                   onChange={e => { stateObj.setYoutubeLink(e.target.value); }} required/>
+                                   required/>
                             <input type='submit' value='Submit'/><br/>
                             <button onClick={closeYoutubeLinkForm}>Close</button>
                         </form>
@@ -499,7 +381,7 @@ const Profile = (stateObj) => {
                         <form className="post-container" onSubmit={setInstagramLink}>
                             <label htmlFor='instagramLink'>Instagram Link:</label>
                             <input type='text' id='instagramLink' placeholder='Input your Instagram link here (Example: https://instagram.com)'
-                                   onChange={e => { stateObj.setInstagramLink(e.target.value); }} required/>
+                                   required/>
                             <input type='submit' value='Submit'/><br/>
                             <button onClick={closeInstagramLinkForm}>Close</button>
                         </form>
@@ -515,10 +397,16 @@ const Profile = (stateObj) => {
                             <button onClick={closeBioForm}>Close</button>
                         </form>
                     </div>
-                
-                {/*<input style={{ position: "center", width: '10%', marginLeft: 'auto', marginRight: 20, marginTop: 10 }} type='button' value="show Profile" onClick={getProfile} /><br />*/}
-                
-                
+
+                <div style={{top:"35%", left:"35%"}} className="post-popup" id="tagForm">
+                    <form className="post-container" onSubmit={setTag}>
+                        <label htmlFor='tag'>Tag:</label>
+                        <input type='text' id='tag' placeholder='Type a tag here!' required/>
+                        <input type='submit' value='Submit'/><br/>
+                        <button onClick={closeTagForm}>Close</button>
+                    </form>
+                </div>
+
                 <div className="profileContainer">
                     <div className="profileChildImg">
                         <img onClick={openPost} style={{cursor: "pointer"}}className="profileImage" src={`${stateObj.profilePicPath+stateObj.profilePic}`} />
@@ -554,12 +442,8 @@ const Profile = (stateObj) => {
                     <br /><br />
 
                     <div style={{ display: "inline-block", float: 'left', paddingLeft: 50 }}>
-                        <h3><u>Tags:</u></h3>
+                        <h3><u>Tags:</u><i className="far fa-plus-square" style={{cursor: "pointer", marginLeft:"10px"}} onClick={openTagForm}/></h3>
                         <br />
-                        <input style={{width:"200px", marginRight: "20px"}} className="tagInput" type="text" placeholder={stateObj.firstName}></input>
-                        <input style={{width:"200px", marginRight: "20px"}} className="tagInput" type="text" placeholder={stateObj.firstName}></input>
-                        <input style={{width:"200px", marginRight: "20px"}} className="tagInput" type="text" placeholder={stateObj.firstName}></input>
-                        <input style={{width:"200px", marginRight: "20px"}} className="tagInput" type="text" placeholder={stateObj.firstName}></input>
                         <br /><br />
 
 
@@ -569,12 +453,8 @@ const Profile = (stateObj) => {
                     </div>
 
                     <div style={{ display: "inline-block" }}>
-                        <h3 style={{ paddingLeft: 50 }}><u>Media:</u><i className="fas fa-edit" style={{cursor: "pointer", marginLeft:"10px"}} onClick={openMedia}/></h3>
-                        <div style={{ paddingLeft: 50 }}>
-                            <img onClick={openMedia} style={{ height: "160px", margin: "15px 5px 0 5px" }} src={`${stateObj.uploadmedia1}`} />
-                            {/*<img onClick={openMedia2} style={{ height: "160px", margin: "15px 5px 0 5px" }} src={`${stateObj.uploadmedia2}`} />
-                            <img onClick={openMedia3} style={{ height: "160px", margin: "15px 5px 0 5px" }} src={`${stateObj.uploadmedia3}`} />
-                            <img onClick={openMedia4} style={{ height: "160px", margin: "15px 5px 0 5px" }} src={`${stateObj.uploadmedia4}`} />*/}
+                        <h3 style={{ paddingLeft: 50 }}><u>Media:</u><i className="fas fa-folder-plus" style={{cursor: "pointer", marginLeft:"10px"}} onClick={openMedia}/></h3>
+                        <div id="media-files">
                         </div>
                         {/* <small style={{ paddingLeft: 50 }}><a href="#">Load More</a></ small> */}
                         <br /><br />
@@ -582,29 +462,7 @@ const Profile = (stateObj) => {
 
                     <div>
                         <h3 style={{ display: "inline-block", paddingLeft: 50 }}> <u>Your Community Posts:</u></h3>
-                        {/* <div style={{paddingLeft:50}}>
-                        <img style={{ height: "320px", marginLeft: "20px" }} src='assets/placeholder-img.jpg' />
-                        <img style={{ height: "320px", marginLeft: "80px" }} src='assets/placeholder-img.jpg' />
-                        <h2 style={{ marginLeft: "170px", marginRight: "150px", display: "inline-block" }}> Post Title</h2>
-                        <h2 style={{ marginLeft: "220px", display: "inline-block" }}> Post Title</h2></div> */}
-                        <div className='yourpost_container'>
-                            <div className='cards_wrapper'>
-                                <ul className='cards_items'>
-                                    <HighlightItem
-                                        src={`${stateObj.communityPost1}`}
-                                        text='Acoustic Cover'
-                                        label='Music'
-                                        path='/'
-                                    />
-                                    <HighlightItem
-                                        src={`${stateObj.communityPost2}`}
-                                        text='Piano Cover'
-                                        label='Music'
-                                        path='/'
-                                    />
-                                </ul>
-                            </div>
-                        </div>
+                        <div id="user-posts"></div>
                     </div>
                 </div>
             </header>
