@@ -16,9 +16,8 @@ var test = '';
 const Profile = (stateObj) => {
 
     useEffect(() => {
+        console.log("useEffect Profile.js");
         axios.get('/getUsers').then(response => {
-        console.log(response.data[0]);
-        //2020-12-01
         response.data[0].date_of_birth = response.data[0].date_of_birth.substring(0, 10);
         test = response.data[0].date_of_birth.substring(0, 10);
         stateObj.setDOB(response.data[0].date_of_birth);
@@ -40,7 +39,6 @@ const Profile = (stateObj) => {
         console.log("{User} Not Found");
     })
         axios.get('/getProfile', ).then(response => {
-            console.log(response.data[0]);
             stateObj.setProfilePic(response.data[0].profile_pic);
             stateObj.setProfilePicPath(response.data[0].picture_path);
             stateObj.setBio(response.data[0].bio);
@@ -62,7 +60,6 @@ const Profile = (stateObj) => {
 
         //src="assets/postImages/${response.data[0].post_file}"
         axios.get('getCommunityPosts').then(response => {
-            console.log(response);
             stateObj.setCommunityPost1(`assets/postImages/${response.data[0].post_file}`);
             stateObj.setCommunityPost2(`assets/postImages/${response.data[1].post_file}`);
             stateObj.setCommunityPost3(`assets/postImages/${response.data[2].post_file}`);
@@ -83,15 +80,11 @@ const Profile = (stateObj) => {
 
         var today = year + "-" + month + "-" + day;
         var userAge = (year - userYear - 1);
-        console.log(today);
-        console.log(test);
         if (month - userMonth > 0) {
             userAge += 1;
-            console.log("+1 monnth?")
         } else if (month - userMonth == 0) {
             if (day - userDay >= 0) {
                 userAge += 1;
-                console.log("+1 day?")
             }
         }
         console.log(userAge);

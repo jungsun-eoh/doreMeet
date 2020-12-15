@@ -114,9 +114,8 @@ const CommunityPage = (stateObj) => {
   }
     //Upon entering the page the most recent 5 posts are displayed
      useEffect(() => {
+       console.log("useEffect CommunityPage")
        axios.get('/recent5').then(response => {
-        console.log(response.data);
-
          let _html = "";
          _html += `<h1>Recent Posts</h1>`;
          //button not passing the right id

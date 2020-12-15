@@ -384,6 +384,43 @@ app.get('/getProfile', (req, res) => {
     })
 })
 
+//Upload for profile page: incomplete
+app.post('/upload', (req, res) => {
+    console.log("test");
+    console.log(req.files);
+    if (req.files === null) {
+        return res.status(400).json({ msg: 'No file uploaded' });
+      }
+      const file = req.files.file;
+    var filepath = `/../frontend/public/assets/users/${req.session.userId}/${req.files.file.name}`;
+    var dir = `../frontend/public/assets/users/${req.session.userId}/`;
+    var frontpath = dir.substring(dir.indexOf("/assets/"));
+      
+    mkdirp.sync(dir);
+    var filepath = `/../frontend/public/assets/users/${req.session.userId}/${req.files.file.name}`;
+    req.files.file.mv(`${__dirname}${filepath}`, err => {
+        if (err) {
+            console.error(err);
+          }
+          var todb =   
+          "UPDATE file_path SET profile_pic = ?, picture_path = ? WHERE user = ?";
+          queryArray = [req.files.file.name, frontpath, req.session.userId];
+        pool.query(todb, queryArray,(error, result) => {
+            if(error){
+            console.log("upload fail");
+
+                console.log(error);
+            }else{
+            console.log("upload pass");
+            console.log("upload passpasspasspasspasspasspasspasspass");
+
+            if(record){recordQuery(todb, queryArray)};
+                console.log(result);
+                
+            } });
+    });
+});
+
 app.get("/getCommunityPosts", (req, res) => {
 
     var todb = "SELECT * FROM `communityPage`  WHERE `user` = " + req.session.userId + " ORDER BY `post_votes` DESC LIMIT 3 ;"
@@ -496,6 +533,7 @@ app.post("/pass", (req, res) => {
             console.log("pass fail");
         }else{
             console.log("pass pass");
+            if(record){recordQuery(todb, queryArray)};
             res.send(result);
             
         }
@@ -509,6 +547,7 @@ app.post("/connect", (req, res) => {
             console.log("connect fail");
         }else{
             console.log("connect pass");
+            if(record){recordQuery(todb, queryArray)};
             res.send(result);
             
         }
