@@ -99,7 +99,7 @@ class SignUp extends Component {
         return true;
       }
 
-       getAddress(){
+       getAddress = () =>{
         if(navigator.geolocation){
           navigator.geolocation.getCurrentPosition(this.showAddress);
         }
@@ -108,7 +108,7 @@ class SignUp extends Component {
         }
       }
 
-      showAddress(position){
+      showAddress = (position) =>{
 
         const LAT = position.coords.latitude;
         const LNG = position.coords.longitude;
@@ -118,14 +118,16 @@ class SignUp extends Component {
         let url = `https://us1.locationiq.com/v1/reverse.php?key=${KEY}&lat=${LAT}&lon=${LNG}&format=json`;
 
         fetch(url).then(response => response.json()).then(data => {
-           this.state.street_num = data.address.house_number;
-           this.state.street = data.address.road;
-           this.state.city = data.address.city;
-           this.state.state = data.address.state;
-           this.state.zipcode = data.address.postcode;
-           this.state.country = data.address.country;
-           this.state.latitude = data.lat;
-           this.state.longitude = data.lon;
+            this.setState({
+                street_num: data.address.house_number,
+                street: data.address.road,
+                city: data.address.city,
+                state: data.address.state,
+                zipcode: data.address.postcode,
+                country: data.address.country,
+                latitude: data.lat,
+                longitude: data.lon 
+            })
         })
         .catch(err => console.warn(err.message));
       }
