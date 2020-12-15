@@ -57,7 +57,12 @@ const Profile = (stateObj) => {
             console.log(error);
             console.log("{Profile} Found");
         })
-
+        axios.get('/getMedia', ).then(response => {
+            console.log(response.data);
+        }).catch(function (error) {
+            console.log(error);
+            console.log("{Media}  Not Found");
+        })
         //src="assets/postImages/${response.data[0].post_file}"
         axios.get('getCommunityPosts').then(response => {
             stateObj.setCommunityPost1(`assets/postImages/${response.data[0].post_file}`);

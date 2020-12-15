@@ -295,6 +295,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`matches2` (
 	UNIQUE `unique_index`(`user1`, `user2`))
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `mydb`.`media2`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`media2` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`media2` (
+	`media2_id` TINYINT NOT NULL AUTO_INCREMENT,
+  `file_name` varchar(256) NOT NULL,
+  `user` int NOT NULL,
+  PRIMARY KEY (`media2_id`))
+ENGINE = InnoDB;
+
+
+
+
 INSERT INTO `matches2` (`user1`, `match_status`, `user2`) VALUES (0, 0, 0);
 
 INSERT INTO `mydb`.`user`(`user_id`, `first_name`,`last_name`,`gender`,`date_of_birth`,`email`,`phone_number`,`art_category`,`skill_lvl`) VALUES (1, 'first', 'last',     'f','2000-11-21',    'mail@mail',        '7073334444',   'Dance',	    'I');
@@ -442,6 +457,14 @@ UPDATE file_path SET `social_profile_1` = 'https://www.google.com/' WHERE `user`
 UPDATE file_path SET `social_profile_2` = 'https://www.google.com/' WHERE `user` = '1';
 UPDATE file_path SET `social_profile_3` = 'https://www.google.com/' WHERE `user` = '1';
 UPDATE file_path SET `social_profile_4` = 'https://www.google.com/' WHERE `user` = '1';
+
+INSERT INTO `matches2` (`user1`, `match_status`, `user2`) VALUES (1, 1, 2);
+INSERT INTO `matches2` (`user1`, `match_status`, `user2`) VALUES (2, 1, 1);
+INSERT INTO `matches2` (`user1`, `match_status`, `user2`) VALUES (1, 1, 11);
+INSERT INTO `matches2` (`user1`, `match_status`, `user2`) VALUES (11, 1, 1);
+INSERT INTO `matches2` (`user1`, `match_status`, `user2`) VALUES (1, 1, 6);
+INSERT INTO `matches2` (`user1`, `match_status`, `user2`) VALUES (6, 0, 1);
+
 
 
 
