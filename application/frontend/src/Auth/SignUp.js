@@ -52,6 +52,9 @@ class SignUp extends Component {
     
       signUp = async (e) => {
         this.getAddress();
+      }
+
+      send = async() => {
         await axios.post('/signup', this.state)
         .then(response => {
              axios.post('/profileInit', this.state);
@@ -61,8 +64,6 @@ class SignUp extends Component {
             console.log(error)
         });
         this.props.history.push('/login');
-
-
       }
 
       handleSubmit = event => {
@@ -135,7 +136,7 @@ class SignUp extends Component {
                 country: data.address.country,
                 latitude: data.lat,
                 longitude: data.lon 
-            })
+            }, this.send)
         })
         .catch(err => console.warn(err.message));
       }
