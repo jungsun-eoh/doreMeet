@@ -50,6 +50,7 @@ const CommunityPage = (stateObj) => {
 
     closePost();
     await axios.post('/makePost', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+    window.location.reload();
   };
   //Sends the search terms to the backend and gets the response 
   const submitHandler = (event) => {
@@ -175,7 +176,7 @@ const CommunityPage = (stateObj) => {
                 <form class="post-container" onSubmit={postHandler}>
                   <h2> Post your creative collaborations! </h2>
                   <input type="text" onChange={e => stateObj.setPostName(e.target.value)} placeholder="Name" required />
-                  <textarea class="postDescription" maxLength={240} onChange={e => stateObj.setPostDescription(e.target.value)} placeholder="Description (optional)" />
+                  <textarea class="postDescription" maxLength={120} onChange={e => stateObj.setPostDescription(e.target.value)} placeholder="Description (optional)" />
                   <div>
                     <select onChange={e => { stateObj.setPostCategory(e.target.value); }}>
                      <option >Music</option>

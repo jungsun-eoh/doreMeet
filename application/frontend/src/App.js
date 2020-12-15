@@ -102,10 +102,10 @@ function App() {
   const [uploadmedia3,setuploadmedia3] = React.useState('');
   const [uploadmedia4,setuploadmedia4] = React.useState('');
 
-  const [twitterLink, setTwitterLink] = React.useState('');
-  const [instagramLink, setInstagramLink] = React.useState('');
-  const [spotifyLink, setSpotifyLink] = React.useState('');
-  const [youtubeLink, setYoutubeLink] = React.useState('');
+  const [twitterLink, setTwitterLink] = React.useState('https://www.twitter.com');
+  const [instagramLink, setInstagramLink] = React.useState('https://www.instagram.com');
+  const [spotifyLink, setSpotifyLink] = React.useState('https://www.spotify.com');
+  const [youtubeLink, setYoutubeLink] = React.useState('https://www.youtube.com');
 
 
   //stateObj is our big hub object that will hold all the info for the users session

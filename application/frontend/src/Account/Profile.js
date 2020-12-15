@@ -68,6 +68,14 @@ const Profile = (stateObj) => {
             console.log("{CommPost} Not Found");
         });}, [stateObj.screenState]);
 
+    const leaveSiteConfirmation = (e) => {
+        if(window.confirm('You are leaving DoReMeet, are you sure?')){
+        }
+        else{
+            e.preventDefault();
+        }
+    }
+
     const getAge = (event) => {
         var dateObj = new Date();
         var month = dateObj.getUTCMonth() + 1;
@@ -270,16 +278,20 @@ const Profile = (stateObj) => {
     //Add Spotify Link
     const setSpotifyLink = async e => {
         e.preventDefault();
-        console.log(document.getElementById("spotifyLink").value);
-        const formData = new FormData();
-        formData.append('value', document.getElementById("spotifyLink").value);
-        formData.append('type', 'social_profile_1');
-        await axios.post('/uploadText', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
-            console.log(response.data);
-        });
-        //stateObj.spotifyLink = document.getElementById("spotifyLink").value after axios call if successful and for the rest of social media links and bio
-        //I will do this after backend set up - Vincent
-        closeSpotifyLinkForm();
+        if(document.getElementById("spotifyLink").value.startsWith("https://")
+          && document.getElementById("spotifyLink").value.includes("spotify.com")) {
+            const formData = new FormData();
+            formData.append('value', document.getElementById("spotifyLink").value);
+            formData.append('type', 'social_profile_1');
+            await axios.post('/uploadText', formData, {headers: {'Content-Type': 'multipart/form-data'}}).then(response => {
+                console.log(response.data);
+            }).then(stateObj.spotifyLink = document.getElementById("spotifyLink").value);
+            closeSpotifyLinkForm();
+            window.location.reload();
+        }
+        else {
+            alert("Link must start with 'https://' and have 'spotify.com'")
+        }
     }
 
     const openSpotifyLinkForm = () => {
@@ -293,14 +305,20 @@ const Profile = (stateObj) => {
     //Add Twitter Link
     const setTwitterLink = async e => {
         e.preventDefault();
-        console.log(document.getElementById("twitterLink").value);
-        const formData = new FormData();
-        formData.append('value', document.getElementById("twitterLink").value);
-        formData.append('type', 'social_profile_2');
-        await axios.post('/uploadText', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
-            console.log(response.data);
-        });
-        closeTwitterLinkForm();
+        if(document.getElementById("twitterLink").value.startsWith("https://")
+          && document.getElementById("twitterLink").value.includes("twitter.com")) {
+            const formData = new FormData();
+            formData.append('value', document.getElementById("twitterLink").value);
+            formData.append('type', 'social_profile_2');
+            await axios.post('/uploadText', formData, {headers: {'Content-Type': 'multipart/form-data'}}).then(response => {
+                console.log(response.data);
+            }).then(stateObj.twitterLink = document.getElementById("twitterLink").value);
+            closeTwitterLinkForm();
+            window.location.reload();
+        }
+        else {
+            alert("Link must start with 'https://' and have 'twitter.com'")
+        }
     }
 
     const openTwitterLinkForm = () => {
@@ -314,14 +332,20 @@ const Profile = (stateObj) => {
     //Add Youtube Link
     const setYoutubeLink = async e => {
         e.preventDefault();
-        console.log(document.getElementById("youtubeLink").value);
-        const formData = new FormData();
-        formData.append('value', document.getElementById("youtubeLink").value);
-        formData.append('type', 'social_profile_3');
-        await axios.post('/uploadText', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
-            console.log(response.data);
-        });
-        closeYoutubeLinkForm();
+        if(document.getElementById("youtubeLink").value.startsWith("https://")
+          && document.getElementById("youtubeLink").value.includes("youtube.com")) {
+            const formData = new FormData();
+            formData.append('value', document.getElementById("youtubeLink").value);
+            formData.append('type', 'social_profile_3');
+            await axios.post('/uploadText', formData, {headers: {'Content-Type': 'multipart/form-data'}}).then(response => {
+                console.log(response.data);
+            }).then(stateObj.youtubeLink = document.getElementById("youtubeLink").value);
+            closeYoutubeLinkForm();
+            window.location.reload();
+        }
+        else {
+            alert("Link must start with 'https://' and have 'youtube.com'")
+        }
     }
 
     const openYoutubeLinkForm = () => {
@@ -335,15 +359,21 @@ const Profile = (stateObj) => {
     //Add Instagram Link
     const setInstagramLink = async e => {
         e.preventDefault();
-        console.log(document.getElementById("instagramLink").value);
-        const formData = new FormData();
-        formData.append('value', document.getElementById("instagramLink").value);
-        formData.append('type', 'social_profile_4');
-        await axios.post('/uploadText', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
-            console.log(response.data);
-        });
+        if(document.getElementById("instagramLink").value.startsWith("https://")
+          && document.getElementById("instagramLink").value.includes("instagram.com")) {
+            const formData = new FormData();
+            formData.append('value', document.getElementById("instagramLink").value);
+            formData.append('type', 'social_profile_4');
+            await axios.post('/uploadText', formData, {headers: {'Content-Type': 'multipart/form-data'}}).then(response => {
+                console.log(response.data);
+            }).then(stateObj.instagramLink = document.getElementById("instagramLink").value);
 
-        closeInstagramLinkForm();
+            closeInstagramLinkForm();
+            window.location.reload();
+        }
+        else {
+            alert("Link must start with 'https://' and have 'instagram.com'")
+        }
     }
 
     const openInstagramLinkForm = () => {
@@ -356,14 +386,14 @@ const Profile = (stateObj) => {
 
     const setBio = async e => {
         e.preventDefault();
-        console.log(document.getElementById("Bio").value);
         const formData = new FormData();
         formData.append('value', document.getElementById("Bio").value);
         formData.append('type', 'bio');
         await axios.post('/uploadText', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
             console.log(response.data[0]);
-        });
+        }).then(stateObj.bio = document.getElementById("Bio").value);
         closeBioForm();
+        window.location.reload();
     }
 
     const openBioForm = () => {
@@ -433,7 +463,8 @@ const Profile = (stateObj) => {
                     <div style={{top:"35%", left:"35%"}} className="post-popup" id="spotifyLinkForm">
                         <form className="post-container" onSubmit={setSpotifyLink}>
                             <label htmlFor='spotifyLink'>Spotify Link:</label>
-                            <input type='text' id='spotifyLink' placeholder='Input your Spotify link here' onChange={e => { stateObj.setSpotifyLink(e.target.value); }} required/>
+                            <input type='text' id='spotifyLink' placeholder='Input your Spotify link here (Example: https://spotify.com)'
+                                   onChange={e => { stateObj.setSpotifyLink(e.target.value); }} required/>
                             <input type='submit' value='Submit'/><br/>
                             <button onClick={closeSpotifyLinkForm}>Close</button>
                         </form>
@@ -442,7 +473,8 @@ const Profile = (stateObj) => {
                     <div style={{top:"35%", left:"35%"}} class="post-popup" id="twitterLinkForm">
                         <form class="post-container" onSubmit={setTwitterLink}>
                             <label for='twitterLink'>Twitter Link:</label>
-                            <input type='text' id='twitterLink' placeholder='Input your Twitter link here' onChange={e => { stateObj.setTwitterLink(e.target.value); }} required/>
+                            <input type='text' id='twitterLink' placeholder='Input your Twitter link here (Example: https://twitter.com)'
+                                   onChange={e => { stateObj.setTwitterLink(e.target.value); }} required/>
                             <input type='submit' value='Submit'/><br/>
                             <button onClick={closeTwitterLinkForm}>Close</button>
                         </form>
@@ -451,7 +483,8 @@ const Profile = (stateObj) => {
                     <div style={{top:"35%", left:"35%"}} className="post-popup" id="youtubeLinkForm">
                         <form className="post-container" onSubmit={setYoutubeLink}>
                             <label htmlFor='youtubeLink'>Youtube Link:</label>
-                            <input type='text' id='youtubeLink' placeholder='Input your Youtube link here' onChange={e => { stateObj.setYoutubeLink(e.target.value); }} required/>
+                            <input type='text' id='youtubeLink' placeholder='Input your Youtube link here (Example: https://youtube.com)'
+                                   onChange={e => { stateObj.setYoutubeLink(e.target.value); }} required/>
                             <input type='submit' value='Submit'/><br/>
                             <button onClick={closeYoutubeLinkForm}>Close</button>
                         </form>
@@ -460,7 +493,8 @@ const Profile = (stateObj) => {
                     <div style={{top:"35%", left:"35%"}} className="post-popup" id="instagramLinkForm">
                         <form className="post-container" onSubmit={setInstagramLink}>
                             <label htmlFor='instagramLink'>Instagram Link:</label>
-                            <input type='text' id='instagramLink' placeholder='Input your Instagram link here' onChange={e => { stateObj.setInstagramLink(e.target.value); }} required/>
+                            <input type='text' id='instagramLink' placeholder='Input your Instagram link here (Example: https://instagram.com)'
+                                   onChange={e => { stateObj.setInstagramLink(e.target.value); }} required/>
                             <input type='submit' value='Submit'/><br/>
                             <button onClick={closeInstagramLinkForm}>Close</button>
                         </form>
@@ -491,13 +525,25 @@ const Profile = (stateObj) => {
                         <p>Gender: {stateObj.gender}</p>
                         <p style={{ color: "#656c75" }}>Location: Placeholder Location (Hidden)</p>
                         <p>Art Category: {stateObj.artCategory}</p><br />
-                        <img style={{height: "100px", position: 'relative', cursor: "pointer"}} src="/assets/spotifylogo.png" alt="Spotify Logo"/>
+                        <a href={stateObj.spotifyLink} onClick={leaveSiteConfirmation}>
+                            <img style={{height: "100px", position: 'relative', cursor: "pointer"}}
+                                 src="/assets/spotifylogo.png" alt="Spotify Logo"/>
+                        </a>
                         <i className="fas fa-edit" style={{cursor: "pointer"}} onClick={openSpotifyLinkForm}/>
-                        <img style={{height: "100px", marginLeft: "70px", position: 'relative', cursor: "pointer"}} src="/assets/twitterlogo.png" alt="Twitter Logo"/>
+                        <a href={stateObj.twitterLink} onClick={leaveSiteConfirmation}>
+                            <img style={{height: "100px", marginLeft: "70px", position: 'relative', cursor: "pointer"}}
+                                 src="/assets/twitterlogo.png" alt="Twitter Logo"/>
+                        </a>
                         <i className="fas fa-edit" style={{cursor: "pointer"}} onClick={openTwitterLinkForm}/>
-                        <img style={{height: "100px", marginLeft: "70px", position: 'relative', cursor: "pointer"}} src="/assets/youtubelogo.png" alt="Youtube Logo"/>
+                        <a href={stateObj.youtubeLink} onClick={leaveSiteConfirmation}>
+                            <img style={{height: "100px", marginLeft: "70px", position: 'relative', cursor: "pointer"}}
+                                 src="/assets/youtubelogo.png" alt="Youtube Logo"/>
+                        </a>
                         <i className="fas fa-edit" style={{cursor: "pointer"}} onClick={openYoutubeLinkForm}/>
-                        <img style={{height: "100px", marginLeft: "70px", position: 'relative', cursor: "pointer"}} src="/assets/instagramlogo.png" alt="Instagram Logo"/>
+                        <a href={stateObj.instagramLink} onClick={leaveSiteConfirmation}>
+                            <img style={{height: "100px", marginLeft: "70px", position: 'relative', cursor: "pointer"}}
+                                 src="/assets/instagramlogo.png" alt="Instagram Logo"/>
+                        </a>
                         <i className="fas fa-edit" style={{cursor: "pointer"}} onClick={openInstagramLinkForm}/>
                     </div>
                     <br /><br />
