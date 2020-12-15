@@ -387,10 +387,10 @@ const Profile = (stateObj) => {
         const formData = new FormData();
         formData.append('value', document.getElementById("Bio").value);
         formData.append('type', 'bio');
+        closeBioForm();
         await axios.post('/uploadText', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
             console.log(response.data[0]);
         }).then(stateObj.bio = document.getElementById("Bio").value);
-        closeBioForm();
         window.location.reload();
     }
 
@@ -564,7 +564,7 @@ const Profile = (stateObj) => {
                     </div>
 
                     <div style={{ display: "inline-block" }}>
-                        <h3 style={{ paddingLeft: 50 }}><u>Media:</u><i className="fas fa-edit" style={{cursor: "pointer", marginLeft:"10px"}}/></h3>
+                        <h3 style={{ paddingLeft: 50 }}><u>Media:</u><i className="fas fa-edit" style={{cursor: "pointer", marginLeft:"10px"}} onClick={openMedia}/></h3>
                         <div style={{ paddingLeft: 50 }}>
                             <img onClick={openMedia} style={{ height: "160px", margin: "15px 5px 0 5px" }} src={`${stateObj.uploadmedia1}`} />
                             {/*<img onClick={openMedia2} style={{ height: "160px", margin: "15px 5px 0 5px" }} src={`${stateObj.uploadmedia2}`} />
