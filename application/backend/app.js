@@ -42,6 +42,17 @@ var sessionOptions = {
 }
 //const pool = require("./database.js");
 
+var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+      user: 'domremeet.team2',
+      pass: 'ewgruapbcwupkbdy'
+    }
+  });
 
 var bodyParser = require('body-parser');
 const e = require("express");
@@ -285,7 +296,7 @@ app.post('/logout', (req, res) => {
 
 })
 
-// recover
+// grab the user email to check if the Application has the account under the submitted email. 
 app.post('/recoverPassword', (req,res) => {
     var email = req.body.email;
     var get_id = "SELECT user_id FROM user WHERE (email = '" + req.body.email + "')";
@@ -302,8 +313,26 @@ app.post('/recoverPassword', (req,res) => {
                     console.log(result4);
                     console.log(result2[0].user_id);
                     console.log(result2[0].password);
+
                     res.send(req.session);
                 });
+                  var mailOptions = {
+                    to: email,
+                    from: 'passwordreset@demo.com',
+                    subject: 'Node.js Password Reset',
+                    text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+                      'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+                      'http://' +
+                      'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+                  };
+                  transporter.sendMail(mailOptions, function(error, info){
+                    if (error) {
+                      console.log(error);
+                    } else {
+                      console.log('Email sent: ' + info.response);
+                    }
+                  });
+                  
             }
         }
     });

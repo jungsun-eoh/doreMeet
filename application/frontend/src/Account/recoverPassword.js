@@ -13,7 +13,6 @@ import Footer from '../components/Footer/Footer';
 
 
 class RecoverPassword extends Component {
-
     state = {
         email: ""
     }
@@ -27,6 +26,7 @@ class RecoverPassword extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
       }
+
     recoverPassword = e =>{
         e.preventDefault();
         axios.post('/recoverPassword', this.state).then(response =>{
@@ -49,8 +49,7 @@ class RecoverPassword extends Component {
                         <div className="Info">
                             <h1>Reset your password</h1>
                             <h4>We will send you a secure link to change your password.</h4><br/>
-                        </div>
-                    
+                        </div>                    
                         <form onSubmit={this.handleSubmit}>
                             <div className="input">
                                 <label htmlFor="email" className="sub-heading">  </label>
@@ -66,7 +65,6 @@ class RecoverPassword extends Component {
             </>
         )   
     }
-
 }
 
 export default RecoverPassword;
