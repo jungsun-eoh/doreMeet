@@ -49,9 +49,11 @@ CREATE TABLE IF NOT EXISTS `mydb`.`address` (
   `street_number` INT NULL,
   `street` VARCHAR(128) NOT NULL,
   `city` VARCHAR(45) NOT NULL,
-  `state` CHAR(2) NOT NULL,
+  `state` CHAR(15) NOT NULL,
   `zipcode` INT NOT NULL,
   `country` VARCHAR(45) NOT NULL,
+  `latitude` VARCHAR(90) NOT NULL,
+  `longitude` VARCHAR(90) NOT NULL,
   PRIMARY KEY (`address_id`))
 ENGINE = InnoDB;
 

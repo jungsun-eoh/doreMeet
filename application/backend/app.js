@@ -194,7 +194,14 @@ app.post('/voteminus', (req,res) => {
             bcrypt.compare(password, hpass, (err, result) =>{
                 console.log(result);
                 if (result == 1){
-                    //console.log("true");
+                    console.log("true");
+                    // var todb_account_stat = 'UPDATE account SET activate = 1 WHERE username = ?;'
+                    // pool.query(todb_account_stat, [username], (err, result) => {
+                    //     if (err) throw err;
+                    //     else{
+                    //         console.log(result);
+                    //     }
+                    // })
                     console.log(res.redirect('/'));
                 }
                 else{
@@ -240,16 +247,7 @@ app.post('/signup', (req, res) => {
     var country = req.body.country;
     var latitude = req.body.latitude;
     var longitude = req.body.longitude;
-
-    console.log(street_number);
-    console.log(street);
-    console.log(city);
-    console.log(state);
-    console.log(zipcode);
-    console.log(country);
-    console.log(latitude);
-    console.log(longitude);
-    
+   
     // M - 12 F - 9
     // checks for email
     pool.query(todb_check_email, [email], (err, results) => {
@@ -276,19 +274,27 @@ app.post('/signup', (req, res) => {
                                         if(err) throw err;
                                         else{
                                             console.log(result);
-                                                   
                                             // addes to user_add table
                                             var todb_user_add = 'INSERT INTO user_add (user, address) VALUES (?,?);'
                                             pool.query(todb_user_add, [user_id, user_id], (err, result) => {
                                             console.log(err);
                                             console.log(result);
+                                            
+                                            // added later account_type
+                                            var general_account = "general"
+                                            var todb_account_type = 'INSERT INTO accountType (account_type_desc, account) VALUES (?,?);'
+                                            pool.query(todb_account_type, [general_account, user_id], (err, result) => {
+                                                if (err) throw err;
+                                                else{
+                                                    console.log(result);
+                                                }
+                                            })
                                             })
                                         }
                                     })
                                 }  
                             }); 
-                        });
-                            
+                        });    
                         })
                     });
                 }
@@ -415,6 +421,7 @@ app.post('/logout', (req, res) => {
                 console.log("destroy cookie");
                 res.clearCookie('loginkey');
                 res.send(req.session);
+                console.log("1234567890");
                 //res.redirect('/');                
             }
         })
@@ -422,7 +429,6 @@ app.post('/logout', (req, res) => {
             console.log("none to destroy '/logout'");
             //res.redirect('/');
     }
-
 })
 
 //Gets the user's data from the User and Account table for settings
@@ -437,7 +443,6 @@ app.get('/getUsers', (req, res) => {
             res.send(result);
         }
     })
-
 })
 
 //Updates the user's information in the User and Account table
@@ -464,7 +469,7 @@ app.post('/updateUser', (req, res) => {
                 }
             });
 
-            todb = "SELECT * FROM `mydb`.`account` WHERE (username = '" + req.body.username + "' AND password = '" + req.body.password + "')";
+            todb = "SELECT * FROM account WHERE (username = '" + req.body.username + "' AND password = '" + req.body.password + "')";
              pool.query(todb, (error, result) => {
                     if (result == '') {
                         console.log("User put incorrect password");
@@ -677,8 +682,7 @@ app.post("/pass", (req, res) => {
         }else{
             console.log("pass pass");
             if(record){recordQuery(todb, queryArray)};
-            res.send(result);
-            
+            res.send(result);   
         }
     })
 });
@@ -692,7 +696,6 @@ app.post("/connect", (req, res) => {
             console.log("connect pass");
             if(record){recordQuery(todb, queryArray)};
             res.send(result);
-            
         }
     })
 });
@@ -704,7 +707,6 @@ app.post("/checkMatch", (req, res) => {
         if (err || result == ''){
             console.log(req.session.userId + "No match status " + req.body.currentMatch);
             res.send(result);
-            
         }else{
             process.stdout.write(req.session.userId + " a match status exist " + req.body.currentMatch + " ");
             console.log(result);
