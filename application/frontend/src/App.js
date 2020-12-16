@@ -18,6 +18,7 @@ import Chat from './Chat/Chat';
 import Settings from './Account/Settings';
 import Profile from './Account/Profile';
 import Premium from './Account/Premium';
+import RecoverPassword from './Account/RecoverPassword';
 import FAQ from './FooterPages/faq';
 import Terms from './FooterPages/Terms';
 import Privacy from './FooterPages/Privacy';
@@ -102,10 +103,10 @@ function App() {
   const [uploadmedia3,setuploadmedia3] = React.useState('');
   const [uploadmedia4,setuploadmedia4] = React.useState('');
 
-  const [twitterLink, setTwitterLink] = React.useState('');
-  const [instagramLink, setInstagramLink] = React.useState('');
-  const [spotifyLink, setSpotifyLink] = React.useState('');
-  const [youtubeLink, setYoutubeLink] = React.useState('');
+  const [twitterLink, setTwitterLink] = React.useState('https://www.twitter.com');
+  const [instagramLink, setInstagramLink] = React.useState('https://www.instagram.com');
+  const [spotifyLink, setSpotifyLink] = React.useState('https://www.spotify.com');
+  const [youtubeLink, setYoutubeLink] = React.useState('https://www.youtube.com');
 
 
   //stateObj is our big hub object that will hold all the info for the users session
@@ -256,6 +257,7 @@ function App() {
         <Route path='/' exact component={Home}/>
         <Route path='/login' component={LogIn} />
         <Route path='/signup' component={SignUp} />
+        <Route path="/recoverPassword" component={RecoverPassword} />
         <Route path='/FAQ' component={FAQ} />
         <Route path='/Guidelines' component={Guidelines} />
         <Route path='/Terms' component={Terms} />

@@ -137,6 +137,7 @@ const MatchingPage = (stateObj) => {
 
   const switchScreen = () =>{
     console.log("test");
+    match();
     setScreen(true);
   }
 
@@ -170,8 +171,6 @@ const MatchingPage = (stateObj) => {
               <br />
               <p style={{ fontSize: 22, marginLeft: 40, marginRight: 40 }} align='center'>If you find someone you want to collaborate with, "Connect" with them, or else "Pass" to keep looking for the right match</p>
             </div>
-            <input style={{ position: "center", width: '10%', marginLeft: 1050, marginTop: 10 }} type='button' value="Start Match" onClick={match} /><br />
-            {/* <input style={{ position: "center", width: '10%', marginLeft: 1050, marginTop: 10 }} type='button' value="load first Match" onClick={loadCurrentMatch} /><br /> */}
             <div class="MatchProfile">
               <div class="Picture">
                 <img class="ProfilePicture" src={stateObj.profilePicPath+stateObj.profilePic} alt='Profile Picture' />

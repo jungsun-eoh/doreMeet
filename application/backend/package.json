@@ -20,6 +20,7 @@
     "mkdirp": "^1.0.4",
     "mysql": "^2.18.1",
     "mysql2": "^2.2.5",
+    "nodemailer": "^6.4.17",
     "promise": "^8.1.0",
     "react-cookie": "^4.0.3",
     "socket.io": "^3.0.4",

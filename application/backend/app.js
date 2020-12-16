@@ -30,6 +30,7 @@ io.on('connection', (socket) => {
 });
 
 //connection credentials to the database
+<<<<<<< HEAD
 const pool = mysql.createPool({
     // changed host for debug. consider changing fields
     host: "localhost",
@@ -44,6 +45,9 @@ const pool = mysql.createPool({
     insecureAuth: true,
     queueLimit: 0
 });
+=======
+const pool = require('./database.js');
+>>>>>>> 9e85d552e1ea364988d77bdcb078bf5f2f5eea22
 
 //used to track user states (logged in / logged out)
 var sessionStore = new mysqlStore({/*test*/}, require('./database.js'));
@@ -57,9 +61,21 @@ var sessionOptions = {
 }
 //const pool = require("./database.js");
 
+var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+      user: 'domremeet.team2',
+      pass: 'ewgruapbcwupkbdy'
+    }
+  });
 
 var bodyParser = require('body-parser');
 const e = require("express");
+const { createHash } = require("crypto");
 app.use(cookieParser());
 app.use(session(sessionOptions));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -84,6 +100,13 @@ function recordQuery(query, values) {
 
 //Test response
 app.get("/", (req, res) => res.send("Backend simple get response"));
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/*                                        Start of Community                                      */
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Searches within the communityPage table
 app.get("/searchPost", (req, res) => {
@@ -176,7 +199,14 @@ app.post('/voteminus', (req,res) => {
     });
 });
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/*                                        Start of Sign/Log in                                    */
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
  //Checks if the user's input has an existing row in the account table, then creates a cookie to track their login state
+<<<<<<< HEAD
  app.post('/login', (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
@@ -209,6 +239,25 @@ app.post('/voteminus', (req,res) => {
                     res.send(null);
                 } 
             }); // bcryption
+=======
+app.post('/login', (req, res) => {
+    console.log("_________loggin in with__________")
+    console.log(req.body);
+    var todb = "SELECT * FROM `mydb`.`account` WHERE (username = '" + req.body.username + "' AND password = '" + req.body.password + "')";
+    pool.query(todb, (error, result) => { 
+        console.log("____________start_______________")
+        if (result == '') {
+            console.log("incorrect creds");
+            console.log(error);
+            console.log("____________end_______________")
+            res.send(null);
+        } else {
+            req.session.username = result[0].username;
+            req.session.userId = result[0].user;
+            console.log("Logged in: " + req.session.username + " " + req.session.userId);
+            res.send(req.session);
+            console.log("____________end_______________")
+>>>>>>> 9e85d552e1ea364988d77bdcb078bf5f2f5eea22
         }
     }); // query ends here
 }); // log in ends
@@ -431,6 +480,55 @@ app.post('/logout', (req, res) => {
     }
 })
 
+// grab the user email to check if the Application has the account under the submitted email. 
+app.post('/recoverPassword', (req,res) => {
+    var email = req.body.email;
+    var get_id = "SELECT user_id FROM user WHERE (email = '" + req.body.email + "')";
+    pool.query(get_id, (err2, result2) => {
+        if (result2 == ''){
+            console.log("Have no account under the email.");
+            res.send(null);
+        } else {
+            console.log(result2[0].user_id);
+            var user_id = result2[0].user_id;
+            if(result2){
+                var todb = 'SELECT password FROM account WHERE account_id = ?;'
+                pool.query(todb,[user_id],(err, result4) => {
+                    console.log(result4);
+                    console.log(result2[0].user_id);
+                    console.log(result2[0].password);
+
+                    res.send(req.session);
+                });
+                  var mailOptions = {
+                    to: email,
+                    from: 'passwordreset@demo.com',
+                    subject: 'Node.js Password Reset',
+                    text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+                      'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+                      'http://' +
+                      'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+                  };
+                  transporter.sendMail(mailOptions, function(error, info){
+                    if (error) {
+                      console.log(error);
+                    } else {
+                      console.log('Email sent: ' + info.response);
+                    }
+                  });
+                  
+            }
+        }
+    });
+})
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/*                                        Start of Settings                                       */
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 //Gets the user's data from the User and Account table for settings
 app.get('/getUsers', (req, res) => {
     var todb = 'SELECT * FROM `account` AS A LEFT OUTER JOIN `user` AS B ON `account_id` = `user_id` WHERE `user_id` = ?';
@@ -444,7 +542,6 @@ app.get('/getUsers', (req, res) => {
         }
     })
 })
-
 //Updates the user's information in the User and Account table
 app.post('/updateUser', (req, res) => {
     console.log(req.body);
@@ -469,8 +566,13 @@ app.post('/updateUser', (req, res) => {
                 }
             });
 
+<<<<<<< HEAD
             todb = "SELECT * FROM account WHERE (username = '" + req.body.username + "' AND password = '" + req.body.password + "')";
              pool.query(todb, (error, result) => {
+=======
+            todb = "SELECT * FROM `mydb`.`account` WHERE (username = '" + req.body.username + "' AND password = '" + req.body.password + "')";
+            pool.query(todb, (error, result) => {
+>>>>>>> 9e85d552e1ea364988d77bdcb078bf5f2f5eea22
                     if (result == '') {
                         console.log("User put incorrect password");
                         console.log(req.session);
@@ -518,6 +620,13 @@ app.post('/updatePreferences', (req, res) => {
     })
 })
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/*                                        Start of Profile                                        */
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//Gets your own profile
 app.get('/getProfile', (req, res) => {
     var todb = 'SELECT * FROM `file_Path` WHERE `user` = ?';
     pool.query(todb, [req.session.userId], (error, result) => {
@@ -563,8 +672,6 @@ app.post('/upload', (req, res) => {
             console.log("upload passpasspasspasspasspasspasspasspass");
 
             if(record){recordQuery(todb, queryArray)};
-                console.log(result);
-                
             } });
     });
 });
@@ -577,8 +684,8 @@ app.get("/getCommunityPosts", (req, res) => {
     });
 });
 
-//Bandaid: ideally should be in upload and flag is passed from the button on the front end
-app.post('/uploadMedia', (req, res) => {
+//Bandaid: ideally should be in upload and flag is passed from the button on the front end, OLD, delete
+app.post('/uploadMedia2', (req, res) => {
     console.log(req.files);
     console.log(req.body);
     if (req.files == null) {
@@ -633,6 +740,57 @@ app.post('/uploadText', (req, res) => {
     });
 });
 
+//new media upload, replaces old media once done
+app.post('/uploadMedia', (req, res) => {
+    console.log("test");
+    console.log(req.files);
+    if (req.files === null) {
+        return res.status(400).json({ msg: 'No file uploaded' });
+      }
+      const file = req.files.file.name;
+    var filepath = `/../frontend/public/assets/users/${req.session.userId}/${req.files.file.name}`;
+    var dir = `../frontend/public/assets/users/${req.session.userId}/`;
+    var frontpath = dir.substring(dir.indexOf("/assets/")) + file;
+    console.log(frontpath);
+
+    mkdirp.sync(dir);
+    var filepath = `/../frontend/public/assets/users/${req.session.userId}/${req.files.file.name}`;
+    req.files.file.mv(`${__dirname}${filepath}`, err => {
+        if (err) {
+            console.error(err);
+          }
+          var todb = "INSERT INTO `media2` (`file_name`, `user`) VALUES (?,?);"
+        
+          queryArray = [frontpath, req.session.userId];
+        pool.query(todb, queryArray,(error, result) => {
+            if(error){
+            console.log("upload fail");
+
+                console.log(error);
+            }else{
+            console.log("upload pass");
+            console.log("upload passpasspasspasspasspasspasspasspass");
+
+            if(record){recordQuery(todb, queryArray)};
+            } });
+    });
+});
+
+//
+app.get("/getMedia", (req, res) => {
+    var todb = "SELECT `file_name` FROM `media2`  WHERE `user` = " + req.session.userId + " ORDER BY `media2_id`DESC ;"
+    pool.query(todb, (error, result) => {
+        res.send(result);
+    });
+});
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/*                                        Start of Match                                          */
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//This gets the profile of your current match
 app.post('/getProfile2', (req, res) => {
     console.log(req.body);
 
@@ -674,9 +832,11 @@ app.get("/searchMatches", (req, res) => {
     })
 });
 
+//Pass the current match
 app.post("/pass", (req, res) => {
     var todb = 'INSERT INTO `matches2` (`user1`,`match_status`,`user2`) VALUES(?, ?, ?);'; 
-    pool.query(todb,[req.session.userId, 0, req.body.currentMatch] ,(err, result) => {
+    var queryArray = [req.session.userId, 0, req.body.currentMatch];
+    pool.query(todb,queryArray ,(err, result) => {
         if (err || result == ''){
             console.log("pass fail");
         }else{
@@ -687,9 +847,11 @@ app.post("/pass", (req, res) => {
     })
 });
 
+//Connect on current match
 app.post("/connect", (req, res) => {
     var todb = 'INSERT INTO `matches2` (`user1`,`match_status`,`user2`) VALUES(?, ?, ?);';
-    pool.query(todb,[req.session.userId, 1, req.body.currentMatch] ,(err, result) => {
+    var queryArray = [req.session.userId, 1, req.body.currentMatch];
+    pool.query(todb,queryArray ,(err, result) => {
         if (err || result == ''){
             console.log("connect fail");
         }else{
@@ -718,9 +880,8 @@ app.post("/checkMatch", (req, res) => {
 //gets the all the users that ______ has clicked "Connect" on
 app.post("/getConnected", (req, res) => {
     var connectedMatches = [];
-    var todb = `SELECT user2 FROM mydb.matches2 WHERE (match_status = '1' AND user1 = '1');`
-    pool.query(todb ,(err, result) => {
-       
+    var todb = `SELECT user2 FROM mydb.matches2 WHERE (match_status = '1' AND user1 = ` +  req.session.userId + `);`
+    pool.query(todb,  (err, result) => {
         if (err || result == ''){
             console.log("error");
         }else{
@@ -742,21 +903,26 @@ app.post("/getSuccessfulMatches", (req, res) => {
         connectedMatches.push(req.body.connectedMatches[key]);
     }
     var successfulMatches = [];
-    todb = `SELECT user1 FROM mydb.matches2 WHERE (match_status = '1' AND user1 = ? AND user2 = '1')`;
+    var todb = `SELECT user1 FROM mydb.matches2 WHERE (match_status = '1' AND user1 = ? AND user2 = ?)`;
     var index = 0;
-    connectedMatches.forEach(function(connectedMatch) {
-        pool.query(todb,connectedMatch,(err, result) => {
+    connectedMatches.forEach( function(connectedMatch) {
+        pool.query(todb,[connectedMatch, req.session.userId],(err, result) => {
             if(err || result == ''){
-                console.log("checking if " + connectedMatch + " connected with you..." + 1 + " false");
+                console.log("checking if " + connectedMatch + " connected with you..." +  req.session.userId + " false");
                 index += 1;
             }else{
-                console.log("checking if " + connectedMatch + " connected with you..." + 1 + " true");
-                successfulMatches.push(connectedMatch);
+                console.log("checking if " + connectedMatch + " connected with you..." +  req.session.userId + " true");
+                
+                todb = `select distinct user.first_name, user.last_name, file_path.profile_pic , file_path.picture_path from user, file_path, matches2 where user_id = user AND user = ?`
+                 pool.query(todb,connectedMatch,(err, result2) => {
+                    successfulMatches.push(result2);
+                    if(index >= connectedMatches.length){
+                        console.log("Connected back to you: " + successfulMatches); console.log();
+                        console.log(successfulMatches);
+                        res.send(successfulMatches);
+                    }
+                });
                 index += 1;
-            }
-            if(index >= connectedMatches.length){
-                console.log("Connected back to you: " + successfulMatches); console.log();
-                res.send(successfulMatches);
             }
         });
     });

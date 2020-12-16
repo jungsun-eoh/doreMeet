@@ -50,6 +50,7 @@ const CommunityPage = (stateObj) => {
 
     closePost();
     await axios.post('/makePost', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+    window.location.reload();
   };
   //Sends the search terms to the backend and gets the response 
   const submitHandler = (event) => {
@@ -116,24 +117,30 @@ const CommunityPage = (stateObj) => {
      useEffect(() => {
        console.log("useEffect CommunityPage")
        axios.get('/recent5').then(response => {
-         let _html = "";
-         _html += `<h1>Recent Posts</h1>`;
-         //button not passing the right id
-         response.data.forEach(post => {
-           if(post.post_description == null){post.post_description = ""};
-           _html += `<div class="RecentPostsFormat">
-                   <img class="PostImage" src="assets/postImages/${post.post_file}" alt="Post Image">
+         if(response.data.length > 0) {
+           let _html = "";
+           _html += `<h1>Recent Posts</h1>`;
+           //button not passing the right id
+           response.data.forEach(post => {
+             if (post.post_description == null) {
+               post.post_description = ""
+             }
+             ;
+             _html += `<div class="RecentPostsFormat">
+                   <img class="PostImage" src="assets/postImages/${post.post_file}" alt="Post Image"/>
                    <h2 class="PostTitle">${post.post_title}</h2>
                    <h4 class="PostVotes">${post.post_votes}</h4>
                    <h3 class="PostCategory">${post.post_category}</h3>
                    <p class="PostDescription">${post.post_description}</p>   
-                   </div>`;})
-                  //  <button id="PlusButton" type="button">+</button>
-                  //  <button id="MinusButton" type="button">-</button>
-         document.getElementById("recent-posts").innerHTML = _html;
-         document.getElementById("search-post").innerHTML = '';
-         document.getElementById("PlusButton").addEventListener("click", voteplus);
-         document.getElementById("MinusButton").addEventListener("click", voteminus);
+                   </div>`;
+           })
+           //  <button id="PlusButton" type="button">+</button>
+           //  <button id="MinusButton" type="button">-</button>
+           document.getElementById("recent-posts").innerHTML = _html;
+           document.getElementById("search-post").innerHTML = '';
+           document.getElementById("PlusButton").addEventListener("click", voteplus);
+           document.getElementById("MinusButton").addEventListener("click", voteminus);
+         }
        }).catch(function (error) {
         //  console.log('fail')
        });
@@ -175,7 +182,7 @@ const CommunityPage = (stateObj) => {
                 <form class="post-container" onSubmit={postHandler}>
                   <h2> Post your creative collaborations! </h2>
                   <input type="text" onChange={e => stateObj.setPostName(e.target.value)} placeholder="Name" required />
-                  <textarea class="postDescription" maxLength={240} onChange={e => stateObj.setPostDescription(e.target.value)} placeholder="Description (optional)" />
+                  <textarea class="postDescription" maxLength={120} onChange={e => stateObj.setPostDescription(e.target.value)} placeholder="Description (optional)" />
                   <div>
                     <select onChange={e => { stateObj.setPostCategory(e.target.value); }}>
                      <option >Music</option>
