@@ -5,7 +5,7 @@
 */
 
 //////////////////////////////////////////////////////////////////////////////////////////
-const record = 1; //change to 1 if making lasting changes (ex. change to 1 if not testing)
+const record = 0; //change to 1 if making lasting changes (ex. change to 1 if not testing)
 //////////////////////////////////////////////////////////////////////////////////////////
 
 const { query, json, response } = require("express");
@@ -442,8 +442,8 @@ app.get("/getCommunityPosts", (req, res) => {
     });
 });
 
-//Bandaid: ideally should be in upload and flag is passed from the button on the front end
-app.post('/uploadMedia', (req, res) => {
+//Bandaid: ideally should be in upload and flag is passed from the button on the front end, OLD, delete
+app.post('/uploadMedia2', (req, res) => {
     console.log(req.files);
     console.log(req.body);
     if (req.files == null) {
@@ -495,6 +495,50 @@ app.post('/uploadText', (req, res) => {
             res.send(req.body.value);
             if(record){recordQuery(todb, queryArray)};
         } 
+    });
+});
+
+//new media upload, replaces old media once done
+app.post('/uploadMedia', (req, res) => {
+    console.log("test");
+    console.log(req.files);
+    if (req.files === null) {
+        return res.status(400).json({ msg: 'No file uploaded' });
+      }
+      const file = req.files.file.name;
+    var filepath = `/../frontend/public/assets/users/${req.session.userId}/${req.files.file.name}`;
+    var dir = `../frontend/public/assets/users/${req.session.userId}/`;
+    var frontpath = dir.substring(dir.indexOf("/assets/")) + file;
+    console.log(frontpath);
+
+    mkdirp.sync(dir);
+    var filepath = `/../frontend/public/assets/users/${req.session.userId}/${req.files.file.name}`;
+    req.files.file.mv(`${__dirname}${filepath}`, err => {
+        if (err) {
+            console.error(err);
+          }
+          var todb = "INSERT INTO `media2` (`file_name`, `user`) VALUES (?,?);"
+        
+          queryArray = [frontpath, req.session.userId];
+        pool.query(todb, queryArray,(error, result) => {
+            if(error){
+            console.log("upload fail");
+
+                console.log(error);
+            }else{
+            console.log("upload pass");
+            console.log("upload passpasspasspasspasspasspasspasspass");
+
+            if(record){recordQuery(todb, queryArray)};
+            } });
+    });
+});
+
+//
+app.get("/getMedia", (req, res) => {
+    var todb = "SELECT `file_name` FROM `media2`  WHERE `user` = " + req.session.userId + " ORDER BY `media2_id`DESC ;"
+    pool.query(todb, (error, result) => {
+        res.send(result);
     });
 });
 
@@ -620,21 +664,26 @@ app.post("/getSuccessfulMatches", (req, res) => {
         connectedMatches.push(req.body.connectedMatches[key]);
     }
     var successfulMatches = [];
-    todb = `SELECT user1 FROM mydb.matches2 WHERE (match_status = '1' AND user1 = ? AND user2 = ?)`;
+    var todb = `SELECT user1 FROM mydb.matches2 WHERE (match_status = '1' AND user1 = ? AND user2 = ?)`;
     var index = 0;
-    connectedMatches.forEach(function(connectedMatch) {
+    connectedMatches.forEach( function(connectedMatch) {
         pool.query(todb,[connectedMatch, req.session.userId],(err, result) => {
             if(err || result == ''){
                 console.log("checking if " + connectedMatch + " connected with you..." +  req.session.userId + " false");
                 index += 1;
             }else{
                 console.log("checking if " + connectedMatch + " connected with you..." +  req.session.userId + " true");
-                successfulMatches.push(connectedMatch);
+                
+                todb = `select distinct user.first_name, user.last_name, file_path.profile_pic , file_path.picture_path from user, file_path, matches2 where user_id = user AND user = ?`
+                 pool.query(todb,connectedMatch,(err, result2) => {
+                    successfulMatches.push(result2);
+                    if(index >= connectedMatches.length){
+                        console.log("Connected back to you: " + successfulMatches); console.log();
+                        console.log(successfulMatches);
+                        res.send(successfulMatches);
+                    }
+                });
                 index += 1;
-            }
-            if(index >= connectedMatches.length){
-                console.log("Connected back to you: " + successfulMatches); console.log();
-                res.send(successfulMatches);
             }
         });
     });
