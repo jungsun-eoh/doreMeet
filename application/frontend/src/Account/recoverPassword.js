@@ -18,35 +18,25 @@ class RecoverPassword extends Component {
         email: ""
     }
 
-    handleChange = e => {
-        this.setState({ email: e.target.value});
-        console.log(this.state);
-
-    }
+    handleChange = (e) => {
+        this.setState({
+          [e.target.name]: e.target.value
+        })
+      }
 
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state);
       }
-
-    // sendPasswordResetEmail = e => {
-    //     e.preventDefault()
-    //     const { email } = this.state
-    //     axios.post(`${SERVER_URI}/resetPassword/user/${email}`)
-    //     this.setState({ email: "", submitted: true })
-    // }
-
     recoverPassword = e =>{
         e.preventDefault();
-        console.log(this.state);
-        // axios.post('/recoverPassword', this.state).then(response =>{
-        //     if(response.data){
-        //         alert("We just sent email to the email account.");
-        //         this.props.history.push('/login');
-        //     }else{
-        //          alert("We don't have an account for this email address.");
-        //     }
-        // });
+        axios.post('/recoverPassword', this.state).then(response =>{
+            if(response.data){
+                alert("We just sent email to the email account.");
+                this.props.history.push('/login');
+            }else{
+                alert("We don't have an account for this email address.");
+            }
+        });
     }
 
     render(){
@@ -60,21 +50,21 @@ class RecoverPassword extends Component {
                             <h1>Reset your password</h1>
                             <h4>We will send you a secure link to change your password.</h4><br/>
                         </div>
-                        
+                    
                         <form onSubmit={this.handleSubmit}>
                             <div className="input">
                                 <label htmlFor="email" className="sub-heading">  </label>
-                                <input style={{width: "480px"}} type="email" name='email'  value={this.state.email} placeholder="Enter email address" required onChange={this.handleChange} />
+                                <input style={{width: "480px"}} type="email" name='email' value={this.state.email} placeholder="Enter email address" required onChange={this.handleChange} />
                             </div>
                             <div className="input">
                                 <Button style={{backgroundColor: "#FD7D7D", width: "480px"}} className='btn' buttonStyle='btn--primary' buttonSize='btn--large' onClick={this.recoverPassword} > Send Email </Button>
                             </div>
                         </form>
-                    </header>
+                        </header> 
                 </div>
             <Footer />
             </>
-        );    
+        )   
     }
 
 }

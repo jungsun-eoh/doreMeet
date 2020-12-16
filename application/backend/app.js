@@ -45,6 +45,7 @@ var sessionOptions = {
 
 var bodyParser = require('body-parser');
 const e = require("express");
+const { createHash } = require("crypto");
 app.use(cookieParser());
 app.use(session(sessionOptions));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -187,7 +188,6 @@ app.post('/login', (req, res) => {
             console.log("____________end_______________")
             res.send(null);
         } else {
-            // console.log(res.redirect('/'));
             req.session.username = result[0].username;
             req.session.userId = result[0].user;
             console.log("Logged in: " + req.session.username + " " + req.session.userId);
@@ -284,6 +284,31 @@ app.post('/logout', (req, res) => {
     }
 
 })
+
+// recover
+app.post('/recoverPassword', (req,res) => {
+    var email = req.body.email;
+    var get_id = "SELECT user_id FROM user WHERE (email = '" + req.body.email + "')";
+    pool.query(get_id, (err2, result2) => {
+        if (result2 == ''){
+            console.log("Have no account under the email.");
+            res.send(null);
+        } else {
+            console.log(result2[0].user_id);
+            var user_id = result2[0].user_id;
+            if(result2){
+                var todb = 'SELECT password FROM account WHERE account_id = ?;'
+                pool.query(todb,[user_id],(err, result4) => {
+                    console.log(result4);
+                    console.log(result2[0].user_id);
+                    console.log(result2[0].password);
+                    res.send(req.session);
+                });
+            }
+        }
+    });
+})
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
