@@ -76,7 +76,7 @@ class LogIn extends Component {
                                     </td>
                                     <pre className='tab'></pre>
                                     <td>
-                                        <Link to='/'><label> Forgot Password </label></Link>
+                                        <Link to='/recoverPassword'><label> Forgot Password </label></Link>
                                     </td>
                             </tr>
                             </table>

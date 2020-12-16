@@ -330,7 +330,7 @@ app.post('/updateUser', (req, res) => {
             });
 
             todb = "SELECT * FROM `mydb`.`account` WHERE (username = '" + req.body.username + "' AND password = '" + req.body.password + "')";
-             pool.query(todb, (error, result) => {
+            pool.query(todb, (error, result) => {
                     if (result == '') {
                         console.log("User put incorrect password");
                         console.log(req.session);
