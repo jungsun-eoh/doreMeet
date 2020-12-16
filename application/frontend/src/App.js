@@ -12,6 +12,7 @@ import Pricing from './LandingPage/Pricing';
 import LogIn from './Auth/LogIn';
 import SignUp from './Auth/SignUp';
 import CommunityPage from './CommunityPage/CommunityPage';
+import CommunityPageHome from './CommunityPage/CommunityPageHome';
 import MatchingPage from './Matches/MatchingPage';
 import Chat from './Chat/Chat';
 import Settings from './Account/Settings';
@@ -22,6 +23,7 @@ import Terms from './FooterPages/Terms';
 import Privacy from './FooterPages/Privacy';
 import ContactUs from './FooterPages/ContactUs';
 import Guidelines from './FooterPages/Guidelines';
+import Error from './404Page.js';
 import {Route, BrowserRouter as Router, Switch} from 'react-router-dom';
 
 function App() {
@@ -46,6 +48,7 @@ function App() {
 
   const [userName, setUserName] = React.useState('');
   const [userPassword, setUserPassword] = React.useState('');
+  const [newPassword, setNewPassword] = React.useState('');
 
   // const [currentUserName, setCurrentUserName] = React.useState('');
   // const [currentUserPassword, setCurrentUserPassword] = React.useState('');
@@ -53,8 +56,9 @@ function App() {
   const [minimumAge, setMinimumAge] = React.useState('');
   const [maximumAge, setMaximumAge] = React.useState('');
   const [preferedGender, setPreferedGender] = React.useState('');
-  const [preferedSkill, setPreferedSkill] = React.useState('');
+  const [preferedSkillLevel, setPreferedSkillLevel] = React.useState('');
   const [meetingPreference, setMeetingPreference] = React.useState('');
+  const [searchRadius, setSearchRadius] = React.useState('');
 
   // const [currentMinimumAge, setCurrentMinimumAge] = React.useState('');
   // const [currentMaximumAge, setCurrentMaximumAge] = React.useState('');
@@ -66,6 +70,7 @@ function App() {
   const [searchTitle, setSearchTitle] = React.useState('');
   const [searchCategory, setSearchCategory] = React.useState('Music');
   const [postName, setPostName] = React.useState('');
+  const [postDescription, setPostDescription] = React.useState('');
   const [postCategory, setPostCategory] = React.useState('Music');
   const [postFile, setPostFile] = React.useState('');
   const [screenState, setScreenState] = React.useState('Community');
@@ -73,12 +78,35 @@ function App() {
   const [resultCategory, setResultCategory] = React.useState('');
   const [resultFile, setResultFile] = React.useState('');
 
+  const [postID, setPostID] = React.useState('');
+
   const [file, setFile] = React.useState('');
   const [fileName, setFileName] = React.useState('');
 
+  const [highlight1, setHighlight1] = React.useState('');
+  const [highlight2, setHighlight2] = React.useState('');
+  const [highlight3, setHighlight3] = React.useState('');
+
   const [profilePic, setProfilePic] = React.useState('');
-  const [bio, setBio] = React.useState('');
+  const [profilePicPath, setProfilePicPath] = React.useState('');
+  const [bio, setBio] = React.useState('Create a bio!');
   const [age, setAge] = React.useState('');
+
+  const [communityPost1, setCommunityPost1] = React.useState('');
+  const [communityPost2, setCommunityPost2] = React.useState('');
+  const [communityPost3, setCommunityPost3] = React.useState('');
+
+  // const [,] = React.useState('');
+  const [uploadmedia1,setuploadmedia1] = React.useState('');
+  const [uploadmedia2,setuploadmedia2] = React.useState('');
+  const [uploadmedia3,setuploadmedia3] = React.useState('');
+  const [uploadmedia4,setuploadmedia4] = React.useState('');
+
+  const [twitterLink, setTwitterLink] = React.useState('https://www.twitter.com');
+  const [instagramLink, setInstagramLink] = React.useState('https://www.instagram.com');
+  const [spotifyLink, setSpotifyLink] = React.useState('https://www.spotify.com');
+  const [youtubeLink, setYoutubeLink] = React.useState('https://www.youtube.com');
+
 
   //stateObj is our big hub object that will hold all the info for the users session
   const stateObj = {
@@ -104,6 +132,34 @@ function App() {
     setBio: setBio,
     profilePic: profilePic,
     setProfilePic: setProfilePic,
+    profilePicPath: profilePicPath,
+    setProfilePicPath: setProfilePicPath,
+
+    twitterLink: twitterLink,
+    setTwitterLink: setTwitterLink,
+    instagramLink: instagramLink,
+    setInstagramLink: setInstagramLink,
+    spotifyLink: spotifyLink,
+    setSpotifyLink: setSpotifyLink,
+    youtubeLink: youtubeLink,
+    setYoutubeLink: setYoutubeLink,
+    
+    uploadmedia1: uploadmedia1,
+    setuploadmedia1: setuploadmedia1,
+    uploadmedia2: uploadmedia2,
+    setuploadmedia2: setuploadmedia2,
+    uploadmedia3: uploadmedia3,
+    setuploadmedia3: setuploadmedia3,
+    uploadmedia4: uploadmedia4,
+    setuploadmedia4: setuploadmedia4,
+    
+    communityPost1: communityPost1,
+    setCommunityPost1: setCommunityPost1,
+    communityPost2: communityPost2,
+    setCommunityPost2: setCommunityPost2,
+    communityPost3: communityPost3,
+    setCommunityPost3: setCommunityPost3,
+
     age: age,
     setAge: setAge,
 
@@ -122,6 +178,8 @@ function App() {
     setUserName: setUserName,
     userPassword: userPassword,
     setUserPassword: setUserPassword,
+    newPassword: newPassword,
+    setNewPassword: setNewPassword,
 
     //Settings page stuff for displaying current settings
     // currentUserName: currentUserName,
@@ -134,10 +192,12 @@ function App() {
     setMaximumAge: setMaximumAge,
     preferedGender: preferedGender,
     setPreferedGender: setPreferedGender,
-    preferedSkill: preferedSkill,
-    setPreferedSkill: setPreferedSkill,
+    preferedSkillLevel: preferedSkillLevel,
+    setPreferedSkillLevel: setPreferedSkillLevel,
     meetingPreference: meetingPreference,
     setMeetingPreference: setMeetingPreference,
+    searchRadius: searchRadius,
+    setSearchRadius: setSearchRadius,
 
     //Settings page stuff for displaying current settings
     // currentMinimumAge: currentMinimumAge,
@@ -157,6 +217,9 @@ function App() {
     setPostName: setPostName,
     postCategory: postCategory,
     setPostCategory: setPostCategory,
+    postDescription: postDescription,
+    setPostDescription: setPostDescription,
+
     resultTitle: resultTitle,
     setResultTitle: setResultTitle,
     resultCategory: resultCategory,
@@ -169,6 +232,17 @@ function App() {
     setResultFile: setResultFile,
     postFile: postFile,
     setPostFile: setPostFile,
+    postID: postID,
+    setPostID: setPostID,
+
+
+
+    highlight1: highlight1,
+    setHighlight1: setHighlight1,
+    highlight2: highlight2,
+    setHighlight2: setHighlight2,
+    highlight3: highlight3,
+    setHighlight3: setHighlight3,
 
     //screen stuff
     screenState: screenState,
@@ -191,10 +265,12 @@ function App() {
         <Route path='/ContactUs' component={ContactUs} />
         <Route path="/Settings" children={Settings(stateObj)}/>
         <Route path="/Community" children={CommunityPage(stateObj)}/>
+        <Route path="/CommunityHome" children={CommunityPageHome(stateObj)}/>
         <Route path="/Match" children={MatchingPage(stateObj)}/>
         <Route path="/Chat" children={Chat(stateObj)}/>
         <Route path="/Profile" children={Profile(stateObj)}/>
         <Route path="/Premium" children={Premium(stateObj)}/>
+        <Route component={Error}/>
       </Switch>
     </Router>
   );

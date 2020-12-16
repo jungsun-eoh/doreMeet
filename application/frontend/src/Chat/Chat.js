@@ -12,78 +12,59 @@ import './Chat.css';
 import Navbar from '../components/Navbar/Navbar';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Footer from "../components/Footer/Footer";
+import SideBar from "./SideBar";
+
+const DUMMY_CONTACTS = [
+  {
+    userName: "John Tester",
+    picture: "../../assets/youtubelogo.png"
+  },
+  {
+    userName: "Jane Tester",
+    picture: "../../assets/spotifylogo.png"
+  }
+]
+
+const DUMMY_MESSAGES = [
+  {
+    userName: "John Tester",
+    text: "Hi my name is John"
+  },
+  {
+    userName: "You",
+    text: "Hello there"
+  },
+  {
+    userName: "John Tester",
+    text: "How are you doing today"
+  },
+  {
+    userName: "You",
+    text: "Im doing fine, lkadsjflajdslfjsadlfjsaldkfjlsadjflsadjflsajdlfjasdfkjsadlkfjads"
+  },
+]
+
+//TODO: set up axios call to get the contact list when this page loads
+// We don't need the messages, we can call for that in the sidebar when a match is selected
 
 const Chat = (stateObj) => {
+
+  const [screenState, setScreenState] = React.useState('tutorial')
+
+  const state= {
+    contacts: DUMMY_CONTACTS,
+    messages: DUMMY_MESSAGES,
+    screenState: screenState,
+    setScreenState: setScreenState
+  }
+
   return(
     <>
       <Router>
         <div className="App">
           <Navbar/>
-          <header className="App-header">
-            <div className="description">
-              <h2 align='center' top='30%'> Chat with your Matches!</h2>
-            </div>
-            <div class="ChatContainer">
-              <div class="ChatList">
-                <div class="ActiveChat">
-                  <img class="UserPicture" src="/assets/spotifylogo.png"/>
-                  <div class="NameAndMessage">
-                    <span>Name</span>
-                    <span class="MessagePreview">Hi, this is a random message created for testing</span>
-                  </div>
-                </div>
-                <div class="ActiveChat">
-                  <img class="UserPicture" src="/assets/twitterlogo.png"/>
-                  <div class="NameAndMessage">
-                    <span>Name</span>
-                    <span class="MessagePreview">Hi, this is a random message created for testing</span>
-                  </div>
-                </div>
-                <div class="ActiveChat">
-                  <img class="UserPicture" src="/assets/instagramlogo.png"/>
-                  <div class="NameAndMessage">
-                    <span>Name</span>
-                    <span class="MessagePreview">Hi, this is a random message created for testing</span>
-                  </div>
-                </div>
-              </div>
-              <div class="MessageWindow">
-                <div class='NameAndPicture'>
-                  <img class="UserPicture" src='/assets/spotifylogo.png'/>
-                  <span>Name</span>
-                </div>
-                <div class='Messages'>
-                  <div class='LeftMessage'>
-                    <span>This is a test message</span>
-                  </div>
-                  <div class='RightMessage'>
-                    <span>This is a test message</span>
-                  </div>
-                  <div className='LeftMessage'>
-                    <span>This is a test message</span>
-                  </div>
-                  <div className='LeftMessage'>
-                    <span>This is a test message</span>
-                  </div>
-                  <div className='RightMessage'>
-                    <span>This is a test message</span>
-                  </div>
-                  <div className='RightMessage'>
-                    <span>This is a test messageThis is a test message This is a test messageThis is a test message This is a test message</span>
-                  </div>
-                </div>
-                <div class='TextArea'>
-                  <div>
-                    <textarea class='Text' placeholder="Send a message"></textarea>
-                  </div>
-                  <div>
-                    <button class='SendButton'>Send</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </header>
         </div>
+        <SideBar messages={state.messages} contacts={state.contacts} user={stateObj.userName}/>
         <Footer/>
       </Router>
     </>

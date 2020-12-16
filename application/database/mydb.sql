@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`account` (
   `account_id` TINYINT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(64) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
-  `acc_created` DATETIME NOT NULL,
+  `acc_created` DATETIME NULL,
 --  `activate` INT acc_createdactivate NOT NULL DEFAULT 0,
   `user` TINYINT NULL,
   PRIMARY KEY (`account_id`),
@@ -145,13 +145,13 @@ CREATE TABLE IF NOT EXISTS `mydb`.`preferences` (
   `min_age` CHAR(2) NULL,
   `max_age` CHAR(2) NULL,
   `min_location` CHAR(3) NULL,
-  `max_location` CHAR(3) NOT NULL,
+  `max_location` CHAR(3) NULL,
   `gender` CHAR(1) NULL,
-  `art_preference` VARCHAR(10) NOT NULL,
-  `skill_lvl` CHAR(1) NULL,
-  `meeting_pref` VARCHAR(10) NOT NULL,
+  `art_preference` VARCHAR(10) NULL,
+  `skill_lvl_pref` CHAR(1) NULL,
+  `meeting_pref` VARCHAR(10) NULL,
   `user` TINYINT NOT NULL,
-  `matches` TINYINT NOT NULL,
+  `matches` TINYINT NULL,
   PRIMARY KEY (`preferences_id`),
   INDEX `preferences_user_FK_idx` (`user` ASC),
   INDEX `preferences_matches_FK_idx` (`matches` ASC),
@@ -178,10 +178,10 @@ CREATE TABLE IF NOT EXISTS `mydb`.`file_Path` (
   `profile_pic` VARCHAR(128) NULL,
   `picture_path` VARCHAR(128) NULL,
   `picture_desc` VARCHAR(255) NULL,
-  `video_path` VARCHAR(128) NULL,
-  `video_desc` VARCHAR(255) NULL,
-  `audio_path` VARCHAR(128) NULL,
-  `audio_descp` VARCHAR(255) NULL,
+  `media1` VARCHAR(128) NULL,
+  `media2` VARCHAR(255) NULL,
+  `media3` VARCHAR(128) NULL,
+  `media4` VARCHAR(255) NULL,
   `social_profile_1` VARCHAR(128) NULL,
   `social_profile_2` VARCHAR(128) NULL,
   `social_profile_3` VARCHAR(128) NULL,
@@ -268,7 +268,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`communityPage` (
   `first_name` VARCHAR(64)  NULL,
   `last_name` VARCHAR(64) NULL,
   `post_title` VARCHAR(64) NOT NULL,
-  `post_category` VARCHAR(10) NOT NULL,
+  `post_category` VARCHAR(15) NOT NULL,
+  `post_description` VARCHAR(256) NULL,
   `post_file` VARCHAR(128) NULL,
   `post_votes` INT NULL,
   `post_creation` DATETIME NULL,
@@ -282,14 +283,184 @@ CREATE TABLE IF NOT EXISTS `mydb`.`communityPage` (
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
-INSERT INTO `mydb`.`communityPage`(`post_title`,`post_category`,`post_file`)
-VALUES								            ('Test',	     'Music',		    'b.png');	
+-- -----------------------------------------------------
+-- Table `mydb`.`matches2`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`matches2` ;
 
-INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`gender`,`date_of_birth`,`email`,  	`phone_number`,`art_category`,`skill_lvl`)
-VALUES					         ('first',		  'last',		  'f',	  '2000-11-21','	mail@mail',	'7073334444',	  'D',			    'I');
+CREATE TABLE IF NOT EXISTS `mydb`.`matches2` (
+  `user1` int NOT NULL,
+  `match_status` int NOT NULL,
+  `user2` int NOT NULL,
+	UNIQUE `unique_index`(`user1`, `user2`))
+ENGINE = InnoDB;
 
-INSERT INTO `mydb`.`account`(`username`,`password`, `acc_created`,`user`)
-VALUES						          ('123',		  '123',	now(),	  1);
+-- -----------------------------------------------------
+-- Table `mydb`.`media2`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`media2` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`media2` (
+	`media2_id` TINYINT NOT NULL AUTO_INCREMENT,
+  `file_name` varchar(256) NOT NULL,
+  `user` int NOT NULL,
+  PRIMARY KEY (`media2_id`))
+ENGINE = InnoDB;
+
+
+
+
+INSERT INTO `matches2` (`user1`, `match_status`, `user2`) VALUES (0, 0, 0);
+
+INSERT INTO `mydb`.`user`(`user_id`, `first_name`,`last_name`,`gender`,`date_of_birth`,`email`,`phone_number`,`art_category`,`skill_lvl`) VALUES (1, 'first', 'last',     'f','2000-11-21',    'mail@mail',        '7073334444',   'Dance',	    'I');
+INSERT INTO `mydb`.`user`(`user_id`, `first_name`,`last_name`,`gender`,`date_of_birth`,`email`,`phone_number`,`art_category`,`skill_lvl`) VALUES (2, 'Bob',   'Smith',    'M','2000-12-12',    'Bobh@mail.com',    '7071112222',   'Dance',	    'B');
+INSERT INTO `mydb`.`user`(`user_id`, `first_name`,`last_name`,`gender`,`date_of_birth`,`email`,`phone_number`,`art_category`,`skill_lvl`) VALUES (3, 'Bobba', 'Smith',    'F','2000-10-22',    'Bobba@mail.com',   '7071112223',   'Dance',	    'E');
+INSERT INTO `mydb`.`user`(`user_id`, `first_name`,`last_name`,`gender`,`date_of_birth`,`email`,`phone_number`,`art_category`,`skill_lvl`) VALUES (4, 'Bin',   'Smith',    'F','2000-09-15',    'Bin@mail.com',     '7071112224',   'Art',		'B');
+INSERT INTO `mydb`.`user`(`user_id`, `first_name`,`last_name`,`gender`,`date_of_birth`,`email`,`phone_number`,`art_category`,`skill_lvl`) VALUES (5, 'So',    'Smith',    'F','2000-08-13',    'So@mail.com',      '7071112225',   'Music',	    'B');
+INSERT INTO `mydb`.`user`(`user_id`, `first_name`,`last_name`,`gender`,`date_of_birth`,`email`,`phone_number`,`art_category`,`skill_lvl`) VALUES (6, 'Bobert','Smith',    'M','2000-07-16',    'Bobert@mail.com',  '7071112226',   'Photo',	    'B');
+INSERT INTO `mydb`.`user`(`user_id`, `first_name`,`last_name`,`gender`,`date_of_birth`,`email`,`phone_number`,`art_category`,`skill_lvl`) VALUES (7, 'AHHHHH','Smith',    'M','2000-03-11',    'what@mail.com',    '7071112226',   'Photo',	    'B');
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Alan',		'Holhs',	'1995-01-01',	'M',	'alan.holhs@gmail.com',		'Music',	'I',9877891234);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('John',		'Adams',	'2001-01-01',	'M',	'johnadams_22@gmail.com',	'Art',		'B',4231231234);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Jack',		'Gomez',	'1990-01-01',	'M',	'jack_g@yahoo.com',			'Dance',	'I',8980980865);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Jill',		'Rhodes',	'1992-01-01',	'F',	'jill_rho@mail.com',		'Dance',	'I',4345324412);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Mary',		'Beth',		'1987-01-01',	'F',	'mary_beth@gmail.com',		'Photo',	'E',4545436223);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Anne',		'Sullivan',	'1994-01-01',	'F',	'anne.sull12@gmail.com',	'Music',	'B',8878665576);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Jesus',		'Chavez',	'1989-01-01',	'M',	'j_chavez@yahoo.com',		'Film',		'E',6756744666);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Sabrina',	'Umbay',	'1991-01-01',	'F',	'sabrina.umbay@mail.com',	'Film',		'B',5654545444);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Bill',		'Lenox',	'1993-01-01',	'M',	'bill.lenox@yahoo.com',		'Music',	'I',7987568456);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Nick',		'Calum',	'1998-01-01',	'M',	'nickcalum98@yahoo.com',	'Music',	'E',4758475455);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Maddy',		'Jackson',	'2000-01-01',	'F',	'maddy_jack@gmail.com',		'Dance',	'B',3454356543);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Alex',		'Singh',	'2002-01-01',	'M',	'alex_singh24@yahoo.com',	'Art',		'I',4234325535);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Peter',		'Nye',		'1985-01-01',	'M',	'peter.n@gmail.com',		'Photo',	'B',5435576656);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Maya',		'Gomez',	'1993-01-01',	'F',	'maya.gomez@yahoo.com',		'Film',		'E',7543764756);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('David',		'Goliath',	'1990-01-01',	'M',	'david.gol@hotmail.com',	'Art',		'B',3432453346);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Mario',		'Flores',	'1991-01-01',	'F',	'mario.g.flores@gmail.com',	'Music',	'E',5678945675);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Lucy',		'Bell',		'1996-01-01',	'F',	'lucy_bell12@gmail.com',	'Music',	'I',5656500546);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Brad',		'Lint',		'2001-01-01',	'M',	'brand.lint@mail.com',		'Dance',	'B',5468980990);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Felix',		'Johnson',	'2002-01-01',	'M',	'felix_jnson@yahoo.com',	'Film',		'E',4385406954);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Tom',		'Ford',		'1991-01-01',	'M',	'tom_ford415@gmail.com',	'Photo',	'B',5465787687);
+INSERT INTO `mydb`.`user`(`first_name`,`last_name`,`date_of_birth`,`gender`,`email`,`art_category`,`skill_lvl`,`phone_number`) VALUES ('Frankie',	'Dane',		'1996-01-01',	'F',	'frankie.dane@mail.com',	'Art',		'I',6576588885);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('123', '123',    1);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('234', '234',    2);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('235', '235',    3);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('236', '236',    4);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('237', '237',    5);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('238', '238',    6);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('239', '239',    7);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('alanh','abc123',8);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('johna','1234er',9);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('jGomz','cfnm23',10);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('jrhod','jcje844',11);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('mary','jfbh458',12);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('annes','bfv324',13);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('jchavz','4358uj',14);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('sabby','t95086t',15);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('bill.l','jihgvm8',16);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('nick','hguirc',17);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('maddy','gcmtr',18);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('alex.s','mymtm',19);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('pete','ervgrg',20);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('maya','345452',21);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('david','fcjvc.r',22);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('mario','fcnn48',23);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('lucs','xwer35',24);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('brad','nuyu8',25);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('felix','rnxfgu',26);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('tommy','4354c',27);
+INSERT INTO `mydb`.`account`(`username`,`password`,`user`) VALUES ('frankie','hfuhe7',28);
+INSERT INTO `mydb`.`file_Path`(`user`,`picture_path`,`profile_pic`,`bio`) VALUES (1,    "/assets/users/1/",   'blobbored.png',    "This is test user 1 s bio (First Last)");
+INSERT INTO `mydb`.`file_Path`(`user`,`picture_path`,`profile_pic`,`bio`) VALUES (2,    "/assets/users/2/",   'blobconfused.png', "bbbbbbbbbbbbbbb bob's bio (Bob Smith)");
+INSERT INTO `mydb`.`file_Path`(`user`,`picture_path`,`profile_pic`,`bio`) VALUES (3,    "/assets/users/3/",   'test.png',         "aaaaaaaaaaaaaaaaaaaaa");
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (4);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (5);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (6);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (7);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (8);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (9);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (10);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (11);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (12);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (13);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (14);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (15);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (16);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (17);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (18);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (19);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (20);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (21);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (22);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (23);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (24);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (25);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (26);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (27);
+INSERT INTO `mydb`.`file_Path`(`user`) VALUES (28);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(1);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(2);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(3);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(4);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(5);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(6);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(7);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(8);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(9);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(10);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(11);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(12);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(13);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(14);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(15);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(16);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(17);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(18);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(19);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(20);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(21);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(22);
+INSERT INTO `mydb`.`preferences`(`user`) VALUES(23);
+
+INSERT INTO `mydb`.`communityPage`(`post_title`,`post_category`,`post_description`,`post_file`,`post_votes`,`user`) VALUES ('Test',   'Music', 'I am first',    'b.png',    3, 1);
+INSERT INTO communityPage (`post_title`, `post_category`, `post_file`, `post_votes`, `user`) VALUES ('Egg Wobble','Art','egg.gif',25,'1');
+INSERT INTO communityPage (`post_title`, `post_category`, `post_file`, `post_votes`, `user`) VALUES ('Avocado Blob','Art','477709683319373824.gif',22,'1');
+
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('knife painting','Painting of a sunflower field using knife painting skills','Art',1,9,  'knife.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Graffiti wall','collab to design to a grafitti wall in an art studio','Art',1,19,  'wall_collab.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Creative Cocktail','Collab to design a collection of limited edition alcohol bottles','Art',1,22,  'Warsteiner-art-collection-.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Sailing waters','Water painting collab, made in real time','Art',1,22,  'paint_water.jpeg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Abstract Art','Passion project collab on a modern, abstract art piece','Art',1,9,  'art_paint.png');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('School film project','Work with professional for a small film project','Film',1,15,  'unnamed.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Animation','Animated documentary collaboration','Film',1,14,  'blog_filmcontest_2019.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Tribeca Film Festival','Indie film entry for Tribeca Film festival','Film',1,26,  'festival.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Human Rights Film Network','45 mins documentary of Human Rights Violations in 3rd world countries','Film',1,21,  'HRFN logo naam.png');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Shot on Phone','Passion project - making films using smartphones','Film',1,21,  '20170520_Seasons_041-copy.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Photo Gallery','Collaboration to take photos all over NYC for a limited time art show','Photo',1,12,  'Artspace-2019-summershows-043-e1565203966301.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Photo for Fun','Collab to take photos with cameras from over the years','Photo',1,12,  'iStock_000025803714Small.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Instagram collab','Collaboration to capture portraits for instagram portfolio','Photo',1,27,  'collaboration+with+photographer.jpeg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Nikon Photo Contest','Black and white photo collab for the contest','Photo',1,27,  'og.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Landmark Project','Collaboration to capture all of significant landmarks in SF','Photo',1,20,  'unnamed_(1).jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Hip hop Collab','Partnered to make a hip hop dance routine for music video','Dance',1,11,  'download.jpeg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Ballet','Collaborated to choreograph a new ballet routine','Dance',1,10,  'dance_collab.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Tap and Jazz','Choreographed a tap and jazz dance routine for Dance competition','Dance',1,18,  'dancers.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Dance for Good','Partnered to teach local kids dance as a means of expressing themselves','Dance',1,10,  'images.jpeg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Contemporary Collab','Partnered for a contemporary dance recital in Boston','Dance',1,25,  'img.png');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('My Album','A music album for everyone','Music',1,8,  'band_cover.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Jazz','classic jazz collaboration with budding musicians','Music',1,8,  'music-collaboration.jpeg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Pop Reimagined','Famous pop songs mixed with indie tunes','Music',1,13,  'music.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Revive Instrumental','A collaboration of sounds from everyday life','Music',1,23,  'Album-Covers.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('R&B Cover','A collection of covers for famous 90s R&B songs','Music',1,24,  'app-icon.png');
+
+UPDATE file_path SET `media1` = 'Untitled.png' WHERE `user` = '1';
+UPDATE file_path SET `media2` = 'test.jpg' WHERE `user` = '1';
+
+INSERT INTO `matches2` (`user1`, `match_status`, `user2`) VALUES (1, 1, 2);
+INSERT INTO `matches2` (`user1`, `match_status`, `user2`) VALUES (2, 1, 1);
+INSERT INTO `matches2` (`user1`, `match_status`, `user2`) VALUES (1, 1, 11);
+INSERT INTO `matches2` (`user1`, `match_status`, `user2`) VALUES (11, 1, 1);
+INSERT INTO `matches2` (`user1`, `match_status`, `user2`) VALUES (1, 1, 6);
+INSERT INTO `matches2` (`user1`, `match_status`, `user2`) VALUES (6, 0, 1);
+
+
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

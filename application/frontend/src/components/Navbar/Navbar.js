@@ -8,31 +8,60 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Button } from './Buttons';
 import { MenuItems } from './MenuItems';
-import { Link, withRouter } from 'react-router-dom';
+import { BrowserRouter} from 'react-router-dom';
+import { withRouter} from 'react-router';
+import {createBrowserHistory} from 'history';
+
 import './Navbar.css';
 
+export const history = createBrowserHistory({forceRefresh:true})
+
 class Navbar extends Component {
-    state = { clicked: false }
+    constructor(props) {
+        super(props);
+        this.state = { 
+        clicked: false,
+        isDesktop: false
+        };
+        this.updatePredicate = this.updatePredicate.bind(this);
+    }
 
     handleClick = () => {
         this.setState({clicked: !this.state.clicked})
     }
 
-    logout = e =>{
+    logout = (e) =>{
         e.preventDefault();
-        axios.post('/logout').then(response =>{
-        })
+        axios.post('/logout', this.state).then(response =>{
+            history.push('/login');
+
+        });
     }
+    
+    componentDidMount() {
+        this.updatePredicate();
+        window.addEventListener("resize", this.updatePredicate);
+    }
+    
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updatePredicate);
+      }
+
+    updatePredicate() {
+        this.setState({ isDesktop: window.innerWidth > 950 });
+      }
+
 
     render() {
+        const isDesktop = this.state.isDesktop;
         return(
             <nav className='NavbarItems'>
-                <a href={'/'}>
-                <h1 className='navbar-logo'><img src="DoReMeetLogo.png" alt="Logo" height="30px"/> DoReMeet</h1>
+                <a href={'/Community'}>
+                <h1 className='navbar-logo'><img src="DoReMeetLogo.png" alt="Logo" height="30px"/> DoReMeet</h1></a>
                 <div className='menu-icon' onClick={this.handleClick}>
                     <i className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
                 </div>
-                </a>
+                
                 <ul className={this.state.clicked ? 'nav-menu active' : 'nav-menu'}>
                     {MenuItems.map((item, index) => {
                         return(
@@ -44,10 +73,13 @@ class Navbar extends Component {
                         )
                     })}
                 </ul>
-                <a href='/Settings'><i class="fas fa-cog fa-lg" style={{paddingRight:4}}></i></a>
-                &nbsp; &nbsp;
-                <Button onClick={this.logout}><b>Log Out</b></Button>
-            </nav>
+                {isDesktop ? (
+                    <><a href='/Settings'><i class="fas fa-cog fa-md" style={{paddingRight:10}}></i></a>      
+                    <div style={{marginRight:'10px'}}><Button onClick={e=>this.logout(e)}>Log Out</Button></div></>
+                ) : (
+                    <div style={{display: 'none'}} />
+                )} 
+            </nav>         
         )
     }
 }

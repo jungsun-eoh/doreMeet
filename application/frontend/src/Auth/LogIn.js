@@ -72,7 +72,7 @@ class LogIn extends Component {
                             <table>
                                 <tr> 
                                     <td>
-                                        <label><input type="checkbox" checked="checked" name="remember" /> Remember Me </label>
+                                        <label><input type="checkbox" name="remember" /> Remember Me </label>
                                     </td>
                                     <pre className='tab'></pre>
                                     <td>

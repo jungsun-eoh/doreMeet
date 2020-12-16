@@ -4,176 +4,110 @@
 **Desc: Contains all the css for the chat page
 */
 
-.ChatContainer {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
-}
-
-.ChatList {
-    width: 35%;
-    height: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    background-color: lightgray;
-    flex-direction: column;
-}
-
-.ActiveChat {
-    display: flex;
-    min-height: 100px;
-    max-height: 100px;
-    border-bottom: 2px solid black;
-    border-right: 1px solid black;
-}
-
-.UserPicture {
-    height: 75px;
-    width: 75px;
-    border-radius: 50%;
-    align-self: center;
-    margin-right: 40px;
-}
-
-.NameAndMessage {
-    display: flex;
-    flex-direction: column;
-    max-width: 450px;
-    justify-content: center;
-}
-
-.MessagePreview{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 20px;
-}
-
-.MessageWindow {
-    width: 65%;
-    height: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-}
-
-.NameAndPicture {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    align-content: center;
-    justify-content: center;
-    background-color: lightgray;
-    min-height: 125px;
-    max-height: 125px;
-}
-
-.Messages {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    border-bottom: 1px solid black;
-    min-height: 550px;
-    max-height: 550px;
-}
-
-.LeftMessage {
-    align-self: flex-start;
-    max-width: 600px;
-    background-color: lightgray;
-    margin-left: 5px;
-}
-
-.RightMessage {
-    align-self: flex-end;
-    max-width: 600px;
-    background-color: rgb(219, 250, 246);
-    margin-right: 5px;
-}
-
-.LeftMessage, .RightMessage {
-    padding: 15px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-.TextArea {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: center;
-    min-height: 150px;
-    max-height: 150px;
-}
-
-.Text {
-    min-width: 700px;
-    min-height: 80px;
-    max-height: 80px;
-    border-radius: 15px;
-    font-size: 25px;
-    padding: 5px;
+.sideBar{
+    width: 400px;
+    height: 100vh;
+    border-right: 1px rgb(155, 155, 155) solid;
+    border-top: 1px  rgb(155, 155, 155) solid;
     overflow: auto;
-    resize: none;
 }
 
-.Text:focus {
-    outline: none;
+.sideBarHeader{
+    text-align: center;
+    background-color: rgb(192, 233, 232);
 }
 
-.SendButton{
-    height: 75px;
-    width: 200px;
-    border: 1px solid black;
-    margin-right: 50px;
-    margin-left: 100px;
-    font-size: 25px;
-    background-color: rgb(219, 250, 246);
-}
-
-.SendButton:hover{
-    background-color: rgb(106,198,196);
+.sideBarElement{
+    display: flex;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color:rgb(188, 207, 207);
+    border-radius: 20px;
     cursor: pointer;
 }
 
-@media only screen and (max-width: 1680px){
-    .ChatList{
-        width: 35%;
-    }
-    .ActiveChat{
-        width: 100%;
-    }
-    .NameAndMessage{
-        width: 35%;
-    }
-    .MessageWindow {
-        width: 65%;
-    }
-    .SendButton {
-        width: 80%;
-    }
+.sideBarText{
+    font-weight: 600;
+    font-size: 20px;
+    text-align: center;
+    padding-top: 10px;
+    margin-left: 45px;
 }
 
-@media only screen and (max-width: 1680px) {
-    .Text {
-        min-width: 600px;
-    }
-    .SendButton{
-        width: 70%;
-    }
+.sideBarPic{
+    height:50px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
-@media only screen and (max-width: 1373px) {
-    .Text {
-        min-width: 500px;
-    }
+.messageContainer{
+    height:85vh;
+    width:100%;
+    border-top: 1px  rgb(155, 155, 155) solid;
 }
 
-@media only screen and (max-width: 1229px) {
-    .Text{
-        min-width: 400px;
-    }
-    .SendButton {
-        width: 65%;
-    }
+.tutorialContainer{
+    height:90vh;
+    width:100%;
+    border-top: 1px  rgb(155, 155, 155) solid;
+    text-align: center;
+    font-size: 30px;
+}
+
+.message {
+    margin-left: 30px;
+    margin-bottom: 10px;
+    list-style-type: none;
+}
+
+.message div:nth-child(1) {
+    font-size: 20px;
+    color: #909999;
+    opacity: 0.9;
+    margin-bottom: 6px;
+}
+.message div:nth-child(2) {
+    font-size: 25px;
+    background: #8de2e2;
+    color: black;
+    display: inline;
+    padding: 4px 8px;
+    border-radius: 8px;
+}
+
+.message-list {
+    box-sizing: border-box;
+    padding: 0 0 0 6px;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    background: white;
+}
+
+.sendMessageForm {
+    background: #999999;
+    display: flex;
+    box-sizing: border-box;
+    height: 15vh;
+}
+
+.sendMessageForm input {
+    width: 100%;
+    padding: 15px 10px;
+    border: none;
+    margin: 0;
+    background: #d3d3d3;
+    font-size: 30px;
+    font-weight: 200;
+}
+
+.sendMessageForm input:focus {
+    outline-width: 0;
+}
+
+.sendMessageForm input::placeholder {
+    color: black;
 }
