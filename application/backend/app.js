@@ -52,7 +52,7 @@ app.use(bodyParser.json())
 app.use(fileUpload());
 //app.use(express.static(__dirname + "/../frontend/build"));
 console.log(__dirname + "/../../..")
-app.use(express.static(path.join(__dirname, "../../../")));
+app.use(e.static(path.join(__dirname, "../../../")));
 app.use(cors());
 
 app.use(function(req, res, next) {

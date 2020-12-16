@@ -8,7 +8,7 @@ const mysql = require('mysql');
 
 const pool = mysql.createPool({
     // changed host for debug. consider changing fields
-    host: "http://13.52.247.220/",
+    host: "mydb.cxfxbt23l5bi.us-west-1.rds.amazonaws.com",
     user: "root",
     password: "CSC648TEAM02!",
     database: "mydb",
