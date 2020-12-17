@@ -23,7 +23,14 @@ const fileUpload = require('express-fileupload');
 const mkdirp = require('mkdirp');
 const fs = require('fs');
 const dir = `${__dirname}/../database/transaction.sql`;
-const io = require('socket.io')(http);
+const io = require('socket.io')(http, {
+	cors: {
+		origin: "http://ec2-13-52-247-220.us-west-1.compute.amazonaws.com:5000/",
+		methods: ["GET", "POST"],
+		allowedHeaders: ["my-custom-header"],
+		credentials: true
+	}
+});
 const bcrypt = require('bcrypt');
 const saltRounds = 8;
 //const db = require('./conf/database');
@@ -773,11 +780,11 @@ console.log("___________________________________________________________________
 
 //
 app.get("/getMedia", (req, res) => {
-	console.log("getMedia");
+//	console.log("getMedia");
     var todb = "SELECT `file_name` FROM `media2`  WHERE `user` = " + req.query.user + " ORDER BY `media2_id`DESC ;"
     pool.query(todb, (error, result) => {
-//console.log("*media result");
-//console.log(result);
+console.log("*media result for " + req.query.user);
+console.log(result);
         res.send(result);
     });
 });

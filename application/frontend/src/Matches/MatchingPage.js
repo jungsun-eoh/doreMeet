@@ -61,6 +61,17 @@ const MatchingPage = (stateObj) => {
             }).catch(function (error) {
               console.log(error);
             });
+              axios.get('/getMedia', {params: { user: response.data[0].user}}).then(response => {
+                console.log(response.data);
+                        if(response.data.length > 0) {
+                          //assign media here as response.data.[x]
+                        }
+                    }).catch(function (error) {
+                        console.log(error);
+                        console.log("{Media}  Not Found");
+                    })
+            }).catch(function (error) {
+              console.log(error);
             console.log(stateObj.firstName + " " + stateObj.lastName);
             stateObj.setFirstName(matches[index].first_name);
             stateObj.setLastName(matches[index].last_name);
@@ -70,6 +81,7 @@ const MatchingPage = (stateObj) => {
             //stateObj.setArtTag(); none yet?
             stateObj.setSkillLevel(matches[index].skill_lvl);
             console.log("==========================2");
+
           } else {
             console.log("user already decided");
             console.log("loading nex match");

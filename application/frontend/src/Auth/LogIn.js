@@ -55,7 +55,7 @@ class LogIn extends Component {
 
                         <div className="input">
                             <label htmlFor="username" className="sub-heading"> <b> Username </b></label>
-                            <input type="username" name='username'  value={this.state.username} placeholder="Enter Usernameeeeeeeeeee" required onChange={this.handleChange} />
+                            <input type="username" name='username'  value={this.state.username} placeholder="Enter Username" required onChange={this.handleChange} />
                         </div>
 
                         <div className="input">
