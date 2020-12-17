@@ -18,6 +18,7 @@ import Chat from './Chat/Chat';
 import Settings from './Account/Settings';
 import Profile from './Account/Profile';
 import Premium from './Account/Premium';
+import RecoverPassword from './Account/recoverPassword';
 import FAQ from './FooterPages/faq';
 import Terms from './FooterPages/Terms';
 import Privacy from './FooterPages/Privacy';
@@ -256,6 +257,7 @@ function App() {
         <Route path='/' exact component={Home}/>
         <Route path='/login' component={LogIn} />
         <Route path='/signup' component={SignUp} />
+        <Route path="/recoverPassword" component={RecoverPassword} />
         <Route path='/FAQ' component={FAQ} />
         <Route path='/Guidelines' component={Guidelines} />
         <Route path='/Terms' component={Terms} />

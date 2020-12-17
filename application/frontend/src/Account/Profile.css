@@ -1,0 +1,32 @@
+#media-files{
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.MediaFile{
+    margin-right: 30px;
+}
+
+.ImageFormat {
+    max-width: 200px;
+    max-height: 200px;
+}
+
+#user-posts {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.PostFormat {
+    margin-right: 50px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.PostInfo {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}

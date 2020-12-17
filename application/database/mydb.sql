@@ -49,9 +49,11 @@ CREATE TABLE IF NOT EXISTS `mydb`.`address` (
   `street_number` INT NULL,
   `street` VARCHAR(128) NOT NULL,
   `city` VARCHAR(45) NOT NULL,
-  `state` CHAR(2) NOT NULL,
+  `state` CHAR(15) NOT NULL,
   `zipcode` INT NOT NULL,
   `country` VARCHAR(45) NOT NULL,
+  `latitude` VARCHAR(90) NOT NULL,
+  `longitude` VARCHAR(90) NOT NULL,
   PRIMARY KEY (`address_id`))
 ENGINE = InnoDB;
 
@@ -295,6 +297,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`matches2` (
 	UNIQUE `unique_index`(`user1`, `user2`))
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `mydb`.`media2`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`media2` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`media2` (
+	`media2_id` TINYINT NOT NULL AUTO_INCREMENT,
+  `file_name` varchar(256) NOT NULL,
+  `user` int NOT NULL,
+  PRIMARY KEY (`media2_id`))
+ENGINE = InnoDB;
+
+
+
+
 INSERT INTO `matches2` (`user1`, `match_status`, `user2`) VALUES (0, 0, 0);
 
 INSERT INTO `mydb`.`user`(`user_id`, `first_name`,`last_name`,`gender`,`date_of_birth`,`email`,`phone_number`,`art_category`,`skill_lvl`) VALUES (1, 'first', 'last',     'f','2000-11-21',    'mail@mail',        '7073334444',   'Dance',	    'I');
@@ -423,13 +440,13 @@ INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_categor
 INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Photo for Fun','Collab to take photos with cameras from over the years','Photo',1,12,  'iStock_000025803714Small.jpg');
 INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Instagram collab','Collaboration to capture portraits for instagram portfolio','Photo',1,27,  'collaboration+with+photographer.jpeg');
 INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Nikon Photo Contest','Black and white photo collab for the contest','Photo',1,27,  'og.jpg');
-INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Landmark Project','Collaboration to capture all of significant landmarks in SF','Photo',1,20,  'unnamed (1).jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Landmark Project','Collaboration to capture all of significant landmarks in SF','Photo',1,20,  'unnamed_(1).jpg');
 INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Hip hop Collab','Partnered to make a hip hop dance routine for music video','Dance',1,11,  'download.jpeg');
 INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Ballet','Collaborated to choreograph a new ballet routine','Dance',1,10,  'dance_collab.jpg');
 INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Tap and Jazz','Choreographed a tap and jazz dance routine for Dance competition','Dance',1,18,  'dancers.jpg');
 INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Dance for Good','Partnered to teach local kids dance as a means of expressing themselves','Dance',1,10,  'images.jpeg');
 INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Contemporary Collab','Partnered for a contemporary dance recital in Boston','Dance',1,25,  'img.png');
-INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('My Album','A music album for everyone','Music',1,8,  'band cover.jpg');
+INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('My Album','A music album for everyone','Music',1,8,  'band_cover.jpg');
 INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Jazz','classic jazz collaboration with budding musicians','Music',1,8,  'music-collaboration.jpeg');
 INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Pop Reimagined','Famous pop songs mixed with indie tunes','Music',1,13,  'music.jpg');
 INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_category`,`post_votes`,`user`,`post_file`)VALUES('Revive Instrumental','A collaboration of sounds from everyday life','Music',1,23,  'Album-Covers.jpg');
@@ -438,10 +455,13 @@ INSERT INTO `mydb`.`communitypage`(`post_title`,`post_description`,`post_categor
 UPDATE file_path SET `media1` = 'Untitled.png' WHERE `user` = '1';
 UPDATE file_path SET `media2` = 'test.jpg' WHERE `user` = '1';
 
-UPDATE file_path SET `social_profile_1` = 'https://www.google.com/' WHERE `user` = '1';
-UPDATE file_path SET `social_profile_2` = 'https://www.google.com/' WHERE `user` = '1';
-UPDATE file_path SET `social_profile_3` = 'https://www.google.com/' WHERE `user` = '1';
-UPDATE file_path SET `social_profile_4` = 'https://www.google.com/' WHERE `user` = '1';
+INSERT INTO `matches2` (`user1`, `match_status`, `user2`) VALUES (1, 1, 2);
+INSERT INTO `matches2` (`user1`, `match_status`, `user2`) VALUES (2, 1, 1);
+INSERT INTO `matches2` (`user1`, `match_status`, `user2`) VALUES (1, 1, 11);
+INSERT INTO `matches2` (`user1`, `match_status`, `user2`) VALUES (11, 1, 1);
+INSERT INTO `matches2` (`user1`, `match_status`, `user2`) VALUES (1, 1, 6);
+INSERT INTO `matches2` (`user1`, `match_status`, `user2`) VALUES (6, 0, 1);
+
 
 
 

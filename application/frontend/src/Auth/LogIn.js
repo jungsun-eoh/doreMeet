@@ -35,6 +35,10 @@ class LogIn extends Component {
         e.preventDefault();
         axios.post('/login', this.state).then(response =>{
             if(response.data){
+		console.log(response.data);
+console.log("data recieved");
+console.log(response);
+                document.cookie = response.data;
                 this.props.history.push('/Community');
             }else{
                  alert("Your username or password is incorrect");
@@ -76,7 +80,7 @@ class LogIn extends Component {
                                     </td>
                                     <pre className='tab'></pre>
                                     <td>
-                                        <Link to='/'><label> Forgot Password </label></Link>
+                                        <Link to='/recoverPassword'><label> Forgot Password </label></Link>
                                     </td>
                             </tr>
                             </table>

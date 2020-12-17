@@ -30,14 +30,30 @@ class Navbar extends Component {
         this.setState({clicked: !this.state.clicked})
     }
 
-    logout = (e) =>{
+/*    logout = (e) =>{
         e.preventDefault();
         axios.post('/logout', this.state).then(response =>{
             history.push('/login');
 
         });
     }
-    
+*/
+	    logout = (e) =>{
+        e.preventDefault();
+        axios.post('/logout', {params: { user: document.cookie}}).then(response =>{
+            var old = document.cookie;
+            // console.log(old);
+            // console.log(response.data);
+            // console.log(document.cookie);
+            document.cookie = response.data;
+
+            // document.cookie = "username="+document.cookie+"; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            // console.log(document.cookie);
+
+            history.push('/login');
+
+        });
+    }
     componentDidMount() {
         this.updatePredicate();
         window.addEventListener("resize", this.updatePredicate);
