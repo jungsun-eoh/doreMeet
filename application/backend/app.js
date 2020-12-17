@@ -126,7 +126,7 @@ app.post('/makePost', (req, res) => {
     var filepath = `/../frontend/public/assets/postImages/${req.files.file.name}`;
 
     req.files.file.mv(`${__dirname}${filepath}`, err => {
-        var queryArray = [req.body.post_title, req.body.post_category, req.body.post_description, req.files.file.name, 1, req.session.userId]
+        var queryArray = [req.body.post_title, req.body.post_category, req.body.post_description, req.files.file.name, 1, req.body.user]
         var todb = 'INSERT INTO `communityPage` (`post_title`, `post_category`, `post_description`, `post_file`, `post_votes`, `user`) VALUES (?,?,?,?,1,?);'
         pool.query(todb, queryArray ,(err, result) => {
             if(err || result == ''){
@@ -315,11 +315,10 @@ app.post('/logout', (req, res) => {
 */
 app.post('/logout', (req, res) => {
 
-   console.log("logging out: " + req.session.userId);
+   console.log("logging out: ");
                 console.log(req.session);
                 console.log("altering cookie to delete");
                 var test = "0"+ "; expires=18 Dec 2000 12:00:00 UTC; path=/";
-           console.log(test);
                 res.send(test);
                 //res.redirect('/');                
                  })
@@ -332,7 +331,6 @@ app.post('/logout', (req, res) => {
 
 //Gets the user's data from the User and Account table for settings
 app.get('/getUsers', (req, res) => {
-console.log(req.body);
 
     var todb = 'SELECT * FROM `account` AS A LEFT OUTER JOIN `user` AS B ON `account_id` = `user_id` WHERE `user_id` = ?';
     pool.query(todb, [req.query.user], (error, result) => {
@@ -349,20 +347,20 @@ console.log(req.body);
 //Updates the user's information in the User and Account table
 app.post('/updateUser', (req, res) => {
     console.log(req.body);
-    console.log(req.session.userId);
+    console.log(req.body.user);
 
     var todb =
         "UPDATE user SET " +
         "first_name = ?, last_name = ?, gender = ?, date_of_birth = ?, email = ?, phone_number = ?, art_category = ?,  skill_lvl = ?" +
         "WHERE user_id = ?;";
-    pool.query(todb, [req.body.first_name, req.body.last_name, req.body.gender, req.body.date_of_birth, req.body.email, req.body.phone_number ,req.body.art_category , req.body.skill_lvl, req.session.userId], (error, result) => {
+    pool.query(todb, [req.body.first_name, req.body.last_name, req.body.gender, req.body.date_of_birth, req.body.email, req.body.phone_number ,req.body.art_category , req.body.skill_lvl, req.body.user], (error, result) => {
         if (error || result == '') {
             console.log(error);
             console.log("update user error");
         } else {
             console.log("update user pass");
             var todb = "UPDATE account SET username = ? WHERE user = ? ";
-            pool.query(todb, [req.body.username, req.session.userId],(error, result) => {
+            pool.query(todb, [req.body.username, req.body.user],(error, result) => {
                 if (error || result == '') {
                     console.log("update username error");
                 } else {
@@ -378,7 +376,7 @@ app.post('/updateUser', (req, res) => {
             
                     } else {
                         todb = "UPDATE account SET password = ? WHERE user = ? ";
-                        pool.query(todb, [req.body.new_password, req.session.userId],(error, result) => {
+                        pool.query(todb, [req.body.new_password, req.body.user],(error, result) => {
                             if (error  || result == '') {
                                 console.log(error);
                                 console.log("update password error");
@@ -395,10 +393,10 @@ app.post('/updateUser', (req, res) => {
 //Updates the user's match preferences in User and Preference tables
 app.post('/updatePreferences', (req, res) => {
     console.log(req.body);
-    console.log(req.session.userId);
+    console.log(req.body.user);
 
     var todb = "UPDATE preferences SET min_age = ?, max_age = ?, gender = ?,  skill_lvl_pref = ?, meeting_pref = ? WHERE user = ?;";
-    pool.query(todb, [req.body.min_age, req.body.max_age, req.body.gender,  req.body.skill_lvl_pref, req.body.meeting_pref , req.session.userId], (error, result) => {
+    pool.query(todb, [req.body.min_age, req.body.max_age, req.body.gender,  req.body.skill_lvl_pref, req.body.meeting_pref , req.body.user], (error, result) => {
         if (error) {
             console.log(error);
             console.log("update pref error");
@@ -407,7 +405,7 @@ app.post('/updatePreferences', (req, res) => {
             "UPDATE user SET " +
             "art_category = ?,  skill_lvl = ?" +
             "WHERE user_id = ?;";
-            pool.query(todb, [req.body.art_category, req.body.skill_lvl, req.session.userId],(error, result) => {
+            pool.query(todb, [req.body.art_category, req.body.skill_lvl, req.body.user],(error, result) => {
                 if (error || result == '') {
                     console.log("update user error");
                 } else {
@@ -448,19 +446,19 @@ app.post('/upload', (req, res) => {
         return res.status(400).json({ msg: 'No file uploaded' });
       }
       const file = req.files.file;
-    var filepath = `/../frontend/public/assets/users/${req.session.userId}/${req.files.file.name}`;
-    var dir = `../frontend/public/assets/users/${req.session.userId}/`;
+    var filepath = `/../frontend/public/assets/users/${req.body.user}/${req.files.file.name}`;
+    var dir = `../frontend/public/assets/users/${req.body.user}/`;
     var frontpath = dir.substring(dir.indexOf("/assets/"));
       
     mkdirp.sync(dir);
-    var filepath = `/../frontend/public/assets/users/${req.session.userId}/${req.files.file.name}`;
+    var filepath = `/../frontend/public/assets/users/${req.body.user}/${req.files.file.name}`;
     req.files.file.mv(`${__dirname}${filepath}`, err => {
         if (err) {
             console.error(err);
           }
           var todb =   
           "UPDATE file_path SET profile_pic = ?, picture_path = ? WHERE user = ?";
-          queryArray = [req.files.file.name, frontpath, req.session.userId];
+          queryArray = [req.files.file.name, frontpath, req.body.user];
         pool.query(todb, queryArray,(error, result) => {
             if(error){
             console.log("upload fail");
@@ -477,7 +475,7 @@ app.post('/upload', (req, res) => {
 
 app.get("/getCommunityPosts", (req, res) => {
 
-    var todb = "SELECT * FROM `communityPage`  WHERE `user` = " + req.session.userId + " ORDER BY `post_votes` DESC LIMIT 3 ;"
+    var todb = "SELECT * FROM `communityPage`  WHERE `user` = " + req.body.user + " ORDER BY `post_votes` DESC LIMIT 3 ;"
     pool.query(todb, (error, result) => {
         res.send(result);
     });
@@ -491,8 +489,8 @@ app.post('/uploadMedia2', (req, res) => {
         console.error("what");
         return res.status(400).json({ msg: 'No file uploaded' });
     }
-    var filepath = `/../frontend/public/assets/users/${req.session.userId}/${req.files.file.name}`;
-    var dir = `../frontend/public/assets/users/${req.session.userId}/`;
+    var filepath = `/../frontend/public/assets/users/${req.body.user}/${req.files.file.name}`;
+    var dir = `../frontend/public/assets/users/${req.body.user}/`;
     
     mkdirp.sync(dir);
     req.files.file.mv(`${__dirname}${filepath}`, err => {
@@ -504,7 +502,7 @@ app.post('/uploadMedia2', (req, res) => {
         flag = req.body.type;
         var todb =   "UPDATE file_path SET `" + flag + "` = ? WHERE `user` = ?;";//`` = uploadMedia1
         console.log(todb);
-        queryArray = [req.files.file.name, req.session.userId]
+        queryArray = [req.files.file.name, req.body.user]
         pool.query(todb, queryArray ,(error, result) => {
             if(error || result == ''){
                 console.log("upload1 fail");
@@ -523,7 +521,7 @@ app.post('/uploadText', (req, res) => {
     console.log(req.body);
     flag = req.body.type;
     var todb =   "UPDATE file_path SET `" + flag + "` = ? WHERE `user` = ?;";//`` = uploadMedia1
-    queryArray = [req.body.value, req.session.userId]
+    queryArray = [req.body.value, req.body.user]
     pool.query(todb, queryArray ,(error, result) => {
         if(error || result == ''){
             console.log("uploadText fail");
@@ -547,20 +545,20 @@ app.post('/uploadMedia', (req, res) => {
         return res.status(400).json({ msg: 'No file uploaded' });
       }
       const file = req.files.file.name;
-    var filepath = `/../frontend/public/assets/users/${req.session.userId}/${req.files.file.name}`;
-    var dir = `../frontend/public/assets/users/${req.session.userId}/`;
+    var filepath = `/../frontend/public/assets/users/${req.body.user}/${req.files.file.name}`;
+    var dir = `../frontend/public/assets/users/${req.body.user}/`;
     var frontpath = dir.substring(dir.indexOf("/assets/")) + file;
     console.log(frontpath);
 
     mkdirp.sync(dir);
-    var filepath = `/../frontend/public/assets/users/${req.session.userId}/${req.files.file.name}`;
+    var filepath = `/../frontend/public/assets/users/${req.body.user}/${req.files.file.name}`;
     req.files.file.mv(`${__dirname}${filepath}`, err => {
         if (err) {
             console.error(err);
           }
           var todb = "INSERT INTO `media2` (`file_name`, `user`) VALUES (?,?);"
         
-          queryArray = [frontpath, req.session.userId];
+          queryArray = [frontpath, req.body.user];
         pool.query(todb, queryArray,(error, result) => {
             if(error){
             console.log("upload fail");
@@ -577,7 +575,7 @@ app.post('/uploadMedia', (req, res) => {
 
 //
 app.get("/getMedia", (req, res) => {
-    var todb = "SELECT `file_name` FROM `media2`  WHERE `user` = " + req.session.userId + " ORDER BY `media2_id`DESC ;"
+    var todb = "SELECT `file_name` FROM `media2`  WHERE `user` = " + req.query.user + " ORDER BY `media2_id`DESC ;"
     pool.query(todb, (error, result) => {
         res.send(result);
     });
@@ -610,7 +608,7 @@ app.post('/getProfile2', (req, res) => {
 //Searches within the communityPage table
 app.get("/searchMatches", (req, res) => {
     var todb = 'SELECT art_category  FROM user WHERE user_id = ?;';
-    pool.query(todb,[req.session.userId] ,(err, result) => {
+    pool.query(todb,[req.query.user] ,(err, result) => {
         if (err || result == ''){
             console.log("artCat search fail");
             console.log(err);
@@ -618,12 +616,12 @@ app.get("/searchMatches", (req, res) => {
             //console.log(result);
             console.log(result[0].art_category);
             var todb = 'SELECT * FROM user where art_category = ? and user_id != ?;';
-            pool.query(todb,[ result[0].art_category, req.session.userId] ,(err, result) => {
+            pool.query(todb,[ result[0].art_category, req.query.user] ,(err, result) => {
                 if (err || result == ''){
-                    console.log(req.session.userId + " searchMatches fail");
+                    console.log(req.query.user + " searchMatches fail");
                     res.send(err);
                 }else{
-                    console.log(req.session.userId + " searchMatches pass");
+                    console.log(req.query.user + " searchMatches pass");
                     res.send(result);
                 }
             })
@@ -634,7 +632,7 @@ app.get("/searchMatches", (req, res) => {
 //Pass the current match
 app.post("/pass", (req, res) => {
     var todb = 'INSERT INTO `matches2` (`user1`,`match_status`,`user2`) VALUES(?, ?, ?);'; 
-    var queryArray = [req.session.userId, 0, req.body.currentMatch];
+    var queryArray = [req.body.user, 0, req.body.currentMatch];
     pool.query(todb,queryArray ,(err, result) => {
         if (err || result == ''){
             console.log("pass fail");
@@ -650,7 +648,7 @@ app.post("/pass", (req, res) => {
 //Connect on current match
 app.post("/connect", (req, res) => {
     var todb = 'INSERT INTO `matches2` (`user1`,`match_status`,`user2`) VALUES(?, ?, ?);';
-    var queryArray = [req.session.userId, 1, req.body.currentMatch];
+    var queryArray = [req.body.user, 1, req.body.currentMatch];
     pool.query(todb,queryArray ,(err, result) => {
         if (err || result == ''){
             console.log("connect fail");
@@ -666,13 +664,13 @@ app.post("/connect", (req, res) => {
 //match_status: // 0:pass // 1:connect //
 app.post("/checkMatch", (req, res) => {
     var todb = 'SELECT * FROM matches2 WHERE `user1` = ? AND `user2` = ?;';
-    pool.query(todb,[req.session.userId, req.body.currentMatch] ,(err, result) => {
+    pool.query(todb,[req.body.user, req.body.currentMatch] ,(err, result) => {
         if (err || result == ''){
-            console.log(req.session.userId + "No match status " + req.body.currentMatch);
+            console.log(req.body.user + "No match status " + req.body.currentMatch);
             res.send(result);
             
         }else{
-            process.stdout.write(req.session.userId + " a match status exist " + req.body.currentMatch + " ");
+            process.stdout.write(req.body.user + " a match status exist " + req.body.currentMatch + " ");
             console.log(result);
             res.send(result);
         }
@@ -682,7 +680,7 @@ app.post("/checkMatch", (req, res) => {
 //gets the all the users that ______ has clicked "Connect" on
 app.post("/getConnected", (req, res) => {
     var connectedMatches = [];
-    var todb = `SELECT user2 FROM mydb.matches2 WHERE (match_status = '1' AND user1 = ` +  req.session.userId + `);`
+    var todb = `SELECT user2 FROM mydb.matches2 WHERE (match_status = '1' AND user1 = ` +  req.body.user + `);`
     pool.query(todb,  (err, result) => {
         if (err || result == ''){
             console.log("error");
@@ -708,12 +706,12 @@ app.post("/getSuccessfulMatches", (req, res) => {
     var todb = `SELECT user1 FROM mydb.matches2 WHERE (match_status = '1' AND user1 = ? AND user2 = ?)`;
     var index = 0;
     connectedMatches.forEach( function(connectedMatch) {
-        pool.query(todb,[connectedMatch, req.session.userId],(err, result) => {
+        pool.query(todb,[connectedMatch, req.query.user],(err, result) => {
             if(err || result == ''){
-                console.log("checking if " + connectedMatch + " connected with you..." +  req.session.userId + " false");
+                console.log("checking if " + connectedMatch + " connected with you..." +  req.query.user + " false");
                 index += 1;
             }else{
-                console.log("checking if " + connectedMatch + " connected with you..." +  req.session.userId + " true");
+                console.log("checking if " + connectedMatch + " connected with you..." +  req.query.user + " true");
                 
                 todb = `select distinct user.first_name, user.last_name, file_path.profile_pic , file_path.picture_path from user, file_path, matches2 where user_id = user AND user = ?`
                  pool.query(todb,connectedMatch,(err, result2) => {

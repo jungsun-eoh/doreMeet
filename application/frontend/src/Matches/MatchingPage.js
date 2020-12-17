@@ -24,7 +24,7 @@ const MatchingPage = (stateObj) => {
 
   //starts the match process, ideally have on page load (when user navigates to match)
   const match = (e) => {
-    axios.get('/searchMatches').then(response => {
+    axios.get('/searchMatches', {params: { user: document.cookie}}).then(response => {
       matches = response.data;
       console.log("They're: " + matches.length);
       loadCurrentMatch();
@@ -43,7 +43,7 @@ const MatchingPage = (stateObj) => {
 
     const formData = new FormData();
     formData.append("currentMatch", matches[index].user_id);
-
+    formData.append('user', document.cookie);
     var matchStatus;
     await axios.post('/checkMatch', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
       console.log(response.data[0]);
@@ -102,6 +102,7 @@ const MatchingPage = (stateObj) => {
     const formData = new FormData();
     console.log(matches[index].user_id);
     formData.append("currentMatch", matches[index].user_id);
+    formData.append('user', document.cookie);
      axios.post('/pass', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
       index += 1; //queues up next match
       console.log(response);
@@ -118,6 +119,7 @@ const MatchingPage = (stateObj) => {
     }
     console.log(matches[index].user_id);
     formData.append("currentMatch", matches[index].user_id);
+    formData.append('user', document.cookie);
      axios.post('/connect', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
       index += 1; //queues up next match
       console.log(response);

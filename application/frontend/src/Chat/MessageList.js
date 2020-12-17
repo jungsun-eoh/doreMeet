@@ -6,12 +6,13 @@ import io from "socket.io-client";
 
 
 const getMatches = async () => {
-    await axios.post('/getConnected').then(response => {
+    await axios.post('/getConnected', document.cookie).then(response => {
         console.log(response.data);
         const formData = new FormData();
         for (var key in response.data) {
             formData.append('connectedMatches', response.data[key]);
         }
+        formData.append('user', document.cookie);
         axios.post('/getSuccessfulMatches', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
             console.log(response.data);
         });

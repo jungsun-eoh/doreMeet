@@ -35,9 +35,9 @@ class LogIn extends Component {
         e.preventDefault();
         axios.post('/login', this.state).then(response =>{
             if(response.data){
-		console.log(response.data);
-console.log("data recieved");
-console.log(response);
+                console.log(response.data);
+                console.log("data recieved");
+                console.log(response);
                 document.cookie = response.data;
                 this.props.history.push('/Community');
             }else{
@@ -56,7 +56,7 @@ console.log(response);
 
                         <div className="input">
                             <label htmlFor="username" className="sub-heading"> <b> Username </b></label>
-                            <input type="username" name='username'  value={this.state.username} placeholder="Enter Username" required onChange={this.handleChange} />
+                            <input type="username" name='username'  value={this.state.username} placeholder="Enter Usernameeeeeeeeeee" required onChange={this.handleChange} />
                         </div>
 
                         <div className="input">

@@ -52,12 +52,14 @@ const CommunityPageHome = (stateObj) => {
   const voteplus = () => {
     const formData = new FormData();
     formData.append('comm_pg_id', document.getElementById("PlusButton").value);
+    formData.append('user', document.cookie);
     axios.post('/voteplus', formData);
     console.log("vote+ button test");
   };
   const voteminus = () => {
     const formData = new FormData();
     formData.append('comm_pg_id', document.getElementById("MinusButton").value);
+    formData.append('user', document.cookie);
     axios.post('/voteminus', formData);
     console.log("vote- button test");
   };

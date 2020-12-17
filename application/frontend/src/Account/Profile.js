@@ -53,7 +53,7 @@ const Profile = (stateObj) => {
             console.log(error);
             console.log("{Profile} Found");
         })
-        axios.get('/getMedia', ).then(response => {
+        axios.get('/getMedia', {params: { user: document.cookie}}).then(response => {
             if(response.data.length > 0) {
                 let _html = "";
                 response.data.forEach(media => {
@@ -68,7 +68,7 @@ const Profile = (stateObj) => {
             console.log("{Media}  Not Found");
         })
         //src="assets/postImages/${response.data[0].post_file}"
-        axios.get('getCommunityPosts').then(response => {
+        axios.get('getCommunityPosts', {params: { user: document.cookie}}).then(response => {
             console.log(response.data);
             if (response.data.length > 0) {
                 let _html = "";
@@ -124,6 +124,7 @@ const Profile = (stateObj) => {
         const formData = new FormData();
         formData.append('file', stateObj.file);
         formData.append('type', 'profile');
+        formData.append('user', document.cookie);
         await axios.post('/upload', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
             console.log(response.data[0]);
             stateObj.setFile(`${response.data[0].picture_path} + ${response.data[0].post_file}`);
@@ -157,6 +158,7 @@ const Profile = (stateObj) => {
         const formData = new FormData();
         formData.append('file', stateObj.file);
         formData.append('type', 'media1');
+        formData.append('user', document.cookie);
         closeMedia();
         await axios.post('/uploadMedia', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
             console.log(response.data[0]);
@@ -180,6 +182,7 @@ const Profile = (stateObj) => {
             const formData = new FormData();
             formData.append('value', document.getElementById("spotifyLink").value);
             formData.append('type', 'social_profile_1');
+            formData.append('user', document.cookie);
             await axios.post('/uploadText', formData, {headers: {'Content-Type': 'multipart/form-data'}}).then(response => {
                 console.log(response.data);
             }).then(stateObj.spotifyLink = document.getElementById("spotifyLink").value);
@@ -207,6 +210,7 @@ const Profile = (stateObj) => {
             const formData = new FormData();
             formData.append('value', document.getElementById("twitterLink").value);
             formData.append('type', 'social_profile_2');
+            formData.append('user', document.cookie);
             await axios.post('/uploadText', formData, {headers: {'Content-Type': 'multipart/form-data'}}).then(response => {
                 console.log(response.data);
             }).then(stateObj.twitterLink = document.getElementById("twitterLink").value);
@@ -234,6 +238,7 @@ const Profile = (stateObj) => {
             const formData = new FormData();
             formData.append('value', document.getElementById("youtubeLink").value);
             formData.append('type', 'social_profile_3');
+            formData.append('user', document.cookie);
             await axios.post('/uploadText', formData, {headers: {'Content-Type': 'multipart/form-data'}}).then(response => {
                 console.log(response.data);
             }).then(stateObj.youtubeLink = document.getElementById("youtubeLink").value);
@@ -261,6 +266,7 @@ const Profile = (stateObj) => {
             const formData = new FormData();
             formData.append('value', document.getElementById("instagramLink").value);
             formData.append('type', 'social_profile_4');
+            formData.append('user', document.cookie);
             await axios.post('/uploadText', formData, {headers: {'Content-Type': 'multipart/form-data'}}).then(response => {
                 console.log(response.data);
             }).then(stateObj.instagramLink = document.getElementById("instagramLink").value);
@@ -286,6 +292,7 @@ const Profile = (stateObj) => {
         const formData = new FormData();
         formData.append('value', document.getElementById("Bio").value);
         formData.append('type', 'bio');
+        formData.append('user', document.cookie);
         closeBioForm();
         await axios.post('/uploadText', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
             console.log(response.data[0]);

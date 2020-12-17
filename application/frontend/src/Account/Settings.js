@@ -16,7 +16,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 const Settings = (stateObj) => {
 
     const getUser = (event) => {
-    axios.get('/getUsers').then(response => {
+    axios.get('/getUsers', {params: { user: document.cookie}}).then(response => {
         console.log(response.data[0]);
         document.getElementById("first_name").innerHTML = response.data[0].first_name;
         document.getElementById("last_name").innerHTML = response.data[0].last_name;
@@ -59,7 +59,7 @@ const Settings = (stateObj) => {
         if(stateObj.userPassword !== '')formData.append("password", stateObj.userPassword);
         if(stateObj.newPassword !== '')formData.append("new_password", stateObj.newPassword);
         if(stateObj.searchRadius !== '')formData.append("searchRadius", stateObj.searchRadius);
-        
+        formData.append('user', document.cookie);
 
         axios.post('/updateUser', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
             console.log(response.data[0]);
@@ -79,7 +79,7 @@ const Settings = (stateObj) => {
         if(stateObj.preferedGender !== '')formData.append("gender", stateObj.preferedGender);
         if(stateObj.preferedSkillLevel !== '')formData.append("skill_lvl_pref", stateObj.preferedSkillLevel);
         if(stateObj.meetingPreference !== '')formData.append("meeting_pref", stateObj.meetingPreference);
-
+        formData.append('user', document.cookie);
 
         
 
