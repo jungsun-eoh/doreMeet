@@ -56,7 +56,6 @@ const CommunityPage = (stateObj) => {
   //Sends the search terms to the backend and gets the response 
   const submitHandler = (event) => {
     event.preventDefault();
-    alert("You are searching for " + stateObj.searchTitle + " " + stateObj.searchCategory);
 
     axios.get('/searchPost', { params: { post_title: stateObj.searchTitle, post_category: stateObj.searchCategory } }).then(response => {
       if(response.data.length > 0){
@@ -67,10 +66,10 @@ const CommunityPage = (stateObj) => {
                   <img class="PostImage" src="assets/postImages/${response.data[0].post_file}" alt="Post Image"/>
                   <h2 class="PostTitle">${response.data[0].post_title}</h2>
                   <h3 class="PostCategory">${response.data[0].post_category}</h3>
-                  <h4 class="PostVotes">${response.data[0].post_votes}</h4>
+                  <h4 class="PostVotes">Votes: ${response.data[0].post_votes}</h4>
                   <p class="PostDescription">${response.data[0].post_description}</p>
-                  <button id="PlusButton" value="${response.data[0].comm_pg_id}"  type="button">+</button>
-                  <button id="MinusButton" value="${response.data[0].comm_pg_id}" type="button">-</button>
+                  <button id="PlusButton" value="${response.data[0].comm_pg_id}"  type="button">Upvote</button>
+                  <button id="MinusButton" value="${response.data[0].comm_pg_id}" type="button">Downvote</button>
                   </div>`;
         document.getElementById("search-post").innerHTML = _html;
         document.getElementById("recent-posts").innerHTML = '';
@@ -132,7 +131,7 @@ const CommunityPage = (stateObj) => {
              _html += `<div class="RecentPostsFormat">
                    <img class="PostImage" src="assets/postImages/${post.post_file}" alt="Post Image"/>
                    <h2 class="PostTitle">${post.post_title}</h2>
-                   <h4 class="PostVotes">${post.post_votes}</h4>
+                   <h4 class="PostVotes">Votes:${post.post_votes}</h4>
                    <h3 class="PostCategory">${post.post_category}</h3>
                    <p class="PostDescription">${post.post_description}</p>   
                    </div>`;

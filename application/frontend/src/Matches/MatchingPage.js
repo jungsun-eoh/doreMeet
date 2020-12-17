@@ -52,17 +52,31 @@ const MatchingPage = (stateObj) => {
         console.log("match: " + matchStatus + " not decided");
         // if (!matchStatus) { //if user has not decided
         if (1) { //swap with above if statement to look at decided matches
-          console.log("matchstatus is undecided, retrieveing match's info");
-          axios.post('/getProfile2', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
-            console.log(stateObj.profilePic);
-            stateObj.setProfilePic(response.data[0].profile_pic);
-            stateObj.setProfilePicPath(response.data[0].picture_path);
-            stateObj.setBio(response.data[0].bio);
-            axios.get('/getMedia', { params: { user: response.data[0].user } }).then(response => {
-              console.log(response.data);
-              if (response.data.length > 0) {
-                //assign media here as response.data.[x]
-              }
+            console.log("matchstatus is undecided, retrieveing match's info");
+            axios.post('/getProfile2', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
+              console.log(stateObj.profilePic);
+              stateObj.setProfilePic(response.data[0].profile_pic);
+              stateObj.setProfilePicPath(response.data[0].picture_path);
+              stateObj.setBio(response.data[0].bio);
+              console.log(response.data[0].user);
+              var curuser =response.data[0].user;
+              console.log(curuser);
+              axios.get('/getMedia', { params: { user: response.data[0].user } }).then(response => {
+                console.log("-=-=-=-=-=-=-=");
+                console.log(response.data);
+                console.log(";';';';';';';'")
+                if (response.data.length > 0) {
+                  let _html = "";
+                  //<img className="Thumbnail" src='assets/placeholder-img.jpg' alt='Placeholder img' />
+                  response.data.forEach(media => {
+                    _html += `<img className="Thumbnail" src="${media.file_name}" alt="Media file"/>`;
+                  })
+                  document.getElementById("MediaFiles").innerHTML = _html;
+                }
+              }).catch(function (error) {
+                console.log(error);
+                console.log("{Media}  Not Found");
+              })  
             }).catch(function (error) {
               console.log(error);
               console.log("{Media}  Not Found");
@@ -214,11 +228,6 @@ const MatchingPage = (stateObj) => {
               </div>
               <div class='break'></div>
               <div class="MediaFiles" >
-                <img class="Thumbnail" src='assets/placeholder-img.jpg' alt='Placeholder img' />
-                <img className="Thumbnail" src='assets/placeholder-img.jpg' alt='Placeholder img' />
-                <img className="Thumbnail" src='assets/placeholder-img.jpg' alt='Placeholder img' />
-                <img className="Thumbnail" src='assets/placeholder-img.jpg' alt='Placeholder img' />
-                <img className="Thumbnail" src='assets/placeholder-img.jpg' alt='Placeholder img' />
               </div>
               <div class='Links'>
                 <a href="https://www.spotify.com" onClick={leaveSiteConfirmation}>

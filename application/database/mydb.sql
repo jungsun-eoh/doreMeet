@@ -179,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`file_Path` (
   `file_path_id` TINYINT NOT NULL AUTO_INCREMENT,
   `profile_pic` VARCHAR(128) NULL,
   `picture_path` VARCHAR(128) NULL,
-  `picture_desc` VARCHAR(255) NULL,
+  `tag` VARCHAR(255) NULL,
   `media1` VARCHAR(128) NULL,
   `media2` VARCHAR(255) NULL,
   `media3` VARCHAR(128) NULL,
