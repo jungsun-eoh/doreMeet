@@ -11,7 +11,7 @@ export const MenuItemsHome = [
     },
     {
         title: 'Community',
-        url: '/Community',
+        url: '/CommunityHome',
         cName: 'nav-links',
     },
     {
@@ -21,7 +21,12 @@ export const MenuItemsHome = [
     },
     {
         title: 'Log In',
-        url: '#',
+        url: '/Login',
+        cName: 'nav-links-mobile',
+    },
+    {
+        title: 'Sign Up',
+        url: '/Signup',
         cName: 'nav-links-mobile',
     }
 ]

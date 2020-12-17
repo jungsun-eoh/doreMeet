@@ -8,6 +8,14 @@ import React from 'react';
 import './Footer.css';
 import { Button } from '../Navbar/Buttons';
 
+const leaveSiteConfirmation = (e) => {
+  if(window.confirm('You are leaving DoReMeet, are you sure?')){
+  }
+  else{
+    e.preventDefault();
+  }
+}
+
 function Footer() {
   return (
     <div className='footer-container'>
@@ -48,6 +56,7 @@ function Footer() {
               class='social-icon-link facebook'
               target='_blank'
               aria-label='Facebook'
+              onClick={leaveSiteConfirmation}
             >
               <i class='fab fa-facebook-f' />
             </a>
@@ -55,6 +64,7 @@ function Footer() {
               class='social-icon-link instagram'
               target='_blank'
               aria-label='Instagram'
+              onClick={leaveSiteConfirmation}
             >
               <i class='fab fa-instagram' />
             </a>
@@ -62,6 +72,7 @@ function Footer() {
               class='social-icon-link twitter'
               target='_blank'
               aria-label='Twitter'
+              onClick={leaveSiteConfirmation}
             >
               <i class='fab fa-twitter' />
             </a>
