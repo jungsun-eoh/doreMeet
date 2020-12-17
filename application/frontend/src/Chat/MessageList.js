@@ -101,7 +101,7 @@ const onMessageSubmit = (e) => {
                 </form>
             </div>
         )
-    }
+    
 }
 
 export default MessageList;
