@@ -29,8 +29,20 @@ io.on('connection', (socket) => {
     console.log("A user has connected");
 });
 
+const pool = mysql.createPool({
+    // changed host for debug. consider changing fields
+    host: "localhost",
+    user: "root",
+    password: "1234",
+    database: "DoreMeet",
+    port: 3306,
+    connectionLimit: 50,
+    insecureAuth: true,
+    queueLimit: 0
+});
+
 //connection credentials to the database
-const pool = require('./database.js');
+// const pool = require('./database.js');
 
 //used to track user states (logged in / logged out)
 var sessionStore = new mysqlStore({/*test*/}, require('./database.js'));
@@ -165,7 +177,6 @@ app.post('/voteminus', (req,res) => {
             res.send(result);
             console.log("vote- pass");
         }
-        
     })
 })
 
@@ -193,60 +204,64 @@ app.post('/voteminus', (req,res) => {
 
  //Checks if the user's input has an existing row in the account table, then creates a cookie to track their login state
 
- //  app.post('/login', (req, res) => {
-//     let username = req.body.username;
-//     let password = req.body.password;
-//    // let account_id;
+  app.post('/login', (req, res) => {
+    let username = req.body.username;
+    let password = req.body.password;
+   // let account_id;
 
-//     var validate_user_todb = 'SELECT account_id, password FROM account WHERE username = ?;'
+    var validate_user_todb = 'SELECT account_id, password FROM account WHERE username = ?;'
 
-//     pool.query(validate_user_todb, [username] ,(err, results) => {
-//         if(results && results.length == 1){
-//             console.log(results);
+    pool.query(validate_user_todb, [username] ,(err, results) => {
+        if(results && results.length == 1){
+            console.log(results);
 
-//             let hpass = results[0].password;
-//             //account_id = results[0].account_id;
+            let hpass = results[0].password;
+            //account_id = results[0].account_id;
 
-//             bcrypt.compare(password, hpass, (err, result) =>{
-//                 console.log(result);
-//                 if (result == 1){
-//                     console.log("true");
-//                     // var todb_account_stat = 'UPDATE account SET activate = 1 WHERE username = ?;'
-//                     // pool.query(todb_account_stat, [username], (err, result) => {
-//                     //     if (err) throw err;
-//                     //     else{
-//                     //         console.log(result);
-//                     //     }
-//                     // })
-//                     console.log(res.redirect('/'));
-//                 }
-//                 else{
-//                     console.log("Wrong Credential");
-//                     res.send(null);
-//                 } 
-//             }); // bcryption
-app.post('/login', (req, res) => {
-    console.log("_________loggin in with__________")
-    console.log(req.body);
-    var todb = "SELECT * FROM `mydb`.`account` WHERE (username = '" + req.body.username + "' AND password = '" + req.body.password + "')";
-    pool.query(todb, (error, result) => { 
-        console.log("____________start_______________")
-        if (result == '') {
-            console.log("incorrect creds");
-            console.log(error);
-            console.log("____________end_______________")
-            res.send(null);
-        } else {
-            req.session.username = result[0].username;
-            req.session.userId = result[0].user;
-            var test = result[0].user+ "; expires=18 Dec 2021 12:00:00 UTC; path=/";
-            console.log(test);
-            console.log("Logged in: " + result[0].username + " " + result[0].user);
-            res.send(test);
-            console.log("____________end_______________")
+            bcrypt.compare(password, hpass, (err, result) =>{
+                console.log(result);
+                if (result == 1){
+                    console.log("true");
+                    
+                    // var todb_check = 'SELECT account.username, latitude, longitude FROM address JOIN account ON account.account_id = address.account WHERE account.username = ?;'
+                    // pool.query = (todb_check, [username], (err, result) => {
+                    //     console.log(result);
+                    //     console.log(err);
+                    // });
+                 
+                    console.log(res.redirect('/'));
+                }
+                else{
+                    console.log("Wrong Credential");
+                    res.send(null);
+                } 
+        }); // bcryption
         }
-    }); // query ends here
-}); // log in ends
+    });
+});
+
+// app.post('/login', (req, res) => {
+//     console.log("_________loggin in with__________")
+//     console.log(req.body);
+//     var todb = "SELECT * FROM account WHERE (username = '" + req.body.username + "' AND password = '" + req.body.password + "')";
+//     pool.query(todb, (error, result) => { 
+//         console.log("____________start_______________")
+//         if (result == '') {
+//             console.log("incorrect creds");
+//             console.log(error);
+//             console.log("____________end_______________")
+//             res.send(null);
+//         } else {
+//             req.session.username = result[0].username;
+//             req.session.userId = result[0].user;
+//             var test = result[0].user+ "; expires=18 Dec 2021 12:00:00 UTC; path=/";
+//             console.log(test);
+//             console.log("Logged in: " + result[0].username + " " + result[0].user);
+//             res.send(test);
+//             console.log("____________end_______________")
+//         }
+//     }); // query ends here
+// }); // log in ends
 
 //Inserts into the User and Account table
 app.post('/signup', (req, res) => {
@@ -334,12 +349,12 @@ app.post('/signup', (req, res) => {
                     });
                 }
                 else {
-                    errorPrint('Username already exists!');
+                    console.log('Username already exists!');
                 }
             })
         }
         else {
-            errorPrint('Email already exists!');
+            console.log('Email already exists!');
         }
     }) 
 });
@@ -797,7 +812,7 @@ app.post('/getProfile2', (req, res) => {
 
 //Searches within the communityPage table
 app.get("/searchMatches", (req, res) => {
-    var todb = 'SELECT art_category  FROM user WHERE user_id = ?;';
+    var todb = 'SELECT art_category FROM user WHERE user_id = ?;';
     pool.query(todb,[req.session.userId] ,(err, result) => {
         if (err || result == ''){
             console.log("artCat search fail");
@@ -813,6 +828,27 @@ app.get("/searchMatches", (req, res) => {
                 }else{
                     console.log(req.session.userId + " searchMatches pass");
                     res.send(result);
+
+                    // select query get personal lat an lng for me variable
+                    // select query get lat and lng of other users for variable temp 
+
+                    // var todb_loc = 'SELECT latitude, longitude FROM address;'
+                    // pool.query(todb_loc, (err, result) => {
+                    //     var temp = { lat: result[0].latitude, lng: result[0].longitude}; // calling from databse
+                    //     var me = { lat: 33.788441, lng: -118.170573 }; // user location
+                    //     var km = 161;
+
+                    //     var n = InteriorPoint(temp, me, km);
+
+                    //     if (n == 1){
+                    //         console.log("Result:", n);
+                    //         console.log(req.session.userId + " searchMatches pass");
+                    //         res.send(result);
+                    //     }else{
+                    //         console.log(err);
+                    //         console.log("Not in the radius");
+                    //     }
+                    // })
                 }
             })
         }
@@ -915,6 +951,14 @@ app.post("/getSuccessfulMatches", (req, res) => {
     });
 });
 
+function InteriorPoint(checkPoint, centerPoint, km){
+        
+    var ky = 40000/360;
+    var kx = Math.cos(Math.PI * centerPoint.lat / 180.0) * ky;
+    var dx = Math.abs(centerPoint.lng - checkPoint.lng) * kx;
+    var dy = Math.abs(centerPoint.lat - checkPoint.lat) * ky;
+    return Math.sqrt(dx*dx + dy*dy) <= km;
+  }
 
 //this reads each line from transaction.sql and executes each query
 //Note: race condition causes incorrect Id numbers (based on order in the data file)
