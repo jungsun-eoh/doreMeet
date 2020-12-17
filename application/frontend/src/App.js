@@ -18,7 +18,7 @@ import Chat from './Chat/Chat';
 import Settings from './Account/Settings';
 import Profile from './Account/Profile';
 import Premium from './Account/Premium';
-import RecoverPassword from './Account/recoverPassword';
+import RecoverPassword from './Account/RecoverPassword';
 import FAQ from './FooterPages/faq';
 import Terms from './FooterPages/Terms';
 import Privacy from './FooterPages/Privacy';

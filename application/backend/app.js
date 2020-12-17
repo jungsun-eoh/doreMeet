@@ -225,6 +225,7 @@ app.post('/voteminus', (req,res) => {
 //                     res.send(null);
 //                 } 
 //             }); // bcryption
+
 app.post('/login', (req, res) => {
     console.log("_________loggin in with__________")
     console.log(req.body);
@@ -493,12 +494,11 @@ app.post('/recoverPassword', (req,res) => {
                 });
                   var mailOptions = {
                     to: email,
-                    from: 'passwordreset@demo.com',
-                    subject: 'Node.js Password Reset',
+                    from: 'domremeet.team2@gmail.com',
+                    subject: 'DoreMeet : Password Reset',
                     text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-                      'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-                      'http://' +
-                      'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+                        'Your password: ' + result2[0].password
+                        
                   };
                   transporter.sendMail(mailOptions, function(error, info){
                     if (error) {
