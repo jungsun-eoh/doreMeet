@@ -134,7 +134,7 @@ function App() {
     bio: bio,
     setBio: setBio,
     tag: tag,
-    setTag, setTag,
+    setTag: setTag,
     profilePic: profilePic,
     setProfilePic: setProfilePic,
     profilePicPath: profilePicPath,
