@@ -11,8 +11,8 @@ const pool = mysql.createPool({
     // changed host for debug. consider changing fields
     host: "localhost",
     user: "root",
-    password: "1234",
-    database: "DoreMeet",
+    password: "CSC648TEAM02!",
+    database: "mydb",
     connectionLimit: 50,
     insecureAuth: true,
     queueLimit: 0

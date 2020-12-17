@@ -92,6 +92,8 @@ function App() {
   const [profilePicPath, setProfilePicPath] = React.useState('');
   const [bio, setBio] = React.useState('Create a bio!');
   const [age, setAge] = React.useState('');
+  const [tag, setTag] = React.useState('');
+
 
   const [communityPost1, setCommunityPost1] = React.useState('');
   const [communityPost2, setCommunityPost2] = React.useState('');
@@ -131,6 +133,8 @@ function App() {
 
     bio: bio,
     setBio: setBio,
+    tag: tag,
+    setTag, setTag,
     profilePic: profilePic,
     setProfilePic: setProfilePic,
     profilePicPath: profilePicPath,

@@ -42,6 +42,7 @@ const Profile = (stateObj) => {
             stateObj.setProfilePic(response.data[0].profile_pic);
             stateObj.setProfilePicPath(response.data[0].picture_path);
             stateObj.setBio(response.data[0].bio);
+            stateObj.setTag(response.data[0].tag);
 
             //can remove if statement if null links dont lead anywhere
             if(response.data[0].social_profile_1){stateObj.setSpotifyLink(response.data[0].social_profile_1)};
@@ -309,9 +310,24 @@ const Profile = (stateObj) => {
         e.preventDefault();
         closeTagForm();
         //axios call here
+        const formData = new FormData();
+            // formData.append('value', document.getElementById("tag").value);
+            formData.append('value', 'test Tag');
+//error
+        formData.append('type', 'tag');
+        closeBioForm();
+        await axios.post('/uploadText', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
+            console.log(response.data[0]);
+        }).then(stateObj.tag = document.getElementById("tag").value);
+        window.location.reload();
     }
 
     const openTagForm = () => {
+        if (stateObj.tag !== '') {
+            //eror 
+            //document.getElementById("Tag").value = stateObj.tag; 
+        }
+        
         document.getElementById("tagForm").style.display = "block";
     }
 
@@ -401,7 +417,7 @@ const Profile = (stateObj) => {
               <div style={{top:"35%", left:"35%"}} className="post-popup" id="tagForm">
                   <form className="post-container" onSubmit={setTag}>
                       <label htmlFor='tag'>Tag:</label>
-                      <input type='text' id='tag' placeholder='Type a tag here!' required/>
+                      <input type='text' id='tag' placeholder='Type a tag here! (separated by comma)' required/>
                       <input type='submit' value='Submit'/><br/>
                       <button onClick={closeTagForm}>Close</button>
                   </form>
@@ -448,7 +464,7 @@ const Profile = (stateObj) => {
                   <br /><br />
 
                   <h3><u>Tags:</u><i className="far fa-plus-square" style={{cursor: "pointer", marginLeft:"10px"}} onClick={openTagForm}/></h3>
-                  <br />
+                  <p class="TagText">{stateObj.tag}</p>
                   <br /><br />
 
                   <h3><u>Bio:</u><i className="fas fa-edit" style={{cursor: "pointer", marginLeft:"10px"}} onClick={openBioForm}/></h3>
