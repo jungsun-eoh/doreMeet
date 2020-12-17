@@ -196,7 +196,7 @@ app.post('/voteminus', (req,res) => {
 app.post('/login', (req, res) => {
     console.log("_________loggin in with__________")
     console.log(req.body);
-    var todb = "SELECT * FROM `mydb`.`account` WHERE (username = '" + req.body.username + "' AND password = '" + req.body.password + "')";
+    var todb = "SELECT * FROM `account` WHERE (username = '" + req.body.username + "' AND password = '" + req.body.password + "')";
     pool.query(todb, (error, result) => { 
         console.log("____________start_______________")
         if (result == '') {
@@ -365,7 +365,7 @@ app.post('/updateUser', (req, res) => {
                 }
             });
 
-            todb = "SELECT * FROM `mydb`.`account` WHERE (username = '" + req.body.username + "' AND password = '" + req.body.password + "')";
+            todb = "SELECT * FROM `account` WHERE (username = '" + req.body.username + "' AND password = '" + req.body.password + "')";
              pool.query(todb, (error, result) => {
                     if (result == '') {
                         console.log("User put incorrect password");
@@ -684,7 +684,7 @@ app.post("/checkMatch", (req, res) => {
 //gets the all the users that ______ has clicked "Connect" on
 app.post("/getConnected", (req, res) => {
     var connectedMatches = [];
-    var todb = `SELECT user2 FROM mydb.matches2 WHERE (match_status = '1' AND user1 = ` +  req.body.user + `);`
+    var todb = 'SELECT `user2` FROM `matches2` WHERE (match_status = 1 AND user1 = ' +  req.body.user + ');'
     pool.query(todb,  (err, result) => {
         if (err || result == ''){
             console.log("error");
@@ -707,7 +707,7 @@ app.post("/getSuccessfulMatches", (req, res) => {
         connectedMatches.push(req.body.connectedMatches[key]);
     }
     var successfulMatches = [];
-    var todb = `SELECT user1 FROM mydb.matches2 WHERE (match_status = '1' AND user1 = ? AND user2 = ?)`;
+    var todb = 'SELECT `user1` FROM `matches2` WHERE (match_status = 1 AND user1 = ? AND user2 = ?)';
     var index = 0;
     connectedMatches.forEach( function(connectedMatch) {
         pool.query(todb,[connectedMatch, req.query.user],(err, result) => {
