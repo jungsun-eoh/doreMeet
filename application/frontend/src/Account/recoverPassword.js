@@ -1,6 +1,6 @@
 /*
 **CSC 648 Team 02 DoReMeet
-**File: recoverPassword.js
+**File: RecoverPassword.js
 **Desc: This is the page where users will be able to recover password. Can be accessed through login page
 */
 
