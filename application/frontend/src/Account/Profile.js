@@ -70,7 +70,6 @@ const Profile = (stateObj) => {
         })
         //src="assets/postImages/${response.data[0].post_file}"
         axios.get('getCommunityPosts').then(response => {
-            console.log(response.data);
             if (response.data.length > 0) {
                 let _html = "";
                 response.data.forEach(post => {
@@ -308,17 +307,13 @@ const Profile = (stateObj) => {
 
     const setTag = async e => {
         e.preventDefault();
-        closeTagForm();
         //axios call here
         const formData = new FormData();
-            // formData.append('value', document.getElementById("tag").value);
-            formData.append('value', 'test Tag');
-//error
+        formData.append('value', document.getElementById("tag").value);
         formData.append('type', 'tag');
-        closeBioForm();
+        closeTagForm();
         await axios.post('/uploadText', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
-            console.log(response.data[0]);
-        }).then(stateObj.tag = document.getElementById("tag").value);
+        });
         window.location.reload();
     }
 
