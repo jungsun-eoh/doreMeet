@@ -31,9 +31,20 @@ io.on('connection', (socket) => {
     })
 });
 
+const pool = mysql.createPool({
+    // changed host for debug. consider changing fields
+    host: "localhost",
+    user: "root",
+    password: "1234",
+    database: "DoreMeet",
+    port: 3306,
+    connectionLimit: 50,
+    insecureAuth: true,
+    queueLimit: 0
+});
 
 //connection credentials to the database
- const pool = require('./database.js');
+// const pool = require('./database.js');
 
 //used to track user states (logged in / logged out)
 var sessionStore = new mysqlStore({/*test*/}, require('./database.js'));
@@ -195,7 +206,41 @@ app.post('/voteminus', (req,res) => {
 
  //Checks if the user's input has an existing row in the account table, then creates a cookie to track their login state
 
-//   app.post('/login', (req, res) => {
+<<<<<<< HEAD
+  app.post('/login', (req, res) => {
+    let username = req.body.username;
+    let password = req.body.password;
+   // let account_id;
+
+    var validate_user_todb = 'SELECT account_id, password FROM account WHERE username = ?;'
+
+    pool.query(validate_user_todb, [username] ,(err, results) => {
+        if(results && results.length == 1){
+            console.log(results);
+
+            let hpass = results[0].password;
+            //account_id = results[0].account_id;
+
+            bcrypt.compare(password, hpass, (err, result) =>{
+                console.log(result);
+                if (result == 1){
+                    console.log("true");
+                    
+                    // var todb_check = 'SELECT account.username, latitude, longitude FROM address JOIN account ON account.account_id = address.account WHERE account.username = ?;'
+                    // pool.query = (todb_check, [username], (err, result) => {
+                    //     console.log(result);
+                    //     console.log(err);
+                    // });
+                 
+                    console.log(res.redirect('/'));
+                }
+                else{
+                    console.log("Wrong Credential");
+                    res.send(null);
+                } 
+        }); // bcryption
+=======
+ //  app.post('/login', (req, res) => {
 //     let username = req.body.username;
 //     let password = req.body.password;
 //    // let account_id;
@@ -213,28 +258,25 @@ app.post('/voteminus', (req,res) => {
 //                 console.log(result);
 //                 if (result == 1){
 //                     console.log("true");
-                    
-//                     // var todb_check = 'SELECT account.username, latitude, longitude FROM address JOIN account ON account.account_id = address.account WHERE account.username = ?;'
-//                     // pool.query = (todb_check, [username], (err, result) => {
-//                     //     console.log(result);
-//                     //     console.log(err);
-//                     // });
-                 
+//                     // var todb_account_stat = 'UPDATE account SET activate = 1 WHERE username = ?;'
+//                     // pool.query(todb_account_stat, [username], (err, result) => {
+//                     //     if (err) throw err;
+//                     //     else{
+//                     //         console.log(result);
+//                     //     }
+//                     // })
 //                     console.log(res.redirect('/'));
 //                 }
 //                 else{
 //                     console.log("Wrong Credential");
 //                     res.send(null);
 //                 } 
-//         }); // bcryption
-//         }
-//     });
-// });
+//             }); // bcryption
 
 app.post('/login', (req, res) => {
     console.log("_________loggin in with__________")
     console.log(req.body);
-    var todb = "SELECT * FROM account WHERE (username = '" + req.body.username + "' AND password = '" + req.body.password + "')";
+    var todb = "SELECT * FROM `mydb`.`account` WHERE (username = '" + req.body.username + "' AND password = '" + req.body.password + "')";
     pool.query(todb, (error, result) => { 
         console.log("____________start_______________")
         if (result == '') {
@@ -250,9 +292,33 @@ app.post('/login', (req, res) => {
             console.log("Logged in: " + result[0].username + " " + result[0].user);
             res.send(test);
             console.log("____________end_______________")
+>>>>>>> 76a403eff1e75bb11785b6433cfc49c6c0d97688
         }
-    }); // query ends here
-}); // log in ends
+    });
+});
+
+// app.post('/login', (req, res) => {
+//     console.log("_________loggin in with__________")
+//     console.log(req.body);
+//     var todb = "SELECT * FROM account WHERE (username = '" + req.body.username + "' AND password = '" + req.body.password + "')";
+//     pool.query(todb, (error, result) => { 
+//         console.log("____________start_______________")
+//         if (result == '') {
+//             console.log("incorrect creds");
+//             console.log(error);
+//             console.log("____________end_______________")
+//             res.send(null);
+//         } else {
+//             req.session.username = result[0].username;
+//             req.session.userId = result[0].user;
+//             var test = result[0].user+ "; expires=18 Dec 2021 12:00:00 UTC; path=/";
+//             console.log(test);
+//             console.log("Logged in: " + result[0].username + " " + result[0].user);
+//             res.send(test);
+//             console.log("____________end_______________")
+//         }
+//     }); // query ends here
+// }); // log in ends
 
 //Inserts into the User and Account table
 app.post('/signup', (req, res) => {
@@ -526,15 +592,14 @@ app.post('/recoverPassword', (req,res) => {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Gets the user's data from the User and Account table for settings
-app.get('/getUsers', (req, res) => {
-    console.log(req.query.user)
+app.post('/getUsers', (req, res) => {
     var todb = 'SELECT * FROM `account` AS A LEFT OUTER JOIN `user` AS B ON `account_id` = `user_id` WHERE `user_id` = ?';
-    pool.query(todb, [req.query.user], (error, result) => {
+    pool.query(todb, [req.body.user], (error, result) => {
         if (error  || result == '') {
-            console.log("getuser error session: " + req.query.user);
+            console.log("getuser error session: " + req.body.user);
             res.send(result);
         } else {
-            console.log("getuser pass  session: " + req.query.user);
+            console.log("getuser pass  session: " + req.body.user);
             res.send(result);
         }
     })
@@ -741,21 +806,21 @@ app.post('/uploadMedia', (req, res) => {
         return res.status(400).json({ msg: 'No file uploaded' });
       }
       const file = req.files.file.name;
-    var filepath = `/../frontend/public/assets/users/${req.body.user}/${req.files.file.name}`;
-    var dir = `../frontend/public/assets/users/${req.body.user}/`;
+    var filepath = `/../frontend/public/assets/users/${req.session.userId}/${req.files.file.name}`;
+    var dir = `../frontend/public/assets/users/${req.session.userId}/`;
     var frontpath = dir.substring(dir.indexOf("/assets/")) + file;
     console.log(frontpath);
 
     mkdirp.sync(dir);
-    var filepath = `/../frontend/public/assets/users/${req.body.user}/${req.files.file.name}`;
+    var filepath = `/../frontend/public/assets/users/${req.session.userId}/${req.files.file.name}`;
     req.files.file.mv(`${__dirname}${filepath}`, err => {
         if (err) {
             console.error(err);
           }
           var todb = "INSERT INTO `media2` (`file_name`, `user`) VALUES (?,?);"
         
-          queryArray = [frontpath, req.body.user];
-             pool.query(todb, queryArray,(error, result) => {
+          queryArray = [frontpath, req.session.userId];
+        pool.query(todb, queryArray,(error, result) => {
             if(error){
             console.log("upload fail");
 
