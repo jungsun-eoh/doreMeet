@@ -24,11 +24,16 @@ const mkdirp = require('mkdirp');
 const fs = require('fs');
 const dir = `${__dirname}/../database/transaction.sql`;
 const io = require('socket.io')(http);
+const bcrypt = require('bcrypt');
+const saltRounds = 8;
 //const db = require('./conf/database');
 
-//io.on('connection', (socket) => {
-//    console.log("A user has connected");
-//});
+io.on('connection', (socket) => {
+    socket.on('message', ({name, message}) =>{
+        io.emit('message', {name, message})
+    })
+});
+
 
 //connection credentials to the database
 const pool = require('./database.js');
@@ -46,11 +51,25 @@ var sessionOptions = {
 //const pool = require("./database.js");
 
 var cors = require('cors');
+var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+      user: 'domremeet.team2',
+      pass: 'ewgruapbcwupkbdy'
+    }
+});
+
+
 var bodyParser = require('body-parser');
 
 const e = require("express");
 app.use(e.static(path.join(__dirname, "/../../../")));
 
+const { createHash } = require("crypto");
 app.use(cookieParser());
 app.use(session(sessionOptions));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -75,6 +94,7 @@ app.use(function(req, res, next) {
 
 
 app.get("/", (req, res) => res.send("Backend simple get response " + __dirname));
+
 
 fs.closeSync(fs.openSync(dir, 'a'));
 
@@ -104,6 +124,7 @@ function recordQuery(query, values) {
 
 //Searches within the communityPage table
 app.get("/searchPost", (req, res) => {
+    console.log(req.query);
     var queryArray = [req.query.post_title, req.query.post_category]
     var todb = 'SELECT * FROM communityPage WHERE post_title = ? AND post_category = ?;';
     pool.query(todb,queryArray ,(err, result) => {
@@ -176,7 +197,6 @@ app.post('/voteminus', (req,res) => {
             res.send(result);
             console.log("vote- pass");
         }
-        
     })
 })
 
@@ -203,6 +223,147 @@ app.post('/voteminus', (req,res) => {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
  //Checks if the user's input has an existing row in the account table, then creates a cookie to track their login state
+
+ //  app.post('/login', (req, res) => {
+//     let username = req.body.username;
+//     let password = req.body.password;
+//    // let account_id;
+
+//     var validate_user_todb = 'SELECT account_id, password FROM account WHERE username = ?;'
+
+//     pool.query(validate_user_todb, [username] ,(err, results) => {
+//         if(results && results.length == 1){
+//             console.log(results);
+
+//             let hpass = results[0].password;
+//             //account_id = results[0].account_id;
+
+//             bcrypt.compare(password, hpass, (err, result) =>{
+//                 console.log(result);
+//                 if (result == 1){
+//                     console.log("true");
+                    
+//                     // var todb_check = 'SELECT account.username, latitude, longitude FROM address JOIN account ON account.account_id = address.account WHERE account.username = ?;'
+//                     // pool.query = (todb_check, [username], (err, result) => {
+//                     //     console.log(result);
+//                     //     console.log(err);
+//                     // });
+                 
+//                     console.log(res.redirect('/'));
+//                 }
+//                 else{
+//                     console.log("Wrong Credential");
+//                     res.send(null);
+//                 } 
+//         }); // bcryption
+//         }
+//     });
+// });
+
+//Inserts into the User and Account table
+// app.post('/signup', (req, res) => {
+      
+//     // user table
+
+//     var first_name = req.body.firstname;
+//     var last_name = req.body.lastname;
+//     var gender = req.body.gender;
+//     var date_of_birth = req.body.dob;
+//     var email  = req.body.email;
+//     var phone_number = req.body.phone;
+//     var art_category = req.body.art;
+//     var art_category_tag = req.body.tag; // there is no field for tag
+//     var skill_lvl = req.body.skill;
+    
+//     //  account table
+
+//     var username = req.body.username;
+//     var password = req.body.password;
+
+//     // user_add table
+    
+//     var todb_check_email = 'SELECT * FROM user WHERE email = ?;'
+//     var todb_check_username = 'SELECT* FROM account WHERE username = ?;'
+
+//     // address table
+//     var street_number = req.body.street_num;
+//     var street = req.body.street;
+//     var city = req.body.city;
+//     var state = req.body.state;
+//     var zipcode = req.body.zipcode;
+//     var country = req.body.country;
+//     var latitude = req.body.latitude;
+//     var longitude = req.body.longitude;
+   
+//     // M - 12 F - 9
+//     // checks for email
+//     pool.query(todb_check_email, [email], (err, results) => {
+//         if(results && results.length == 0){
+//             // checks for username
+//             pool.query(todb_check_username, [username], (err, results) => {
+//                 if(results && results.length == 0){
+//                     var todb_user = 'INSERT INTO user (first_name, last_name, gender, date_of_birth, email, phone_number, art_category, skill_lvl) VALUES (?,?,?,?,?,?,?,?);'
+//                     pool.query(todb_user,[first_name, last_name, gender, date_of_birth, email, phone_number, art_category, skill_lvl]
+//                     ,(err, result) => {
+//                         var get_id = 'SELECT user_id FROM user WHERE email = ?;'
+//                         pool.query(get_id, [email], (err2, result2, results) => {
+//                             console.log(result2[0].user_id);
+//                             user_id = result2[0].user_id; 
+//                         bcrypt.hash(password, saltRounds, (err,hash) => { 
+//                                 console.log(hash);
+//                             var todb_account = 'INSERT INTO account (username, password, acc_created, user) VALUES (?,?,now(),?);'
+//                             pool.query(todb_account,[username, hash, user_id],(err, result3) => {
+//                                 if(err) throw err;
+//                                 else{
+//                                     console.log(result3);
+//                                     var todb_address = 'INSERT INTO address (street_number, street, city, state, zipcode, country, latitude, longitude) VALUES (?,?,?,?,?,?,?,?);'
+//                                     pool.query(todb_address, [street_number, street, city, state, zipcode, country, latitude, longitude], (err, result) => {
+//                                         if(err) throw err;
+//                                         else{
+//                                             console.log(result);
+//                                             // addes to user_add table
+//                                             var todb_user_add = 'INSERT INTO user_add (user, address) VALUES (?,?);'
+//                                             pool.query(todb_user_add, [user_id, user_id], (err, result) => {
+//                                             console.log(err);
+//                                             console.log(result);
+                                            
+//                                             // added later account_type
+//                                             var general_account = "general"
+//                                             var todb_account_type = 'INSERT INTO accountType (account_type_desc, account) VALUES (?,?);'
+//                                             pool.query(todb_account_type, [general_account, user_id], (err, result) => {
+//                                                 if (err) throw err;
+//                                                 else{
+//                                                     console.log(result);
+//                                                 }
+//                                             })
+//                                             })
+//                                         }
+//                                     })
+//                                 }  
+//                             }); 
+//                         });    
+//                         })
+//                     });
+//                 }
+//                 else {
+//                     console.log('Username already exists!');
+//                 }
+//             })
+//         }
+//         else {
+//             console.log('Email already exists!');
+//         }
+//     }) 
+// });
+
+
+/**
+ * CHECK HERE FOR THE OLD LOGIN and SIGN UP codes
+ * 
+ * 
+ * 
+ */
+
 app.post('/login', (req, res) => {
     console.log("_________loggin in with__________")
     console.log(req.body);
@@ -215,23 +376,18 @@ app.post('/login', (req, res) => {
             console.log("____________end_______________")
             res.send(null);
         } else {
-            // console.log(res.redirect('/'));
             req.session.username = result[0].username;
             req.session.userId = result[0].user;
-            console.log("Logged in: " + req.session.username + " " + req.session.userId);
-            var expires = "expires=Thu, 18 Dec 2020 12:00:00 UTC;"
-            var test = req.session.userId + ";" + expires + ";path=/";
-            console.log(test);
-            console.log("Logged in: " + req.session.username + " " + req.session.userId);
+            var test = result[0].user+ "; expires=18 Dec 2021 12:00:00 UTC; path=/";
+            // console.log(test);
+            console.log("Logged in: " + result[0].username + " " + result[0].user);
             res.send(test);
-//            res.send(req.session);
-
             console.log("____________end_______________")
         }
-    })
-});
+    }); // query ends here
+}); // log in ends
 
-//Inserts into the User and Account table
+// //Inserts into the User and Account table
  app.post('/signup', (req, res) => {
     console.log(req.body);
 
@@ -249,6 +405,7 @@ app.post('/login', (req, res) => {
     //  account table
     var username = req.body.username;
     var password = req.body.password;
+
     var todb_user = 'INSERT INTO user (first_name, last_name, gender, date_of_birth, email, phone_number, art_category, skill_lvl) VALUES (?,?,?,?,?,?,?,?);'
     pool.query(todb_user,[first_name, last_name, gender, date_of_birth, email, phone_number, art_category, skill_lvl],(err, result) => {
         var get_id = 'SELECT user_id FROM user WHERE email = ?;'
@@ -258,7 +415,6 @@ app.post('/login', (req, res) => {
             var todb_account = 'INSERT INTO account (username, password, acc_created, user) VALUES (?,?,now(),?);'
             pool.query(todb_account,[username, password, user_id],(err, result3) => {
                 console.log(result3);
-                res.send("done");
             }); 
         })
     });
@@ -297,27 +453,46 @@ app.post("/prefInit", (req, res) => {
     });
 });
 
- //Deletes the logged in user's cookie table to log the user out
 /*
-app.post('/logout', (req, res) => {
-    console.log("logging out: " + req.session.userId);
-    if(req.session.userId){
-        req.session.destroy((error) => {
-            if (error) {
-                console.log("session destory error: '/logout'");
-            } else {
-                console.log(req.session);
-                console.log("destroy cookie");
-                res.clearCookie('loginkey');
-                res.send(req.session);
-                //res.redirect('/');                
-            }
-        })
-    }else{
-            console.log("none to destroy '/logout'");
-            //res.redirect('/');
-    }
+// grab the user email to check if the Application has the account under the submitted email. 
+app.post('/recoverPassword', (req,res) => {
+    var email = req.body.email;
+    var get_id = "SELECT user_id FROM user WHERE (email = '" + req.body.email + "')";
+    pool.query(get_id, (err2, result2) => {
+        if (result2 == ''){
+            console.log("Have no account under the email.");
+            res.send(null);
+        } else {
+            console.log(result2[0].user_id);
+            var user_id = result2[0].user_id;
+            if(result2){
+                var todb = 'SELECT password FROM account WHERE account_id = ?;'
+                pool.query(todb,[user_id],(err, result4) => {
+                    console.log(result4);
+                    console.log(result2[0].user_id);
+                    console.log(result2[0].password);
 
+                    res.send(req.session);
+                });
+                  var mailOptions = {
+                    to: email,
+                    from: 'domremeet.team2@gmail.com',
+                    subject: 'DoreMeet : Password Reset',
+                    text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+                        'Your password: ' + result2[0].password
+                        
+                  };
+                  transporter.sendMail(mailOptions, function(error, info){
+                    if (error) {
+                      console.log(error);
+                    } else {
+                      console.log('Email sent: ' + info.response);
+                    }
+                  });
+                  
+            }
+        }
+    });
 })
 */
 app.post('/logout', (req, res) => {
@@ -330,6 +505,7 @@ app.post('/logout', (req, res) => {
                 //res.redirect('/');                
                  })
 
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 /*                                        Start of Settings                                       */
@@ -338,18 +514,17 @@ app.post('/logout', (req, res) => {
 
 //Gets the user's data from the User and Account table for settings
 app.get('/getUsers', (req, res) => {
-
+    console.log(req.query.user)
     var todb = 'SELECT * FROM `account` AS A LEFT OUTER JOIN `user` AS B ON `account_id` = `user_id` WHERE `user_id` = ?';
     pool.query(todb, [req.query.user], (error, result) => {
         if (error  || result == '') {
-            console.log("getuser error session: " + req.session.userId + "|" + req.query.user);
+            console.log("getuser error session: " + req.query.user);
             res.send(result);
         } else {
-            console.log("getuser pass  session: " + req.session.userId + "|" + req.query.user);
+            console.log("getuser pass  session: " + req.query.user);
             res.send(result);
         }
     })
-
 })
 //Updates the user's information in the User and Account table
 app.post('/updateUser', (req, res) => {
@@ -432,13 +607,14 @@ app.post('/updatePreferences', (req, res) => {
 
 //Gets your own profile
 app.get('/getProfile', (req, res) => {
+
     var todb = 'SELECT * FROM `file_Path` WHERE `user` = ?';
     pool.query(todb, [req.query.user], (error, result) => {
         if (error || result == '') {
-            console.log("getprofile error session: " + req.session.userId + "|" + req.query.user);
+            console.log("getprofile error session: " + req.query.user);
             //res.data.join(result);
         } else {
-            console.log("getprofile pass  session: " + req.session.userId + "|" + req.query.user);
+            console.log("getprofile pass  session: " + req.query.user);
             //res.data.join(result);
             res.send(result);
         }
@@ -648,6 +824,27 @@ app.get("/searchMatches", (req, res) => {
                 }else{
                     console.log(req.query.user + " searchMatches pass");
                     res.send(result);
+
+                    // select query get personal lat an lng for me variable
+                    // select query get lat and lng of other users for variable temp 
+
+                    // var todb_loc = 'SELECT latitude, longitude FROM address;'
+                    // pool.query(todb_loc, (err, result) => {
+                    //     var temp = { lat: result[0].latitude, lng: result[0].longitude}; // calling from databse
+                    //     var me = { lat: 33.788441, lng: -118.170573 }; // user location
+                    //     var km = 161;
+
+                    //     var n = InteriorPoint(temp, me, km);
+
+                    //     if (n == 1){
+                    //         console.log("Result:", n);
+                    //         console.log(req.session.userId + " searchMatches pass");
+                    //         res.send(result);
+                    //     }else{
+                    //         console.log(err);
+                    //         console.log("Not in the radius");
+                    //     }
+                    // })
                 }
             })
         }
@@ -664,8 +861,7 @@ app.post("/pass", (req, res) => {
         }else{
             console.log("pass pass");
             if(record){recordQuery(todb, queryArray)};
-            res.send(result);
-            
+            res.send(result);   
         }
     })
 });
@@ -681,7 +877,6 @@ app.post("/connect", (req, res) => {
             console.log("connect pass");
             if(record){recordQuery(todb, queryArray)};
             res.send(result);
-            
         }
     })
 });
@@ -693,7 +888,6 @@ app.post("/checkMatch", (req, res) => {
         if (err || result == ''){
             console.log(req.body.user + "No match status " + req.body.currentMatch);
             res.send(result);
-            
         }else{
             process.stdout.write(req.body.user + " a match status exist " + req.body.currentMatch + " ");
             console.log(result);
@@ -754,6 +948,16 @@ console.log(req.body)
     });
 });
 
+
+
+function InteriorPoint(checkPoint, centerPoint, km){
+        
+    var ky = 40000/360;
+    var kx = Math.cos(Math.PI * centerPoint.lat / 180.0) * ky;
+    var dx = Math.abs(centerPoint.lng - checkPoint.lng) * kx;
+    var dy = Math.abs(centerPoint.lat - checkPoint.lat) * ky;
+    return Math.sqrt(dx*dx + dy*dy) <= km;
+}
 
 //this reads each line from transaction.sql and executes each query
 //Note: race condition causes incorrect Id numbers (based on order in the data file)

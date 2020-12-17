@@ -16,7 +16,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 const Settings = (stateObj) => {
 
     const getUser = (event) => {
-    axios.get('/getUsers', {params: { user: document.cookie}}).then(response => {
+    axios.get('/getUsers', {params: {user: document.cookie }}).then(response => {
         console.log(response.data[0]);
         document.getElementById("first_name").innerHTML = response.data[0].first_name;
         document.getElementById("last_name").innerHTML = response.data[0].last_name;

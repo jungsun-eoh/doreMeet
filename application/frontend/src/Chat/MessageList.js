@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../App.css';
 import './Chat.css';
 import axios from 'axios';
 import io from "socket.io-client";
 
+const socket=io.connect('http://localhost:5000')
+
+export default function MessageList({screen}, {user}) {
+const [state, setState] = useState({message: '', name: user})
+const [chat, setChat] = useState([])
 
 const getMatches = async () => {
 	const formData = new FormData();
@@ -18,14 +23,43 @@ console.log(response.data);
         }
 
         axios.post('/getSuccessfulMatches', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
-            console.log(response.data);
+            formData.append('successfulMatches', response.data);
+            axios.post('/loadSuccessfulMatches', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
+                response.data.forEach(element => {
+                    console.log(element);
+                });
+            });
         });
     });
   }
 
-class MessageList extends React.Component{
-    render(){
-        if(this.props.screen === "tutorial"){
+const renderChat = () =>{
+    return chat.map(({name, message}, index) =>(
+        <div key={index}>
+            <h3>{name}: <span>{message}</span></h3>
+        </div>
+    ))
+}
+
+useEffect(() =>{
+    socket.on('message', ({name, message}) =>{
+        setChat([...chat, {name, message}])
+    })
+})
+
+const onTextChange = e => {
+    setState({...state, [e.target.name]: e.target.value})
+}
+
+const onMessageSubmit = (e) => {
+    e.preventDefault()
+    const {name, message} = state
+    socket.emit('message', {name, message})
+    setState({message: '', name})
+}
+
+
+        if(screen === 'tutorial'){
             return(
                 <div style={{display:"block"}} className="tutorialContainer">
                     <div style={{backgroundColor: "#8de2e2"}}>
@@ -45,7 +79,8 @@ class MessageList extends React.Component{
         return(
             <div style={{height: "100vh"}}>
                 <div style={{display:"block"}} className="messageContainer">
-                    <ul className="messageList">
+                    {renderChat()}
+                    {/* <ul className="messageList">
                         {this.props.messages.map(messages => {
                             return(
                                 <li className="message" key={messages.id}>
@@ -58,10 +93,10 @@ class MessageList extends React.Component{
                                 </li>
                             )
                         })}
-                    </ul>
+                    </ul> */}
                 </div>
-                <form className="sendMessageForm">
-                    <input type="text" placeholder="Type your message here!"/>
+                <form className="sendMessageForm" onSubmit={onMessageSubmit}>
+                    <input name="message" type="text" placeholder="Type your message here!" onChange={e => onTextChange(e)} value={state.message}/>
                     <input type="submit" value="Send" style={{width:"160px",right:"0px", backgroundColor:"#C0E9E8", cursor: "pointer" }}></input>
                 </form>
             </div>

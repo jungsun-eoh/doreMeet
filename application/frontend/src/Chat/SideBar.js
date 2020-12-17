@@ -2,7 +2,6 @@ import React from 'react';
 import '../App.css';
 import './Chat.css';
 import MessageList from './MessageList';
-import SendMessageForm from './SendMessageForm';
 import axios from 'axios';
 
 
@@ -20,14 +19,6 @@ class SideBar extends React.Component{
 
     changeScreen = (name) => {
         this.setState({messageScreen: name})
-        axios.get('/getMessages', { params: { user1: this.props.user, user2: name} })
-        .then(res => {
-            this.setState({messageScreen: name})
-            this.setState({chatLogs: res})
-        })
-        .catch(function (error){
-            console.log("Error retrieving chat logs")
-        })
     }
 
     render(){
@@ -51,7 +42,7 @@ class SideBar extends React.Component{
                     </ul>
                 </div>
                 <div style={{width: "100%", height: "100vh"}}>
-                <MessageList messages={this.props.messages} screen={this.state.messageScreen} user={this.props.user}/>
+                    <MessageList screen={this.state.messageScreen} user={this.props.user}/>
                 </div>
                 
             </div>
