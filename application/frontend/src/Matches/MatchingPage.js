@@ -58,8 +58,15 @@ const MatchingPage = (stateObj) => {
               stateObj.setProfilePic(response.data[0].profile_pic);
               stateObj.setProfilePicPath(response.data[0].picture_path);
               stateObj.setBio(response.data[0].bio);
+              console.log(response.data[0].user);
+              var curuser =response.data[0].user;
+              console.log(curuser);
+
+
               axios.get('/getMedia', { params: { user: response.data[0].user } }).then(response => {
+                console.log("-=-=-=-=-=-=-=");
                 console.log(response.data);
+                console.log(";';';';';';';'")
                 if (response.data.length > 0) {
                   let _html = "";
                   //<img className="Thumbnail" src='assets/placeholder-img.jpg' alt='Placeholder img' />

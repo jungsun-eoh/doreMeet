@@ -54,7 +54,7 @@ const Profile = (stateObj) => {
             console.log(error);
             console.log("{Profile} Found");
         })
-        axios.get('/getMedia', ).then(response => {
+        axios.get('/getMedia', {params: { user: document.cookie}}).then(response => {
             if(response.data.length > 0) {
                 let _html = "";
                 response.data.forEach(media => {

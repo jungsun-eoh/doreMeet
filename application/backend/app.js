@@ -187,6 +187,7 @@ app.post('/voteminus', (req,res) => {
 
  //Gets top 3 voted post on the community page
  app.get("/highlights", (req, res) => {
+     console.log("highlightback");
     var todb = "SELECT * FROM communityPage ORDER BY post_votes DESC LIMIT 3";
     pool.query(todb, (error, result) => {
         res.send(result);
@@ -751,8 +752,15 @@ app.post('/uploadMedia', (req, res) => {
 
 //
 app.get("/getMedia", (req, res) => {
-    var todb = "SELECT `file_name` FROM `media2`  WHERE `user` = " + req.session.userId + " ORDER BY `media2_id`DESC ;"
+    var todb = "SELECT `file_name` FROM `media2`  WHERE `user` = " + req.query.user + " ORDER BY `media2_id`DESC ;"
+    console.log(req.body);
     pool.query(todb, (error, result) => {
+        console.log("-=-=-=")
+        console.log(req.body.user);
+        console.log("medieamied");
+        console.log(result);
+        console.log("-=-=-=")
+
         res.send(result);
     });
 });
