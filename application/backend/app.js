@@ -521,7 +521,7 @@ app.post('/uploadMedia2', (req, res) => {
 app.post('/uploadText', (req, res) => {
     console.log(req.body);
     flag = req.body.type;
-    var todb =   "UPDATE file_path SET `" + flag + "` = ? WHERE `user` = ?;";//`` = uploadMedia1
+    var todb =   "UPDATE `file_Path` SET `" + flag + "` = ? WHERE `user` = ?;";//`` = uploadMedia1
     queryArray = [req.body.value, req.body.user]
     pool.query(todb, queryArray ,(error, result) => {
         if(error || result == ''){
