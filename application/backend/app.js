@@ -23,9 +23,9 @@ const dir = `${__dirname}/../database/transaction.sql`;
 const io = require('socket.io')(http);
 //const db = require('./conf/database');
 
-io.on('connection', (socket) => {
-    console.log("A user has connected");
-});
+//io.on('connection', (socket) => {
+//    console.log("A user has connected");
+//});
 
 //connection credentials to the database
 const pool = require('./database.js');
@@ -33,13 +33,10 @@ const pool = require('./database.js');
 //used to track user states (logged in / logged out)
 var sessionStore = new mysqlStore({/*test*/}, require('./database.js'));
 var sessionOptions = {
-    name:"xxxxxxxxxxxxx",
     key: "loginkey",
     secret: "login signature",
     store: sessionStore,
-    httpOnly: false,
-    secure: false,
-    cookie: {secure: false, httpOne: false, maxAge:9000000, httpOnly: false},
+    cookie: {secure: false, httpOne: false, maxAge:9000000},
     resave: false,
     saveUninitialized: false
 }
@@ -473,11 +470,15 @@ app.post('/upload', (req, res) => {
     });
 });
 
+//gets users community posts
 app.get("/getCommunityPosts", (req, res) => {
-
-    var todb = "SELECT * FROM `communityPage`  WHERE `user` = " + req.body.user + " ORDER BY `post_votes` DESC LIMIT 3 ;"
-    pool.query(todb, (error, result) => {
-        res.send(result);
+	console.log("getCommunityPosts");
+ var todb = "SELECT * FROM `communityPage`  WHERE `user` = " + req.query.user + " ORDER BY `comm_pg_id` DESC LIMIT 3 ;"
+    
+//var todb = "SELECT * FROM `communityPage`  WHERE `user` = " + req.query.user + " ORDER BY `post_votes` DESC LIMIT 3 ;"
+    	pool.query(todb, (error, result) => {
+//	console.log(result);        
+	res.send(result);
     });
 });
 
@@ -549,7 +550,7 @@ app.post('/uploadMedia', (req, res) => {
     var dir = `../frontend/public/assets/users/${req.body.user}/`;
     var frontpath = dir.substring(dir.indexOf("/assets/")) + file;
     console.log(frontpath);
-
+	frontpath = frontpath.substring(1);
     mkdirp.sync(dir);
     var filepath = `/../frontend/public/assets/users/${req.body.user}/${req.files.file.name}`;
     req.files.file.mv(`${__dirname}${filepath}`, err => {
@@ -575,8 +576,11 @@ app.post('/uploadMedia', (req, res) => {
 
 //
 app.get("/getMedia", (req, res) => {
+	console.log("getMedia");
     var todb = "SELECT `file_name` FROM `media2`  WHERE `user` = " + req.query.user + " ORDER BY `media2_id`DESC ;"
     pool.query(todb, (error, result) => {
+console.log("*media result");
+console.log(result);
         res.send(result);
     });
 });
