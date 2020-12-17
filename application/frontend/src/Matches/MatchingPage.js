@@ -5,7 +5,7 @@
 and preferences.
 */
 
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import '../App.css';
 import './MatchingPage.css';
 import Navbar from '../components/Navbar/Navbar';
@@ -24,7 +24,7 @@ const MatchingPage = (stateObj) => {
 
   //starts the match process, ideally have on page load (when user navigates to match)
   const match = (e) => {
-    axios.get('/searchMatches', {params: { user: document.cookie}}).then(response => {
+    axios.get('/searchMatches', { params: { user: document.cookie } }).then(response => {
       matches = response.data;
       console.log("They're: " + matches.length);
       loadCurrentMatch();
@@ -52,45 +52,46 @@ const MatchingPage = (stateObj) => {
         console.log("match: " + matchStatus + " not decided");
         // if (!matchStatus) { //if user has not decided
         if (1) { //swap with above if statement to look at decided matches
-            console.log("matchstatus is undecided, retrieveing match's info");
-            axios.post('/getProfile2', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
-              console.log(stateObj.profilePic);
-              stateObj.setProfilePic(response.data[0].profile_pic);
-              stateObj.setProfilePicPath(response.data[0].picture_path);
-              stateObj.setBio(response.data[0].bio);
+          console.log("matchstatus is undecided, retrieveing match's info");
+          axios.post('/getProfile2', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
+            console.log(stateObj.profilePic);
+            stateObj.setProfilePic(response.data[0].profile_pic);
+            stateObj.setProfilePicPath(response.data[0].picture_path);
+            stateObj.setBio(response.data[0].bio);
+            axios.get('/getMedia', { params: { user: response.data[0].user } }).then(response => {
+              console.log(response.data);
+              if (response.data.length > 0) {
+                //assign media here as response.data.[x]
+              }
             }).catch(function (error) {
               console.log(error);
-            });
-            axios.get('/getMedia', {params: { user: response.data[0].user}}).then(response => {
-                console.log(response.data);
-                      if(response.data.length > 0) {
-                          //assign media here as response.data.[x]
-                      }
-            }).catch(function (error) {
-                  console.log(error);
-                  console.log("{Media}  Not Found");
-             })
-            console.log(stateObj.firstName + " " + stateObj.lastName);
-            stateObj.setFirstName(matches[index].first_name);
-            stateObj.setLastName(matches[index].last_name);
-            stateObj.setGender(matches[index].gender);
-            stateObj.setDOB(matches[index].date_of_birth);
-            stateObj.setArtCategory(matches[index].art_category);
-            //stateObj.setArtTag(); none yet?
-            stateObj.setSkillLevel(matches[index].skill_lvl);
-            console.log("==========================2");
-          } else {
-            console.log("user already decided");
-            console.log("loading nex match");
-            console.log("==========================3");
-            //user already passed 
-            return;
-          }
+              console.log("{Media}  Not Found");
+            })
+          }).catch(function (error) {
+            console.log(error);
+          });
+
+          console.log(stateObj.firstName + " " + stateObj.lastName);
+          stateObj.setFirstName(matches[index].first_name);
+          stateObj.setLastName(matches[index].last_name);
+          stateObj.setGender(matches[index].gender);
+          stateObj.setDOB(matches[index].date_of_birth);
+          stateObj.setArtCategory(matches[index].art_category);
+          //stateObj.setArtTag(); none yet?
+          stateObj.setSkillLevel(matches[index].skill_lvl);
+          console.log("==========================2");
+        } else {
+          console.log("user already decided");
+          console.log("loading nex match");
+          console.log("==========================3");
+          //user already passed 
+          return;
+        }
       } else {
         matchStatus = 1;
-        console.log("loading next match..." + matchStatus + " decided already: " +  response.data[0].user1 + " .. " + response.data[0].user2 );
+        console.log("loading next match..." + matchStatus + " decided already: " + response.data[0].user1 + " .. " + response.data[0].user2);
         index += 1;
-        if(index < matches.length){
+        if (index < matches.length) {
           loadCurrentMatch();
         }
       }
@@ -104,7 +105,7 @@ const MatchingPage = (stateObj) => {
     console.log("==========================4");
   }
 
-  const pass =  (e) => {
+  const pass = (e) => {
     if (index >= matches.length) {//safety case, should be safe to delete
       return alert("no more potential matches");
     }
@@ -112,7 +113,7 @@ const MatchingPage = (stateObj) => {
     console.log(matches[index].user_id);
     formData.append("currentMatch", matches[index].user_id);
     formData.append('user', document.cookie);
-     axios.post('/pass', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
+    axios.post('/pass', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
       index += 1; //queues up next match
       console.log(response);
       loadCurrentMatch();
@@ -121,7 +122,7 @@ const MatchingPage = (stateObj) => {
     });
   }
 
-  const connect =  async (e) => {
+  const connect = async (e) => {
     const formData = new FormData();
     if (index >= matches.length) {//safety case, should be safe to delete
       return alert("no more potential matches");
@@ -129,7 +130,7 @@ const MatchingPage = (stateObj) => {
     console.log(matches[index].user_id);
     formData.append("currentMatch", matches[index].user_id);
     formData.append('user', document.cookie);
-     axios.post('/connect', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
+    axios.post('/connect', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
       index += 1; //queues up next match
       console.log(response);
       loadCurrentMatch();
@@ -139,36 +140,36 @@ const MatchingPage = (stateObj) => {
   }
 
   const leaveSiteConfirmation = (e) => {
-    if(window.confirm('You are leaving DoReMeet, are you sure?')){
+    if (window.confirm('You are leaving DoReMeet, are you sure?')) {
     }
-    else{
+    else {
       e.preventDefault();
     }
   }
 
-  const switchScreen = () =>{
+  const switchScreen = () => {
     console.log("test");
     match();
     setScreen(true);
   }
 
-  if(!screen){
-    return(
+  if (!screen) {
+    return (
       <div className="App">
-          <Navbar />
-          <header className="App-header">
-            <div style={{height: "100%"}} className="description">
-              <h2 align='center' top='30%'> Welcome to the matching page!</h2>
-              <br />
-                <ul style={{listStylePosition: "inside", textAlign: "center", fontSize: "30px"}}>
-                  <li>Make sure that your profile is all set up</li>
-                  <li>Check that your preferences are up to date</li>
-                  <li>Click on the button below to begin matching!</li>
-                </ul>
-                <p  style={{ fontSize: 22, marginTop: "50px", cursor: "pointer", marginLeft: "auto", marginRight: "auto", backgroundColor: "#7EDAD8", width: "300px", borderRadius: "15px" }} align='center' onClick={ () =>switchScreen()}>Click Here!</p>
-              </div>
+        <Navbar />
+        <header className="App-header">
+          <div style={{ height: "100%" }} className="description">
+            <h2 align='center' top='30%'> Welcome to the matching page!</h2>
+            <br />
+            <ul style={{ listStylePosition: "inside", textAlign: "center", fontSize: "30px" }}>
+              <li>Make sure that your profile is all set up</li>
+              <li>Check that your preferences are up to date</li>
+              <li>Click on the button below to begin matching!</li>
+            </ul>
+            <p style={{ fontSize: 22, marginTop: "50px", cursor: "pointer", marginLeft: "auto", marginRight: "auto", backgroundColor: "#7EDAD8", width: "300px", borderRadius: "15px" }} align='center' onClick={() => switchScreen()}>Click Here!</p>
+          </div>
         </header>
-        </div>
+      </div>
     );
   }
   return (
@@ -184,7 +185,7 @@ const MatchingPage = (stateObj) => {
             </div>
             <div class="MatchProfile">
               <div class="Picture">
-                <img class="ProfilePicture" src={stateObj.profilePicPath+stateObj.profilePic} alt='Profile Picture' />
+                <img class="ProfilePicture" src={stateObj.profilePicPath + stateObj.profilePic} alt='Profile Picture' />
               </div>
               <div class="UserInformation">
                 <div class="Spacing">
