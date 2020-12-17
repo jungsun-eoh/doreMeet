@@ -412,31 +412,35 @@ const Profile = (stateObj) => {
                       <div onClick={openPost} className="editPic"><i class="fas fa-camera"></i>Edit</div>
                   </div>
                   <div className="profileChildInfo">
+                      <div className="textInfo">
                       <h2 style={{ display: "inline-block", marginBottom: "5px" }}> Name {stateObj.firstName + " " + stateObj.lastName}</h2>
                       <p>Age: {stateObj.age}</p>
                       <p>Gender: {stateObj.gender}</p>
                       <p style={{ color: "#656c75" }}>Location: Placeholder Location (Hidden)</p>
                       <p>Art Category: {stateObj.artCategory}</p><br />
+                      </div>
+
                       <a href={stateObj.spotifyLink} onClick={leaveSiteConfirmation}>
-                          <img style={{height: "100px", position: 'relative', cursor: "pointer"}}
+                          <img class="SocialMediaLogo" style={{height: "100px", position: 'relative', cursor: "pointer"}}
                                src="/assets/spotifylogo.png" alt="Spotify Logo"/>
                       </a>
                       <i className="fas fa-edit" style={{cursor: "pointer"}} onClick={openSpotifyLinkForm}/>
                       <a href={stateObj.twitterLink} onClick={leaveSiteConfirmation}>
-                          <img style={{height: "100px", marginLeft: "70px", position: 'relative', cursor: "pointer"}}
+                          <img class="SocialMediaLogo" style={{height: "100px", marginLeft: "70px", position: 'relative', cursor: "pointer"}}
                                src="/assets/twitterlogo.png" alt="Twitter Logo"/>
                       </a>
                       <i className="fas fa-edit" style={{cursor: "pointer"}} onClick={openTwitterLinkForm}/>
                       <a href={stateObj.youtubeLink} onClick={leaveSiteConfirmation}>
-                          <img style={{height: "100px", marginLeft: "70px", position: 'relative', cursor: "pointer"}}
+                          <img class="SocialMediaLogo" style={{height: "100px", marginLeft: "70px", position: 'relative', cursor: "pointer"}}
                                src="/assets/youtubelogo.png" alt="Youtube Logo"/>
                       </a>
                       <i className="fas fa-edit" style={{cursor: "pointer"}} onClick={openYoutubeLinkForm}/>
                       <a href={stateObj.instagramLink} onClick={leaveSiteConfirmation}>
-                          <img style={{height: "100px", marginLeft: "70px", position: 'relative', cursor: "pointer"}}
+                          <img class="SocialMediaLogo" style={{height: "100px", marginLeft: "70px", position: 'relative', cursor: "pointer"}}
                                src="/assets/instagramlogo.png" alt="Instagram Logo"/>
                       </a>
                       <i className="fas fa-edit" style={{cursor: "pointer"}} onClick={openInstagramLinkForm}/>
+
                   </div>
                   <br /><br />
 

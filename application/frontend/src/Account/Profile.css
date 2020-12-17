@@ -30,3 +30,39 @@
     flex-direction: column;
     margin-left: 20px;
 }
+
+@media only screen and (max-width: 1268px) {
+    .profileContainer {
+        margin-left: 5%;
+        margin-right: 5%
+    }
+}
+
+@media only screen and (max-width: 1152px) {
+    .profileContainer{
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+    .SocialMediaLogo {
+        width: 80px;
+        height: 80px !important;
+        margin-bottom: 20px
+    }
+    .profileChildInfo p {
+        font-size: 20px;
+    }
+    .profileChildInfo h2 {
+        font-size: 24px;
+    }
+    .profileImage{
+        height: 200px;
+        width: 200px
+    }
+    .textInfo{
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
+    .profileChildInfo {
+        padding-left: 25px;
+    }
+}
