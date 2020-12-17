@@ -157,6 +157,7 @@ const Profile = (stateObj) => {
         const formData = new FormData();
         formData.append('file', stateObj.file);
         formData.append('type', 'media1');
+        formData.append('user', document.cookie);
         closeMedia();
         await axios.post('/uploadMedia', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
             console.log(response.data[0]);
