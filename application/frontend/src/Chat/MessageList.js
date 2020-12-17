@@ -92,7 +92,7 @@ const onMessageSubmit = (e) => {
                 </div>
                 <form className="sendMessageForm" onSubmit={onMessageSubmit}>
                     <input name="message" type="text" placeholder="Type your message here!" onChange={e => onTextChange(e)} value={state.message}/>
-                    <input type="submit" value="Send" style={{width:"160px",right:"0px", backgroundColor:"#C0E9E8", cursor: "pointer" }}></input>
+                    <input autoComplete="off" type="submit" value="Send" style={{width:"160px",right:"0px", backgroundColor:"#C0E9E8", cursor: "pointer" }}></input>
                 </form>
             </div>
         )
