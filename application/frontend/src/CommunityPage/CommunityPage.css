@@ -140,3 +140,36 @@
     font-size: 20px;
     resize: none
 }
+
+#PlusButton {
+    border-radius: 10px;
+    height: 90px;
+    width: 220px;
+    background-color: rgb(126,218,216);
+    border: none;
+    outline: none;
+    font-size: 30px;
+    margin-top: 20px;
+}
+
+#PlusButton:hover {
+    background-color: rgb(77, 201, 199);
+    cursor: pointer;
+}
+
+#MinusButton {
+    border-radius: 10px;
+    height: 90px;
+    width: 220px;
+    background-color: rgb(255,182,193);
+    border: none;
+    outline: none;
+    font-size: 30px;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+
+#MinusButton:hover{
+    background-color: rgb(236, 109, 128);
+    cursor: pointer;
+}
