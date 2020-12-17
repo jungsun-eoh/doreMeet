@@ -7,6 +7,9 @@
 //////////////////////////////////////////////////////////////////////////////////////////
 const record = 0; //change to 1 if making lasting changes (ex. change to 1 if not testing)
 //////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 const path = require("path");
 const { query, json, response } = require("express");
 const app = require("express")();
@@ -44,15 +47,19 @@ var sessionOptions = {
 
 var cors = require('cors');
 var bodyParser = require('body-parser');
+
 const e = require("express");
+app.use(e.static(path.join(__dirname, "/../../../")));
+
 app.use(cookieParser());
 app.use(session(sessionOptions));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 app.use(fileUpload());
-//app.use(express.static(__dirname + "/../frontend/build"));
-console.log(__dirname + "/../../..")
-app.use(e.static(path.join(__dirname, "../../../")));
+app.use(e.static(__dirname + "/../frontend/public"));
+//console.log(__dirname + "/../../..")
+app.use(e.static(path.join(__dirname, "/../../../")));
+console.log((path.join(__dirname, "../../../")));
 app.use(cors());
 
 app.use(function(req, res, next) {
@@ -120,8 +127,10 @@ app.post('/makePost', (req, res) => {
     if (req.files === null) {
         return console.log(res.status(400).json({ msg: 'No file uploaded' }));
     }
-    var filepath = `/../frontend/public/assets/postImages/${req.files.file.name}`;
-
+// /var/www/html/csc-648-848-04-jose-fall-2020-02/application/backend
+	//var filepath = `/../frontend/public/assets/postImages/${req.files.file.name}`;
+	var filepath = `/../../../assets/postImages/${req.files.file.name}`;
+	console.log(__dirname);
     req.files.file.mv(`${__dirname}${filepath}`, err => {
         var queryArray = [req.body.post_title, req.body.post_category, req.body.post_description, req.files.file.name, 1, req.body.user]
         var todb = 'INSERT INTO `communityPage` (`post_title`, `post_category`, `post_description`, `post_file`, `post_votes`, `user`) VALUES (?,?,?,?,1,?);'
@@ -130,6 +139,7 @@ app.post('/makePost', (req, res) => {
                 console.log(err);
                 console.log("post error")
             }else{
+console.log(queryArray);
                 console.log("post pass")
                 if(record){recordQuery(todb, queryArray);}
             }  /* return res.json({ fileName: file.name, filePath: filepath }); */
@@ -140,7 +150,7 @@ app.post('/makePost', (req, res) => {
     // var todb = 'UPDATE communitypage SET `post_votes` = `post_votes` + 1 WHERE `comm_pg_id` = ?;'; //does not work?
 app.post('/voteplus', (req,res) => {
     console.log("vote+ test " + req.body.comm_pg_id);
-    var todb = 'UPDATE communitypage SET `post_votes` = `post_votes` + 1 WHERE `comm_pg_id` = ' + req.body.comm_pg_id + ';';
+    var todb = 'UPDATE communityPage SET `post_votes` = `post_votes` + 1 WHERE `comm_pg_id` = ' + req.body.comm_pg_id + ';';
     pool.query(todb,req.comm_pg_id,(err, result) => {
         if (err || result == ''){
             console.log(err);
@@ -156,7 +166,7 @@ app.post('/voteplus', (req,res) => {
 
 app.post('/voteminus', (req,res) => {
     console.log("vote- test " + req.body.comm_pg_id);
-    var todb = 'UPDATE `communitypage` SET `post_votes` = `post_votes` - 1 WHERE `comm_pg_id` = ' + req.body.comm_pg_id + ';';
+    var todb = 'UPDATE `communityPage` SET `post_votes` = `post_votes` - 1 WHERE `comm_pg_id` = ' + req.body.comm_pg_id + ';';
     pool.query(todb,req.comm_pg_id,(err, result) => {
         if (err || result == ''){
             console.log(err);
@@ -442,8 +452,12 @@ app.post('/upload', (req, res) => {
     if (req.files === null) {
         return res.status(400).json({ msg: 'No file uploaded' });
       }
+// /var/www/html/csc-648-848-04-jose-fall-2020-02/application/backend
+        //var filepath = `/../frontend/public/assets/postImages/${req.files.file.name}`;
+        //var filepath = `/../../../assets/postImages/${req.files.file.name}`;
+
       const file = req.files.file;
-    var filepath = `/../frontend/public/assets/users/${req.body.user}/${req.files.file.name}`;
+    var filepath = `/../../../assets/users/${req.body.user}/${req.files.file.name}`;
     var dir = `../frontend/public/assets/users/${req.body.user}/`;
     var frontpath = dir.substring(dir.indexOf("/assets/"));
       
@@ -550,8 +564,7 @@ app.post('/uploadMedia', (req, res) => {
     var dir = `../frontend/public/assets/users/${req.body.user}/`;
     var frontpath = dir.substring(dir.indexOf("/assets/")) + file;
     console.log(frontpath);
-	frontpath = frontpath.substring(1);
-    mkdirp.sync(dir);
+	mkdirp.sync(dir);
     var filepath = `/../frontend/public/assets/users/${req.body.user}/${req.files.file.name}`;
     req.files.file.mv(`${__dirname}${filepath}`, err => {
         if (err) {
@@ -559,7 +572,7 @@ app.post('/uploadMedia', (req, res) => {
           }
           var todb = "INSERT INTO `media2` (`file_name`, `user`) VALUES (?,?);"
         
-          queryArray = [frontpath, req.body.user];
+          queryArray = [frontpath.substring(1), req.body.user];
         pool.query(todb, queryArray,(error, result) => {
             if(error){
             console.log("upload fail");
