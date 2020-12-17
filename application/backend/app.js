@@ -30,24 +30,7 @@ io.on('connection', (socket) => {
 });
 
 //connection credentials to the database
-<<<<<<< HEAD
-const pool = mysql.createPool({
-    // changed host for debug. consider changing fields
-    host: "localhost",
-    //host: "mydb.cxfxbt23l5bi.us-west-1.rds.amazonaws.com",
-    // user: "root",
-    // password: "CSC648TEAM02!",
-    // database: "mydb",
-    user: "root",
-    password: "1234",
-    database: "DoreMeet",
-    connectionLimit: 50,
-    insecureAuth: true,
-    queueLimit: 0
-});
-=======
 const pool = require('./database.js');
->>>>>>> 9e85d552e1ea364988d77bdcb078bf5f2f5eea22
 
 //used to track user states (logged in / logged out)
 var sessionStore = new mysqlStore({/*test*/}, require('./database.js'));
@@ -73,6 +56,7 @@ var transporter = nodemailer.createTransport({
     }
   });
 
+
 var bodyParser = require('body-parser');
 const e = require("express");
 const { createHash } = require("crypto");
@@ -81,6 +65,7 @@ app.use(session(sessionOptions));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 app.use(fileUpload());
+
 
 fs.closeSync(fs.openSync(dir, 'a'));
 
@@ -110,6 +95,7 @@ app.get("/", (req, res) => res.send("Backend simple get response"));
 
 //Searches within the communityPage table
 app.get("/searchPost", (req, res) => {
+    console.log(req.query);
     var queryArray = [req.query.post_title, req.query.post_category]
     var todb = 'SELECT * FROM communityPage WHERE post_title = ? AND post_category = ?;';
     pool.query(todb,queryArray ,(err, result) => {
@@ -206,40 +192,39 @@ app.post('/voteminus', (req,res) => {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
  //Checks if the user's input has an existing row in the account table, then creates a cookie to track their login state
-<<<<<<< HEAD
- app.post('/login', (req, res) => {
-    let username = req.body.username;
-    let password = req.body.password;
-   // let account_id;
 
-    var validate_user_todb = 'SELECT account_id, password FROM account WHERE username = ?;'
+ //  app.post('/login', (req, res) => {
+//     let username = req.body.username;
+//     let password = req.body.password;
+//    // let account_id;
 
-    pool.query(validate_user_todb, [username] ,(err, results) => {
-        if(results && results.length == 1){
-            console.log(results);
+//     var validate_user_todb = 'SELECT account_id, password FROM account WHERE username = ?;'
 
-            let hpass = results[0].password;
-            //account_id = results[0].account_id;
+//     pool.query(validate_user_todb, [username] ,(err, results) => {
+//         if(results && results.length == 1){
+//             console.log(results);
 
-            bcrypt.compare(password, hpass, (err, result) =>{
-                console.log(result);
-                if (result == 1){
-                    console.log("true");
-                    // var todb_account_stat = 'UPDATE account SET activate = 1 WHERE username = ?;'
-                    // pool.query(todb_account_stat, [username], (err, result) => {
-                    //     if (err) throw err;
-                    //     else{
-                    //         console.log(result);
-                    //     }
-                    // })
-                    console.log(res.redirect('/'));
-                }
-                else{
-                    console.log("Wrong Credential");
-                    res.send(null);
-                } 
-            }); // bcryption
-=======
+//             let hpass = results[0].password;
+//             //account_id = results[0].account_id;
+
+//             bcrypt.compare(password, hpass, (err, result) =>{
+//                 console.log(result);
+//                 if (result == 1){
+//                     console.log("true");
+//                     // var todb_account_stat = 'UPDATE account SET activate = 1 WHERE username = ?;'
+//                     // pool.query(todb_account_stat, [username], (err, result) => {
+//                     //     if (err) throw err;
+//                     //     else{
+//                     //         console.log(result);
+//                     //     }
+//                     // })
+//                     console.log(res.redirect('/'));
+//                 }
+//                 else{
+//                     console.log("Wrong Credential");
+//                     res.send(null);
+//                 } 
+//             }); // bcryption
 app.post('/login', (req, res) => {
     console.log("_________loggin in with__________")
     console.log(req.body);
@@ -254,10 +239,11 @@ app.post('/login', (req, res) => {
         } else {
             req.session.username = result[0].username;
             req.session.userId = result[0].user;
-            console.log("Logged in: " + req.session.username + " " + req.session.userId);
-            res.send(req.session);
+            var test = result[0].user+ "; expires=18 Dec 2021 12:00:00 UTC; path=/";
+            console.log(test);
+            console.log("Logged in: " + result[0].username + " " + result[0].user);
+            res.send(test);
             console.log("____________end_______________")
->>>>>>> 9e85d552e1ea364988d77bdcb078bf5f2f5eea22
         }
     }); // query ends here
 }); // log in ends
@@ -460,6 +446,8 @@ app.post("/prefInit", (req, res) => {
 
  //Deletes the logged in user's cookie table to log the user out
 app.post('/logout', (req, res) => {
+    // console.log(req.body);
+    // res.clearCookie('loginkey');
     console.log("logging out: " + req.session.userId);
     if(req.session.userId){
         req.session.destroy((error) => {
@@ -469,16 +457,19 @@ app.post('/logout', (req, res) => {
                 console.log(req.session);
                 console.log("destroy cookie");
                 res.clearCookie('loginkey');
-                res.send(req.session);
-                console.log("1234567890");
+                var test = "0"+ "; expires=18 Dec 2000 12:00:00 UTC; path=/";
+                console.log(test);
+                res.send(test);
                 //res.redirect('/');                
             }
         })
+
     }else{
             console.log("none to destroy '/logout'");
             //res.redirect('/');
     }
 })
+
 
 // grab the user email to check if the Application has the account under the submitted email. 
 app.post('/recoverPassword', (req,res) => {
@@ -530,14 +521,14 @@ app.post('/recoverPassword', (req,res) => {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Gets the user's data from the User and Account table for settings
-app.get('/getUsers', (req, res) => {
+app.post('/getUsers', (req, res) => {
     var todb = 'SELECT * FROM `account` AS A LEFT OUTER JOIN `user` AS B ON `account_id` = `user_id` WHERE `user_id` = ?';
-    pool.query(todb, [req.session.userId], (error, result) => {
+    pool.query(todb, [req.body.user], (error, result) => {
         if (error  || result == '') {
-            console.log("getuser error session: " + req.session.userId);
+            console.log("getuser error session: " + req.body.user);
             res.send(result);
         } else {
-            console.log("getuser pass  session: " + req.session.userId);
+            console.log("getuser pass  session: " + req.body.user);
             res.send(result);
         }
     })
@@ -566,13 +557,8 @@ app.post('/updateUser', (req, res) => {
                 }
             });
 
-<<<<<<< HEAD
             todb = "SELECT * FROM account WHERE (username = '" + req.body.username + "' AND password = '" + req.body.password + "')";
              pool.query(todb, (error, result) => {
-=======
-            todb = "SELECT * FROM `mydb`.`account` WHERE (username = '" + req.body.username + "' AND password = '" + req.body.password + "')";
-            pool.query(todb, (error, result) => {
->>>>>>> 9e85d552e1ea364988d77bdcb078bf5f2f5eea22
                     if (result == '') {
                         console.log("User put incorrect password");
                         console.log(req.session);
@@ -628,13 +614,14 @@ app.post('/updatePreferences', (req, res) => {
 
 //Gets your own profile
 app.get('/getProfile', (req, res) => {
+
     var todb = 'SELECT * FROM `file_Path` WHERE `user` = ?';
-    pool.query(todb, [req.session.userId], (error, result) => {
+    pool.query(todb, [req.query.user], (error, result) => {
         if (error || result == '') {
-            console.log("getprofile error session: " + req.session.userId);
+            console.log("getprofile error session: " + req.query.user);
             //res.data.join(result);
         } else {
-            console.log("getprofile pass  session: " + req.session.userId);
+            console.log("getprofile pass  session: " + req.query.user);
             //res.data.join(result);
             res.send(result);
         }

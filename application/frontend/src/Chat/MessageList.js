@@ -13,7 +13,12 @@ const getMatches = async () => {
             formData.append('connectedMatches', response.data[key]);
         }
         axios.post('/getSuccessfulMatches', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
-            console.log(response.data);
+            formData.append('successfulMatches', response.data);
+            axios.post('/loadSuccessfulMatches', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
+                response.data.forEach(element => {
+                    console.log(element);
+                });
+            });
         });
     });
   }
