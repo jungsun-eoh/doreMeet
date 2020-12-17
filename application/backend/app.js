@@ -24,7 +24,9 @@ const io = require('socket.io')(http);
 //const db = require('./conf/database');
 
 io.on('connection', (socket) => {
-    console.log("A user has connected");
+    socket.on('message', ({name, message}) =>{
+        io.emit('message', {name, message})
+    })
 });
 
 //connection credentials to the database
