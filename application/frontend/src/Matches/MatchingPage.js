@@ -81,7 +81,7 @@ const MatchingPage = (stateObj) => {
             //stateObj.setArtTag(); none yet?
             stateObj.setSkillLevel(matches[index].skill_lvl);
             console.log("==========================2");
-
+});
           } else {
             console.log("user already decided");
             console.log("loading nex match");
