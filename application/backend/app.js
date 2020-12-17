@@ -25,7 +25,7 @@ const fs = require('fs');
 const dir = `${__dirname}/../database/transaction.sql`;
 const io = require('socket.io')(http, {
 	cors: {
-		origin: "http://ec2-13-52-247-220.us-west-1.compute.amazonaws.com:5000/",
+		origin: "http://ec2-13-52-247-220.us-west-1.compute.amazonaws.com",
 		methods: ["GET", "POST"],
 		allowedHeaders: ["my-custom-header"],
 		credentials: true
