@@ -30,3 +30,99 @@
     flex-direction: column;
     margin-left: 20px;
 }
+
+@media only screen and (max-width: 1268px) {
+    .profileContainer {
+        margin-left: 5%;
+        margin-right: 5%
+    }
+}
+
+@media only screen and (max-width: 1152px) {
+    .profileContainer{
+        margin-left: 2%;
+        margin-right: 2%;
+        display: flex;
+        flex-direction: column;
+    }
+    .SocialMediaLogo {
+        width: 80px;
+        height: 80px !important;
+        margin-bottom: 20px
+    }
+    .profileChildInfo p {
+        font-size: 20px;
+    }
+    .profileChildInfo h2 {
+        font-size: 24px;
+    }
+    .profileImage{
+        height: 200px;
+        width: 200px
+    }
+    .textInfo{
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
+    .profileChildInfo {
+        padding-left: 25px;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .profileContainer {
+        margin-left: 1%;
+        display: flex;
+        flex-direction: column;
+    }
+    .SocialMediaLogo {
+        width: 50px;
+        height: 50px !important;
+    }
+    .profileChildInfo h2 {
+        font-size: 20px;
+    }
+    .profileChildInfo p {
+        font-size: 18px;
+    }
+    .profileImage {
+        height: 150px;
+        width: 150px
+    }
+    .profileChildInfo {
+        padding-left: 10px;
+    }
+    .profileContainer h3{
+        font-size: 20px;
+    }
+    .ImageFormat {
+        width: 100px;
+        height: 100px
+    }
+    .PostInfo p{
+        font-size: 18px;
+    }
+    .BioText{
+        font-size: 18px !important;
+    }
+}
+
+@media only screen and (max-width: 720px) {
+    .SocialMediaLogo {
+        width: 40px;
+        height: 40px !important;
+    }
+    .profileChildInfo {
+        margin-left: 5px;
+        margin-right: 0px;
+    }
+    .profileChildImg {
+        margin-left: 0px;
+    }
+    .SocialMediaContainer{
+        display: flex;
+    }
+    .SocialMediaContainer i {
+        margin-top: 30px;
+    }
+}
