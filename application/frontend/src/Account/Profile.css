@@ -106,3 +106,23 @@
         font-size: 18px !important;
     }
 }
+
+@media only screen and (max-width: 720px) {
+    .SocialMediaLogo {
+        width: 40px;
+        height: 40px !important;
+    }
+    .profileChildInfo {
+        margin-left: 5px;
+        margin-right: 0px;
+    }
+    .profileChildImg {
+        margin-left: 0px;
+    }
+    .SocialMediaContainer{
+        display: flex;
+    }
+    .SocialMediaContainer i {
+        margin-top: 30px;
+    }
+}

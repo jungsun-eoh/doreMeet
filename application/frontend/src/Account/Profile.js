@@ -420,6 +420,7 @@ const Profile = (stateObj) => {
                       <p>Art Category: {stateObj.artCategory}</p><br />
                       </div>
 
+                      <div class="SocialMediaContainer">
                       <a href={stateObj.spotifyLink} onClick={leaveSiteConfirmation}>
                           <img class="SocialMediaLogo" style={{height: "100px", position: 'relative', cursor: "pointer"}}
                                src="/assets/spotifylogo.png" alt="Spotify Logo"/>
@@ -440,6 +441,7 @@ const Profile = (stateObj) => {
                                src="/assets/instagramlogo.png" alt="Instagram Logo"/>
                       </a>
                       <i className="fas fa-edit" style={{cursor: "pointer"}} onClick={openInstagramLinkForm}/>
+                      </div>
 
                   </div>
                   <br /><br />
