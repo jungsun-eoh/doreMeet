@@ -2,7 +2,6 @@ import React from 'react';
 import '../App.css';
 import './Chat.css';
 import MessageList from './MessageList';
-import SendMessageForm from './SendMessageForm';
 import axios from 'axios';
 
 
