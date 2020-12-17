@@ -61,7 +61,12 @@ const MatchingPage = (stateObj) => {
               axios.get('/getMedia', { params: { user: response.data[0].user } }).then(response => {
                 console.log(response.data);
                 if (response.data.length > 0) {
-                  //assign media here as response.data.[x]
+                  let _html = "";
+                  //<img className="Thumbnail" src='assets/placeholder-img.jpg' alt='Placeholder img' />
+                  response.data.forEach(media => {
+                    _html += `<img className="Thumbnail" src="${media.file_name}" alt="Media file"/>`;
+                  })
+                  document.getElementById("MediaFiles").innerHTML = _html;
                 }
               }).catch(function (error) {
                 console.log(error);
@@ -211,11 +216,6 @@ const MatchingPage = (stateObj) => {
               </div>
               <div class='break'></div>
               <div class="MediaFiles" >
-                <img class="Thumbnail" src='assets/placeholder-img.jpg' alt='Placeholder img' />
-                <img className="Thumbnail" src='assets/placeholder-img.jpg' alt='Placeholder img' />
-                <img className="Thumbnail" src='assets/placeholder-img.jpg' alt='Placeholder img' />
-                <img className="Thumbnail" src='assets/placeholder-img.jpg' alt='Placeholder img' />
-                <img className="Thumbnail" src='assets/placeholder-img.jpg' alt='Placeholder img' />
               </div>
               <div class='Links'>
                 <a href="https://www.spotify.com" onClick={leaveSiteConfirmation}>
