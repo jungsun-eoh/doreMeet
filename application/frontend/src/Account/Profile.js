@@ -449,7 +449,7 @@ const Profile = (stateObj) => {
                   <br /><br />
 
                   <h3><u>Bio:</u><i className="fas fa-edit" style={{cursor: "pointer", marginLeft:"10px"}} onClick={openBioForm}/></h3>
-                  <p>{stateObj.bio}</p>
+                  <p class="BioText">{stateObj.bio}</p>
                   <br /><br />
 
                   <h3><u>Media:</u><i className="fas fa-folder-plus" style={{cursor: "pointer", marginLeft:"10px"}} onClick={openMedia}/></h3>
