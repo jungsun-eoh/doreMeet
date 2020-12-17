@@ -498,6 +498,7 @@ app.get("/getCommunityPosts", (req, res) => {
 
 //Bandaid: ideally should be in upload and flag is passed from the button on the front end, OLD, delete
 app.post('/uploadMedia2', (req, res) => {
+console.log("_______________________________________________________________________");
     console.log(req.files);
     console.log(req.body);
     if (req.files == null) {
@@ -554,18 +555,22 @@ app.post('/uploadText', (req, res) => {
 
 //new media upload, replaces old media once done
 app.post('/uploadMedia', (req, res) => {
-    console.log("test");
+console.log("_______________________________________________________________________");
+    
+console.log("test");
     console.log(req.files);
     if (req.files === null) {
         return res.status(400).json({ msg: 'No file uploaded' });
       }
       const file = req.files.file.name;
-    var filepath = `/../frontend/public/assets/users/${req.body.user}/${req.files.file.name}`;
+// /var/www/html/csc-648-848-04-jose-fall-2020-02/application/backend
+        //var filepath = `/../frontend/public/assets/postImages/${req.files.file.name}`;
+    var filepath = `/../../../assets/users/${req.body.user}/${req.files.file.name}`;
     var dir = `../frontend/public/assets/users/${req.body.user}/`;
     var frontpath = dir.substring(dir.indexOf("/assets/")) + file;
     console.log(frontpath);
 	mkdirp.sync(dir);
-    var filepath = `/../frontend/public/assets/users/${req.body.user}/${req.files.file.name}`;
+    //var filepath = `/../frontend/public/assets/users/${req.body.user}/${req.files.file.name}`;
     req.files.file.mv(`${__dirname}${filepath}`, err => {
         if (err) {
             console.error(err);
@@ -578,9 +583,12 @@ app.post('/uploadMedia', (req, res) => {
             console.log("upload fail");
 
                 console.log(error);
+console.log("_____________________________________________________________________2__");
+
             }else{
             console.log("upload pass");
             console.log("upload passpasspasspasspasspasspasspasspass");
+console.log("______________________________________________________________________3_");
 
             if(record){recordQuery(todb, queryArray)};
             } });
@@ -592,8 +600,8 @@ app.get("/getMedia", (req, res) => {
 	console.log("getMedia");
     var todb = "SELECT `file_name` FROM `media2`  WHERE `user` = " + req.query.user + " ORDER BY `media2_id`DESC ;"
     pool.query(todb, (error, result) => {
-console.log("*media result");
-console.log(result);
+//console.log("*media result");
+//console.log(result);
         res.send(result);
     });
 });
@@ -606,7 +614,7 @@ console.log(result);
 
 //This gets the profile of your current match
 app.post('/getProfile2', (req, res) => {
-    console.log(req.body);
+//    console.log(req.body);
 
     var todb = 'SELECT * FROM `file_Path` WHERE `user` = ?';
     pool.query(todb, [req.body.currentMatch], (error, result) => {
@@ -715,6 +723,7 @@ app.post("/getConnected", (req, res) => {
 
 //gets the all the users that ______ has clicked "Connect" on and* has recieved a "Connect" back.
 app.post("/getSuccessfulMatches", (req, res) => {
+console.log(req.body)
     const connectedMatches = [];
     for (var key in req.body.connectedMatches) {
         connectedMatches.push(req.body.connectedMatches[key]);
@@ -723,12 +732,12 @@ app.post("/getSuccessfulMatches", (req, res) => {
     var todb = 'SELECT `user1` FROM `matches2` WHERE (match_status = 1 AND user1 = ? AND user2 = ?)';
     var index = 0;
     connectedMatches.forEach( function(connectedMatch) {
-        pool.query(todb,[connectedMatch, req.query.user],(err, result) => {
+        pool.query(todb,[connectedMatch, req.body.user],(err, result) => {
             if(err || result == ''){
-                console.log("checking if " + connectedMatch + " connected with you..." +  req.query.user + " false");
+                console.log("checking if " + connectedMatch + " connected with you..." +  req.body.user + " false");
                 index += 1;
             }else{
-                console.log("checking if " + connectedMatch + " connected with you..." +  req.query.user + " true");
+                console.log("checking if " + connectedMatch + " connected with you..." +  req.body.user + " true");
                 
                 todb = `select distinct user.first_name, user.last_name, file_path.profile_pic , file_path.picture_path from user, file_path, matches2 where user_id = user AND user = ?`
                  pool.query(todb,connectedMatch,(err, result2) => {
