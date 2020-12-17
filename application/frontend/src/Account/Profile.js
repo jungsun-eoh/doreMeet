@@ -17,7 +17,7 @@ const Profile = (stateObj) => {
 
     useEffect(() => {
         console.log("useEffect Profile.js");
-        axios.get('/getUsers').then(response => {
+        axios.get('/getUsers', {params: { user: document.cookie}}).then(response => {
             response.data[0].date_of_birth = response.data[0].date_of_birth.substring(0, 10);
             test = response.data[0].date_of_birth.substring(0, 10);
             stateObj.setDOB(response.data[0].date_of_birth);
@@ -38,7 +38,7 @@ const Profile = (stateObj) => {
             console.log(error);
             console.log("{User} Not Found");
         })
-        axios.get('/getProfile', ).then(response => {
+        axios.get('/getProfile', {params: { user: document.cookie}} ).then(response => {
             stateObj.setProfilePic(response.data[0].profile_pic);
             stateObj.setProfilePicPath(response.data[0].picture_path);
             stateObj.setBio(response.data[0].bio);
