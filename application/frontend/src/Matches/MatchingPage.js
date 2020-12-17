@@ -58,6 +58,15 @@ const MatchingPage = (stateObj) => {
               stateObj.setProfilePic(response.data[0].profile_pic);
               stateObj.setProfilePicPath(response.data[0].picture_path);
               stateObj.setBio(response.data[0].bio);
+              axios.get('/getMedia', { params: { user: response.data[0].user } }).then(response => {
+                console.log(response.data);
+                if (response.data.length > 0) {
+                  //assign media here as response.data.[x]
+                }
+              }).catch(function (error) {
+                console.log(error);
+                console.log("{Media}  Not Found");
+              })  
             }).catch(function (error) {
               console.log(error);
             });
