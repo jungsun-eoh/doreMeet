@@ -70,6 +70,15 @@ const MatchingPage = (stateObj) => {
             //stateObj.setArtTag(); none yet?
             stateObj.setSkillLevel(matches[index].skill_lvl);
             console.log("==========================2");
+            axios.get('/getMedia', {params: { user: document.cookie}}).then(response => {
+              console.log(response.data);
+                      if(response.data.length > 0) {
+                        //assign media here as response.data.[x]
+                      }
+                  }).catch(function (error) {
+                      console.log(error);
+                      console.log("{Media}  Not Found");
+                  })
           } else {
             console.log("user already decided");
             console.log("loading nex match");
