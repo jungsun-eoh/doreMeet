@@ -33,10 +33,13 @@ const pool = require('./database.js');
 //used to track user states (logged in / logged out)
 var sessionStore = new mysqlStore({/*test*/}, require('./database.js'));
 var sessionOptions = {
+    name:"xxxxxxxxxxxxx",
     key: "loginkey",
     secret: "login signature",
     store: sessionStore,
-    cookie: {secure: false, httpOne: false, maxAge:9000000},
+    httpOnly: false,
+    secure: false,
+    cookie: {secure: false, httpOne: false, maxAge:9000000, httpOnly: false},
     resave: false,
     saveUninitialized: false
 }
@@ -209,7 +212,13 @@ app.post('/login', (req, res) => {
             req.session.username = result[0].username;
             req.session.userId = result[0].user;
             console.log("Logged in: " + req.session.username + " " + req.session.userId);
-            res.send(req.session);
+            var expires = "expires=Thu, 18 Dec 2020 12:00:00 UTC;"
+            var test = req.session.userId + ";" + expires + ";path=/";
+            console.log(test);
+            console.log("Logged in: " + req.session.username + " " + req.session.userId);
+            res.send(test);
+//            res.send(req.session);
+
             console.log("____________end_______________")
         }
     })
@@ -282,6 +291,7 @@ app.post("/prefInit", (req, res) => {
 });
 
  //Deletes the logged in user's cookie table to log the user out
+/*
 app.post('/logout', (req, res) => {
     console.log("logging out: " + req.session.userId);
     if(req.session.userId){
@@ -302,6 +312,17 @@ app.post('/logout', (req, res) => {
     }
 
 })
+*/
+app.post('/logout', (req, res) => {
+
+   console.log("logging out: " + req.session.userId);
+                console.log(req.session);
+                console.log("altering cookie to delete");
+                var test = "0"+ "; expires=18 Dec 2000 12:00:00 UTC; path=/";
+           console.log(test);
+                res.send(test);
+                //res.redirect('/');                
+                 })
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -311,13 +332,15 @@ app.post('/logout', (req, res) => {
 
 //Gets the user's data from the User and Account table for settings
 app.get('/getUsers', (req, res) => {
+console.log(req.body);
+
     var todb = 'SELECT * FROM `account` AS A LEFT OUTER JOIN `user` AS B ON `account_id` = `user_id` WHERE `user_id` = ?';
-    pool.query(todb, [req.session.userId], (error, result) => {
+    pool.query(todb, [req.query.user], (error, result) => {
         if (error  || result == '') {
-            console.log("getuser error session: " + req.session.userId);
+            console.log("getuser error session: " + req.session.userId + "|" + req.query.user);
             res.send(result);
         } else {
-            console.log("getuser pass  session: " + req.session.userId);
+            console.log("getuser pass  session: " + req.session.userId + "|" + req.query.user);
             res.send(result);
         }
     })
@@ -405,12 +428,12 @@ app.post('/updatePreferences', (req, res) => {
 //Gets your own profile
 app.get('/getProfile', (req, res) => {
     var todb = 'SELECT * FROM `file_Path` WHERE `user` = ?';
-    pool.query(todb, [req.session.userId], (error, result) => {
+    pool.query(todb, [req.query.user], (error, result) => {
         if (error || result == '') {
-            console.log("getprofile error session: " + req.session.userId);
+            console.log("getprofile error session: " + req.session.userId + "|" + req.query.user);
             //res.data.join(result);
         } else {
-            console.log("getprofile pass  session: " + req.session.userId);
+            console.log("getprofile pass  session: " + req.session.userId + "|" + req.query.user);
             //res.data.join(result);
             res.send(result);
         }
