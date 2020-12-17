@@ -26,7 +26,9 @@ const saltRounds = 8;
 //const db = require('./conf/database');
 
 io.on('connection', (socket) => {
-    console.log("A user has connected");
+    socket.on('message', ({name, message}) =>{
+        io.emit('message', {name, message})
+    })
 });
 
 const pool = mysql.createPool({
@@ -204,6 +206,7 @@ app.post('/voteminus', (req,res) => {
 
  //Checks if the user's input has an existing row in the account table, then creates a cookie to track their login state
 
+<<<<<<< HEAD
   app.post('/login', (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
@@ -236,6 +239,60 @@ app.post('/voteminus', (req,res) => {
                     res.send(null);
                 } 
         }); // bcryption
+=======
+ //  app.post('/login', (req, res) => {
+//     let username = req.body.username;
+//     let password = req.body.password;
+//    // let account_id;
+
+//     var validate_user_todb = 'SELECT account_id, password FROM account WHERE username = ?;'
+
+//     pool.query(validate_user_todb, [username] ,(err, results) => {
+//         if(results && results.length == 1){
+//             console.log(results);
+
+//             let hpass = results[0].password;
+//             //account_id = results[0].account_id;
+
+//             bcrypt.compare(password, hpass, (err, result) =>{
+//                 console.log(result);
+//                 if (result == 1){
+//                     console.log("true");
+//                     // var todb_account_stat = 'UPDATE account SET activate = 1 WHERE username = ?;'
+//                     // pool.query(todb_account_stat, [username], (err, result) => {
+//                     //     if (err) throw err;
+//                     //     else{
+//                     //         console.log(result);
+//                     //     }
+//                     // })
+//                     console.log(res.redirect('/'));
+//                 }
+//                 else{
+//                     console.log("Wrong Credential");
+//                     res.send(null);
+//                 } 
+//             }); // bcryption
+
+app.post('/login', (req, res) => {
+    console.log("_________loggin in with__________")
+    console.log(req.body);
+    var todb = "SELECT * FROM `mydb`.`account` WHERE (username = '" + req.body.username + "' AND password = '" + req.body.password + "')";
+    pool.query(todb, (error, result) => { 
+        console.log("____________start_______________")
+        if (result == '') {
+            console.log("incorrect creds");
+            console.log(error);
+            console.log("____________end_______________")
+            res.send(null);
+        } else {
+            req.session.username = result[0].username;
+            req.session.userId = result[0].user;
+            var test = result[0].user+ "; expires=18 Dec 2021 12:00:00 UTC; path=/";
+            console.log(test);
+            console.log("Logged in: " + result[0].username + " " + result[0].user);
+            res.send(test);
+            console.log("____________end_______________")
+>>>>>>> 76a403eff1e75bb11785b6433cfc49c6c0d97688
         }
     });
 });
@@ -508,12 +565,11 @@ app.post('/recoverPassword', (req,res) => {
                 });
                   var mailOptions = {
                     to: email,
-                    from: 'passwordreset@demo.com',
-                    subject: 'Node.js Password Reset',
+                    from: 'domremeet.team2@gmail.com',
+                    subject: 'DoreMeet : Password Reset',
                     text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-                      'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-                      'http://' +
-                      'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+                        'Your password: ' + result2[0].password
+                        
                   };
                   transporter.sendMail(mailOptions, function(error, info){
                     if (error) {
