@@ -42,7 +42,7 @@ class SideBar extends React.Component{
                     </ul>
                 </div>
                 <div style={{width: "100%", height: "100vh"}}>
-                    <MessageList screen={this.state.messageScreen} user={this.props.user}/>
+                    <MessageList screen={this.state.messageScreen} namer={this.props.user}/>
                 </div>
                 
             </div>

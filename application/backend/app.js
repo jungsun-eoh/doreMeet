@@ -20,7 +20,13 @@ const fileUpload = require('express-fileupload');
 const mkdirp = require('mkdirp');
 const fs = require('fs');
 const dir = `${__dirname}/../database/transaction.sql`;
-const io = require('socket.io')(http);
+const io = require('socket.io')(http, {
+    cors: {
+        origin: "http://localhost:3000",
+        methods: ["GET", "POST"],
+        credentials: true
+    }
+});
 const bcrypt = require('bcrypt');
 const saltRounds = 8;
 //const db = require('./conf/database');

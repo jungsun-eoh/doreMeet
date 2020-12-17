@@ -4,10 +4,10 @@ import './Chat.css';
 import axios from 'axios';
 import io from "socket.io-client";
 
-const socket=io.connect('http://ec2-13-52-247-220.us-west-1.compute.amazonaws.com:5000/')
+const socket=io.connect('http://localhost:5000/')
 
-export default function MessageList({screen}, {user}) {
-const [state, setState] = useState({message: '', name: user})
+export default function MessageList({screen, namer}) {
+const [state, setState] = useState({message: '', name: namer})
 const [chat, setChat] = useState([])
 
 const getMatches = async () => {
@@ -31,7 +31,7 @@ const getMatches = async () => {
 const renderChat = () =>{
     return chat.map(({name, message}, index) =>(
         <div key={index}>
-            <h3>{name}: <span>{message}</span></h3>
+            <h3 style={{fontSize: "30px"}}>{name}: <span>{message}</span></h3>
         </div>
     ))
 }
@@ -48,6 +48,8 @@ const onTextChange = e => {
 
 const onMessageSubmit = (e) => {
     e.preventDefault()
+    console.log(namer);
+    console.log(screen);
     const {name, message} = state
     socket.emit('message', {name, message})
     setState({message: '', name})
@@ -91,8 +93,8 @@ const onMessageSubmit = (e) => {
                     </ul> */}
                 </div>
                 <form className="sendMessageForm" onSubmit={onMessageSubmit}>
-                    <input name="message" type="text" placeholder="Type your message here!" onChange={e => onTextChange(e)} value={state.message}/>
-                    <input autoComplete="off" type="submit" value="Send" style={{width:"160px",right:"0px", backgroundColor:"#C0E9E8", cursor: "pointer" }}></input>
+                    <input autoComplete="off" name="message" type="text" placeholder="Type your message here!" onChange={e => onTextChange(e)} value={state.message}/>
+                    <input type="submit" value="Send" style={{width:"160px",right:"0px", backgroundColor:"#C0E9E8", cursor: "pointer" }}></input>
                 </form>
             </div>
         )
