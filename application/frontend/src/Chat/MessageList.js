@@ -4,7 +4,7 @@ import './Chat.css';
 import axios from 'axios';
 import io from "socket.io-client";
 
-const socket=io.connect('http://localhost:5000')
+const socket=io.connect('http://ec2-13-52-247-220.us-west-1.compute.amazonaws.com:5000/')
 
 export default function MessageList({screen}, {user}) {
 const [state, setState] = useState({message: '', name: user})
