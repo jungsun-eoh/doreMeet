@@ -123,8 +123,8 @@
 }
 
 .Thumbnail {
-    width: 100px;
-    height: 100px;
+    max-width: 100px !important;
+    max-height: 100px !important;
     margin-right: 75px;
 }
 

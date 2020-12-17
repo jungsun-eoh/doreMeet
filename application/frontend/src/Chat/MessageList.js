@@ -4,10 +4,10 @@ import './Chat.css';
 import axios from 'axios';
 import io from "socket.io-client";
 
-const socket=io.connect()
+const socket=io.connect('http://ec2-13-52-247-220.us-west-1.compute.amazonaws.com:5000/')
 
 export default function MessageList({screen, user}) {
-const [state, setState] = useState({message: '', name: user})
+const [state, setState] = useState({message: '', name: ''})
 const [chat, setChat] = useState([])
 
 const getMatches = async () => {
@@ -36,7 +36,7 @@ console.log(response.data);
 const renderChat = () =>{
     return chat.map(({name, message}, index) =>(
         <div key={index}>
-            <h3>{name}: <span>{message}</span></h3>
+            <h3 style={{fontSize: "30px" }}>{name}: <span>{message}</span></h3>
         </div>
     ))
 }
@@ -52,7 +52,9 @@ const onTextChange = e => {
 }
 
 const onMessageSubmit = (e) => {
+    setState({message, name: user})
     e.preventDefault()
+    console.log(user);
     const {name, message} = state
     socket.emit('message', {name, message})
     setState({message: '', name})

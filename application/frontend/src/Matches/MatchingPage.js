@@ -67,20 +67,20 @@ const MatchingPage = (stateObj) => {
                 console.log(";';';';';';';'")
                 if (response.data.length > 0) {
                   let _html = "";
-                  //<img className="Thumbnail" src='assets/placeholder-img.jpg' alt='Placeholder img' />
+	                //<img class="Thumbnail" src='assets/placeholder-img.jpg' alt='Placeholder img' />
                   response.data.forEach(media => {
-                    _html += `<img className="Thumbnail" src="${media.file_name}" alt="Media file"/>`;
+		console.log(media);
+console.log(media.file_name);
+                    _html += `<img class="Thumbnail" src="${media.file_name}" alt="Media file"/>`;
                   })
-                  document.getElementById("MediaFiles").innerHTML = _html;
+console.log(_html);
+                 document.getElementById("media").innerHTML = _html;
                 }
               }).catch(function (error) {
                 console.log(error);
                 console.log("{Media}  Not Found");
               })  
-            }).catch(function (error) {
-              console.log(error);
-              console.log("{Media}  Not Found");
-            })
+
           }).catch(function (error) {
             console.log(error);
           });
@@ -227,7 +227,7 @@ const MatchingPage = (stateObj) => {
                 </div>
               </div>
               <div class='break'></div>
-              <div class="MediaFiles" >
+              <div class="MediaFiles" id="media">
               </div>
               <div class='Links'>
                 <a href="https://www.spotify.com" onClick={leaveSiteConfirmation}>
